@@ -68,7 +68,7 @@ export class Login extends React.PureComponent {
                                 <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                                     <p className="lead fw-normal mb-0 me-3">Sign in with</p>
 
-                                    <SocialButton variant="primary" className="btn btn-default btn-circle mx-1"
+                                    <SocialButton variant="primary" className="btn btn-default btn-circle mx-1 bgPrimary"
                                      scope="public_profile,email"
                                     provider="facebook"
                                     appId="1817456088401252"
@@ -77,10 +77,10 @@ export class Login extends React.PureComponent {
                                     >
                                         <FontAwesomeIcon icon={faFacebook} />
                                     </SocialButton>
-                                    <Button variant="primary" className="btn btn-default btn-circle mx-1">
+                                    <Button variant="primary" className="btn btn-default btn-circle mx-1 bgPrimary">
                                         <FontAwesomeIcon icon={faTwitter} />
                                     </Button>
-                                    <Button variant="primary" className="btn btn-default btn-circle mx-1">
+                                    <Button variant="primary" className="btn btn-default btn-circle mx-1 bgPrimary">
                                         <FontAwesomeIcon icon={faLinkedin} />
                                     </Button>
 
@@ -117,7 +117,7 @@ export class Login extends React.PureComponent {
                                 </div>
 
                                 <div className="text-center text-lg-start mt-4 pt-2">
-                                    <Button variant="primary" className="btn btn-primary btn-lg"
+                                    <Button variant="primary" className="btn btn-primary btn-lg bgPrimary"
                                         style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }} onClick={this.handleSubmit}>Login</Button>{' '}
                                     <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
                                         className="link-danger">Register</a></p>
@@ -127,7 +127,7 @@ export class Login extends React.PureComponent {
                         </div>
                     </div>
                 </div>
-                <div className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+                <div className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bgPrimary">
 
                     <div className="text-white mb-3 mb-md-0">
                         Copyright © 2020. All rights reserved.

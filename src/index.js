@@ -5,6 +5,8 @@ import { store } from './configure-store';
 import { Container } from './counter/container';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Routes from './modules/app/routes'
+import './index.css';
+
 const App = () => (
   <Provider 
   store={store}>
