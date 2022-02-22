@@ -7,7 +7,7 @@ import SocialButton from '../../components/SocialButton'
 import BottomNavBar from '../../components/BottomNavBar'
 
 
-import { handleDecrementClick, handleIncrementClick } from './actions';
+import { login } from './actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -18,6 +18,7 @@ import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-b
 export class Login extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
             id: null,
             isEditing: false,
@@ -30,14 +31,16 @@ export class Login extends React.PureComponent {
     componentDidMount() {
     }
     handleSubmit(e) {
+        this.props.onClickLogin()
+
         e.preventDefault();
         //if username or password field is empty, return error message
         // if (this.state.username === "" || this.state.password === "") {
         // this.setState({ errorMessage: "Empty username/password field" })
         // } else if (this.state.username == "admin" && this.state.password == "123456") {
         //Signin Success
-        localStorage.setItem("isAuthenticated", "true");
-        window.location.pathname = "/";
+        // localStorage.setItem("isAuthenticated", "true");
+        // window.location.pathname = "/";
         // } else {
         // this.setState({ errorMessage: "Invalid username/password" })
 
@@ -149,14 +152,16 @@ Login.propTypes = {
 function mapStateToProps(state) {
     console.log('state', state)
     return {
-        count: state.login.count
+        count: state.login.count,
+        password: state.login.password,
+        username: state.login.username,
+        
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        handleIncrementClick: (id) => dispatch(handleIncrementClick(id)),
-        handleDecrementClick: (id) => dispatch(handleDecrementClick(id)),
+        onClickLogin: (id) => dispatch(login(id)),
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
