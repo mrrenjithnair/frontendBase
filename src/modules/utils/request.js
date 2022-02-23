@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import {getError,} from './commonUtils';
 var _ = require('lodash');
 
 
@@ -51,7 +52,7 @@ export async function request(url, opts) {
         return res.json
       }
       else {
-        throw res
+        throw getError(res.json)
       }
     })
     .catch((error) => {

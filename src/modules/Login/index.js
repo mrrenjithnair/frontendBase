@@ -7,7 +7,7 @@ import SocialButton from '../../components/SocialButton'
 import BottomNavBar from '../../components/BottomNavBar'
 
 
-import { login } from './actions';
+import { login, onChangeValueLogin } from './actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -58,6 +58,7 @@ export class Login extends React.PureComponent {
 
     render() {
         console.log(this.props.count)
+
         return (
 
 
@@ -76,8 +77,8 @@ export class Login extends React.PureComponent {
                                         scope="public_profile,email"
                                         provider="facebook"
                                         appId="1817456088401252"
-                                        onLoginSuccess={()=>this.handleSocialLogin}
-                                        onLoginFailure={()=>this.handleSocialLoginFailure}
+                                        onLoginSuccess={() => this.handleSocialLogin}
+                                        onLoginFailure={() => this.handleSocialLoginFailure}
                                     >
                                         <FontAwesomeIcon icon={faFacebook} />
                                     </SocialButton>
@@ -97,7 +98,8 @@ export class Login extends React.PureComponent {
 
                                 <div className="form-outline mb-4">
                                     <input type="email" id="form3Example3"
-                                        onChange={(e) => this.setState({ username: e })} className="form-control form-control-lg"
+                                        onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'username', value: e.target.value } })}} 
+                                            className="form-control form-control-lg"
                                         placeholder="Enter a valid email address" />
                                     <label className="form-label" htmlFor="form3Example3">Email address</label>
                                 </div>
@@ -105,7 +107,8 @@ export class Login extends React.PureComponent {
 
                                 <div className="form-outline mb-3">
                                     <input type="password" id="form3Example4" className="form-control form-control-lg"
-                                        placeholder="Enter password" onChange={(e) => this.setState({ username: e })} />
+                                        placeholder="Enter password"
+                                        onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'password', value: e.target.value } })}} />
                                     <label className="form-label" htmlFor="form3Example4">Password</label>
                                 </div>
 
@@ -155,13 +158,15 @@ function mapStateToProps(state) {
         count: state.login.count,
         password: state.login.password,
         username: state.login.username,
-        
+
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         onClickLogin: (id) => dispatch(login(id)),
+        onChangeValueLogin: (evt) => dispatch(onChangeValueLogin(evt)),
+
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
