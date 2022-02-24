@@ -7,13 +7,7 @@ import history from "../utils/history";
 
 export function* login() {
   var requestURL = 'http://127.0.0.1:10020/apiService/authenticate'
-
   const state = yield select();
-
-  // let loginCredentials = {
-  //   "username": "renjith.nair95@gmail.com",
-  //   "password": "renjithNair"
-  // }
   let loginCredentials = {
     "username": state.login.username,
     "password": state.login.password
@@ -26,7 +20,7 @@ export function* login() {
     const currentUser = yield call(request, requestURL, options);
     console.log('currentUser', currentUser)
     yield put(actions.onLoginSuccess(currentUser));
-    // window.location = '/home';
+    window.location = '/home';
   }
   catch (err) {
     console.log('err', err)
@@ -34,16 +28,6 @@ export function* login() {
 
   }
 }
-
-
-// // bookAdd Watcher
-// export function* initializeRegisterSagaWatchers() {
-//   const watcher1 = yield fork(loginWatcher);
-// }
-
-// export default [
-// 	initializeRegisterSagaWatchers,
-// ];
 
 export default function* bookAddSaga() {
   yield all([

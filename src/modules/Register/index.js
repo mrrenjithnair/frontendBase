@@ -6,17 +6,20 @@ import SocialButton from '../../components/SocialButton'
 import BottomNavBar from '../../components/BottomNavBar'
 import { Route, Link, Routes } from "react-router-dom";
 
-import { handleDecrementClick, handleIncrementClick } from './actions';
+import { onRegister, onChangeValueRegister } from './actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
 import { faSortNumericUpAlt } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
 export class Register extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
             id: null,
             isEditing: false,
@@ -30,17 +33,7 @@ export class Register extends React.PureComponent {
     }
     handleSubmit(e) {
         e.preventDefault();
-        //if username or password field is empty, return error message
-        // if (this.state.username === "" || this.state.password === "") {
-        // this.setState({ errorMessage: "Empty username/password field" })
-        // } else if (this.state.username == "admin" && this.state.password == "123456") {
-        //Signin Success
-        localStorage.setItem("isAuthenticated", "true");
-        window.location.pathname = "/";
-        // } else {
-        // this.setState({ errorMessage: "Invalid username/password" })
-
-        // }
+        this.props.onRegister()
     }
     handleSocialRegister = (user) => {
         console.log(user);
@@ -89,43 +82,64 @@ export class Register extends React.PureComponent {
                                 </div>
                                 <div className="form-outline mb-4">
                                     <label className="form-label" htmlFor="form3Example3">First Name</label>
-                                    <input type="email" id="form3Example3"
-                                        onChange={(e) => this.setState({ firstName: e })} className="form-control form-control-lg"
-                                        placeholder="Enter a first name" />
+                                    <input type="firstName" id="form3Example3"
+                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'firstName', value: e.target.value } })}} 
+                                     className="form-control form-control-lg"
+                                     placeholder="Enter a first name" />
                                 </div>
                                 <div className="form-outline mb-4">
                                     <label className="form-label" htmlFor="form3Example3">Last Name</label>
-                                    <input type="email" id="form3Example3"
-                                        onChange={(e) => this.setState({ lastName: e })} className="form-control form-control-lg"
-                                        placeholder="Enter a last name" />
+                                    <input type="lastName" id="form3Example3"
+                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'lastName', value: e.target.value } })}} 
+                                     className="form-control form-control-lg"
+                                     placeholder="Enter a last name" />
                                 </div>
+                                <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form3Example3">DOB</label>
+                        
+                                     <DatePicker className="form-control form-control-lg" 
+                                        selected={this.props.dob} 
+                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'dob', value: e } })}} 
+                                            />  
+                                </div>
+                                
                                 <div className="form-outline mb-4">
                                     <label className="form-label" htmlFor="form3Example3">Profile Piture</label>
                                     <input type="file" id="form3Example3"
-                                        onChange={(e) => this.setState({ lastName: e })} className="form-control form-control-lg"
+                                         onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'profilePicture', value: e.target.value } })}} 
+                                        className="form-control form-control-lg"
                                         placeholder="Enter a last name" />
                                 </div>
                                 <div className="form-outline mb-4">
                                     <label className="form-label" htmlFor="form3Example3">Sports</label>
-                                    <select className="form-control form-control-lg">
-                                        <option>Cricket</option>
-                                        <option>FootBall</option>
-                                        <option>Chess</option>
+                                    <select className="form-control form-control-lg"
+                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'sportsType', value: e.target.value } })}} >
+                                        <option value={1}>Cricket</option>
                                     </select>
                                 </div>
                                 <div className="form-outline mb-4">
                                     <label className="form-label" htmlFor="form3Example3">Categoury</label>
-                                    <select className="form-control form-control-lg">
-                                        <option>A</option>
-                                        <option>B</option>
-                                        <option>C</option>
+                                    <select className="form-control form-control-lg"
+                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'category', value: e.target.value } })}} >
+
+                                        <option>all-rounder</option>
                                     </select>
                                 </div>
 
                                 <div className="form-outline mb-4">
                                     <label className="form-label" htmlFor="form3Example3">Email address</label>
                                     <input type="email" id="form3Example3"
-                                        onChange={(e) => this.setState({ username: e })} className="form-control form-control-lg"
+                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'emailId', value: e.target.value } })}}
+                                    className="form-control form-control-lg"
+                                        placeholder="Enter a valid email address" />
+                                </div>
+
+
+                                <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form3Example3">User name</label>
+                                    <input type="username" id="form3Example3"
+                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'username', value: e.target.value } })}}
+                                    className="form-control form-control-lg"
                                         placeholder="Enter a valid email address" />
                                 </div>
 
@@ -133,7 +147,9 @@ export class Register extends React.PureComponent {
                                 <div className="form-outline mb-3">
                                     <label className="form-label" htmlFor="form3Example4">Password</label>
                                     <input type="password" id="form3Example4" className="form-control form-control-lg"
-                                        placeholder="Enter password" onChange={(e) => this.setState({ username: e })} />
+                                        placeholder="Enter password" 
+                                        onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'password', value: e.target.value } })}}
+                                        />
                                 </div>
 
 
@@ -167,14 +183,22 @@ Register.propTypes = {
 function mapStateToProps(state) {
     console.log('state', state)
     return {
-        count: state.register.count
+        count: state.register.count,
+        dob: state.register.dob,
+        firstName: state.register.firstName,
+        lastName: state.register.lastName,
+        username: state.register.username,
+        emailId: state.register.emailId,
+        password: state.register.password,
+        
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        handleIncrementClick: (id) => dispatch(handleIncrementClick(id)),
-        handleDecrementClick: (id) => dispatch(handleDecrementClick(id)),
+        onRegister: (data) => dispatch(onRegister(data)),
+        onChangeValueRegister: (data) => dispatch(onChangeValueRegister(data)),
+        
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

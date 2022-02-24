@@ -13,8 +13,7 @@ export function login() {
     };
 }
 export function onLoginSuccess(data) {
-    toast.success("MY SUCCESS");
-
+    toast.success("Login Success");
     return {
         type: ON_LOGIN_SUCCESS,
         data: data
