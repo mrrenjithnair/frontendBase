@@ -22,3 +22,12 @@ code {
   width: 100%;
   bottom: 0;
 }
+.thumbnail-image{
+  height: 50px;
+}
+.nav-link{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}

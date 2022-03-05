@@ -19,6 +19,8 @@ export class Login extends React.PureComponent {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleSocialLogin = this.handleSocialLogin.bind(this)
+        this.handleSocialLoginFailure = this.handleSocialLogin.bind(this)
         this.state = {
             id: null,
             isEditing: false,

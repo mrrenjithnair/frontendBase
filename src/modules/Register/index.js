@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SocialButton from '../../components/SocialButton'
 import BottomNavBar from '../../components/BottomNavBar'
+import HeaderNavBar from '../../components/HeaderNavBar'
 import { Route, Link, Routes } from "react-router-dom";
 
 import { onRegister, onChangeValueRegister } from './actions';
@@ -52,6 +53,8 @@ export class Register extends React.PureComponent {
 
 
             <section className="vh-100">
+                <HeaderNavBar/>
+
                 <div className="container-fluid h-custom">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">

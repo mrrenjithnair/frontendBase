@@ -5,6 +5,8 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Page1 from "../page1"
+import Dashboard from "../Dashboard"
+
 import Page2 from "../page2"
 import Login from '../Login'
 import Register from '../Register'
@@ -15,12 +17,12 @@ import Register from '../Register'
 
 // Root routes
 const AppRoutes = () => (
-  <BrowserRouter>
+  <BrowserRouter forceRefresh={true} >
     <Routes>
-      <Route path="/home" element={<PrivateRoute><Page1 /></PrivateRoute>}/>
-      <Route path="/" element={<Page2 />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route exact path="/home" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
+      <Route exact path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
+      <Route exact path="/login" element={<Login />} />
+      <Route exact path="/register" element={<Register />} />
 
     </Routes>
   </BrowserRouter>
