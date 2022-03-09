@@ -4,9 +4,10 @@ import * as actions from './actions';
 import { request } from '../utils/request';
 import {getError,} from '../utils/commonUtils';
 import history from "../utils/history";
+import CONFIG from '../utils/config';
 
 export function* register() {
-  var requestURL = 'http://127.0.0.1:10020/apiService/player'
+  var requestURL = CONFIG.apiURL + '/apiService/player'
   const state = yield select();
   let registerBody = {
     "firstName": state.register.firstName,

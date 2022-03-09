@@ -4,9 +4,9 @@ import * as actions from './actions';
 import { request } from '../utils/request';
 import {getError,} from '../utils/commonUtils';
 import history from "../utils/history";
-
+import CONFIG from '../utils/config';
 export function* login() {
-  var requestURL = 'http://127.0.0.1:10020/apiService/authenticate'
+  var requestURL = CONFIG.apiURL +'/apiService/authenticate'
   const state = yield select();
   let loginCredentials = {
     "username": state.login.username,
@@ -21,8 +21,6 @@ export function* login() {
     console.log('currentUser', currentUser)
     yield put(actions.onLoginSuccess(currentUser));
     history.push('/home');
-
-
   }
   catch (err) {
     console.log('err', err)

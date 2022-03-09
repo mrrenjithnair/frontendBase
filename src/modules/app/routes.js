@@ -18,7 +18,7 @@ import Register from '../Register'
 const AppRoutes = () => (
   <BrowserRouter forceRefresh={true} >
     <Routes>
-      <Route exact path="/home" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
+      <Route path="/home" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
       <Route exact path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/register" element={<Register />} />

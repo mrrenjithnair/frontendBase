@@ -38,7 +38,8 @@ export class ClubList extends React.PureComponent {
                 <div className="card-body">
                     <h5 className="card-title">{item.name}</h5>
                     <p className="card-text"><b>Address:</b> {item.Address}</p>
-                    <a href="#" className={request ? "btn btn-secondary": "btn btn-primary"}> { request ? "Requested":"Join" }</a>
+                    <a href="#" className={request ? "btn btn-secondary": "btn btn-primary"}> { request ? "Requested":"Join" }</a> &nbsp;
+                    <a href="#" className= "btn btn-primary"> Detail</a>
                 </div>
             </div>
         )
