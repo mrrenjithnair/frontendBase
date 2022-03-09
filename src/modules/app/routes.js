@@ -1,25 +1,36 @@
 
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 
 // import { BrowserRouter as Router, Route ,Link, Routes} from "react-router-dom";
-import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Page1 from "../page1"
+import Dashboard from "../Dashboard"
+import ClubList from "../ClubList"
+import history from "../utils/history";
+
 import Page2 from "../page2"
-import Page3 from "../page3"
 import Login from '../Login'
+import Register from '../Register'
+
+const NavigateSetter = () => {
+  history.navigate = useNavigate();
+  return null;
+};
 
 // Lazy loading of all the modules.
-const Counter = lazy(() => import('../Counter'));
-
-
+// const Counter = lazy(() => import('../Counter'));
 // Root routes
 const AppRoutes = () => (
-  <BrowserRouter>
+  <BrowserRouter forceRefresh={true} >
+     <NavigateSetter/>
     <Routes>
-      <Route path="/Page1" element={<PrivateRoute><Page1 /></PrivateRoute>}/>
-      <Route path="/" element={<Page2 />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/home" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
+      <Route exact path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
+      <Route exact path="/login" element={<Login />} />
+      <Route exact path="/register" element={<Register />} />
+      <Route exact path="/ClubList" element={<ClubList />} />
+
 
     </Routes>
   </BrowserRouter>

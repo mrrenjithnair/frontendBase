@@ -1,29 +1,28 @@
 import { toast } from "react-toastify";
 
-export const LOGIN = 'LOGIN';
-export const ON_LOGIN_FAILURE = 'ON_LOGIN_FAILURE';
-export const ON_LOGIN_SUCCESS = 'ON_LOGIN_SUCCESS';
+export const GET_CLUB_LIST = 'GET_CLUB_LIST';
+export const GET_CLUB_LIST_SUCCESS = 'GET_CLUB_LIST_SUCCESS';
+export const GET_CLUB_LIST_FAILURE = 'GET_CLUB_LIST_FAILURE';
 export const INPUT_VALUE_CHANGED_LOGIN = 'INPUT_VALUE_CHANGED_LOGIN';
 
 
 
-export function login() {
+export function getClubList() {
     return {
-        type: LOGIN,
+        type: GET_CLUB_LIST,
     };
 }
-export function onLoginSuccess(data) {
-    toast.success("Login Success");
+export function getClubListSuccess(data) {
     return {
-        type: ON_LOGIN_SUCCESS,
+        type: GET_CLUB_LIST_SUCCESS,
         data: data
     };
 }
-export function onLoginFailure(err) {
+export function getClubListFailure(err) {
     console.log('err',err)
     toast.error(err);
     return {
-        type: ON_LOGIN_FAILURE,
+        type: GET_CLUB_LIST_FAILURE,
     };
 }
 

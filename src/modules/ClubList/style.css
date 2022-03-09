@@ -1,0 +1,16 @@
+.clubList{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.clubItem{
+  padding: 10px;
+  margin: 10px;
+  justify-content: center;
+    align-items: center;
+}
+.clubLogo{
+width:15rem;
+height: 15rem;
+}

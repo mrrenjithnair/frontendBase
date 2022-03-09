@@ -4,7 +4,7 @@ import {
     ON_LOGIN_SUCCESS
 } from './actions';
 
-// The initial state of the Login Reducer
+// The initial state of the Dashboard Reducer
 export const initialState = {
     requesting: false,
     successful: false,
@@ -12,27 +12,24 @@ export const initialState = {
     errors: {},
     userName: {},
     password: {},
-    count: 0,
-    loginUser: null,
-    sessiontoken: null
-};
+    count:0
+  };
 
-export default function (state = initialState, actions) {
-    switch (actions.type) {
-
+export default function(state = initialState,actions){
+    switch(actions.type){
+        
         case LOGIN:
-            return { ...state, errors: {} };
+            return {...state, errors:{}};
         case ON_LOGIN_SUCCESS:
             let data = actions.data
-            console.log('ON_LOGIN_SUCCESS', actions.data)
+            console.log('ON_LOGIN_SUCCESS',actions.data)
             localStorage.setItem("isAuthenticated", "true");
             localStorage.setItem("token", data.token);
-            localStorage.setItem("userId", data.user.id);
-            return { ...state, loginUser: data.user, sessiontoken: data.token };
+            return {...state, errors:{}};
         case INPUT_VALUE_CHANGED_LOGIN:
             console.log(actions.id, actions.value)
-            return { ...state, [actions.id]: actions.value };
-        default:
+            return {...state, [actions.id]:actions.value};
+        default:        
             return state;
     }
 }

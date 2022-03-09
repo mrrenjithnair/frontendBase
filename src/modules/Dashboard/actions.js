@@ -13,7 +13,7 @@ export function login() {
     };
 }
 export function onLoginSuccess(data) {
-    toast.success("Login Success");
+    toast.success("Dashboard Success");
     return {
         type: ON_LOGIN_SUCCESS,
         data: data

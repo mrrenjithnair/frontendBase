@@ -17,3 +17,17 @@ code {
   --bs-bg-opacity:1;
   border-color: #16a085  !important;
 }
+.bottomFotter{
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+.thumbnail-image{
+  height: 50px;
+}
+.nav-link{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
