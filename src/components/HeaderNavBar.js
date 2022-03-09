@@ -26,7 +26,7 @@ class HeaderNavBar extends React.Component {
             <>
                 <Navbar className="bgPrimary" variant="dark">
                     <Container>
-                        <Navbar.Brand href="#home">
+                        <Navbar.Brand href="/home">
                             <img
                                 alt=""
                                 src={Logo}

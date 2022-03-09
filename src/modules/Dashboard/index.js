@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SocialButton from '../../components/SocialButton'
@@ -16,11 +16,9 @@ import './style.css';
 import { faHotel, faSortNumericUpAlt, faTrophy, faUserFriends, faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
-
 export class Dashboard extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
             id: null,
             isEditing: false,
@@ -32,65 +30,47 @@ export class Dashboard extends React.PureComponent {
 
     componentDidMount() {
     }
-    handleSubmit(e) {
-        this.props.onClickLogin()
-
-        e.preventDefault();
-        //if username or password field is empty, return error message
-        // if (this.state.username === "" || this.state.password === "") {
-        // this.setState({ errorMessage: "Empty username/password field" })
-        // } else if (this.state.username == "admin" && this.state.password == "123456") {
-        //Signin Success
-        // localStorage.setItem("isAuthenticated", "true");
-        // window.location.pathname = "/";
-        // } else {
-        // this.setState({ errorMessage: "Invalid username/password" })
-
-        // }
-    }
-    handleSocialLogin = (user) => {
-        console.log(user);
-        localStorage.setItem("userLogin", JSON.stringify(user._profile));
-
-    };
-
-    handleSocialLoginFailure = (err) => {
-        console.error(err);
-    };
 
     render() {
         console.log(this.props.count)
-
         return (
-
-
             <section className="vh-100">
                 <HeaderNavBar/>
                 <div id="root">
-                    <div class="container pt-5">
-                        <div class="row align-items-stretch">
-                            <div class="c-dashboardInfo col-lg-3 col-md-6">
-                                <div class="wrap">
-                                     <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"> <FontAwesomeIcon icon={faHotel} size="2x" style = {{color: '#FC8471'}} /> </h4>
-                                    <span class="hind-font caption-12 c-dashboardInfo__count pointer">Clubs</span>
+                    <div className="container pt-5">
+                        <div className="row align-items-stretch">
+                            <div className="c-dashboardInfo col-lg-3 col-md-6 pointer"onClick={()=>{
+
+                            }}>
+                                <div className="wrap">
+                                     <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"> <FontAwesomeIcon icon={faHotel} size="2x" style = {{color: '#FC8471'}} /> </h4>
+                                    <span className="hind-font caption-12 c-dashboardInfo__count ">My Clubs</span>
                                 </div>
                             </div>
-                            <div class="c-dashboardInfo col-lg-3 col-md-6">
-                                <div class="wrap">
-                                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faGamepad} size="2x" style = {{color: '#FC8471'}} /></h4>
-                                    <span class="hind-font caption-12 c-dashboardInfo__count pointer">Player List</span>
+                            <div className="c-dashboardInfo col-lg-3 col-md-6"onClick={()=>{
+                                
+                            }}>
+                                <div className="wrap">
+                                     <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"> <FontAwesomeIcon icon={faHotel} size="2x" style = {{color: '#FC8471'}} /> </h4>
+                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">Clubs NearBy</span>
                                 </div>
                             </div>
-                            <div class="c-dashboardInfo col-lg-3 col-md-6">
-                                <div class="wrap">
-                                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faUserFriends} size="2x" style = {{color: '#FC8471'}} /></h4>
-                                    <span class="hind-font caption-12 c-dashboardInfo__count pointer">User List</span>
+                            <div className="c-dashboardInfo col-lg-3 col-md-6">
+                                <div className="wrap">
+                                    <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faGamepad} size="2x" style = {{color: '#FC8471'}} /></h4>
+                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">Player List</span>
                                 </div>
                             </div>
-                            <div class="c-dashboardInfo col-lg-3 col-md-6">
-                                <div class="wrap">
-                                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faTrophy} size="2x" style = {{color: '#FC8471'}} /></h4>
-                                    <span class="hind-font caption-12 c-dashboardInfo__count pointer">Tournement</span>
+                            <div className="c-dashboardInfo col-lg-3 col-md-6">
+                                <div className="wrap">
+                                    <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faUserFriends} size="2x" style = {{color: '#FC8471'}} /></h4>
+                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">Club Admin List</span>
+                                </div>
+                            </div>
+                            <div className="c-dashboardInfo col-lg-3 col-md-6">
+                                <div className="wrap">
+                                    <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faTrophy} size="2x" style = {{color: '#FC8471'}} /></h4>
+                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">Tournement</span>
                                 </div>
                             </div>
                         </div>

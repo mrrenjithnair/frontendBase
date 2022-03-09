@@ -19,8 +19,9 @@ export function* login() {
     };
     const currentUser = yield call(request, requestURL, options);
     console.log('currentUser', currentUser)
-    history.replace('/home');
     yield put(actions.onLoginSuccess(currentUser));
+    history.push('/home');
+
 
   }
   catch (err) {
