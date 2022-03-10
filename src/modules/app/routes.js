@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 import Page1 from "../page1"
 import Dashboard from "../Dashboard"
 import ClubList from "../ClubList"
+import ClubDetails from "../ClubDetails"
 import history from "../utils/history";
 
 import Page2 from "../page2"
@@ -30,8 +31,8 @@ const AppRoutes = () => (
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/register" element={<Register />} />
       <Route exact path="/ClubList" element={<ClubList />} />
-
-
+      <Route exact path="/ClubDetails" element={<ClubDetails />} />
+      
     </Routes>
   </BrowserRouter>
 

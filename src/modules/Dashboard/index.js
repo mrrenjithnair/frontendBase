@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SocialButton from '../../components/SocialButton'
 import BottomNavBar from '../../components/BottomNavBar'
 import HeaderNavBar from '../../components/HeaderNavBar'
+import history from "../utils/history";
 
 
 import { login, onChangeValueLogin } from './actions';
@@ -39,8 +40,8 @@ export class Dashboard extends React.PureComponent {
                 <div id="root">
                     <div className="container pt-5">
                         <div className="row align-items-stretch">
-                            <div className="c-dashboardInfo col-lg-3 col-md-6 pointer"onClick={()=>{
-
+                            <div className="c-dashboardInfo col-lg-3 col-md-6 pointer" onClick={() => {
+                                history.push('/clubList')
                             }}>
                                 <div className="wrap">
                                      <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"> <FontAwesomeIcon icon={faHotel} size="2x" style = {{color: '#FC8471'}} /> </h4>
@@ -76,6 +77,7 @@ export class Dashboard extends React.PureComponent {
                         </div>
                     </div>
                 </div>
+             
                 <BottomNavBar />
 
             </section>

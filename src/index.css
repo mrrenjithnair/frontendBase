@@ -31,3 +31,7 @@ code {
   align-items: center;
   color: white;
 }
+#root{
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+}

@@ -1,6 +1,6 @@
 import {
     GET_CLUB_LIST,
-    INPUT_VALUE_CHANGED_LOGIN,
+    INPUT_VALUE_CHANGED_CLUB,
     GET_CLUB_LIST_SUCCESS
 } from './actions';
 
@@ -27,7 +27,7 @@ export default function(state = initialState,actions){
             let data = actions.data
             console.log('GET_CLUB_LIST_SUCCESS',actions.data)
             return { ...state, clubList: data};
-        case INPUT_VALUE_CHANGED_LOGIN:
+        case INPUT_VALUE_CHANGED_CLUB:
             console.log(actions.id, actions.value)
             return {...state, [actions.id]:actions.value};
         default:        

@@ -12,11 +12,13 @@ import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
 import Logo from '../images/Logo.png'
 import { useNavigate } from "react-router-dom";
+import history from "../modules/utils/history";
+
 class HeaderNavBar extends React.Component {
     logout(){
         console.log('logiut')
         localStorage.clear();
-        window.location('/login');
+        history.push('/login');
 
     }
     render() {
@@ -24,7 +26,7 @@ class HeaderNavBar extends React.Component {
 
         return (
             <>
-                <Navbar className="bgPrimary" variant="dark">
+                <Navbar className="bgPrimary" variant="dark "fixed="top" >
                     <Container>
                         <Navbar.Brand href="/home">
                             <img

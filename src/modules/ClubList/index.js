@@ -7,17 +7,15 @@ import SocialButton from '../../components/SocialButton'
 import BottomNavBar from '../../components/BottomNavBar'
 import HeaderNavBar from '../../components/HeaderNavBar'
 import Image from 'react-bootstrap/Image'
+import AddModal from '../../components/AddModal'
+import history from "../utils/history";
 
 
-import { getClubList, onChangeValueLogin } from './actions';
+import { getClubList, onChangeValueClub, addClub } from './actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
-import { faHotel, faSortNumericUpAlt, faTrophy, faUserFriends, faGamepad } from '@fortawesome/free-solid-svg-icons';
-import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
-
 
 export class ClubList extends React.PureComponent {
     constructor(props) {
@@ -32,28 +30,77 @@ export class ClubList extends React.PureComponent {
 
     listRender(item) {
         let request = item.approved == 0 && item.playerId
+        let name = item.name
+        let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
+        let initials = [...name.matchAll(rgx)] || [];
+        initials = (
+            (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
+        ).toUpperCase();
         return (
             <div className="card clubItem" style={{ width: '18rem' }} key={item.id}>
-                <img className="clubLogo" src={item.logo} alt="Card image cap" />
+                    <div className='locationBox'>
+                        <div className='locationText'>{item.location}</div> </div>
+
+               {item.logo ? <img className="clubLogo" src={item.logo} alt={item.name} data-letters="MN"/>
+                     : <div className='letterCircle'>{initials}</div>}
+
                 <div className="card-body">
                     <h5 className="card-title">{item.name}</h5>
                     <p className="card-text"><b>Address:</b> {item.Address}</p>
                     <a href="#" className={request ? "btn btn-secondary": "btn btn-primary"}> { request ? "Requested":"Join" }</a> &nbsp;
-                    <a href="#" className= "btn btn-primary"> Detail</a>
+                    <a href="#" className= "btn btn-primary"onClick={()=>{history.push('/ClubDetails',{clubDetails:item})}}> Detail</a>
                 </div>
             </div>
         )
     }
-
+    addClub() {
+        console.log('addClub')
+        this.props.addClub()
+        this.setState({ showModal: false })
+    }
     render() {
-        console.log(this.props.clubList)
+        console.log(this.props)
+        let addClubObj = [{
+            key: 'name',
+            label: 'name',
+            type: 'Text'
+        },
+        {
+            key: 'location',
+            label: 'location',
+            type: 'Text'
+        },
+        {
+            key: 'address',
+            label: 'address',
+            type: 'Text'
+        },{
+            key: ' logo',
+            label: 'logo',
+            type: 'File'
+        },{
+            key: ' banner',
+            label: 'banner',
+            type: 'File'
+        },]
         return (
 
 
             <section className="vh-100">
                 <HeaderNavBar />
                 <div id="root">
-
+                    <div className='headerRow'>
+                        <div className='headerCol'>
+                        <h2>Club List</h2>
+                            
+                        </div>
+                        <div className='addCol'>
+                        <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
+                            Add Club
+                        </Button>
+                        </div>
+                    </div>
+        
                 <div className='container'>
                     <div className='clubList'>
                         {this.props.clubList && this.props.clubList.length != 0 &&
@@ -66,8 +113,19 @@ export class ClubList extends React.PureComponent {
 
 
                 </div>
+                <br/>
+                <br/>
+                <br/>
                 <BottomNavBar />
 
+                <AddModal
+                 title="Add Club"
+                    show={this.state.showModal}
+                    onHide={() => this.setState({ showModal: false })}
+                    onSubmit={() => this.addClub()}
+                    feildObj={addClubObj}
+                    onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
+                />
             </section>
         );
     }
@@ -79,6 +137,7 @@ ClubList.propTypes = {
 };
 
 function mapStateToProps(state) {
+    console.log(state)
     return {
         clubList: state.clubs.clubList,
 
@@ -88,7 +147,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getClubList: () => dispatch(getClubList()),
-        onChangeValueLogin: (evt) => dispatch(onChangeValueLogin(evt)),
+        addClub: () => dispatch(addClub()),
+        onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),
 
     };
 }
