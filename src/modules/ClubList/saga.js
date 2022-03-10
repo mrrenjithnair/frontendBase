@@ -9,10 +9,14 @@ export function* getClubList() {
   var requestURL = CONFIG.apiURL + '/apiService/club'
   const state = yield select();
   const login = state.login
+  const global = state.global
 	// const sessionToken = login.get("currentUser").token;
   const sessionToken = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
-  requestURL += '?userId='+userId
+  if(!global.nearByClub){
+    requestURL += '?userId='+userId
+
+  }
   try {
     var options = {
       method: 'GET',

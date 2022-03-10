@@ -50,7 +50,19 @@ export function getError (obj) {
       }
     }// isNull
   }
-
+  export function clean(obj) {
+	var propNames = Object.getOwnPropertyNames(obj);
+	for (var i = 0; i < propNames.length; i++) {
+	  var propName = propNames[i];
+	  if (obj[propName] === null || obj[propName] === undefined) {
+		delete obj[propName];
+	  }
+		  else if ((typeof obj[propName]) == 'string') {
+			  obj[propName] = obj[propName].trim()
+		  }
+	}
+	  return obj
+  }
   export function cleanMessage(str) {
 	  console.log(str)
 	var sanitize = false //PROD environment

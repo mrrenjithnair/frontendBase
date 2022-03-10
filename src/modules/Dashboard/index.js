@@ -7,6 +7,7 @@ import SocialButton from '../../components/SocialButton'
 import BottomNavBar from '../../components/BottomNavBar'
 import HeaderNavBar from '../../components/HeaderNavBar'
 import history from "../utils/history";
+import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
 
 
 import { login, onChangeValueLogin } from './actions';
@@ -15,8 +16,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
 import { faHotel, faSortNumericUpAlt, faTrophy, faUserFriends, faGamepad } from '@fortawesome/free-solid-svg-icons';
-import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
+
 export class Dashboard extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -41,6 +41,8 @@ export class Dashboard extends React.PureComponent {
                     <div className="container pt-5">
                         <div className="row align-items-stretch">
                             <div className="c-dashboardInfo col-lg-3 col-md-6 pointer" onClick={() => {
+                                this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } }) 
+
                                 history.push('/clubList')
                             }}>
                                 <div className="wrap">
@@ -49,7 +51,9 @@ export class Dashboard extends React.PureComponent {
                                 </div>
                             </div>
                             <div className="c-dashboardInfo col-lg-3 col-md-6"onClick={()=>{
-                                
+                                this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: true } }) 
+
+                                 history.push('/clubList') 
                             }}>
                                 <div className="wrap">
                                      <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"> <FontAwesomeIcon icon={faHotel} size="2x" style = {{color: '#FC8471'}} /> </h4>
@@ -104,6 +108,7 @@ function mapDispatchToProps(dispatch) {
     return {
         onClickLogin: (id) => dispatch(login(id)),
         onChangeValueLogin: (evt) => dispatch(onChangeValueLogin(evt)),
+        onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
 
     };
 }

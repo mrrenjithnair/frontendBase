@@ -12,6 +12,7 @@ import history from "../utils/history";
 
 
 import { getClubList, onChangeValueClub, addClub } from './actions';
+import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -48,7 +49,11 @@ export class ClubList extends React.PureComponent {
                     <h5 className="card-title">{item.name}</h5>
                     <p className="card-text"><b>Address:</b> {item.Address}</p>
                     <a href="#" className={request ? "btn btn-secondary": "btn btn-primary"}> { request ? "Requested":"Join" }</a> &nbsp;
-                    <a href="#" className= "btn btn-primary"onClick={()=>{history.push('/ClubDetails',{clubDetails:item})}}> Detail</a>
+                    <a href="#" className= "btn btn-primary"onClick={()=>{
+                        this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } }) 
+                        this.props.getClubDetail()
+                        history.push('/ClubDetails',{clubDetails:item})
+                        }}> Detail</a>
                 </div>
             </div>
         )
@@ -91,7 +96,7 @@ export class ClubList extends React.PureComponent {
                 <div id="root">
                     <div className='headerRow'>
                         <div className='headerCol'>
-                        <h2>Club List</h2>
+                        <h2> {this.props.nearByClub ? "NEAR-BY CLUB LIST": "MY CLUB LIST"}</h2>
                             
                         </div>
                         <div className='addCol'>
@@ -140,7 +145,8 @@ function mapStateToProps(state) {
     console.log(state)
     return {
         clubList: state.clubs.clubList,
-
+        nearByClub: state.global.nearByClub,
+        
     };
 }
 
@@ -149,7 +155,9 @@ function mapDispatchToProps(dispatch) {
         getClubList: () => dispatch(getClubList()),
         addClub: () => dispatch(addClub()),
         onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),
-
+        onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
+        getClubDetail: (evt) => dispatch(getClubDetail(evt)),
+        
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ClubList);
