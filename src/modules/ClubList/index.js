@@ -68,25 +68,31 @@ export class ClubList extends React.PureComponent {
         let addClubObj = [{
             key: 'name',
             label: 'name',
-            type: 'Text'
+            type: 'text'
         },
         {
             key: 'location',
             label: 'location',
-            type: 'Text'
+            type: 'text'
         },
         {
             key: 'address',
             label: 'address',
-            type: 'Text'
-        },{
+            type: 'text'
+        },
+        {
+            key: 'description',
+            label: 'description',
+            type: 'textarea'
+        },
+        {
             key: ' logo',
             label: 'logo',
-            type: 'File'
+            type: 'file'
         },{
             key: ' banner',
             label: 'banner',
-            type: 'File'
+            type: 'file'
         },]
         return (
 

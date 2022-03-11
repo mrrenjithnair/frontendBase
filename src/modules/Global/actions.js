@@ -1,10 +1,16 @@
 import { toast } from "react-toastify";
 
+export const SET_SESSION_TOKEN_FROM_LOCAL = 'SET_SESSION_TOKEN_FROM_LOCAL';
 export const INPUT_VALUE_CHANGED_GLOBAL = 'INPUT_VALUE_CHANGED_GLOBAL';
 export const GET_CLUB_DETAIL = 'GET_CLUB_DETAIL';
 export const GET_CLUB_DETAIL_SUCCESS = 'GET_CLUB_DETAIL_SUCCESS';
 export const GET_CLUB_DETAIL_FAILED = 'GET_CLUB_DETAIL_FAILED';
 
+export function setSessionTokenFromLocal() {
+  return {
+    type: SET_SESSION_TOKEN_FROM_LOCAL,
+    };
+}
 
 export function onChangeValueGlobal(evt) {
     return {

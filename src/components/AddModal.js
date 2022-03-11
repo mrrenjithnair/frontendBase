@@ -10,11 +10,19 @@ class addModal extends React.Component {
     return(
       <div>
         <div className="form-outline mb-4">
-          <label className="form-label" htmlFor="form3Example3">{item.label}</label>
-          <input type={item.type} id="form3Example3"
+          <label className="form-label capitalize" htmlFor="form3Example3">{item.label}</label>
+          {item.type =='text'&& <input type={item.type} id="form3Example3"
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className="form-control form-control-lg"
-            placeholder={"please enter " + item.label} />
+            placeholder={"please enter " + item.label} />}
+          {item.type =='file'&& <input type={item.type} id="form3Example3"
+            onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
+            className="form-control form-control-lg"
+            placeholder={"please enter " + item.label} />}
+                      {item.type =='textarea'&& <textarea type={item.type} id="form3Example3"
+            onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
+            className="form-control form-control-lg"
+            placeholder={"please enter " + item.label} />}
         </div>
       </div>
 

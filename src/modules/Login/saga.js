@@ -1,6 +1,7 @@
 
 import { put, all, call, takeLatest, select } from "redux-saga/effects";
 import * as actions from './actions';
+import * as globalActions from '../Global/actions';
 import { request } from '../utils/request';
 import {getError,} from '../utils/commonUtils';
 import history from "../utils/history";
@@ -20,6 +21,7 @@ export function* login() {
     const currentUser = yield call(request, requestURL, options);
     console.log('currentUser', currentUser)
     yield put(actions.onLoginSuccess(currentUser));
+    yield put(globalActions.onChangeValueGlobal({ target: { id: 'sessionToken', value: currentUser.token } }))
     history.push('/home');
   }
   catch (err) {

@@ -65,6 +65,10 @@ export async function request(url, opts) {
       return res
     })
     .then((res) => {
+      if (res.status === 401) {
+        //place your reentry code
+        localStorage.clear()
+       }
       if (res.status == 300) {
         return res.json
       } else if (res.status >= 200 && res.status < 300) {

@@ -35,3 +35,12 @@ code {
   margin-bottom: 5rem;
   margin-top: 5rem;
 }
+.fixed-top {
+/* z-index: var(--ifm-z-index-fixed); */
+}
+.Toaseter{
+  z-index:100000;
+}
+.capitalize{
+text-transform: capitalize;
+}

@@ -11,7 +11,7 @@ export function* getClubList() {
   const login = state.login
   const global = state.global
 	// const sessionToken = login.get("currentUser").token;
-  const sessionToken = localStorage.getItem("token");
+  const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
   if(!global.nearByClub){
     requestURL += '?userId='+userId

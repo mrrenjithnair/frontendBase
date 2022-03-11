@@ -1,6 +1,7 @@
 import {
     INPUT_VALUE_CHANGED_GLOBAL,
-    GET_CLUB_DETAIL_SUCCESS
+    GET_CLUB_DETAIL_SUCCESS,
+    SET_SESSION_TOKEN_FROM_LOCAL
 } from './actions';
 
 // The initial state of the Dashboard Reducer
@@ -15,7 +16,14 @@ export default function(state = initialState,actions){
         
         case INPUT_VALUE_CHANGED_GLOBAL:
             console.log(actions.id, actions.value)
-            return {...state, [actions.id]:actions.value};        
+            return {...state, [actions.id]:actions.value};   
+            
+        case SET_SESSION_TOKEN_FROM_LOCAL:
+            const sessionToken = localStorage.getItem("token");
+            console.log('SET_SESSION_TOKEN_FROM_LOCAL', sessionToken)
+
+            return {...state, 'sessionToken': sessionToken};   
+                
         case GET_CLUB_DETAIL_SUCCESS:
             console.log(actions.id, actions.value)
             return {...state, 'clubDetails':actions.payload};

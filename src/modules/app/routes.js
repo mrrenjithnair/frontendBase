@@ -3,8 +3,12 @@ import React from 'react';
 
 // import { BrowserRouter as Router, Route ,Link, Routes} from "react-router-dom";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { connect } from 'react-redux';
+
 import PrivateRoute from "./PrivateRoute";
 import Page1 from "../page1"
+import APP from "./index"
+
 import Dashboard from "../Dashboard"
 import ClubList from "../ClubList"
 import ClubDetails from "../ClubDetails"
@@ -13,6 +17,7 @@ import history from "../utils/history";
 import Page2 from "../page2"
 import Login from '../Login'
 import Register from '../Register'
+import { setSessionTokenFromLocal } from '../Global/actions';
 
 const NavigateSetter = () => {
   history.navigate = useNavigate();
@@ -22,21 +27,43 @@ const NavigateSetter = () => {
 // Lazy loading of all the modules.
 // const Counter = lazy(() => import('../Counter'));
 // Root routes
-const AppRoutes = () => (
-  <BrowserRouter forceRefresh={true} >
-     <NavigateSetter/>
-    <Routes>
-      <Route path="/home" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
-      <Route exact path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
-      <Route exact path="/login" element={<Login />} />
-      <Route exact path="/register" element={<Register />} />
-      <Route exact path="/ClubList" element={<ClubList />} />
-      <Route exact path="/ClubDetails" element={<ClubDetails />} />
-      
-    </Routes>
-  </BrowserRouter>
 
-)
+export class AppRoutes extends React.PureComponent {
 
-export default AppRoutes;
+  render() {
+    this.props.setSessionTokenFromLocal()
+
+    return (<div>
+      <APP />
+      <BrowserRouter forceRefresh={true} >
+        <NavigateSetter />
+        <Routes>
+          <Route path="/home" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route exact path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/register" element={<Register />} />
+          <Route exact path="/ClubList" element={<PrivateRoute><ClubList /></PrivateRoute>} />
+          <Route exact path="/ClubDetails" element={<PrivateRoute><ClubDetails /></PrivateRoute>} />
+
+        </Routes>
+      </BrowserRouter>
+    </div>)
+  }
+}
+
+function mapStateToProps(state) {
+  console.log(state)
+  return {
+
+
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setSessionTokenFromLocal: (evt) => dispatch(setSessionTokenFromLocal(evt)),
+  };
+}
+// export default AppRoutes;
+export default connect(mapStateToProps, mapDispatchToProps)(AppRoutes);
 
