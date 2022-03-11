@@ -50,7 +50,7 @@ export class Dashboard extends React.PureComponent {
                                     <span className="hind-font caption-12 c-dashboardInfo__count ">My Clubs</span>
                                 </div>
                             </div>
-                            <div className="c-dashboardInfo col-lg-3 col-md-6"onClick={()=>{
+                            <div className="c-dashboardInfo col-lg-3 col-md-6" onClick={()=>{
                                 this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: true } }) 
 
                                  history.push('/clubList') 
@@ -60,7 +60,11 @@ export class Dashboard extends React.PureComponent {
                                     <span className="hind-font caption-12 c-dashboardInfo__count pointer">Clubs NearBy</span>
                                 </div>
                             </div>
-                            <div className="c-dashboardInfo col-lg-3 col-md-6">
+                            <div className="c-dashboardInfo col-lg-3 col-md-6" onClick={()=>{
+                                this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } }) 
+
+                                 history.push('/userList') 
+                            }}>
                                 <div className="wrap">
                                     <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faGamepad} size="2x" style = {{color: '#FC8471'}} /></h4>
                                     <span className="hind-font caption-12 c-dashboardInfo__count pointer">Player List</span>

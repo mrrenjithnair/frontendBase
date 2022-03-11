@@ -40,8 +40,8 @@ export class ClubDetails extends React.PureComponent {
                         <div className="card"> <img className="card-img-top" src="https://i.imgur.com/K7A78We.jpg" alt="Card image cap" />
                             <div className="card-body little-profile text-center">
                                 <div className="pro-img"><img src={clubDetails.logo} alt="user" /></div>
-                                <h3 className="m-b-0">{clubDetails.nam}</h3>
-                                <h3 className="m-b-5"> <b>Owner Name : {clubDetails.ownerName}</b></h3>
+                                <h3 className="m-b-0">{clubDetails.name}</h3>
+                                {clubDetails.ownerName && <h3 className="m-b-5"> <b>Owner Name : {clubDetails.ownerName}</b></h3>}
                                 <p>{clubDetails.Address}</p>
                                 <div className="row text-center m-t-20">
                                     <div className="col-lg-4 col-md-4 m-t-20">
@@ -56,7 +56,7 @@ export class ClubDetails extends React.PureComponent {
                                 </div>
                                 <div className="row m-t-20">
 
-                                    <p><b>Description :</b> {clubDetails.description}</p>
+                                {clubDetails.description&&    <p><b>Description :</b> {clubDetails.description}</p>}
                                 </div>
                             </div>
                         </div>

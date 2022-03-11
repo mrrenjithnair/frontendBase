@@ -1,20 +1,20 @@
-.clubList{
+.userList{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
-.clubItem{
+.userItem{
   padding: 10px;
   margin: 10px;
   justify-content: center;
     align-items: center;
 }
-.clubLogo{
+.userDp{
   border-radius: 50%;
   width: 5rem;
   height: 5rem;
-  padding: 2px;
+  padding: 8px;
   color: #fff;
   border: 2px solid #000;
   text-align: center;
@@ -40,7 +40,7 @@
 .headerCol{
   width: 50%;
 }
-.letterCircle {
+.letterCircleUser {
   border-radius: 50%;
   width: 5rem;
   height: 5rem;

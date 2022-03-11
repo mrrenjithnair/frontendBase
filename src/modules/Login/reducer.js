@@ -28,6 +28,7 @@ export default function (state = initialState, actions) {
             localStorage.setItem("isAuthenticated", "true");
             localStorage.setItem("token", data.token);
             localStorage.setItem("userId", data.user.id);
+            localStorage.setItem("user", JSON.stringify(data.user));
             return { ...state, loginUser: data.user, sessiontoken: data.token };
         case INPUT_VALUE_CHANGED_LOGIN:
             console.log(actions.id, actions.value)

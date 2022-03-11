@@ -8,7 +8,8 @@ import {
 export const initialState = {
     sessionToken:null,
     clubDetails:null,
-    nearByClub: false
+    nearByClub: false,
+    myDetails: null
   };
 
 export default function(state = initialState,actions){
@@ -20,9 +21,11 @@ export default function(state = initialState,actions){
             
         case SET_SESSION_TOKEN_FROM_LOCAL:
             const sessionToken = localStorage.getItem("token");
+            let user = localStorage.getItem("user");
+            user = user ? JSON.parse(user) : null
             console.log('SET_SESSION_TOKEN_FROM_LOCAL', sessionToken)
 
-            return {...state, 'sessionToken': sessionToken};   
+            return {...state, 'sessionToken': sessionToken,"myDetails":user};   
                 
         case GET_CLUB_DETAIL_SUCCESS:
             console.log(actions.id, actions.value)

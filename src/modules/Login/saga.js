@@ -22,6 +22,8 @@ export function* login() {
     console.log('currentUser', currentUser)
     yield put(actions.onLoginSuccess(currentUser));
     yield put(globalActions.onChangeValueGlobal({ target: { id: 'sessionToken', value: currentUser.token } }))
+    yield put(globalActions.onChangeValueGlobal({ target: { id: 'myDetails', value: currentUser.user } }))
+    
     history.push('/home');
   }
   catch (err) {

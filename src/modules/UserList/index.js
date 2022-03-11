@@ -11,14 +11,14 @@ import AddModal from '../../components/AddModal'
 import history from "../utils/history";
 
 
-import { getClubList, onChangeValueClub, addClub } from './actions';
+import { getUserList, onChangeValueClub, addClub } from './actions';
 import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
 
-export class ClubList extends React.PureComponent {
+export class UserList extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,34 +26,28 @@ export class ClubList extends React.PureComponent {
     }
 
     componentDidMount() {
-        this.props.getClubList()
+        this.props.getUserList()
     }
 
     listRender(item) {
         let request = item.approved == 0 && item.playerId
-        let name = item.name
+        let name = item.firstName + " "+ item.lastName
         let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
         let initials = [...name.matchAll(rgx)] || [];
         initials = (
             (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
         ).toUpperCase();
         return (
-            <div className="card clubItem" style={{ width: '18rem' }} key={item.id}>
+            <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
                     <div className='locationBox'>
-                        <div className='locationText'>{item.location}</div> </div>
+                        <div className='locationText'>{item.sportName}</div> </div>
 
-               {item.logo ? <img className="clubLogo" src={item.logo} alt={item.name} data-letters="MN"/>
-                     : <div className='letterCircle'>{initials}</div>}
+               {item.logo ? <img className="userDp" src={item.logo} alt={item.name} data-letters="MN"/>
+                     : <div className='letterCircleUser'>{initials}</div>}
 
                 <div className="card-body">
-                    <h5 className="card-title">{item.name}</h5>
-                    <p className="card-text"><b>Address:</b> {item.Address}</p>
-                    <a href="#" className={request ? "btn btn-secondary": "btn btn-primary"}> { request ? "Requested":"Join" }</a> &nbsp;
-                    <a href="#" className= "btn btn-primary"onClick={()=>{
-                        this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } }) 
-                        this.props.getClubDetail()
-                        history.push('/clubDetails',{clubDetails:item})
-                        }}> Detail</a>
+                    <h5 className="card-title"><b>Name:</b> {item.firstName} {item.lastName}</h5>
+                    <p className="card-text"><b>Category:</b> {item.category}</p>
                 </div>
             </div>
         )
@@ -102,20 +96,18 @@ export class ClubList extends React.PureComponent {
                 <div id="root">
                     <div className='headerRow'>
                         <div className='headerCol'>
-                        <h2> {this.props.nearByClub ? "NEAR-BY CLUB LIST": "MY CLUB LIST"}</h2>
+                        <h2> {this.props.nearByClub ? "NEAR-BY CLUB LIST": "PLAYER LIST"}</h2>
                             
                         </div>
                         <div className='addCol'>
-                        <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
-                            Add Club
-                        </Button>
+
                         </div>
                     </div>
         
                 <div className='container'>
-                    <div className='clubList'>
-                        {this.props.clubList && this.props.clubList.length != 0 &&
-                            this.props.clubList.map((item) => {
+                    <div className='userList'>
+                        {this.props.userList && this.props.userList.length > 0 &&
+                            this.props.userList.map((item) => {
                                 return this.listRender(item)
                             }
                             )}
@@ -142,7 +134,7 @@ export class ClubList extends React.PureComponent {
     }
 }
 
-ClubList.propTypes = {
+UserList.propTypes = {
     onSubmitForm: PropTypes.func,
     errors: PropTypes.object
 };
@@ -150,7 +142,7 @@ ClubList.propTypes = {
 function mapStateToProps(state) {
     console.log(state)
     return {
-        clubList: state.clubs.clubList,
+        userList: state.userList.userList,
         nearByClub: state.global.nearByClub,
         
     };
@@ -158,7 +150,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getClubList: () => dispatch(getClubList()),
+        getUserList: () => dispatch(getUserList()),
         addClub: () => dispatch(addClub()),
         onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
@@ -166,4 +158,4 @@ function mapDispatchToProps(dispatch) {
         
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ClubList);
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);

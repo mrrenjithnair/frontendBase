@@ -12,6 +12,8 @@ import APP from "./index"
 import Dashboard from "../Dashboard"
 import ClubList from "../ClubList"
 import ClubDetails from "../ClubDetails"
+import UserList from "../UserList"
+
 import history from "../utils/history";
 
 import Page2 from "../page2"
@@ -42,9 +44,10 @@ export class AppRoutes extends React.PureComponent {
           <Route exact path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
-          <Route exact path="/ClubList" element={<PrivateRoute><ClubList /></PrivateRoute>} />
-          <Route exact path="/ClubDetails" element={<PrivateRoute><ClubDetails /></PrivateRoute>} />
-
+          <Route exact path="/clubList" element={<PrivateRoute><ClubList /></PrivateRoute>} />
+          <Route exact path="/clubDetails" element={<PrivateRoute><ClubDetails /></PrivateRoute>} />
+          <Route exact path="/userList" element={<PrivateRoute><UserList /></PrivateRoute>} />
+          
         </Routes>
       </BrowserRouter>
     </div>)
