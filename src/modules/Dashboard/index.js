@@ -8,6 +8,7 @@ import BottomNavBar from '../../components/BottomNavBar'
 import HeaderNavBar from '../../components/HeaderNavBar'
 import history from "../utils/history";
 import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
+import roleInfo from '../utils/roleInfo';
 
 
 import { login, onChangeValueLogin } from './actions';
@@ -40,7 +41,7 @@ export class Dashboard extends React.PureComponent {
                 <div id="root">
                     <div className="container pt-5">
                         <div className="row align-items-stretch">
-                            <div className="c-dashboardInfo col-lg-3 col-md-6 pointer" onClick={() => {
+                           {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub &&<div className="c-dashboardInfo col-lg-3 col-md-6 pointer" onClick={() => {
                                 this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } }) 
 
                                 history.push('/clubList')
@@ -49,8 +50,8 @@ export class Dashboard extends React.PureComponent {
                                      <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"> <FontAwesomeIcon icon={faHotel} size="2x" style = {{color: '#FC8471'}} /> </h4>
                                     <span className="hind-font caption-12 c-dashboardInfo__count ">My Clubs</span>
                                 </div>
-                            </div>
-                            <div className="c-dashboardInfo col-lg-3 col-md-6" onClick={()=>{
+                            </div>}
+                            {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.clubNearBy &&  <div className="c-dashboardInfo col-lg-3 col-md-6" onClick={()=>{
                                 this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: true } }) 
 
                                  history.push('/clubList') 
@@ -59,8 +60,8 @@ export class Dashboard extends React.PureComponent {
                                      <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"> <FontAwesomeIcon icon={faHotel} size="2x" style = {{color: '#FC8471'}} /> </h4>
                                     <span className="hind-font caption-12 c-dashboardInfo__count pointer">Clubs NearBy</span>
                                 </div>
-                            </div>
-                            <div className="c-dashboardInfo col-lg-3 col-md-6" onClick={()=>{
+                            </div>}
+                            {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && <div className="c-dashboardInfo col-lg-3 col-md-6" onClick={()=>{
                                 this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } }) 
 
                                  history.push('/userList') 
@@ -69,19 +70,19 @@ export class Dashboard extends React.PureComponent {
                                     <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faGamepad} size="2x" style = {{color: '#FC8471'}} /></h4>
                                     <span className="hind-font caption-12 c-dashboardInfo__count pointer">Player List</span>
                                 </div>
-                            </div>
-                            <div className="c-dashboardInfo col-lg-3 col-md-6">
+                            </div>}
+                            {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.clubAdminList && <div className="c-dashboardInfo col-lg-3 col-md-6">
                                 <div className="wrap">
                                     <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faUserFriends} size="2x" style = {{color: '#FC8471'}} /></h4>
                                     <span className="hind-font caption-12 c-dashboardInfo__count pointer">Club Admin List</span>
                                 </div>
-                            </div>
-                            <div className="c-dashboardInfo col-lg-3 col-md-6">
+                            </div>}
+                            {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournement &&  <div className="c-dashboardInfo col-lg-3 col-md-6">
                                 <div className="wrap">
                                     <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faTrophy} size="2x" style = {{color: '#FC8471'}} /></h4>
                                     <span className="hind-font caption-12 c-dashboardInfo__count pointer">Tournement</span>
                                 </div>
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 </div>

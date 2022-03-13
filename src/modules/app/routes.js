@@ -19,7 +19,7 @@ import history from "../utils/history";
 import Page2 from "../page2"
 import Login from '../Login'
 import Register from '../Register'
-import { setSessionTokenFromLocal } from '../Global/actions';
+import { setDataFromLocal } from '../Global/actions';
 
 const NavigateSetter = () => {
   history.navigate = useNavigate();
@@ -33,7 +33,7 @@ const NavigateSetter = () => {
 export class AppRoutes extends React.PureComponent {
 
   render() {
-    this.props.setSessionTokenFromLocal()
+    this.props.setDataFromLocal()
 
     return (<div>
       <APP />
@@ -64,7 +64,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setSessionTokenFromLocal: (evt) => dispatch(setSessionTokenFromLocal(evt)),
+    setDataFromLocal: (evt) => dispatch(setDataFromLocal(evt)),
   };
 }
 // export default AppRoutes;
