@@ -34,10 +34,14 @@ code {
   margin-top: 5rem;
 }
 .fixed-top {
-/* z-index: var(--ifm-z-index-fixed); */
+  /* z-index: 0; */
 }
-.Toaseter{
-  z-index:100000;
+.Toastify {
+  position: absolute;
+  z-index: 999999;
+}
+.Toastify__toast-container{
+  z-index:1021;
 }
 .capitalize{
 text-transform: capitalize;

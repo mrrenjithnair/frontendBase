@@ -5,6 +5,8 @@ export const INPUT_VALUE_CHANGED_GLOBAL = 'INPUT_VALUE_CHANGED_GLOBAL';
 export const GET_CLUB_DETAIL = 'GET_CLUB_DETAIL';
 export const GET_CLUB_DETAIL_SUCCESS = 'GET_CLUB_DETAIL_SUCCESS';
 export const GET_CLUB_DETAIL_FAILED = 'GET_CLUB_DETAIL_FAILED';
+export const ON_LOGIN_SUCCESS = 'ON_LOGIN_SUCCESS';
+
 
 export function setDataFromLocal() {
   return {

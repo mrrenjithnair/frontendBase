@@ -11,7 +11,7 @@ import AddModal from '../../components/AddModal'
 import history from "../utils/history";
 
 
-import { getClubList, onChangeValueClub, addClub } from './actions';
+import { getClubList, onChangeValueClub, addClub, joinClub } from './actions';
 import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
 
 import PropTypes from 'prop-types';
@@ -37,18 +37,23 @@ export class ClubList extends React.PureComponent {
         initials = (
             (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
         ).toUpperCase();
+
         return (
             <div className="card clubItem" style={{ width: '18rem' }} key={item.id}>
                     <div className='locationBox'>
                         <div className='locationText'>{item.location}</div> </div>
 
                {item.logo ? <img className="clubLogo" src={item.logo} alt={item.name} data-letters="MN"/>
-                     : <div className='letterCircle'>{initials}</div>}
+                     : <div className='letterCircleClub'>{initials}</div>}
 
                 <div className="card-body">
                     <h5 className="card-title">{item.name}</h5>
                     <p className="card-text"><b>Address:</b> {item.Address}</p>
-                    {item.approved != 1  && <a href="#" className={request ? "btn btn-secondary": "btn btn-primary"}> { request ? "Requested":"Join" }</a> }&nbsp;
+                    {item.approved != 1  && <a href="#" className={request ? "btn btn-secondary": "btn btn-primary"}
+                    onClick={()=>{
+                        this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } }) 
+                        this.props.joinClub()
+                        }}> { request ? "Requested":"Join" }</a> }&nbsp;
                     <a href="#" className= "btn btn-primary"onClick={()=>{
                         this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } }) 
                         this.props.getClubDetail()
@@ -163,6 +168,7 @@ function mapDispatchToProps(dispatch) {
         onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
+        joinClub: (evt) => dispatch(joinClub(evt)),
         
     };
 }

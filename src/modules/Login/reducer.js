@@ -14,7 +14,8 @@ export const initialState = {
     password: {},
     count: 0,
     loginUser: null,
-    sessiontoken: null
+    sessiontoken: null,
+    loggedInUseId: null
 };
 
 export default function (state = initialState, actions) {
@@ -31,7 +32,7 @@ export default function (state = initialState, actions) {
             localStorage.setItem("userPrivileges",JSON.stringify( data.user.privileges));
             localStorage.setItem("user", JSON.stringify(data.user));
             roleInfo.set(JSON.parse(data.user.privileges.replace(/\r?\n|\r|\t/g, '')))
-            return { ...state, loginUser: data.user, sessiontoken: data.token, userPrivileges: data.user.privileges };
+            return { ...state, loginUser: data.user, sessiontoken: data.token, userPrivileges: data.user.privileges, loggedInUseId:data.user.id };
         case INPUT_VALUE_CHANGED_LOGIN:
             console.log(actions.id, actions.value)
             return { ...state, [actions.id]: actions.value };

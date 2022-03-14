@@ -3,8 +3,6 @@ import React from "react";
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 class BottomNavBar extends React.Component {
     render() {
@@ -29,15 +27,7 @@ class BottomNavBar extends React.Component {
                         <FontAwesomeIcon icon={faLinkedin} />
                     </a>
                 </div>
-                <ToastContainer position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover />
+               
             </div>
         );
     }

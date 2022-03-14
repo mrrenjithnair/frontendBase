@@ -30,6 +30,12 @@ export class ClubDetails extends React.PureComponent {
         let clubDetails = this.props.clubDetails && this.props.clubDetails.length > 0 ? this.props.clubDetails[0] : []
         console.log('this.props.', this.props)
         console.log('clubDetails', clubDetails)
+        let name = clubDetails.name
+        let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
+        let initials = [...name.matchAll(rgx)] || [];
+        initials = (
+            (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
+        ).toUpperCase();
 
         return (
             <section className="vh-100">
@@ -39,9 +45,20 @@ export class ClubDetails extends React.PureComponent {
 
                         <div className="card"> <img className="card-img-top" src="https://i.imgur.com/K7A78We.jpg" alt="Card image cap" />
                             <div className="card-body little-profile text-center">
-                                <div className="pro-img"><img src={clubDetails.logo} alt="user" /></div>
+                                <div className="pro-img">
+                                    {/* <img src={clubDetails.logo} alt="user" /> */}
+                                    {clubDetails.logo ? <img className='detailImg' src={clubDetails.logo} alt={clubDetails.name} />
+                                        : <div className='letterCircleClubDetail'>{initials}</div>}
+                                </div>
                                 <h3 className="m-b-0">{clubDetails.name}</h3>
                                 {clubDetails.ownerName && <h3 className="m-b-5"> <b>Owner Name : {clubDetails.ownerName}</b></h3>}
+                                {/* <div className="form-outline mb-4">
+                                    <label className="form-label capitalize" htmlFor="form3Example3">{item.label}</label>
+                                    <input type={item.type} id="form3Example3"
+                                        onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
+                                        className="form-control form-control-lg"
+                                        placeholder={"please enter " + item.label} />
+                                </div> */}
                                 <p>{clubDetails.Address}</p>
                                 <div className="row text-center m-t-20">
                                     <div className="col-lg-4 col-md-4 m-t-20">
@@ -56,7 +73,7 @@ export class ClubDetails extends React.PureComponent {
                                 </div>
                                 <div className="row m-t-20">
 
-                                {clubDetails.description&&    <p><b>Description :</b> {clubDetails.description}</p>}
+                                    {clubDetails.description && <p><b>Description :</b> {clubDetails.description}</p>}
                                 </div>
                             </div>
                         </div>

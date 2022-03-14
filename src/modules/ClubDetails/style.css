@@ -30,10 +30,13 @@
 
 .pro-img {
     margin-top: -80px;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
-.little-profile .pro-img img {
+.little-profile .pro-img .detailImg {
     width: 128px;
     height: 128px;
     -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -41,6 +44,20 @@
     border-radius: 100%
 }
 
+.letterCircleClubDetail{
+    border-radius: 50%;
+    width: 128px;
+    height: 128px;
+    padding: 8px;
+    color: #fff;
+    border: 2px solid #000;
+    text-align: center;
+    font-size: 32px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: #14a184;
+}
 html body .m-b-0 {
     margin-bottom: 0px
 }

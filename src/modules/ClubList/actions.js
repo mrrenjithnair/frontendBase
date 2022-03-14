@@ -8,6 +8,10 @@ export const CLUB_ADD = 'CLUB_ADD';
 export const CLUB_ADD_SUCCESS = 'CLUB_ADD_SUCCESS';
 export const CLUB_ADD_FAILURE = 'CLUB_ADD_FAILURE';
 
+export const JOIN_CLUB = 'JOIN_CLUB';
+export const JOIN_CLUB_SUCCESS = 'JOIN_CLUB_SUCCESS';
+export const JOIN_CLUB_FAILURE = 'JOIN_CLUB_FAILURE';
+
 
 
 export function getClubList() {
@@ -38,7 +42,7 @@ export function onChangeValueClub(evt) {
   }
 
 
-  export function addClub() {
+export function addClub() {
     return {
         type: CLUB_ADD,
     };
@@ -51,9 +55,29 @@ export function addClubSuccess(data) {
     };
 }
 export function addClubFailure(err) {
-    console.log('err',err)
+    console.log('err', err)
     toast.error(err);
     return {
         type: CLUB_ADD_FAILURE,
+    };
+}
+
+export function joinClub() {
+    return {
+        type: JOIN_CLUB,
+    };
+}
+export function joinClubSuccess(data) {
+    toast.success("Requested for joining club successFully");
+    return {
+        type: JOIN_CLUB_SUCCESS,
+        data: data
+    };
+}
+export function joinClubFailure(err) {
+    console.log('err', err)
+    toast.error(err);
+    return {
+        type: JOIN_CLUB_FAILURE,
     };
 }

@@ -11,7 +11,8 @@ import Image from 'react-bootstrap/Image'
 import Logo from '../images/Logo.png'
 import { useNavigate } from "react-router-dom";
 import history from "../modules/utils/history";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export class HeaderNavBar extends React.PureComponent {
     logout() {
         console.log('logiut')
@@ -54,6 +55,15 @@ export class HeaderNavBar extends React.PureComponent {
                                 onClick={e => this.logout(e)}>Logout</NavDropdown.Item>
                         </NavDropdown>}
                     </Container>
+                    <ToastContainer position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
                 </Navbar>
             </>
 
