@@ -2,7 +2,8 @@ import {
     INPUT_VALUE_CHANGED_GLOBAL,
     GET_CLUB_DETAIL_SUCCESS,
     SET_DATA_FROM_LOCAL,
-    ON_LOGIN_SUCCESS
+    ON_LOGIN_SUCCESS,
+    GLOBAL_SUCCESS
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 
@@ -12,7 +13,8 @@ export const initialState = {
     clubDetails:null,
     nearByClub: false,
     myDetails: null,
-    loggedInUseId : null
+    loggedInUseId : null,
+    clubAdminList: null
   };
 
 export default function(state = initialState,actions){
@@ -45,6 +47,10 @@ export default function(state = initialState,actions){
             console.log(actions.id, actions.value)
             return {...state, 'clubDetails':actions.payload};
 
+        case GLOBAL_SUCCESS:
+        let key = actions.payload
+            return {...state, ...key };
+            
             
         default:        
             return state;

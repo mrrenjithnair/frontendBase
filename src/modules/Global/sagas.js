@@ -41,9 +41,35 @@ export function* clubDetails() {
   }
 }
 
+export function* clubAdminList() {
+  var requestURL = CONFIG.apiURL + '/apiService/clubAdmin'
+  const state = yield select();
+  const global = state.global
+  // const sessionToken = login.get("currentUser").token;
+  const sessionToken = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  var params = {}
+  requestURL = requestURL + toURLString(params)
+  try {
+    var options = {
+      method: 'GET',
+      sessionToken: sessionToken,
+    };
+    const adminList = yield call(request, requestURL, options);
+    let obj = {clubAdminList:adminList}
+    yield put(actions.globalSuccess(obj));
+  }
+  catch (err) {
+    yield put(actions.globalFailed(getError(err)));
+
+  }
+}
+
+
 export default function* globalSaga() {
   yield all([
     takeLatest('GET_CLUB_DETAIL', clubDetails),
-
+    takeLatest('GET_CLUB_ADMINS', clubAdminList),
+    
   ]);
 }

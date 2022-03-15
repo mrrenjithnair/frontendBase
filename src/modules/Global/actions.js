@@ -6,6 +6,9 @@ export const GET_CLUB_DETAIL = 'GET_CLUB_DETAIL';
 export const GET_CLUB_DETAIL_SUCCESS = 'GET_CLUB_DETAIL_SUCCESS';
 export const GET_CLUB_DETAIL_FAILED = 'GET_CLUB_DETAIL_FAILED';
 export const ON_LOGIN_SUCCESS = 'ON_LOGIN_SUCCESS';
+export const GET_CLUB_ADMINS = 'GET_CLUB_ADMINS';
+export const GLOBAL_SUCCESS = 'GLOBAL_SUCCESS';
+export const GLOBAL_FAILED = 'GLOBAL_FAILED';
 
 
 export function setDataFromLocal() {
@@ -40,3 +43,24 @@ export function getClubDetailFailed(err) {
     };
 }
   
+
+export function getClubAdmins() {
+  return {
+    type: GET_CLUB_ADMINS,
+    };
+}
+
+
+export function globalSuccess(data) {
+  return {
+    type: GLOBAL_SUCCESS,
+    payload: data,
+  };
+}
+export function globalFailed(err) {
+  console.log('err', err)
+  toast.error(err);
+  return {
+    type: GLOBAL_FAILED
+  };
+}

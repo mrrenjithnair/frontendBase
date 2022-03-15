@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter, useNavigate } from 'react-router-dom';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import SocialButton from '../../components/SocialButton'
 import BottomNavBar from '../../components/BottomNavBar'
 import HeaderNavBar from '../../components/HeaderNavBar'
 import history from "../utils/history";
 
+import { onChangeValueGlobal, getClubAdmins } from '../Global/actions';
 
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
-import { faHotel, faSortNumericUpAlt, faTrophy, faUserFriends, faGamepad } from '@fortawesome/free-solid-svg-icons';
-import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
 export class ClubDetails extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -24,12 +18,23 @@ export class ClubDetails extends React.PureComponent {
     }
 
     componentDidMount() {
+        this.props.getClubAdmins()
     }
 
     render() {
         let clubDetails = this.props.clubDetails && this.props.clubDetails.length > 0 ? this.props.clubDetails[0] : []
+        let clubAdminList =  this.props.clubAdminList && this.props.clubAdminList.length > 0 ? this.props.clubAdminList : []
+        let clubAdminListArray =[]
+        if(clubAdminList && clubAdminList.length> 0){
+            clubAdminList.map((item)=>{
+                clubAdminListArray.push({
+                    value: item.id,
+                    label: item.firstName + ' ' + item.lastName,
+                  })  
+            })
+        }
         console.log('this.props.', this.props)
-        console.log('clubDetails', clubDetails)
+        console.log('clubAdminListArray', clubAdminListArray)
         let name = clubDetails.name
         let initials
         let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
@@ -57,13 +62,14 @@ export class ClubDetails extends React.PureComponent {
                                 <h3 className="m-b-0">{clubDetails.name}</h3>
                                 {clubDetails.ownerName && <h3 className="m-b-5"> <b>Owner Name : {clubDetails.ownerName}</b></h3>}
                                 <div className='selectBox'>
-                                <label className="form-label capitalize" >Please select owner </label><br/>
+                                <label className="form-label capitalize" >Please select owner </label>
 
                                 <div className="input-group mb-3">
                                     <select className="form-control"
-                                        onChange={(e) => { this.props.onChangeValueRegister({ target: { id: 'sportsType', value: e.target.value } }) }} >
-                                        <option value={1}>Cricket</option>
-                                        <option value={1}>Cricket</option>
+                                        onChange={(e) => { this.props.onChangeValueGlobal({ target: { id: 'clubAdminSelected', value: e.target.value } }) }} >
+                                        <option value=""> Select Type</option>
+                                            {clubAdminListArray && clubAdminListArray.length > 0 && clubAdminListArray.map(item =>  <option value={item.value}>{item.label}</option>) }
+
                                     </select>
                                     <div className="input-group-append">
                                         <button className="btn btn-outline-secondary" type="button">Submit</button>
@@ -108,14 +114,17 @@ function mapStateToProps(state) {
     console.log('state', state)
     return {
         clubDetails: state.global.clubDetails,
-
+        clubAdminList: state.global.clubAdminList,
+        clubAdminSelected: state.global.clubAdminSelected,
+        selectedClub: state.global.selectedClub,
+        
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-
-
+        getClubAdmins: () => dispatch(getClubAdmins()),
+        onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ClubDetails);
