@@ -31,11 +31,15 @@ export class ClubDetails extends React.PureComponent {
         console.log('this.props.', this.props)
         console.log('clubDetails', clubDetails)
         let name = clubDetails.name
+        let initials
         let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
-        let initials = [...name.matchAll(rgx)] || [];
-        initials = (
-            (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
-        ).toUpperCase();
+        if (name) {
+            initials = [...name.matchAll(rgx)] || [];
+            initials = (
+                (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
+            ).toUpperCase();
+        }
+
 
         return (
             <section className="vh-100">
@@ -52,13 +56,21 @@ export class ClubDetails extends React.PureComponent {
                                 </div>
                                 <h3 className="m-b-0">{clubDetails.name}</h3>
                                 {clubDetails.ownerName && <h3 className="m-b-5"> <b>Owner Name : {clubDetails.ownerName}</b></h3>}
-                                {/* <div className="form-outline mb-4">
-                                    <label className="form-label capitalize" htmlFor="form3Example3">{item.label}</label>
-                                    <input type={item.type} id="form3Example3"
-                                        onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
-                                        className="form-control form-control-lg"
-                                        placeholder={"please enter " + item.label} />
-                                </div> */}
+                                <div className='selectBox'>
+                                <label className="form-label capitalize" >Please select owner </label><br/>
+
+                                <div className="input-group mb-3">
+                                    <select className="form-control"
+                                        onChange={(e) => { this.props.onChangeValueRegister({ target: { id: 'sportsType', value: e.target.value } }) }} >
+                                        <option value={1}>Cricket</option>
+                                        <option value={1}>Cricket</option>
+                                    </select>
+                                    <div className="input-group-append">
+                                        <button className="btn btn-outline-secondary" type="button">Submit</button>
+                                    </div>
+                                </div>
+                                </div>
+                            
                                 <p>{clubDetails.Address}</p>
                                 <div className="row text-center m-t-20">
                                     <div className="col-lg-4 col-md-4 m-t-20">
