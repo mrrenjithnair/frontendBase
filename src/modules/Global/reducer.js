@@ -17,6 +17,7 @@ export const initialState = {
     clubAdminList: null,
     clubListPage: false,
     adminList: false,
+    assignedClub: false
   };
 
 export default function(state = initialState,actions){

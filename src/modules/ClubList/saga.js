@@ -21,6 +21,9 @@ export function* getClubList() {
   if(global.clubListPage){
     params.superAdmin = true
   }
+  if(global.assignedClub){
+    params.assigned = true
+  }
   console.log('params',params)
 
   requestURL = requestURL + toURLString(params)

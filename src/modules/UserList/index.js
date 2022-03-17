@@ -10,9 +10,10 @@ import Image from 'react-bootstrap/Image'
 import AddModal from '../../components/AddModal'
 import history from "../utils/history";
 
-
-import { getUserList, onChangeValueClub, addClub } from './actions';
+import roleInfo from '../utils/roleInfo';
+import { getUserList, onChangeValueClub, addUser, } from './actions';
 import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
+import { getClubList } from '../ClubList/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -27,6 +28,11 @@ export class UserList extends React.PureComponent {
 
     componentDidMount() {
         this.props.getUserList()
+        this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: true } }) 
+        this.props.onChangeValueGlobal({ target: { id: 'clubListPage', value: false } }) 
+        this.props.onChangeValueGlobal({ target: { id: 'assignedClub', value: true } }) 
+        
+        this.props.getClubList()
     }
     adminUi(item){
         let request = item.approved == 0 && item.playerId
@@ -45,7 +51,7 @@ export class UserList extends React.PureComponent {
 
                 <div className="card-body">
                     <h5 className="card-title"><b>Name:</b> {item.firstName} {item.lastName}</h5>
-                    <p className="card-text"><b>clubs</b>{item.clubList.map((item)=>
+                    <p className="card-text"><b>clubs</b>{item.clubList && item.clubList.map((item)=>
                         <p>{item.name}</p>
                     )} </p>
                 </div>
@@ -83,41 +89,56 @@ export class UserList extends React.PureComponent {
             return this.userUi(item) 
         }
     }
-    addClub() {
-        console.log('addClub')
-        this.props.addClub()
+    addUser() {
+        console.log('addUser')
+        this.props.addUser()
         this.setState({ showModal: false })
     }
     render() {
+        let clubList =  this.props.clubList && this.props.clubList.length > 0 ? this.props.clubList : []
+        let clubListArray =[]
+        if(clubList && clubList.length> 0){
+            clubList.map((item)=>{
+                clubListArray.push({
+                    value: item.id,
+                    label: item.name,
+                  })  
+            })
+        }
         console.log(this.props)
-        let addClubObj = [{
-            key: 'name',
-            label: 'name',
+        let addUserObj = [{
+            key: 'firstName',
+            label: 'first Name',
             type: 'text'
         },
         {
-            key: 'location',
-            label: 'location',
+            key: 'lastName',
+            label: 'last Name',
             type: 'text'
         },
         {
-            key: 'address',
-            label: 'address',
+            key: 'emailId',
+            label: 'email Id',
             type: 'text'
         },
         {
-            key: 'description',
-            label: 'description',
-            type: 'textarea'
+            key: 'dob',
+            label: 'dob',
+            type: 'date'
         },
         {
-            key: ' logo',
-            label: 'logo',
-            type: 'file'
+            key: 'username',
+            label: 'username',
+            type: 'text'
         },{
-            key: ' banner',
-            label: 'banner',
-            type: 'file'
+            key: 'password',
+            label: 'password',
+            type: 'text'
+        },{
+            key: 'clubId',
+            label: 'club',
+            type: 'select',
+            data:clubListArray
         },]
         return (
 
@@ -131,7 +152,9 @@ export class UserList extends React.PureComponent {
                             
                         </div>
                         <div className='addCol'>
-
+                        {roleInfo && roleInfo.privileges && roleInfo.privileges.user && roleInfo.privileges.user.addAdmin &&   <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
+                            Add Admin
+                        </Button>}
                         </div>
                     </div>
         
@@ -153,11 +176,11 @@ export class UserList extends React.PureComponent {
                 <BottomNavBar />
 
                 <AddModal
-                 title="Add Club"
+                 title="Add Admin"
                     show={this.state.showModal}
                     onHide={() => this.setState({ showModal: false })}
-                    onSubmit={() => this.addClub()}
-                    feildObj={addClubObj}
+                    onSubmit={() => this.addUser()}
+                    feildObj={addUserObj}
                     onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
                 />
             </section>
@@ -175,6 +198,7 @@ function mapStateToProps(state) {
     return {
         userList: state.userList.userList,
         adminList: state.global.adminList,
+        clubList: state.clubs.clubList,
         
     };
 }
@@ -182,10 +206,11 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getUserList: () => dispatch(getUserList()),
-        addClub: () => dispatch(addClub()),
+        addUser: () => dispatch(addUser()),
         onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
+        getClubList: (evt) => dispatch(getClubList(evt)),
         
     };
 }

@@ -11,18 +11,29 @@ class addModal extends React.Component {
       <div>
         <div className="form-outline mb-4">
           <label className="form-label capitalize" htmlFor="form3Example3">{item.label}</label>
-          {item.type =='text'&& <input type={item.type} id="form3Example3"
+          {item.type == 'text' && <input type={item.type} id="form3Example3"
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className="form-control form-control-lg"
             placeholder={"please enter " + item.label} />}
-          {item.type =='file'&& <input type={item.type} id="form3Example3"
+          {item.type == 'file' && <input type={item.type} id="form3Example3"
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className="form-control form-control-lg"
             placeholder={"please enter " + item.label} />}
-                      {item.type =='textarea'&& <textarea type={item.type} id="form3Example3"
+          {item.type == 'textarea' && <textarea type={item.type} id="form3Example3"
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className="form-control form-control-lg"
             placeholder={"please enter " + item.label} />}
+          {item.type == 'date' && <input type={item.type} id="form3Example3"
+            onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
+            className="form-control form-control-lg"
+            placeholder={"please enter " + item.label} />}
+            {item.type == 'select' && 
+              <select className="form-control"
+                  onChange={(e) =>  { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }} >
+                  <option value=""> {item.label}</option>
+                      {item.data && item.data.length > 0 && item.data.map(item =>  <option value={item.value}>{item.label}</option>) }
+
+              </select>}
         </div>
       </div>
 

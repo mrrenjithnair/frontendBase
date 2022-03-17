@@ -4,9 +4,9 @@ export const GET_USER_LIST = 'GET_USER_LIST';
 export const GET_USER_LIST_SUCCESS = 'GET_USER_LIST_SUCCESS';
 export const GET_USER_LIST_FAILURE = 'GET_USER_LIST_FAILURE';
 export const INPUT_VALUE_CHANGED_CLUB = 'INPUT_VALUE_CHANGED_CLUB';
-export const CLUB_ADD = 'CLUB_ADD';
-export const CLUB_ADD_SUCCESS = 'CLUB_ADD_SUCCESS';
-export const CLUB_ADD_FAILURE = 'CLUB_ADD_FAILURE';
+export const USER_ADD = 'USER_ADD';
+export const USER_ADD_SUCCESS = 'USER_ADD_SUCCESS';
+export const USER_ADD_FAILURE = 'USER_ADD_FAILURE';
 
 
 
@@ -38,22 +38,22 @@ export function onChangeValueClub(evt) {
   }
 
 
-  export function addClub() {
+  export function addUser() {
     return {
-        type: CLUB_ADD,
+        type: USER_ADD,
     };
 }
-export function addClubSuccess(data) {
+export function addUserSuccess(data) {
     toast.success("Club Added SuccessFully");
     return {
-        type: CLUB_ADD_SUCCESS,
+        type: USER_ADD_SUCCESS,
         data: data
     };
 }
-export function addClubFailure(err) {
+export function addUserFailure(err) {
     console.log('err',err)
     toast.error(err);
     return {
-        type: CLUB_ADD_FAILURE,
+        type: USER_ADD_FAILURE,
     };
 }

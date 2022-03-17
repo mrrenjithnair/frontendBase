@@ -37,17 +37,20 @@ export function* getUserList() {
 }
 
 
-export function* addClub() {
-  var requestURL = CONFIG.apiURL + '/apiService/club'
+export function* addUser() {
+  var requestURL = CONFIG.apiURL + '/apiService/clubAdmin'
   const state = yield select();
-  const sessionToken = localStorage.getItem("token");
+  const sessionToken = state.global.sessionToken
   console.log(state)
   let clubBody = {
-    "name": state.clubs.name,
-    "location": state.clubs.location,
-    "sportType": 1,
-    "address": state.clubs.address,
-}
+    "firstName": state.userList.firstName,
+    "lastName": state.userList.lastName,
+    "emailId": state.userList.emailId,
+    "dob": new Date(state.userList.dob).valueOf(),
+    "username": state.userList.username,
+    "password": state.userList.password,
+    "clubId": parseInt(state.userList.clubId),
+  }
   try {
     var options = {
       method: 'POST',
@@ -56,12 +59,12 @@ export function* addClub() {
     };
     const currentUser = yield call(request, requestURL, options);
     console.log('currentUser', currentUser)
-    yield put(actions.addClubSuccess(currentUser));
+    yield put(actions.addUserSuccess(currentUser));
     history.push('/userList')
   }
   catch (err) {
     console.log('err', err)
-    yield put(actions.addClubFailure(getError(err)));
+    yield put(actions.addUserFailure(getError(err)));
 
   }
 }
@@ -70,7 +73,7 @@ export function* addClub() {
 export default function* userListSaga() {
   yield all([
     takeLatest('GET_USER_LIST', getUserList),
-    takeLatest('CLUB_ADD', addClub),
+    takeLatest('USER_ADD', addUser),
 
 
   ]);
