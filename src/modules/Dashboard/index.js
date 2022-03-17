@@ -7,7 +7,7 @@ import SocialButton from '../../components/SocialButton'
 import BottomNavBar from '../../components/BottomNavBar'
 import HeaderNavBar from '../../components/HeaderNavBar'
 import history from "../utils/history";
-import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
+import { onChangeValueGlobal, getClubDetail, resetDashboard } from '../Global/actions';
 import roleInfo from '../utils/roleInfo';
 
 
@@ -31,6 +31,7 @@ export class Dashboard extends React.PureComponent {
     }
 
     componentDidMount() {
+        this.props.resetDashboard()
     }
 
     render() {
@@ -134,7 +135,8 @@ function mapDispatchToProps(dispatch) {
         onClickLogin: (id) => dispatch(login(id)),
         onChangeValueLogin: (evt) => dispatch(onChangeValueLogin(evt)),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
-
+        resetDashboard: (evt) => dispatch(resetDashboard(evt)),
+        
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

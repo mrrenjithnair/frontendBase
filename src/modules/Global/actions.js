@@ -9,6 +9,7 @@ export const ON_LOGIN_SUCCESS = 'ON_LOGIN_SUCCESS';
 export const GET_CLUB_ADMINS = 'GET_CLUB_ADMINS';
 export const GLOBAL_SUCCESS = 'GLOBAL_SUCCESS';
 export const GLOBAL_FAILED = 'GLOBAL_FAILED';
+export const RESET_DASHBOARD = 'RESET_DASHBOARD';
 
 
 export function setDataFromLocal() {
@@ -62,5 +63,12 @@ export function globalFailed(err) {
   toast.error(err);
   return {
     type: GLOBAL_FAILED
+  };
+}
+
+
+export function resetDashboard(err) {
+  return {
+      type: RESET_DASHBOARD,
   };
 }

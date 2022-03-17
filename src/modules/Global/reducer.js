@@ -3,7 +3,8 @@ import {
     GET_CLUB_DETAIL_SUCCESS,
     SET_DATA_FROM_LOCAL,
     ON_LOGIN_SUCCESS,
-    GLOBAL_SUCCESS
+    GLOBAL_SUCCESS,
+    RESET_DASHBOARD
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 
@@ -53,7 +54,13 @@ export default function(state = initialState,actions){
         case GLOBAL_SUCCESS:
         let key = actions.payload
             return {...state, ...key };
-            
+        case RESET_DASHBOARD:
+                let temp ={
+                    clubListPage: false,
+                    adminList: false,
+                    assignedClub: false
+                }
+            return {...state, ...temp};    
             
         default:        
             return state;

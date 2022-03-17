@@ -1,7 +1,8 @@
 import {
     LOGIN,
     INPUT_VALUE_CHANGED_LOGIN,
-    ON_LOGIN_SUCCESS
+    ON_LOGIN_SUCCESS,
+    RESET_DASHBOARD
 } from './actions';
 
 // The initial state of the Dashboard Reducer
@@ -28,7 +29,7 @@ export default function(state = initialState,actions){
             return {...state, errors:{}};
         case INPUT_VALUE_CHANGED_LOGIN:
             console.log(actions.id, actions.value)
-            return {...state, [actions.id]:actions.value};
+            return {...state, [actions.id]:actions.value};     
         default:        
             return state;
     }

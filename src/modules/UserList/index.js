@@ -51,9 +51,11 @@ export class UserList extends React.PureComponent {
 
                 <div className="card-body">
                     <h5 className="card-title"><b>Name:</b> {item.firstName} {item.lastName}</h5>
-                    <p className="card-text"><b>clubs</b>{item.clubList && item.clubList.map((item)=>
+                    <h5 className="card-title"><b>Username:</b> {item.username}</h5>
+                    <h5 className="card-title"><b>Email ID:</b> {item.emailId}</h5>
+                    <h5 className="card-title"><b>Clubs</b>{item.clubList && item.clubList.map((item)=>
                         <p>{item.name}</p>
-                    )} </p>
+                    )} </h5>
                 </div>
             </div>
         )
