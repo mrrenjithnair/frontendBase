@@ -11,7 +11,7 @@ export function* clubDetails() {
   const state = yield select();
   const global = state.global
   // const sessionToken = login.get("currentUser").token;
-  const sessionToken = localStorage.getItem("token");
+  const sessionToken =global.sessionToken
   const userId = localStorage.getItem("userId");
   console.log('global',global)
 
@@ -46,7 +46,7 @@ export function* clubAdminList() {
   const state = yield select();
   const global = state.global
   // const sessionToken = login.get("currentUser").token;
-  const sessionToken = localStorage.getItem("token");
+  const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
   var params = {}
   requestURL = requestURL + toURLString(params)

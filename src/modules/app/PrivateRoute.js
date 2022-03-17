@@ -2,7 +2,9 @@ import React from "react";
 import { Navigate, Route,Routes } from "react-router-dom";
 
 function PrivateRoute({ children }) {
-  const isAuthenticated = localStorage.getItem("isAuthenticated");
+  console.log("children", children);
+
+  const isAuthenticated = children && children.props && children.props.sessionToken ? true : false
   console.log("this", isAuthenticated);
   return isAuthenticated ? children : <Navigate to="/login" />;
 }

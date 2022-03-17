@@ -14,7 +14,9 @@ export const initialState = {
     nearByClub: false,
     myDetails: null,
     loggedInUseId : null,
-    clubAdminList: null
+    clubAdminList: null,
+    clubListPage: false,
+    adminList: false,
   };
 
 export default function(state = initialState,actions){
@@ -27,7 +29,7 @@ export default function(state = initialState,actions){
         case ON_LOGIN_SUCCESS:
                 let data = actions.data
                 console.log('ON_LOGIN_SUCCESS global', actions.data)
-                return { ...state, loginUser: data.user, sessiontoken: data.token, userPrivileges: data.user.privileges, loggedInUseId:data.user.id }; 
+                return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: data.user.privileges, loggedInUseId:data.user.id }; 
 
         case SET_DATA_FROM_LOCAL:
             console.log(roleInfo)
@@ -38,7 +40,7 @@ export default function(state = initialState,actions){
             let userPrivileges = localStorage.getItem("userPrivileges");
             user = user ? JSON.parse(user.replace(/\r?\n|\r|\t/g, '')) : null
             userPrivileges = userPrivileges ? JSON.parse(userPrivileges) : null
-            roleInfo.set(JSON.parse(userPrivileges.replace(/\r?\n|\r|\t/g, '')))
+            if(userPrivileges) roleInfo.set(JSON.parse(userPrivileges.replace(/\r?\n|\r|\t/g, '')))
             console.log(roleInfo,"after")
 
             return {...state, 'sessionToken': sessionToken,"myDetails":user,"userPrivileges":userPrivileges, loggedInUseId,loggedInUseId};   

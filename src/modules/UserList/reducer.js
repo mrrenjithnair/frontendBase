@@ -7,7 +7,7 @@ import {
 // The initial state of the UserList Reducer
 export const initialState = {
     userList: false,
-    sessiontoken:null
+    sessionToken:null
 
   };
 

@@ -33,20 +33,20 @@ const NavigateSetter = () => {
 export class AppRoutes extends React.PureComponent {
 
   render() {
-    this.props.setDataFromLocal()
+    // this.props.setDataFromLocal()
 
     return (<div>
       <APP />
       <BrowserRouter forceRefresh={true} >
         <NavigateSetter />
         <Routes>
-          <Route path="/home" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route exact path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/home" element={<PrivateRoute ><Dashboard sessionToken={this.props.sessionToken} /></PrivateRoute>} />
+          <Route exact path="/" element={<PrivateRoute ><Dashboard sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
-          <Route exact path="/clubList" element={<PrivateRoute><ClubList /></PrivateRoute>} />
-          <Route exact path="/clubDetails" element={<PrivateRoute><ClubDetails /></PrivateRoute>} />
-          <Route exact path="/userList" element={<PrivateRoute><UserList /></PrivateRoute>} />
+          <Route exact path="/clubList" element={<PrivateRoute ><ClubList sessionToken={this.props.sessionToken} /></PrivateRoute>} />
+          <Route exact path="/clubDetails" element={<PrivateRoute ><ClubDetails sessionToken={this.props.sessionToken} /></PrivateRoute>} />
+          <Route exact path="/userList" element={<PrivateRoute ><UserList sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           
         </Routes>
       </BrowserRouter>
@@ -57,8 +57,7 @@ export class AppRoutes extends React.PureComponent {
 function mapStateToProps(state) {
   console.log(state)
   return {
-
-
+    sessionToken: state.global.sessionToken
   };
 }
 

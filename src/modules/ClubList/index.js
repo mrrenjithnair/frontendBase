@@ -9,7 +9,7 @@ import HeaderNavBar from '../../components/HeaderNavBar'
 import Image from 'react-bootstrap/Image'
 import AddModal from '../../components/AddModal'
 import history from "../utils/history";
-
+import roleInfo from '../utils/roleInfo';
 
 import { getClubList, onChangeValueClub, addClub, joinClub } from './actions';
 import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
@@ -49,11 +49,12 @@ export class ClubList extends React.PureComponent {
                 <div className="card-body">
                     <h5 className="card-title">{item.name}</h5>
                     <p className="card-text"><b>Address:</b> {item.Address}</p>
+                    {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.requested &&  <spam>
                     {item.approved != 1  && <a href="#" className={request ? "btn btn-secondary": "btn btn-primary"}
                     onClick={()=>{
                         this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } }) 
                         this.props.joinClub()
-                        }}> { request ? "Requested":"Join" }</a> }&nbsp;
+                        }}> { request ? "Requested":"Join" }</a> }&nbsp;</spam>}
                     <a href="#" className= "btn btn-primary"onClick={()=>{
                         this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } }) 
                         this.props.getClubDetail()
@@ -107,13 +108,13 @@ export class ClubList extends React.PureComponent {
                 <div id="root">
                     <div className='headerRow'>
                         <div className='headerCol'>
-                        <h2> {this.props.nearByClub ? "NEAR-BY CLUB LIST": "MY CLUB LIST"}</h2>
+                       {this.props.clubListPage ? <h2>CLUB LIST</h2> : <h2> {this.props.nearByClub ? "NEAR-BY CLUB LIST": "MY CLUB LIST"}</h2>}
                             
                         </div>
                         <div className='addCol'>
-                        <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
+                        {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addClub &&   <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
                             Add Club
-                        </Button>
+                        </Button>}
                         </div>
                     </div>
         
@@ -157,6 +158,7 @@ function mapStateToProps(state) {
     return {
         clubList: state.clubs.clubList,
         nearByClub: state.global.nearByClub,
+        clubListPage: state.global.clubListPage,
         
     };
 }

@@ -14,7 +14,7 @@ export const initialState = {
     password: {},
     count:0,
     loginUser:null,
-    sessiontoken:null
+    sessionToken:null
 
   };
 

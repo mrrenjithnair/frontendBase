@@ -28,8 +28,31 @@ export class UserList extends React.PureComponent {
     componentDidMount() {
         this.props.getUserList()
     }
+    adminUi(item){
+        let request = item.approved == 0 && item.playerId
+        let name = item.firstName + " "+ item.lastName
+        let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
+        let initials = [...name.matchAll(rgx)] || [];
+        initials = (
+            (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
+        ).toUpperCase();
+        return (
+            <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
+                    {/* <div className='locationBox'><div className='locationText'>{item.sportName}</div> </div> */}
 
-    listRender(item) {
+               {item.logo ? <img className="userDp" src={item.logo} alt={item.name} data-letters="MN"/>
+                     : <div className='letterCircleUser'>{initials}</div>}
+
+                <div className="card-body">
+                    <h5 className="card-title"><b>Name:</b> {item.firstName} {item.lastName}</h5>
+                    <p className="card-text"><b>clubs</b>{item.clubList.map((item)=>
+                        <p>{item.name}</p>
+                    )} </p>
+                </div>
+            </div>
+        )
+    }
+    userUi(item){
         let request = item.approved == 0 && item.playerId
         let name = item.firstName + " "+ item.lastName
         let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
@@ -51,6 +74,14 @@ export class UserList extends React.PureComponent {
                 </div>
             </div>
         )
+    }
+
+    listRender(item) {
+        if(this.props.adminList){
+           return this.adminUi(item) 
+        }else{
+            return this.userUi(item) 
+        }
     }
     addClub() {
         console.log('addClub')
@@ -96,7 +127,7 @@ export class UserList extends React.PureComponent {
                 <div id="root">
                     <div className='headerRow'>
                         <div className='headerCol'>
-                        <h2> {this.props.nearByClub ? "NEAR-BY CLUB LIST": "PLAYER LIST"}</h2>
+                        <h2> {this.props.adminList ? "CLUB ADMIN LIST": "PLAYER LIST"}</h2>
                             
                         </div>
                         <div className='addCol'>
@@ -143,7 +174,7 @@ function mapStateToProps(state) {
     console.log(state)
     return {
         userList: state.userList.userList,
-        nearByClub: state.global.nearByClub,
+        adminList: state.global.adminList,
         
     };
 }

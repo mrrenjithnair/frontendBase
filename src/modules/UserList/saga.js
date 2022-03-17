@@ -1,24 +1,25 @@
 
 import { put, all, call, takeLatest, select } from "redux-saga/effects";
 import * as actions from './actions';
-import { request } from '../utils/request';
+import { request, toURLString } from '../utils/request';
 import {getError,} from '../utils/commonUtils';
 import history from "../utils/history";
 import CONFIG from '../utils/config';
 export function* getUserList() {
-  var requestURL = CONFIG.apiURL + '/apiService/player'
   const state = yield select();
-  const login = state.login
   const global = state.global
-  console.log('getUserList', global)
+  let params ={}
 
-	// const sessionToken = login.get("currentUser").token;
+  if(global.adminList){
+    var requestURL = CONFIG.apiURL + '/apiService/ClubAdmin'
+    params.superAdmin = true
+  }else{
+    var requestURL = CONFIG.apiURL + '/apiService/player'
+    params.superAdmin = false
+  }
+  requestURL = requestURL + toURLString(params)
   const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
-  // if(!global.nearByClub){
-  //   requestURL += '?userId='+userId
-
-  // }
   try {
     var options = {
       method: 'GET',

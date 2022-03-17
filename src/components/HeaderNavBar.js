@@ -33,7 +33,7 @@ export class HeaderNavBar extends React.PureComponent {
             <>
                 <Navbar className="bgPrimary" variant="dark " fixed="top" >
                     <Container>
-                        <Navbar.Brand href="/home">
+                        <Navbar.Brand onClick={()=>{history.push('/home');}}>
                             <img
                                 alt=""
                                 src={Logo}
@@ -46,7 +46,8 @@ export class HeaderNavBar extends React.PureComponent {
                             {<div className="pull-left">
 
 
-                                {userDetails && userDetails.profilePicture ? <Image roundedCircle={true} className="thumbnail-image" src={'https://media-exp1.licdn.com/dms/image/C4E03AQGXXVyqvNASeg/profile-displayphoto-shrink_200_200/0/1610128592245?e=1647475200&v=beta&t=6khuQdLq0JYzXuIsF2YuhflCnH9ACGcrTBfOAO4ayDg'} />
+                                {userDetails && userDetails.profilePicture ? 
+                                 <img className="thumbnail-image" src={userDetails.profilePicture} alt={userDetails.firstName} data-letters={initials}/>
                                     : <div className='profileLetter'>{initials}</div>}
                             </div>} id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.3">Profile</NavDropdown.Item>
