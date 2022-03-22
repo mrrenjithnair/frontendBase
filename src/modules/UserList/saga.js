@@ -10,12 +10,16 @@ export function* getUserList() {
   const global = state.global
   let params ={}
 
-  if(global.adminList){
+  if (global.adminList) {
     var requestURL = CONFIG.apiURL + '/apiService/ClubAdmin'
     params.superAdmin = true
-  }else{
+  } else {
     var requestURL = CONFIG.apiURL + '/apiService/player'
     params.superAdmin = false
+    if (global.club && global.club.length > 0) {
+      params.clubId = global.club[0].id
+
+    }
   }
   requestURL = requestURL + toURLString(params)
   const sessionToken = global.sessionToken
@@ -60,6 +64,8 @@ export function* addUser() {
     const currentUser = yield call(request, requestURL, options);
     console.log('currentUser', currentUser)
     yield put(actions.addUserSuccess(currentUser));
+    yield put(actions.getUserList());
+
     history.push('/userList')
   }
   catch (err) {

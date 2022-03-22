@@ -13,6 +13,8 @@ import Dashboard from "../Dashboard"
 import ClubList from "../ClubList"
 import ClubDetails from "../ClubDetails"
 import UserList from "../UserList"
+import TournamentList from "../TournamentList"
+
 
 import history from "../utils/history";
 
@@ -47,6 +49,7 @@ export class AppRoutes extends React.PureComponent {
           <Route exact path="/clubList" element={<PrivateRoute ><ClubList sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           <Route exact path="/clubDetails" element={<PrivateRoute ><ClubDetails sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           <Route exact path="/userList" element={<PrivateRoute ><UserList sessionToken={this.props.sessionToken} /></PrivateRoute>} />
+          <Route exact path="/tournamentList" element={<PrivateRoute ><TournamentList sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           
         </Routes>
       </BrowserRouter>

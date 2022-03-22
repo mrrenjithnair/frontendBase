@@ -18,7 +18,8 @@ export const initialState = {
     clubAdminList: null,
     clubListPage: false,
     adminList: false,
-    assignedClub: false
+    assignedClub: false,
+    club: false
   };
 
 export default function(state = initialState,actions){
@@ -31,7 +32,10 @@ export default function(state = initialState,actions){
         case ON_LOGIN_SUCCESS:
                 let data = actions.data
                 console.log('ON_LOGIN_SUCCESS global', actions.data)
-                return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: data.user.privileges, loggedInUseId:data.user.id }; 
+                let tempKey = {
+                    club: data.user.club
+                }
+                return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: data.user.privileges, loggedInUseId:data.user.id, ...tempKey }; 
 
         case SET_DATA_FROM_LOCAL:
             console.log(roleInfo)
