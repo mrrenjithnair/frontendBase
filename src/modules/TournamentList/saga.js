@@ -13,9 +13,10 @@ export function* getTournamentList() {
 	// const sessionToken = login.get("currentUser").token;
   const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
+  const club = state.global.club
   let params ={}
   if(!global.nearByTournament && !global.tournamentListPage){
-    params.userId = userId
+  params.userId = userId
     params.approved = 1
   }
   if(global.tournamentListPage){
@@ -23,6 +24,9 @@ export function* getTournamentList() {
   }
   if(global.assignedClub){
     params.assigned = true
+  }
+  if(club && club[0] && club[0].id){
+    params.clubId = parseInt(club[0].id)
   }
   console.log('params',params)
 
@@ -44,17 +48,20 @@ export function* getTournamentList() {
 }
 
 
-export function* addClub() {
-  var requestURL = CONFIG.apiURL + '/apiService/club'
+export function* addTournament() {
+  var requestURL = CONFIG.apiURL + '/apiService/tournament'
   const state = yield select();
   const sessionToken = state.global.sessionToken
-
+  const club = state.global.club
+  if(!(club && club[0] && club[0].id)) return
   console.log(state)
   let clubBody = {
-    "name": state.clubs.name,
-    "location": state.clubs.location,
-    "sportType": 1,
-    "address": state.clubs.address,
+    "name": state.tournament.name,
+    "startDate": new Date(state.tournament.startDate).valueOf(),
+    "endDate": new Date(state.tournament.endDate).valueOf(),
+    "teamTotal":  parseInt(state.tournament.teamTotal),
+    "memberTotal":  parseInt(state.tournament.memberTotal),
+    "clubId": parseInt(club[0].id)
 }
   try {
     var options = {
@@ -64,12 +71,13 @@ export function* addClub() {
     };
     const currentUser = yield call(request, requestURL, options);
     console.log('currentUser', currentUser)
-    yield put(actions.addClubSuccess(currentUser));
+    yield put(actions.addTournamentSuccess(currentUser));
+    yield put(actions.getTournamentList());
     history.push('/tournamentList')
   }
   catch (err) {
     console.log('err', err)
-    yield put(actions.addClubFailure(getError(err)));
+    yield put(actions.addTournamentFailure(getError(err)));
 
   }
 }
@@ -106,7 +114,7 @@ export function* joinClub() {
 export default function* tournamentListSaga() {
   yield all([
     takeLatest('GET_TOURNAMENT_LIST', getTournamentList),
-    takeLatest('TOURNAMENT_ADD', addClub),
+    takeLatest('TOURNAMENT_ADD', addTournament),
     takeLatest('JOIN_TOURNAMENT', joinClub),
     
 

@@ -115,7 +115,9 @@ export class Dashboard extends React.PureComponent {
                         </div>
                     </div>
                 </div>
-             
+                            <br/>
+                            <br/>
+                            <br/>
                 <BottomNavBar />
 
             </section>

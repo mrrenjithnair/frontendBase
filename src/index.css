@@ -62,3 +62,18 @@ text-transform: capitalize;
 .thumbnail-image{
   height: 50px;
 }
+@media (max-width: 768px) {
+  h2 {
+    font-size: 12px !important;
+  }
+  .card-title{
+    font-size: 12px !important;
+  }
+  .card-text{
+    font-size: 12px !important;
+  }
+  .card-body{
+    font-size: 12px !important;
+  }
+}
+

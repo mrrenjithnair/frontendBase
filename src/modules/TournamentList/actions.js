@@ -42,19 +42,19 @@ export function onChangeValueClub(evt) {
   }
 
 
-export function addClub() {
+export function addTournament() {
     return {
         type: TOURNAMENT_ADD,
     };
 }
-export function addClubSuccess(data) {
+export function addTournamentSuccess(data) {
     toast.success("Club Added SuccessFully");
     return {
         type: TOURNAMENT_ADD_SUCCESS,
         data: data
     };
 }
-export function addClubFailure(err) {
+export function addTournamentFailure(err) {
     console.log('err', err)
     toast.error(err);
     return {
