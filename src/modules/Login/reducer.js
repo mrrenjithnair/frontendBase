@@ -33,7 +33,7 @@ export default function (state = initialState, actions) {
             let privileges = JSON.stringify(data.user.privileges)
             privileges = JSON.parse(privileges.replace(/\r?\n|\r|\t/g, ''))
             roleInfo.set(JSON.parse(privileges))
-            return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: privileges, loggedInUseId:data.user.id };
+            return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: privileges, loggedInUseId:data.user.id, loggedInRoleId:data.user.roleId  };
         case INPUT_VALUE_CHANGED_LOGIN:
             console.log(actions.id, actions.value)
             return { ...state, [actions.id]: actions.value };

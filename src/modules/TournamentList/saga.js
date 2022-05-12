@@ -21,7 +21,7 @@ export function* getTournamentList() {
     params.list = false
   }
   if(global.tournamentListPage){
-    params.superAdmin = true
+    params.cluAdmin = true
   }
   if(global.assignedClub){
     params.assigned = true
@@ -53,9 +53,9 @@ export function* addTournament() {
   var requestURL = CONFIG.apiURL + '/apiService/tournament'
   const state = yield select();
   const sessionToken = state.global.sessionToken
-  const club = state.global.club
+  const club = state.global.myDetails.club
   if(!(club && club[0] && club[0].id)) return
-  console.log(state)
+  console.log(state,'addTournament')
   let clubBody = {
     "name": state.tournament.name,
     "startDate": new Date(state.tournament.startDate).valueOf(),

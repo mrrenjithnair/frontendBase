@@ -15,6 +15,7 @@ export const initialState = {
     nearByClub: false,
     myDetails: null,
     loggedInUseId : null,
+    loggedInRoleId:null,
     clubAdminList: null,
     clubListPage: false,
     adminList: false,
@@ -35,13 +36,14 @@ export default function(state = initialState,actions){
                 let tempKey = {
                     loginClub: data.user.club
                 }
-                return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: data.user.privileges, loggedInUseId:data.user.id, ...tempKey }; 
+                return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: data.user.privileges, loggedInUseId:data.user.id, loggedInRoleId:data.user.roleId, ...tempKey }; 
 
         case SET_DATA_FROM_LOCAL:
             console.log(roleInfo)
             const sessionToken = localStorage.getItem("token");
             const loggedInUseId = localStorage.getItem("userId");
-            
+            const loggedInRoleId = localStorage.getItem("loggedInRoleId");
+
             let user = localStorage.getItem("user");
             let userPrivileges = localStorage.getItem("userPrivileges");
             user = user ? JSON.parse(user.replace(/\r?\n|\r|\t/g, '')) : null
@@ -49,7 +51,7 @@ export default function(state = initialState,actions){
             if(userPrivileges) roleInfo.set(JSON.parse(userPrivileges.replace(/\r?\n|\r|\t/g, '')))
             console.log(roleInfo,"after")
 
-            return {...state, 'sessionToken': sessionToken,"myDetails":user,"userPrivileges":userPrivileges, loggedInUseId,loggedInUseId};   
+            return {...state, 'sessionToken': sessionToken,"myDetails":user,"userPrivileges":userPrivileges, loggedInUseId,loggedInUseId, loggedInRoleId:loggedInRoleId};   
                 
         case GET_CLUB_DETAIL_SUCCESS:
             console.log(actions.id, actions.value)

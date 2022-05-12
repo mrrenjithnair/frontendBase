@@ -102,9 +102,22 @@ export class Dashboard extends React.PureComponent {
                                     <span className="hind-font caption-12 c-dashboardInfo__count pointer">My Tournement</span>
                                 </div>
                             </div>}
+                            {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournamentList &&  <div className="c-dashboardInfo col-lg-3 col-md-6"
+                              onClick={()=>{
+                                this.props.onChangeValueGlobal({ target: { id: 'tournamentListPage', value: true } }) 
+                                this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: false } }) 
+                                 history.push('/tournamentList') 
+                            }}>
+                                <div className="wrap">
+                                    <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faTrophy} size="2x" style = {{color: '#FC8471'}} /></h4>
+                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">Tournement List</span>
+                                </div>
+                            </div>}
                             {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournement &&  <div className="c-dashboardInfo col-lg-3 col-md-6"
                               onClick={()=>{
                                 this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: true } }) 
+                                this.props.onChangeValueGlobal({ target: { id: 'tournamentListPage', value: false } }) 
+
                                  history.push('/tournamentList') 
                             }}>
                                 <div className="wrap">

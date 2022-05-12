@@ -37,7 +37,8 @@ export class TournamentList extends React.PureComponent {
             return this.userUi(item) 
     }
     userUi(item){
-        let request = item.approved == 0 && item.playerId
+        let requestedTeam = item.requestedTeam == 1 || item.requestedTournament == 1
+        let requestedTournament = item.requestedTournament == 1 || item.requestedTeam == 1 
         let name = item.name
         let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
         let initials = [...name.matchAll(rgx)] || [];
@@ -53,13 +54,14 @@ export class TournamentList extends React.PureComponent {
                 <div className="card-body">
                     <h5 className="card-title"><b>Name:</b> {item.name} </h5>
                     <p className="card-text"><b>Team Total:</b> {item.teamTotal}</p>
-                    <p className="card-text"><b>Member Total:</b> {item.teamTotal}</p>
+                    <p className="card-text"><b>Member Total:</b> {item.memberTotal}</p>
                     <p className="card-text"><b>Start Date:</b>  <Moment format="YYYY/MM/DD">{item.startDate}</Moment></p>
                     <p className="card-text"><b>End Date:</b>  <Moment format="YYYY/MM/DD">{item.endDate}</Moment></p>
                     <div style={{display:'flex',justifyContent:'center',flexDirection:'column', borderWidth:2, borderColor:'#e4e4e4'}}>
-                    <Button variant="warning" onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}>Request for Join</Button><br/><br/>
-                    <Button variant="warning" onClick={() => this.props.requestJoin('team',item.id,item.clubId)}>Request for Team</Button>
-    
+                        {this.props.loggedInRoleId == 3 && <div>
+                            <Button disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary": "btn btn-warning"}  onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested for join':'Request for join'}</Button><br /><br />
+                            <Button disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary": "btn btn-warning"}  onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested for Team':'Request for Team'}</Button>
+                        </div>}
                     </div>
                                </div>
             </div>
@@ -105,7 +107,7 @@ export class TournamentList extends React.PureComponent {
                         </div>
                         <div className='addCol'>
                         {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addTournament && this.props.tournamentListPage &&   <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
-                            Add Club
+                            Add Tournament
                         </Button>}
                         </div>
                     </div>
@@ -127,7 +129,7 @@ export class TournamentList extends React.PureComponent {
                 <BottomNavBar />
 
                 <AddModal
-                 title="Add Club"
+                 title="Add Tournament"
                     show={this.state.showModal}
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.addTournament()}
@@ -150,7 +152,7 @@ function mapStateToProps(state) {
         tournamentList: state.tournament.tournamentList,
         nearByTournament: state.global.nearByTournament,
         tournamentListPage: state.global.tournamentListPage,
-        
+        loggedInRoleId: state.global.loggedInRoleId
     };
 }
 
