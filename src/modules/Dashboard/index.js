@@ -42,9 +42,9 @@ export class Dashboard extends React.PureComponent {
                 <div id="root">
                     <div className="container pt-5">
                         <div className="row align-items-stretch">
-                           {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub &&<div className="c-dashboardInfo col-lg-3 col-md-6 pointer" onClick={() => {
+                           {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub &&<div className="c-dashboardInfo col-lg-3 col-md-6 pointer"
+                            onClick={() => {
                                 this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } }) 
-
                                 history.push('/clubList')
                             }}>
                                 <div className="wrap">

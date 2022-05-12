@@ -1,7 +1,8 @@
 import {
     GET_TOURNAMENT_LIST,
     INPUT_VALUE_CHANGED_CLUB,
-    GET_TOURNAMENT_LIST_SUCCESS
+    GET_TOURNAMENT_LIST_SUCCESS,
+    JOIN_TOURNAMENT
 } from './actions';
 
 // The initial state of the TournamentList Reducer
@@ -14,7 +15,8 @@ export const initialState = {
     password: {},
     count:0,
     loginUser:null,
-    sessionToken:null
+    sessionToken:null,
+    requestType: null
 
   };
 
@@ -30,6 +32,10 @@ export default function(state = initialState,actions){
         case INPUT_VALUE_CHANGED_CLUB:
             console.log(actions.id, actions.value)
             return {...state, [actions.id]:actions.value};
+        case JOIN_TOURNAMENT:
+            console.log(actions.id, actions.value)
+            return { ...state, requestType: actions.requestType, tournamentId: actions.tournamentId, clubId: actions.clubId };
+            
         default:        
             return state;
     }

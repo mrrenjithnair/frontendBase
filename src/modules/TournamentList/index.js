@@ -11,7 +11,7 @@ import AddModal from '../../components/AddModal'
 import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
 
-import { getTournamentList, onChangeValueClub, addTournament, joinClub } from './actions';
+import { getTournamentList, onChangeValueClub, addTournament, requestJoin } from './actions';
 import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
@@ -57,8 +57,8 @@ export class TournamentList extends React.PureComponent {
                     <p className="card-text"><b>Start Date:</b>  <Moment format="YYYY/MM/DD">{item.startDate}</Moment></p>
                     <p className="card-text"><b>End Date:</b>  <Moment format="YYYY/MM/DD">{item.endDate}</Moment></p>
                     <div style={{display:'flex',justifyContent:'center',flexDirection:'column', borderWidth:2, borderColor:'#e4e4e4'}}>
-                    <Button variant="warning" onClick={() => this.setState({ showModal: true })}>Request for Join</Button><br/><br/>
-                    <Button variant="warning" onClick={() => this.setState({ showModal: true })}>Request for Team</Button>
+                    <Button variant="warning" onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}>Request for Join</Button><br/><br/>
+                    <Button variant="warning" onClick={() => this.props.requestJoin('team',item.id,item.clubId)}>Request for Team</Button>
     
                     </div>
                                </div>
@@ -161,7 +161,8 @@ function mapDispatchToProps(dispatch) {
         onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
-        joinClub: (evt) => dispatch(joinClub(evt)),
+        requestJoin: (type, tournamentId, clubId) => dispatch(requestJoin(type, tournamentId, clubId)),
+        
         
     };
 }

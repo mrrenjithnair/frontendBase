@@ -13,11 +13,12 @@ export function* getTournamentList() {
 	// const sessionToken = login.get("currentUser").token;
   const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
-  const club = state.global.club
+  const club = state.global.loginClub
   let params ={}
-  if(!global.nearByTournament && !global.tournamentListPage){
   params.userId = userId
-    params.approved = 1
+  params.list = true
+  if (!global.nearByTournament && !global.tournamentListPage) {
+    params.list = false
   }
   if(global.tournamentListPage){
     params.superAdmin = true
@@ -82,30 +83,37 @@ export function* addTournament() {
   }
 }
 
-export function* joinClub() {
-  var requestURL = CONFIG.apiURL + '/apiService/joinClubOrApprove'
+export function* requestJoin() {
+  var requestURL = CONFIG.apiURL + '/apiService/request'
   const state = yield select();
   const sessionToken = state.global.sessionToken
   const userId = state.global.loggedInUseId
-  const selectedClub = state.global.selectedClub
-  let clubBody = {
-    "clubId": selectedClub,
+  const requestType = state.tournament.requestType
+  const tournamentId = state.tournament.tournamentId
+  const clubId = state.tournament.clubId
+  
+  const club = state.global.club
+  let requestBody = {
     "userId": parseInt(userId),
-}
+    "type": requestType,
+    "tournamentId": tournamentId,
+    "clubId": clubId
+  }
+
   try {
     var options = {
       method: 'POST',
-      body: clubBody,
+      body: requestBody,
       sessionToken: sessionToken,
     };
     const club = yield call(request, requestURL, options);
     yield put(actions.getTournamentList());
-    yield put(actions.joinClubSuccess(club));
+    yield put(actions.requestJoinSuccess(club));
 
   }
   catch (err) {
     console.log('err', err)
-    yield put(actions.joinClubFailure(getError(err)));
+    yield put(actions.requestJoinFailure(getError(err)));
 
   }
 }
@@ -115,7 +123,7 @@ export default function* tournamentListSaga() {
   yield all([
     takeLatest('GET_TOURNAMENT_LIST', getTournamentList),
     takeLatest('TOURNAMENT_ADD', addTournament),
-    takeLatest('JOIN_TOURNAMENT', joinClub),
+    takeLatest('JOIN_TOURNAMENT', requestJoin),
     
 
   ]);

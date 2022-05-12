@@ -62,19 +62,23 @@ export function addTournamentFailure(err) {
     };
 }
 
-export function joinClub() {
+export function requestJoin(type, tournamentId, clubId) {
     return {
         type: JOIN_TOURNAMENT,
+        requestType:type,
+        tournamentId: tournamentId,
+        clubId: clubId
+
     };
 }
-export function joinClubSuccess(data) {
-    toast.success("Requested for joining club successFully");
+export function requestJoinSuccess(data) {
+    toast.success("Requested for joining tournament successFully");
     return {
         type: JOIN_TOURNAMENT_SUCCESS,
         data: data
     };
 }
-export function joinClubFailure(err) {
+export function requestJoinFailure(err) {
     console.log('err', err)
     toast.error(err);
     return {

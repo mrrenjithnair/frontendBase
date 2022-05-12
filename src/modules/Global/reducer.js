@@ -19,7 +19,7 @@ export const initialState = {
     clubListPage: false,
     adminList: false,
     assignedClub: false,
-    club: false
+    loginClub: false
   };
 
 export default function(state = initialState,actions){
@@ -33,7 +33,7 @@ export default function(state = initialState,actions){
                 let data = actions.data
                 console.log('ON_LOGIN_SUCCESS global', actions.data)
                 let tempKey = {
-                    club: data.user.club
+                    loginClub: data.user.club
                 }
                 return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: data.user.privileges, loggedInUseId:data.user.id, ...tempKey }; 
 
