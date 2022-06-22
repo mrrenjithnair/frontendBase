@@ -8,10 +8,12 @@ import BottomNavBar from '../../components/BottomNavBar'
 import HeaderNavBar from '../../components/HeaderNavBar'
 import Image from 'react-bootstrap/Image'
 import AddModal from '../../components/AddModal'
+import EditModal from '../../components/EditModal'
+
 import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
 
-import { getTournamentList, onChangeValueClub, addTournament, requestJoin } from './actions';
+import { getTournamentList, onChangeValueClub, onChangeValueEditClub, addTournament,editTournament, requestJoin } from './actions';
 import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
@@ -22,6 +24,10 @@ export class TournamentList extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
+            showModal:false,
+            selectedItem: false,
+            editModal: false,
+            typing:false
         }
     }
 
@@ -33,12 +39,62 @@ export class TournamentList extends React.PureComponent {
         this.props.addTournament()
         this.setState({ showModal: false })
     }
-    listRender(item) {
-            return this.userUi(item) 
+    editTournamentSubmit() {
+        console.log('addClub')
+        this.props.editTournament()
+        this.setState({ editModal: false })
     }
-    userUi(item){
+    
+    editTournament(item){
+        console.log(item)
+        let data= [{
+            key: 'name',
+            label: 'name',
+            type: 'text',
+            value: item.name,
+        },
+        {
+            key: 'startDate',
+            label: 'startDate',
+            type: 'date',
+            value: item.startDate,
+        },
+        {
+            key: 'endDate',
+            label: 'endDate',
+            type: 'date',
+            value: item.endDate,
+        },
+        {
+            key: 'teamTotal',
+            label: 'team Total',
+            type: 'number',
+            value: item.teamTotal,
+        },
+        {
+            key: 'memberTotal',
+            label: 'member Total',
+            type: 'number',
+            value: item.memberTotal,
+        },
+        {
+            key: 'id',
+            value: item.id,
+        }]
+        
+        this.props.onChangeValueClub({ target: { id: 'selectedTournament', value: data } })
+        this.setState({ editModal:true, selectedItem: data })
+    }
+    listRender(item) {
+        return this.userUi(item)
+    }
+    onChangeValueEditClub(evt){
+        this.setState({typing: !this.state.typing})
+        this.props.onChangeValueEditClub(evt)
+    }
+    userUi(item) {
         let requestedTeam = item.requestedTeam == 1 || item.requestedTournament == 1
-        let requestedTournament = item.requestedTournament == 1 || item.requestedTeam == 1 
+        let requestedTournament = item.requestedTournament == 1 || item.requestedTeam == 1
         let name = item.name
         let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
         let initials = [...name.matchAll(rgx)] || [];
@@ -48,8 +104,8 @@ export class TournamentList extends React.PureComponent {
         return (
             <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
 
-               {item.logo ? <img className="userDp" src={item.logo} alt={item.name} data-letters="MN"/>
-                     : <div className='letterCircleUser'>{initials}</div>}
+                {item.logo ? <img className="userDp" src={item.logo} alt={item.name} data-letters="MN" />
+                    : <div className='letterCircleUser'>{initials}</div>}
 
                 <div className="card-body">
                     <h5 className="card-title"><b>Name:</b> {item.name} </h5>
@@ -57,43 +113,45 @@ export class TournamentList extends React.PureComponent {
                     <p className="card-text"><b>Member Total:</b> {item.memberTotal}</p>
                     <p className="card-text"><b>Start Date:</b>  <Moment format="YYYY/MM/DD">{item.startDate}</Moment></p>
                     <p className="card-text"><b>End Date:</b>  <Moment format="YYYY/MM/DD">{item.endDate}</Moment></p>
-                    <div style={{display:'flex',justifyContent:'center',flexDirection:'column', borderWidth:2, borderColor:'#e4e4e4'}}>
+                    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', borderWidth: 2, borderColor: '#e4e4e4' }}>
                         {this.props.loggedInRoleId == 3 && <div>
-                            <Button disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary": "btn btn-warning"}  onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested for join':'Request for join'}</Button><br /><br />
-                            <Button disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary": "btn btn-warning"}  onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested for Team':'Request for Team'}</Button>
+                            <Button disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested for join' : 'Request for join'}</Button><br /><br />
+                            <Button disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested for Team' : 'Request for Team'}</Button>
                         </div>}
+                        {this.props.loggedInRoleId ==  2 && <Button onClick={() => this.editTournament(item)}>Edit</Button>}
+
                     </div>
-                               </div>
+                </div>
             </div>
         )
     }
     render() {
         console.log(this.props)
-            let addTournamentObj = [{
-                key: 'name',
-                label: 'name',
-                type: 'text'
-            },
-            {
-                key: 'startDate',
-                label: 'startDate',
-                type: 'date'
-            },
-            {
-                key: 'endDate',
-                label: 'endDate',
-                type: 'date'
-            },
-            {
-                key: 'teamTotal',
-                label: 'team Total',
-                type: 'number'
-            },
-            {
-                key: 'memberTotal',
-                label: 'member Total',
-                type: 'number'
-            }]
+        let addTournamentObj = [{
+            key: 'name',
+            label: 'name',
+            type: 'text'
+        },
+        {
+            key: 'startDate',
+            label: 'startDate',
+            type: 'date'
+        },
+        {
+            key: 'endDate',
+            label: 'endDate',
+            type: 'date'
+        },
+        {
+            key: 'teamTotal',
+            label: 'team Total',
+            type: 'number'
+        },
+        {
+            key: 'memberTotal',
+            label: 'member Total',
+            type: 'number'
+        }]
         return (
 
 
@@ -102,39 +160,47 @@ export class TournamentList extends React.PureComponent {
                 <div id="root">
                     <div className='headerRow'>
                         <div className='headerCol'>
-                       {this.props.tournamentListPage ? <h2>TOURNAMENT LIST</h2> : <h2> {this.props.nearByTournament ? "NEAR-BY TOURNAMENT LIST": "MY TOURNAMENT LIST"}</h2>}
-                            
+                            {this.props.tournamentListPage ? <h2>TOURNAMENT LIST</h2> : <h2> {this.props.nearByTournament ? "NEAR-BY TOURNAMENT LIST" : "MY TOURNAMENT LIST"}</h2>}
+
                         </div>
                         <div className='addCol'>
-                        {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addTournament && this.props.tournamentListPage &&   <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
-                            Add Tournament
-                        </Button>}
+                            {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addTournament && this.props.tournamentListPage && <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
+                                Add Tournament
+                            </Button>}
                         </div>
                     </div>
-        
+
                     <div className='container'>
-                    <div className='userList'>
-                        {this.props.tournamentList && this.props.tournamentList.length > 0 &&
-                            this.props.tournamentList.map((item) => {
-                                return this.listRender(item)
-                            }
-                            )}
+                        <div className='userList'>
+                            {this.props.tournamentList && this.props.tournamentList.length > 0 &&
+                                this.props.tournamentList.map((item) => {
+                                    return this.listRender(item)
+                                }
+                                )}
+                        </div>
                     </div>
-                    </div>
-                
+
                 </div>
-                <br/>
-                <br/>
-                <br/>
+                <br />
+                <br />
+                <br />
                 <BottomNavBar />
 
                 <AddModal
-                 title="Add Tournament"
+                    title="Add Tournament"
                     show={this.state.showModal}
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.addTournament()}
                     feildObj={addTournamentObj}
                     onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
+                />
+                <EditModal
+                 title={"Edit Tournament"}
+                 show={this.state.editModal}
+                 onHide={() => this.setState({ editModal: false })}
+                 onSubmit={() => this.editTournamentSubmit()}
+                 feildObj={this.props.selectedTournament}
+                 onChangeInput={(evt) => this.onChangeValueEditClub(evt)}
                 />
             </section>
         );
@@ -152,7 +218,8 @@ function mapStateToProps(state) {
         tournamentList: state.tournament.tournamentList,
         nearByTournament: state.global.nearByTournament,
         tournamentListPage: state.global.tournamentListPage,
-        loggedInRoleId: state.global.loggedInRoleId
+        loggedInRoleId: state.global.loggedInRoleId,
+        selectedTournament: state.tournament.selectedTournament
     };
 }
 
@@ -160,12 +227,15 @@ function mapDispatchToProps(dispatch) {
     return {
         getTournamentList: () => dispatch(getTournamentList()),
         addTournament: () => dispatch(addTournament()),
+        editTournament: () => dispatch(editTournament()),
         onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),
+        onChangeValueEditClub: (evt) => dispatch(onChangeValueEditClub(evt)),
+        
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
         requestJoin: (type, tournamentId, clubId) => dispatch(requestJoin(type, tournamentId, clubId)),
-        
-        
+
+
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(TournamentList);

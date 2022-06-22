@@ -4,6 +4,8 @@ export const GET_TOURNAMENT_LIST = 'GET_TOURNAMENT_LIST';
 export const GET_TOURNAMENT_LIST_SUCCESS = 'GET_TOURNAMENT_LIST_SUCCESS';
 export const GET_TOURNAMENT_LIST_FAILURE = 'GET_TOURNAMENT_LIST_FAILURE';
 export const INPUT_VALUE_CHANGED_CLUB = 'INPUT_VALUE_CHANGED_CLUB';
+export const INPUT_VALUE_CHANGED_EDIT_CLUB = 'INPUT_VALUE_CHANGED_EDIT_CLUB';
+
 export const TOURNAMENT_ADD = 'TOURNAMENT_ADD';
 export const TOURNAMENT_ADD_SUCCESS = 'TOURNAMENT_ADD_SUCCESS';
 export const TOURNAMENT_ADD_FAILURE = 'TOURNAMENT_ADD_FAILURE';
@@ -41,6 +43,13 @@ export function onChangeValueClub(evt) {
       };
   }
 
+  export function onChangeValueEditClub(evt) {
+    return {
+      type: INPUT_VALUE_CHANGED_EDIT_CLUB,
+      id: (!evt.target.id) ? evt.target.name : evt.target.id,
+      value: evt.target.value
+      };
+  }
 
 export function addTournament() {
     return {
@@ -62,6 +71,25 @@ export function addTournamentFailure(err) {
     };
 }
 
+export function editTournament() {
+    return {
+        type: 'TOURNAMENT_EDIT',
+    };
+}
+export function editTournamentSuccess(data) {
+    toast.success("Club submited SuccessFully");
+    return {
+        type: 'TOURNAMENT_EDIT_SUCCESS',
+        data: data
+    };
+}
+export function editTournamentFailure(err) {
+    console.log('err', err)
+    toast.error(err);
+    return {
+        type: 'TOURNAMENT_EDIT_FAILURE',
+    };
+}
 export function requestJoin(type, tournamentId, clubId) {
     return {
         type: JOIN_TOURNAMENT,

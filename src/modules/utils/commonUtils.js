@@ -85,3 +85,28 @@ export function getError (obj) {
 
 	return str
 }
+
+
+export function formatDate(date) {
+	let today = date ? new Date(date): new Date();
+	let yyyy = today.getFullYear();
+	let mm = today.getMonth() + 1; // Months start at 0!
+	let dd = today.getDate();
+
+	if (dd < 10) dd = '0' + dd;
+	if (mm < 10) mm = '0' + mm;
+	return today =  yyyy + '-' + mm + '-' +dd 
+}
+export function exportKeyValue(data) {
+	if (!data || data.length == 0) return
+	let obj = {}
+	data.map((item) => {
+		if(item.type== 'number'){
+			obj[item.key] = parseInt(item.value)
+		}else{
+			obj[item.key] = item.value
+
+		}
+	})
+	return obj
+}

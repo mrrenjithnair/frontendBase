@@ -2,7 +2,7 @@
 import { put, all, call, takeLatest, select } from "redux-saga/effects";
 import * as actions from './actions';
 import { request, toURLString } from '../utils/request';
-import {getError,} from '../utils/commonUtils';
+import {getError,exportKeyValue} from '../utils/commonUtils';
 import history from "../utils/history";
 import CONFIG from '../utils/config';
 export function* getTournamentList() {
@@ -82,6 +82,35 @@ export function* addTournament() {
 
   }
 }
+export function* editTournament() {
+  var requestURL = CONFIG.apiURL + '/apiService/tournament'
+  const state = yield select();
+  const sessionToken = state.global.sessionToken
+  let selectedTournament = state.tournament.selectedTournament
+  const club = state.global.myDetails.club
+  if(!(club && club[0] && club[0].id)) return
+  console.log(state,'editTournament')
+  let clubBody = exportKeyValue(selectedTournament)
+  clubBody.clubId =  parseInt(club[0].id)
+  try {
+    var options = {
+      method: 'POST',
+      body: clubBody,
+      sessionToken: sessionToken,
+    };
+    const currentUser = yield call(request, requestURL, options);
+    console.log('currentUser', currentUser)
+    yield put(actions.editTournamentSuccess(currentUser));
+    yield put(actions.getTournamentList());
+    history.push('/tournamentList')
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.editTournamentFailure(getError(err)));
+
+  }
+}
+
 
 export function* requestJoin() {
   var requestURL = CONFIG.apiURL + '/apiService/request'
@@ -123,6 +152,7 @@ export default function* tournamentListSaga() {
   yield all([
     takeLatest('GET_TOURNAMENT_LIST', getTournamentList),
     takeLatest('TOURNAMENT_ADD', addTournament),
+    takeLatest('TOURNAMENT_EDIT', editTournament),
     takeLatest('JOIN_TOURNAMENT', requestJoin),
     
 
