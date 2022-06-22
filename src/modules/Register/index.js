@@ -121,11 +121,21 @@ export class Register extends React.PureComponent {
                                     </select>
                                 </div>
                                 <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">Categoury</label>
+                                    <label className="form-label" htmlFor="form3Example3">Type</label>
+                                    <select className="form-control form-control-lg"
+                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'playerType', value: e.target.value } })}} >
+
+                                        <option value={'all-rounder'}>all-rounder</option>
+                                    </select>
+                                </div>
+                                <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form3Example3">Player Category</label>
                                     <select className="form-control form-control-lg"
                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'category', value: e.target.value } })}} >
 
-                                        <option>all-rounder</option>
+                                        <option value={'A'}>A</option>
+                                        <option value={'B'}>B</option>
+                                        <option value={'A'}>C</option>
                                     </select>
                                 </div>
 
@@ -137,6 +147,20 @@ export class Register extends React.PureComponent {
                                         placeholder="Enter a valid email address" />
                                 </div>
 
+                                <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form3Example3">Mobile Number</label>
+                                    <input type="username" id="form3Example3"
+                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'mobile', value: e.target.value } })}}
+                                    className="form-control form-control-lg"
+                                        placeholder="Enter a valid email address" />
+                                </div>
+                                <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form3Example3">Location</label>
+                                    <input type="username" id="form3Example3"
+                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'location', value: e.target.value } })}}
+                                    className="form-control form-control-lg"
+                                        placeholder="Enter a valid email address" />
+                                </div>
 
                                 <div className="form-outline mb-4">
                                     <label className="form-label" htmlFor="form3Example3">User name</label>

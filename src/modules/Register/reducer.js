@@ -10,7 +10,9 @@ export const initialState = {
     errors: {},
     addedBook: {},
     updatedBook: {},
-    count:0
+    count:0,
+    playerType: 'A',
+    category: 'all-rounder'
   };
 
 export default function(state = initialState,actions){

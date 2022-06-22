@@ -16,8 +16,11 @@ export function* register() {
     "dob": new Date(state.register.dob).valueOf(),
     "username": state.register.username,
     "password": state.register.password,
-    "sportsType": state.register.sportsType,
-    "rating": state.register.rating,
+    "sportsTypeId": 1,
+    "playerType": state.register.playerType,
+    "mobile": parseInt(state.register.mobile),
+    "city": state.register.village,
+    "location": state.register.location,
     "category": state.register.category
 }
   try {
