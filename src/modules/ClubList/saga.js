@@ -14,8 +14,9 @@ export function* getClubList() {
   const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
   let params ={}
+  params.userId = userId
+
   if(!global.nearByClub && !global.clubListPage){
-    params.userId = userId
     params.approved = 1
   }
   if(global.clubListPage){
