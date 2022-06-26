@@ -5,6 +5,7 @@ import clubListReducer from "../ClubList/reducer";
 import globalReducer from "../Global/reducer";
 import userReducer from "../UserList/reducer";
 import tournamentReducer from "../TournamentList/reducer";
+import requestReducer from "../Request/reducer";
 
 
 export const mainReducer = combineReducers({
@@ -14,4 +15,5 @@ export const mainReducer = combineReducers({
   clubs:clubListReducer,
   userList: userReducer,
   tournament :tournamentReducer,
+  request: requestReducer
 });

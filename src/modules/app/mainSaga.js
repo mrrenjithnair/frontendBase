@@ -5,6 +5,7 @@ import ClubListSaga from "../ClubList/saga";
 import GlobalSaga from "../Global/sagas";
 import UserListSaga from "../UserList/saga";
 import TournamentListSaga from "../TournamentList/saga";
+import RequestSaga from "../Request/saga";
 
 
 export function* mainSaga() {
@@ -14,6 +15,7 @@ export function* mainSaga() {
     registerSaga(),
     ClubListSaga(),
     UserListSaga(),
-    TournamentListSaga()
+    TournamentListSaga(),
+    RequestSaga()
   ]);
 }

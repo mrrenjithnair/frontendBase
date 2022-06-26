@@ -15,6 +15,7 @@ import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
+import './style.css';
 
 export class APP extends React.PureComponent {
     constructor(props) {

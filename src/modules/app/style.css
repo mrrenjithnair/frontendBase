@@ -1,0 +1,53 @@
+
+.rc-table-content table{
+    width: 100%;
+  }
+  .rc-table-content tr{
+    margin: 14px !important;
+    padding: 10px;
+    border: 1px #2c3e50 solid;
+  }
+  .rc-table-content td{
+    margin: 14px !important;
+    padding: 10px;
+    border: 1px #2c3e50 solid;
+  }
+  .rc-table-thead{
+    background: #1abc9c;
+    color: white;
+  
+  }
+  .rc-table-cell{
+    margin: 14px !important;
+    padding: 10px;
+    border: 1px #2c3e50 solid;
+    text-transform: capitalize;
+  }
+
+  .tableButtonPrimary{
+    background: #2ecc71;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 100px;
+    margin-right: 5px;
+  }
+
+  .tableButtonDanger{
+    background: #c0392b;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 100px;
+    margin-right: 5px;
+  }
+
+  .tableButtonDisable{
+    background: #95a5a6;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 100px;
+    margin-right: 5px;
+    cursor: not-allowed;
+  }

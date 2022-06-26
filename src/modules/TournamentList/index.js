@@ -85,6 +85,10 @@ export class TournamentList extends React.PureComponent {
         this.props.onChangeValueClub({ target: { id: 'selectedTournament', value: data } })
         this.setState({ editModal:true, selectedItem: data })
     }
+
+    detailTournament(item){
+        this.props.onChangeValueClub({ target: { id: 'selectedTournament', value: item } })
+    }
     listRender(item) {
         return this.userUi(item)
     }
@@ -118,7 +122,11 @@ export class TournamentList extends React.PureComponent {
                             <Button disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested for join' : 'Request for join'}</Button><br /><br />
                             <Button disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested for Team' : 'Request for Team'}</Button>
                         </div>}
+                        <div style={{display:'flex','justifyContent':'space-around'}}>
+
                         {this.props.loggedInRoleId ==  2 && <Button onClick={() => this.editTournament(item)}>Edit</Button>}
+                        {this.props.loggedInRoleId ==  2 && <Button onClick={() => this.detailTournament(item)}>Details</Button>}
+                        </div>
 
                     </div>
                 </div>

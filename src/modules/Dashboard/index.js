@@ -125,6 +125,15 @@ export class Dashboard extends React.PureComponent {
                                     <span className="hind-font caption-12 c-dashboardInfo__count pointer">Tournements</span>
                                 </div>
                             </div>}
+                            {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.request &&  <div className="c-dashboardInfo col-lg-3 col-md-6"
+                              onClick={()=>{
+                                 history.push('/request') 
+                            }}>
+                                <div className="wrap">
+                                    <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faTrophy} size="2x" style = {{color: '#FC8471'}} /></h4>
+                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">Request</span>
+                                </div>
+                            </div>}
                         </div>
                     </div>
                 </div>
