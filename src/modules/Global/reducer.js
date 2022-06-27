@@ -20,7 +20,8 @@ export const initialState = {
     clubListPage: false,
     adminList: false,
     assignedClub: false,
-    loginClub: false
+    loginClub: false,
+    globalSelectedClub:null
   };
 
 export default function(state = initialState,actions){

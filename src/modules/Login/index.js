@@ -14,7 +14,8 @@ import { Button } from 'react-bootstrap';
 import './style.css';
 import { faSortNumericUpAlt } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export class Login extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -143,7 +144,15 @@ export class Login extends React.PureComponent {
                     </div>
                 </div>
                 <BottomNavBar />
-
+                <ToastContainer position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </section>
         );
     }

@@ -13,11 +13,11 @@ export function* getClubRequest() {
 	// const sessionToken = login.get("currentUser").token;
   const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
-  const club = state.global.loginClub
+  const club = state.global.globalSelectedClub
   let params ={}
 
-  if(club && club[0] && club[0].id){
-    params.clubId = parseInt(club[0].id)
+  if(club && club.id){
+    params.clubId = parseInt(club.id)
   }
   console.log('params',params)
 

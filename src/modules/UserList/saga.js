@@ -8,6 +8,7 @@ import CONFIG from '../utils/config';
 export function* getUserList() {
   const state = yield select();
   const global = state.global
+  const club = state.global.globalSelectedClub
   let params ={}
 
   if (global.adminList) {
@@ -16,9 +17,8 @@ export function* getUserList() {
   } else {
     var requestURL = CONFIG.apiURL + '/apiService/player'
     params.superAdmin = false
-    if (global.club && global.club.length > 0) {
-      params.clubId = global.club[0].id
-
+    if(club && club.id){
+      params.clubId = parseInt(club.id)
     }
   }
   requestURL = requestURL + toURLString(params)

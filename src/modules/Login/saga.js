@@ -23,6 +23,9 @@ export function* login() {
     yield put(actions.onLoginSuccess(currentUser));
     yield put(globalActions.onChangeValueGlobal({ target: { id: 'sessionToken', value: currentUser.token } }))
     yield put(globalActions.onChangeValueGlobal({ target: { id: 'myDetails', value: currentUser.user } }))
+    if (currentUser.user && currentUser.user.club && currentUser.user.club.length > 0) {
+      yield put(globalActions.onChangeValueGlobal({ target: { id: 'globalSelectedClub', value: currentUser.user.club[0] } }))
+    }
     
     history.push('/home');
   }

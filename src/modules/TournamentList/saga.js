@@ -13,7 +13,7 @@ export function* getTournamentList() {
 	// const sessionToken = login.get("currentUser").token;
   const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
-  const club = state.global.loginClub
+  const club = state.global.globalSelectedClub
   let params ={}
   params.userId = userId
   params.list = true
@@ -26,8 +26,8 @@ export function* getTournamentList() {
   if(global.assignedClub){
     params.assigned = true
   }
-  if(club && club[0] && club[0].id){
-    params.clubId = parseInt(club[0].id)
+  if(club && club.id){
+    params.clubId = parseInt(club.id)
   }
   console.log('params',params)
 
