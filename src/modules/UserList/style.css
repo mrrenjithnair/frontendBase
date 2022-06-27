@@ -4,11 +4,17 @@
   justify-content: center;
   align-items: center;
 }
+.userBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .userItem{
   padding: 10px;
   margin: 10px;
   justify-content: center;
-    align-items: center;
+  align-items: center;
+  background: #ecf0f1;
 }
 .userDp{
   border-radius: 50%;
@@ -56,14 +62,16 @@
 }
 .locationBox{
   display: flex;
-    justify-content: start;
+  justify-content: start;
   width: 100%;
+  position: absolute;
+  top: 0;
 
 
 }
 .locationText{
   background-color: #e74c3c;
-  padding: 10px;
+  padding: 5px;
   color: white;
   border-radius: 0px 50px 50px 0px;
   margin-bottom: 5px;

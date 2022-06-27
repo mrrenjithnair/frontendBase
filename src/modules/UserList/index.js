@@ -11,7 +11,8 @@ import AddModal from '../../components/AddModal'
 import history from "../utils/history";
 
 import roleInfo from '../utils/roleInfo';
-import { getUserList, onChangeValueClub, addUser, } from './actions';
+import { getUserList, onChangeValueUser, addUser, userUpdate, onChangeUserUpdate } from './actions';
+
 import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
 import { getClubList } from '../ClubList/actions';
 
@@ -60,6 +61,11 @@ export class UserList extends React.PureComponent {
             </div>
         )
     }
+    action(item,status){
+        this.props.onChangeUserUpdate(item.id, 'approvedUpdate', true)
+        this.props.onChangeUserUpdate(item.id, 'approved', status == 'accept' ? 1 : 0)
+        this.props.userUpdate(item.id)
+    }
     userUi(item){
         let request = item.approved == 0 && item.playerId
         let name = item.firstName + " "+ item.lastName
@@ -72,13 +78,23 @@ export class UserList extends React.PureComponent {
             <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
                     <div className='locationBox'>
                         <div className='locationText'>{item.sportName}</div> </div>
-
+            <div className='userBox'>
                {item.logo ? <img className="userDp" src={item.logo} alt={item.name} data-letters="MN"/>
                      : <div className='letterCircleUser'>{initials}</div>}
 
                 <div className="card-body">
                     <h5 className="card-title"><b>Name:</b> {item.firstName} {item.lastName}</h5>
                     <p className="card-text"><b>Category:</b> {item.category}</p>
+                    <p className="card-text"><b>Player type:</b> {item.playerType}</p>
+                    <p className="card-text"><b>Location:</b> {item.location}</p>
+                    {!item.approved ? <div>
+                        <a  disabled={item.approved == 1 } onClick={() => item.approved == 1 ? '' : this.action(item,'accept')} className= { item.approved == 1 ? 'tableButtonDisable' :'tableButtonPrimary'}>Accept</a>
+                        <a disabled={item.approved == 0 } onClick={() => item.approved == 0 ? '' : this.action(item, 'reject')} className={item.approved == 0 ? 'tableButtonDisable' : 'tableButtonDanger'}>Reject</a>
+              
+                    </div>:<div>
+                    <p className="card-text"><b>Status:</b>Approved</p>
+                        </div>}
+                    </div>   
                 </div>
             </div>
         )
@@ -183,7 +199,7 @@ export class UserList extends React.PureComponent {
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.addUser()}
                     feildObj={addUserObj}
-                    onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
+                    onChangeInput={(evt) => this.props.onChangeValueUser(evt)}
                 />
             </section>
         );
@@ -209,10 +225,13 @@ function mapDispatchToProps(dispatch) {
     return {
         getUserList: () => dispatch(getUserList()),
         addUser: () => dispatch(addUser()),
-        onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),
+        onChangeValueUser: (evt) => dispatch(onChangeValueUser(evt)),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
         getClubList: (evt) => dispatch(getClubList(evt)),
+        onChangeUserUpdate: (id, key, value) => dispatch(onChangeUserUpdate(id ,key, value)),
+
+        userUpdate: (id) => dispatch(userUpdate(id)),
         
     };
 }
