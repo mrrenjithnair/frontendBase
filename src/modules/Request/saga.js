@@ -112,6 +112,8 @@ export function* requestAction() {
   const clubId = state.request.clubId
   const status = state.request.status
   const requestId = state.request.requestId
+  const teamName = state.request.teamName
+  const teamLogo = state.request.teamLogo
   
   const club = state.global.club
   let requestBody = {
@@ -123,6 +125,10 @@ export function* requestAction() {
   }
   if (status) {
     requestBody.approved = status == 'accept' ? 1 : 0
+  }
+  if (status == 'accept') {
+    requestBody.teamName = teamName
+    requestBody.teamLogo = teamLogo
   }
 
   try {

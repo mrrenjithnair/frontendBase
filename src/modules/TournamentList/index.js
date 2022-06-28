@@ -19,6 +19,7 @@ import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
+import { actions } from 'react-table';
 
 export class TournamentList extends React.PureComponent {
     constructor(props) {
@@ -88,6 +89,7 @@ export class TournamentList extends React.PureComponent {
 
     detailTournament(item){
         this.props.onChangeValueClub({ target: { id: 'selectedTournament', value: item } })
+        history.push('/clubDetails')
     }
     listRender(item) {
         return this.userUi(item)

@@ -16,9 +16,9 @@ export function* clubDetails() {
   console.log('global',global)
 
   var params = {}
-  // if (userId) {
-  //   params.userId = userId
-  // }
+  if (userId) {
+    params.userId = userId
+  }
 
   if (global.selectedClub) {
     params.clubId = global.selectedClub

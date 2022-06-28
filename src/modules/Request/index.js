@@ -37,6 +37,19 @@ export class Request extends React.PureComponent {
     componentDidMount() {
         this.props.getClubRequest()
     }
+    requestAction(type, tournamentId, clubId, id, status) {
+        if (status == 'accept' && type =='team') {
+            this.setState({ showModal: true, teamDetail :{type, tournamentId, clubId, id, status} })
+        } else {
+            this.props.requestAction(type, tournamentId, clubId, id, status)
+
+        }
+    }
+    submitDetail(){
+        let data = this.state.teamDetail
+        this.props.requestAction(data.type, data.tournamentId, data.clubId, data.id, data.status) 
+        this.setState({ showModal: false, teamDetail :false})
+    }
 
     render() {
         let auditLogs = []
@@ -79,12 +92,22 @@ export class Request extends React.PureComponent {
                 key: 'id',
                 render: (value, row, index) =>
                 <div>
-                        <a href="#" disabled={row.approved == 1 } onClick={() => row.approved == 1 ? '' : this.props.requestAction(row.type, row.id, row.clubId,row.id, 'accept')} className= { row.approved == 1 ? 'tableButtonDisable' :'tableButtonPrimary'}>Accept</a>
-                        <a href="#"disabled={row.approved == 0 } onClick={() => row.approved == 0 ? '' : this.props.requestAction(row.type, row.id, row.clubId,row.id, 'reject')} className={row.approved == 0 ? 'tableButtonDisable' : 'tableButtonDanger'}>Reject</a>
+                        <a href="#" disabled={row.approved == 1 } onClick={() => row.approved == 1 ? '' : this.requestAction(row.type, row.tournamentId, row.clubId,row.id, 'accept')} className= { row.approved == 1 ? 'tableButtonDisable' :'tableButtonPrimary'}>Accept</a>
+                        <a href="#"disabled={row.approved == 0 } onClick={() => row.approved == 0 ? '' : this.requestAction(row.type, row.tournamentId, row.clubId,row.id, 'reject')} className={row.approved == 0 ? 'tableButtonDisable' : 'tableButtonDanger'}>Reject</a>
                 </div>,
             },
         ];
-
+        let addClubObj = [{
+            key: 'teamName',
+            label: 'Team Name',
+            type: 'text'
+        },
+        {
+            key: 'logo',
+            label: 'teamLogo',
+            type: 'file'
+        }
+    ]
         return (
 
 
@@ -107,6 +130,14 @@ export class Request extends React.PureComponent {
                 <br />
                 <br />
                 <br />
+                <AddModal
+                 title="Add Team Details"
+                    show={this.state.showModal}
+                    onHide={() => this.setState({ showModal: false })}
+                    onSubmit={() => this.submitDetail()}
+                    feildObj={addClubObj}
+                    onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
+                />
                 <BottomNavBar />
             </section>
         );
@@ -139,7 +170,7 @@ function mapDispatchToProps(dispatch) {
 
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
-        requestAction: (type, tournamentId, clubId,requestId, status) => dispatch(requestAction(type, tournamentId, clubId,requestId, status)),
+        requestAction: (type, tournamentId, clubId, requestId, status) => dispatch(requestAction(type, tournamentId, clubId,requestId, status)),
 
 
     };
