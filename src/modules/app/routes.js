@@ -6,7 +6,6 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import PrivateRoute from "./PrivateRoute";
-import Page1 from "../page1"
 import APP from "./index"
 
 import Dashboard from "../Dashboard"
@@ -15,11 +14,11 @@ import ClubDetails from "../ClubDetails"
 import UserList from "../UserList"
 import TournamentList from "../TournamentList"
 import Request from "../Request"
+import TournamentDetails from "../TournamentDetails"
 
 
 import history from "../utils/history";
 
-import Page2 from "../page2"
 import Login from '../Login'
 import Register from '../Register'
 import { setDataFromLocal } from '../Global/actions';
@@ -52,6 +51,7 @@ export class AppRoutes extends React.PureComponent {
           <Route exact path="/userList" element={<PrivateRoute ><UserList sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           <Route exact path="/tournamentList" element={<PrivateRoute ><TournamentList sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           <Route exact path="/request" element={<PrivateRoute ><Request sessionToken={this.props.sessionToken} /></PrivateRoute>} />
+          <Route exact path="/tournamentDetail" element={<PrivateRoute ><TournamentDetails sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           
         </Routes>
       </BrowserRouter>

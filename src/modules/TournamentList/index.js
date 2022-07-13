@@ -88,8 +88,8 @@ export class TournamentList extends React.PureComponent {
     }
 
     detailTournament(item){
-        this.props.onChangeValueClub({ target: { id: 'selectedTournament', value: item } })
-        history.push('/clubDetails')
+        this.props.onChangeValueGlobal({ target: { id: 'selectedTournament', value: item } })
+        history.push('/tournamentDetail')
     }
     listRender(item) {
         return this.userUi(item)
