@@ -13,6 +13,8 @@ export const TOURNAMENT_ADD_FAILURE = 'TOURNAMENT_ADD_FAILURE';
 export const JOIN_TOURNAMENT = 'JOIN_TOURNAMENT';
 export const JOIN_TOURNAMENT_SUCCESS = 'JOIN_TOURNAMENT_SUCCESS';
 export const JOIN_TOURNAMENT_FAILURE = 'JOIN_TOURNAMENT_FAILURE';
+export const INPUT_VALUE_CHANGED_EDIT_TEAM = 'INPUT_VALUE_CHANGED_EDIT_TEAM';
+export const INPUT_VALUE_CHANGED_TEAM = 'INPUT_VALUE_CHANGED_TEAM';
 
 
 
@@ -35,3 +37,19 @@ export function getTournamentDetailsFailure(err) {
     };
 }
 
+export function onChangeValueTeam(evt) {
+    return {
+      type: INPUT_VALUE_CHANGED_TEAM,
+      id: (!evt.target.id) ? evt.target.name : evt.target.id,
+      value: evt.target.value
+      };
+  }
+
+
+  export function onChangeValueEditTeam(evt) {
+    return {
+      type: INPUT_VALUE_CHANGED_EDIT_TEAM,
+      id: (!evt.target.id) ? evt.target.name : evt.target.id,
+      value: evt.target.value
+      };
+  }

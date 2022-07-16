@@ -60,7 +60,6 @@ export class AppRoutes extends React.PureComponent {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   return {
     sessionToken: state.global.sessionToken
   };

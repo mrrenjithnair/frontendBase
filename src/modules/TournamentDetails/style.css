@@ -258,20 +258,18 @@
 #view {
   width: 50%;
   font-size: 14px;
-  color: #98A0A6;
+  color: white;
+  box-shadow: 0 10px 20px 0 rgba(80, 123, 252, 0.50);
   font-weight: 300;
   padding: 8px 0;
   border-radius: 100px;
   transition: 300ms;
   cursor: pointer;
+  background-color: #507BFC;
+  margin: 0px 10px;
 }
 
-#assign:hover,
-#view:hover {
-  background-color: #507BFC;
-  color: white;
-  box-shadow: 0 10px 20px 0 rgba(80, 123, 252, 0.50);
-}
+
 
 .profile-box #assign {
   float: left;
@@ -283,4 +281,22 @@
 
 .profile-box i {
   margin-right: 8px;
+}
+@media (max-width: 768px) {
+  .detailBox{
+    width: 100%;
+  }
+  .detailBoxMain{
+    flex-flow: column;
+  }
+  .teamBox{
+    width: 100%;
+    margin:10px 0px
+  }
+  .tableBoxRow{
+    flex-flow: column;
+  }
+  .cardView{
+  margin:10px 0px
+  }
 }

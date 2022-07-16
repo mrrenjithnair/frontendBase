@@ -11,6 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.buttonPrimary{
+  width: 50%;
+  font-size: 14px;
+  color: white;
+  box-shadow: 0 10px 20px 0 rgba(80, 123, 252, 0.50);
+  font-weight: 300;
+  padding: 8px 0;
+  border-radius: 100px;
+  transition: 300ms;
+  cursor: pointer;
+  background-color: #507BFC;
+  margin: 0px 10px;
+}
 
 .bgPrimary{
   background-color: #16a085  !important;

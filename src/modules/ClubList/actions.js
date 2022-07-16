@@ -26,7 +26,6 @@ export function getClubListSuccess(data) {
     };
 }
 export function getClubListFailure(err) {
-    console.log('err',err)
     toast.error(err);
     return {
         type: GET_CLUB_LIST_FAILURE,
@@ -55,7 +54,6 @@ export function addClubSuccess(data) {
     };
 }
 export function addClubFailure(err) {
-    console.log('err', err)
     toast.error(err);
     return {
         type: CLUB_ADD_FAILURE,
@@ -75,7 +73,6 @@ export function joinClubSuccess(data) {
     };
 }
 export function joinClubFailure(err) {
-    console.log('err', err)
     toast.error(err);
     return {
         type: JOIN_CLUB_FAILURE,

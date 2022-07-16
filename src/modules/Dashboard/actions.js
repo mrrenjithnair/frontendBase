@@ -20,7 +20,6 @@ export function onLoginSuccess(data) {
     };
 }
 export function onLoginFailure(err) {
-    console.log('err',err)
     toast.error(err);
     return {
         type: ON_LOGIN_FAILURE,

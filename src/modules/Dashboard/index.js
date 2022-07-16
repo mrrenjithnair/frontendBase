@@ -153,7 +153,6 @@ Dashboard.propTypes = {
 };
 
 function mapStateToProps(state) {
-    console.log('state', state)
     return {
         count: state.login.count,
         password: state.login.password,

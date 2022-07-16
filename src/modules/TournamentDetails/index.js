@@ -8,11 +8,12 @@ import { formatDate } from '../utils/commonUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-import { getTournamentDetails } from './actions';
+import { getTournamentDetails,onChangeValueEditTeam, onChangeValueTeam } from './actions';
 import PropTypes from 'prop-types';
 import './style.css';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import { iteratee } from 'lodash';
+import EditModal from '../../components/EditModal'
 
 export class TournamentDetails extends React.PureComponent {
     constructor(props) {
@@ -65,8 +66,39 @@ export class TournamentDetails extends React.PureComponent {
     }
 
 
-
-
+    editTournamentSubmit() {
+        console.log('addClub')
+        this.props.editTeam()
+        this.setState({ editModal: false })
+    }
+    editTeam(item){
+        console.log(item)
+        let data= [{
+            key: 'teamName',
+            label: 'Team Name',
+            type: 'text',
+            value: item.teamName
+        },
+        {
+            key: 'teamLogo',
+            label: 'Team Logo',
+            type: 'file',
+            value: ''//item.teamLogo
+        },
+        {
+            key: 'id',
+            value: item.teamId
+        }]
+        
+        this.props.onChangeValueTeam({ target: { id: 'selectedTeam', value: data } })
+        this.props.onChangeValueTeam({ target: { id: 'selectedItem', value: item } })
+        this.setState({ editModal: true, selectedItem: data })
+    }
+    onChangeValueEditTeam(evt){
+        console.log(evt)
+        this.setState({typing: !this.state.typing})
+        this.props.onChangeValueEditTeam(evt)
+    }
     render() {
         var current = new Date().valueOf()
         var startDate = this.props.tournamentDetails && this.props.tournamentDetails.startDate ? new Date(this.props.tournamentDetails.startDate).valueOf() : new Date().valueOf()
@@ -168,7 +200,7 @@ export class TournamentDetails extends React.PureComponent {
                                                 <h4>{item.ownerName}</h4>
                                                 <div class="btn-container">
                                                     <span class="profile-btn" id="view"><i class="far fa-eye"></i>View</span>
-                                                    <span class="profile-btn" id="view"><i class="far fa-eye"></i>Edit</span>
+                                                    <span class="profile-btn" id="view" onClick={() => this.editTeam(item)}><i class="far fa-eye"></i>Edit</span>
                                                 </div>
                                             </div>
                                         ))}
@@ -181,6 +213,14 @@ export class TournamentDetails extends React.PureComponent {
                 <br />
                 <br />
                 <br />
+                <EditModal
+                 title={"Edit Tournament"}
+                 show={this.state.editModal}
+                 onHide={() => this.setState({ editModal: false })}
+                 onSubmit={() => this.editTournamentSubmit()}
+                 feildObj={this.props.selectedTeam}
+                 onChangeInput={(evt) => this.onChangeValueEditTeam(evt)}
+                />
                 <BottomNavBar />
 
             </section>
@@ -200,13 +240,17 @@ function mapStateToProps(state) {
         nearByTournament: state.global.nearByTournament,
         TournamentDetailsPage: state.global.TournamentDetailsPage,
         loggedInRoleId: state.global.loggedInRoleId,
-        selectedTournament: state.tournament.selectedTournament
+        selectedTeam: state.tournamentDetail.selectedTeam,
+        
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         getTournamentDetails: () => dispatch(getTournamentDetails()),
+        onChangeValueEditTeam: (evt) => dispatch(onChangeValueEditTeam(evt)),
+        onChangeValueTeam: (evt) => dispatch(onChangeValueTeam(evt)),
+        
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(TournamentDetails);

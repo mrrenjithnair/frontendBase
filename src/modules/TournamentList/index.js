@@ -126,8 +126,8 @@ export class TournamentList extends React.PureComponent {
                         </div>}
                         <div style={{display:'flex','justifyContent':'space-around'}}>
 
-                        {this.props.loggedInRoleId ==  2 && <Button onClick={() => this.editTournament(item)}>Edit</Button>}
-                        {this.props.loggedInRoleId ==  2 && <Button onClick={() => this.detailTournament(item)}>Details</Button>}
+                        {this.props.loggedInRoleId ==  2 && <Button className="buttonPrimary" onClick={() => this.editTournament(item)}>Edit</Button>}
+                        {this.props.loggedInRoleId ==  2 && <Button className="buttonPrimary"  onClick={() => this.detailTournament(item)}>Details</Button>}
                         </div>
 
                     </div>

@@ -108,7 +108,6 @@ export class UserList extends React.PureComponent {
         }
     }
     addUser() {
-        console.log('addUser')
         this.props.addUser()
         this.setState({ showModal: false })
     }
@@ -123,7 +122,6 @@ export class UserList extends React.PureComponent {
                   })  
             })
         }
-        console.log(this.props)
         let addUserObj = [{
             key: 'firstName',
             label: 'first Name',
@@ -212,7 +210,6 @@ UserList.propTypes = {
 };
 
 function mapStateToProps(state) {
-    console.log(state)
     return {
         userList: state.userList.userList,
         adminList: state.global.adminList,

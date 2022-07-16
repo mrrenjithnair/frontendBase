@@ -25,8 +25,6 @@ export function* getClubList() {
   if(global.assignedClub){
     params.assigned = true
   }
-  console.log('params',params)
-
   requestURL = requestURL + toURLString(params)
   try {
     var options = {
@@ -34,11 +32,9 @@ export function* getClubList() {
     	sessionToken: sessionToken,
     };
     const ClubList = yield call(request, requestURL, options);
-    console.log('ClubList', ClubList)
     yield put(actions.getClubListSuccess(ClubList));
   }
   catch (err) {
-    console.log('err', err)
     yield put(actions.getClubListFailure(getError(err)));
 
   }
@@ -50,7 +46,6 @@ export function* addClub() {
   const state = yield select();
   const sessionToken = state.global.sessionToken
 
-  console.log(state)
   let clubBody = {
     "name": state.clubs.name,
     "location": state.clubs.location,
@@ -64,12 +59,10 @@ export function* addClub() {
       sessionToken: sessionToken,
     };
     const currentUser = yield call(request, requestURL, options);
-    console.log('currentUser', currentUser)
     yield put(actions.addClubSuccess(currentUser));
     history.push('/clubList')
   }
   catch (err) {
-    console.log('err', err)
     yield put(actions.addClubFailure(getError(err)));
 
   }
@@ -97,7 +90,6 @@ export function* joinClub() {
 
   }
   catch (err) {
-    console.log('err', err)
     yield put(actions.joinClubFailure(getError(err)));
 
   }

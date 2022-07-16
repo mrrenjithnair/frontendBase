@@ -33,8 +33,6 @@ export class ClubDetails extends React.PureComponent {
                   })  
             })
         }
-        console.log('this.props.', this.props)
-        console.log('clubAdminListArray', clubAdminListArray)
         let name = clubDetails.name
         let initials
         let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
@@ -111,7 +109,6 @@ ClubDetails.propTypes = {
 };
 
 function mapStateToProps(state) {
-    console.log('state', state)
     return {
         clubDetails: state.global.clubDetails,
         clubAdminList: state.global.clubAdminList,

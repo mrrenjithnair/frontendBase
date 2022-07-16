@@ -3,7 +3,9 @@ import {
     INPUT_VALUE_CHANGED_CLUB,
     GET_TOURNAMENT_DETAIL_SUCCESS,
     INPUT_VALUE_CHANGED_EDIT_CLUB,
-    JOIN_TOURNAMENT
+    JOIN_TOURNAMENT,
+    INPUT_VALUE_CHANGED_EDIT_TEAM,
+    INPUT_VALUE_CHANGED_TEAM
 } from './actions';
 
 // The initial state of the TournamentDetails Reducer
@@ -17,7 +19,9 @@ export const initialState = {
     count:0,
     loginUser:null,
     sessionToken:null,
-    requestType: null
+    requestType: null,
+    selectedTeam:'',
+    selectedItem:''
 
   };
 
@@ -30,25 +34,26 @@ export default function(state = initialState,actions){
             let data = actions.data
             console.log('GET_TOURNAMENT_DETAIL_SUCCESS',actions.data)
             return { ...state, tournamentDetails: data[0]};
-        case INPUT_VALUE_CHANGED_CLUB:
+        case INPUT_VALUE_CHANGED_TEAM:
             console.log(actions.id, actions.value)
             return {...state, [actions.id]:actions.value};
 
-        case INPUT_VALUE_CHANGED_EDIT_CLUB:
-            let selectedTournament = state.selectedTournament
-            selectedTournament.map((item)=>{
+        case INPUT_VALUE_CHANGED_EDIT_TEAM:
+            let selectedTeam = state.selectedTeam
+            selectedTeam.map((item)=>{
                 if(item.key == actions.id){
                     item.value = actions.value
                 }
             })
             console.log(actions.id, actions.value)
-            return {...state, selectedTournament};
+            return {...state, selectedTeam};
+
 
             
         case JOIN_TOURNAMENT:
             console.log(actions.id, actions.value)
             return { ...state, requestType: actions.requestType, tournamentId: actions.tournamentId, clubId: actions.clubId };
-            
+
         default:        
             return state;
     }

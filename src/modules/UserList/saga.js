@@ -30,7 +30,6 @@ export function* getUserList() {
       sessionToken: sessionToken,
     };
     const UserList = yield call(request, requestURL, options);
-    console.log('UserList', UserList)
     yield put(actions.getUserListSuccess(UserList));
   }
   catch (err) {

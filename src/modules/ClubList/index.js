@@ -65,12 +65,10 @@ export class ClubList extends React.PureComponent {
         )
     }
     addClub() {
-        console.log('addClub')
         this.props.addClub()
         this.setState({ showModal: false })
     }
     render() {
-        console.log(this.props)
         let addClubObj = [{
             key: 'name',
             label: 'name',
@@ -154,7 +152,6 @@ ClubList.propTypes = {
 };
 
 function mapStateToProps(state) {
-    console.log(state)
     return {
         clubList: state.clubs.clubList,
         nearByClub: state.global.nearByClub,

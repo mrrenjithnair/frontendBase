@@ -23,7 +23,6 @@ export default function(state = initialState,actions){
             return {...state, errors:{}};
         case ON_LOGIN_SUCCESS:
             let data = actions.data
-            console.log('ON_LOGIN_SUCCESS',actions.data)
             localStorage.setItem("isAuthenticated", "true");
             localStorage.setItem("token", data.token);
             return {...state, errors:{}};

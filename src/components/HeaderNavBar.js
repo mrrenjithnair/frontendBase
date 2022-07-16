@@ -15,7 +15,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export class HeaderNavBar extends React.PureComponent {
     logout() {
-        console.log('logiut')
         localStorage.clear();
         history.push('/login');
 
@@ -74,7 +73,6 @@ export class HeaderNavBar extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    console.log(state)
     return {
         userDetails: state.global.myDetails
     };
