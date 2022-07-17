@@ -4,7 +4,9 @@ import {
     SET_DATA_FROM_LOCAL,
     ON_LOGIN_SUCCESS,
     GLOBAL_SUCCESS,
-    RESET_DASHBOARD
+    RESET_DASHBOARD,
+    GET_TOURNAMENT_LIST_GLOBAL_SUCCESS,
+    GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 
@@ -21,7 +23,8 @@ export const initialState = {
     adminList: false,
     assignedClub: false,
     loginClub: false,
-    globalSelectedClub:null
+    globalSelectedClub:null,
+    tournamentListGlobal: false,
   };
 
 export default function(state = initialState,actions){
@@ -61,6 +64,16 @@ export default function(state = initialState,actions){
         case GLOBAL_SUCCESS:
         let key = actions.payload
             return {...state, ...key };
+        
+        case GET_TOURNAMENT_LIST_GLOBAL_SUCCESS:
+            return {...state, 'tournamentListGlobal':actions.data};
+
+                
+        case GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS:
+            let tournamentDetailGlobal = actions.data && actions.data.length > 0 ?  actions.data[0] : []
+            return { ...state, 'tournamentDetailGlobal': tournamentDetailGlobal, 'auctionTournamentId': false };
+            
+            
         case RESET_DASHBOARD:
                 let temp ={
                     clubListPage: false,

@@ -10,6 +10,10 @@ export const GET_CLUB_ADMINS = 'GET_CLUB_ADMINS';
 export const GLOBAL_SUCCESS = 'GLOBAL_SUCCESS';
 export const GLOBAL_FAILED = 'GLOBAL_FAILED';
 export const RESET_DASHBOARD = 'RESET_DASHBOARD';
+export const GET_TOURNAMENT_LIST_GLOBAL = 'GET_TOURNAMENT_LIST_GLOBAL';
+export const GET_TOURNAMENT_LIST_GLOBAL_SUCCESS = 'GET_TOURNAMENT_LIST_GLOBAL_SUCCESS';
+export const GET_TOURNAMENT_LIST_GLOBAL_FAILURE = 'GET_TOURNAMENT_LIST_GLOBAL_FAILURE';
+export const GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS = 'GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS';
 
 
 export function setDataFromLocal() {
@@ -37,7 +41,6 @@ export function getClubDetailSuccess(data) {
     };
 }
 export function getClubDetailFailed(err) {
-  console.log('err',err)
   toast.error(err);
   return {
     type: GET_CLUB_DETAIL_FAILED
@@ -70,5 +73,35 @@ export function globalFailed(err) {
 export function resetDashboard(err) {
   return {
       type: RESET_DASHBOARD,
+  };
+}
+
+
+
+export function getTournamentList() {
+  return {
+      type: GET_TOURNAMENT_LIST_GLOBAL,
+  };
+}
+
+export function getTournamentListSuccess(data) {
+  return {
+      type: GET_TOURNAMENT_LIST_GLOBAL_SUCCESS,
+      data: data
+  };
+}
+
+export function getTournamentDetail(data) {
+  return {
+      type: GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS,
+      data: data
+  };
+}
+
+
+export function getTournamentListFailure(err) {
+  toast.error(err);
+  return {
+      type: GET_TOURNAMENT_LIST_GLOBAL_FAILURE,
   };
 }
