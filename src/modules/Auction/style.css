@@ -7,6 +7,25 @@
 
 }
 
+.tournamentDetailBoxAuction {
+  padding: 10px;
+  min-height: 528px;
+  border-radius: 16px;
+  box-shadow: 0 24px 64px rgb(0 0 0 / 4%);
+}
+
+.tournamentDetailBoxAuctionTeam {
+  padding: 10px;
+  min-height: 528px;
+  border-radius: 16px;
+  margin-left: 15px;
+  box-shadow: 0 24px 64px rgb(0 0 0 / 4%);
+  width: 60%;
+}
+.blogSlider{
+  height: 100%;
+}
+
 .addCol {
   display: flex;
   width: 50%;
@@ -17,60 +36,148 @@
   width: 50%;
 }
 
-.auctionBox{
+.auctionBox {
   display: flex;
   flex-flow: row;
-  height: 200px;
+  min-height: 200px;
   margin-top: 100px;
 }
-.tournamentBox{
+
+.tournamentBox {
   display: flex;
   flex-flow: column;
-  border: 1px yellow solid;
   height: 200px;
   width: 40%;
 }
-.flabel{
-  color: #ffff;
+
+.flabel {
+  color: #2c3e50;
   font-size: 16px;
 }
-.tournamentPlayer{
+
+.tournamentPlayer {
   display: flex;
   flex-flow: column;
-  border: 1px green solid;
   height: 200px;
   width: 60%;
 }
-.teamCard{
+
+.teamCard {
   background-color: #ffff;
   width: 200px;
   margin: 10px 0px;
 }
-.teamItem{
+
+.teamItem {
   color: #2c3e50;
   font-size: 12px;
   border-top: 1px #e4e4e4 solid;
   padding: 5px;
   bottom: 12px;
   width: 200px;
-} 
-.teamName{
+}
+
+.teamName {
   padding: 10px;
   margin-bottom: 15px;
 }
-.teamName h3{
-  
+
+.teamName h3 {
+
   color: #2c3e50;
   font-weight: bold;
 
-} 
-.card-img-top{
+}
+
+.card-img-top {
   height: 100px !important;
 }
-.teamLogo{
+
+.teamLogo {
   height: 100px;
   width: 100px;
 }
-@media (max-width: 768px) {
 
+.inputMainBox {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+
+}
+
+.inputBox {
+  margin: 10px;
+}
+
+.teamBox {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.imgBox img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.teamBox .detailBox {
+  padding: 20px;
+}
+
+.profile-info p,
+b {
+  line-height: 1.5rem;
+  color: #455a64;
+}
+
+.imgBox {
+  width: 30%;
+}
+
+.auctionBox .detailBox {
+  width: 70%;
+}
+
+.detailBox h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  margin-top: 0;
+  margin-bottom: 5%;
+}
+
+.detailBox h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  margin-top: 0;
+  margin-bottom: 5%;
+}
+
+.bidBox {
+  border: 1px #bdc3c7 solid;
+  width: 100%;
+  padding: 10px;
+}
+
+.buttonBox {
+  display: flex;
+  margin: 20px;
+  justify-content: space-evenly;
+}
+
+@media (max-width: 768px) {
+  .auctionBox {
+    flex-direction: column;
+  }
+  .auctionBox .detailBox{
+    width: 100%;
+  }
+  .tournamentDetailBoxAuctionTeam {
+    width: 100%;
+  }
+
+  .tournamentDetailBoxAuctionTeam {
+    width: 100%;
+  }
 }

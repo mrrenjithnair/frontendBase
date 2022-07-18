@@ -56,7 +56,7 @@ export class Auction extends React.PureComponent {
                         <div className='auctionBox'>
                             <div className='detailBox'>
 
-                                <div className='tournamentDetailBox'>
+                                <div className='tournamentDetailBoxAuction'>
                                     <label className="flabel capitalize" htmlFor="form3Example3"> Select tournament for auction </label>
                                     <select className="form-control"
                                         onChange={(e) => {
@@ -123,7 +123,7 @@ export class Auction extends React.PureComponent {
                                     </div>
                                 </div>
                             </div>
-                            <div classNameName='tournamentPlayer'>
+                            <div className='tournamentDetailBoxAuctionTeam'>
                                 <Team/>
                             </div>
                         </div>

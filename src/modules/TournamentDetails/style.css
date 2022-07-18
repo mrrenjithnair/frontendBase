@@ -24,7 +24,7 @@
   margin-top: 100px;
 }
 
-.detailBox {
+.detailBoxMain .detailBox {
   width: 40%;
   /* border: 1px red solid; */
 }
@@ -142,7 +142,7 @@
 
 .cardView {
   background-color: #fff;
-  border-radius: 9%;
+  border-radius: 15px;
   padding: 5%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   min-width: 200px;
@@ -283,7 +283,7 @@
   margin-right: 8px;
 }
 @media (max-width: 768px) {
-  .detailBox{
+  .detailBoxMain .detailBox{
     width: 100%;
   }
   .detailBoxMain{
