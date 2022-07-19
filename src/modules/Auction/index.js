@@ -11,7 +11,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Team from './team';
 
-import { getTournamentList, onChangeValueGlobal } from '../Global/actions';
+import { getTournamentList, onChangeValueGlobal, getAuctionPlayer } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
@@ -33,6 +33,9 @@ export class Auction extends React.PureComponent {
     componentDidMount() {
         this.props.getTournamentList()
     }
+    next(){
+        this.props.getAuctionPlayer()
+    }
 
     render() {
         let tournamentListGlobal = this.props.tournamentListGlobal && this.props.tournamentListGlobal.length > 0 ? this.props.tournamentListGlobal : []
@@ -45,7 +48,9 @@ export class Auction extends React.PureComponent {
                 })
             })
         }
-        console.log(this.props.tournamentDetailGlobal, 'this.props.tournamentDetailGlobal')
+
+        let playerList = this.props.auctionPlayer
+        var player = playerList[Math.floor(Math.random() * playerList.length)];
         return (
 
 
@@ -62,6 +67,7 @@ export class Auction extends React.PureComponent {
                                         onChange={(e) => {
                                             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: e.target.value } })
                                             this.props.getTournamentList()
+                                            this.props.getAuctionPlayer()
                                         }} >
                                         <option value=""> Select Type</option>
                                         {tournamentListGlobalArray && tournamentListGlobalArray.length > 0 && tournamentListGlobalArray.map(item => <option value={item.value}>{item.label}</option>)}
@@ -124,7 +130,10 @@ export class Auction extends React.PureComponent {
                                 </div>
                             </div>
                             <div className='tournamentDetailBoxAuctionTeam'>
-                                <Team/>
+                                <Team player={player}
+                                tournamentDetailGlobal={this.props.tournamentDetailGlobal}
+                                onChangeValueGlobal={this.props.onChangeValueGlobal}
+                                next={()=>this.next()}/>
                             </div>
                         </div>
 
@@ -157,6 +166,7 @@ function mapStateToProps(state) {
         selectedTeam: state.tournamentDetail.selectedTeam,
         tournamentListGlobal: state.global.tournamentListGlobal,
         auctionTournamentId: state.global.auctionTournamentId,
+        auctionPlayer: state.global.auctionPlayer,
 
     };
 }
@@ -166,7 +176,8 @@ function mapDispatchToProps(dispatch) {
         getTournamentList: () => dispatch(getTournamentList()),
         getTournamentDetails: () => dispatch(getTournamentDetails()),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
-
+        getAuctionPlayer: (evt) => dispatch(getAuctionPlayer(evt)),
+        
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Auction);

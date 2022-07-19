@@ -11,9 +11,9 @@ export function* clubDetails() {
   const state = yield select();
   const global = state.global
   // const sessionToken = login.get("currentUser").token;
-  const sessionToken =global.sessionToken
+  const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
-  console.log('global',global)
+  console.log('global', global)
 
   var params = {}
   if (userId) {
@@ -23,7 +23,7 @@ export function* clubDetails() {
   if (global.selectedClub) {
     params.clubId = global.selectedClub
   }
-  console.log('params',params)
+  console.log('params', params)
 
   requestURL = requestURL + toURLString(params)
   try {
@@ -56,7 +56,7 @@ export function* clubAdminList() {
       sessionToken: sessionToken,
     };
     const adminList = yield call(request, requestURL, options);
-    let obj = {clubAdminList:adminList}
+    let obj = { clubAdminList: adminList }
     yield put(actions.globalSuccess(obj));
   }
   catch (err) {
@@ -67,50 +67,79 @@ export function* clubAdminList() {
 export function* getTournamentList() {
   var requestURL = CONFIG.apiURL + '/apiService/tournament'
   const state = yield select();
-  const login = state.login
   const global = state.global
-	// const sessionToken = login.get("currentUser").token;
+  // const sessionToken = login.get("currentUser").token;
   const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
   const club = state.global.globalSelectedClub
-  let params ={}
+  let params = {}
   params.userId = userId
-  if(global.tournamentListPage){
+  if (global.tournamentListPage) {
     params.cluAdmin = true
   }
-  if(global.auction){
+  if (global.auction) {
     params.cluAdmin = true
     params.list = true
     params.auctionPending = true
-    if(global.auctionTournamentId)
-    params.tournamentId = parseInt(global.auctionTournamentId)
+    if (global.auctionTournamentId)
+      params.tournamentId = parseInt(global.auctionTournamentId)
   }
-  if(global.assignedClub){
+  if (global.assignedClub) {
     params.assigned = true
   }
-  if(club && club.id){
+  if (club && club.id) {
     params.clubId = parseInt(club.id)
   }
-  console.log('params',params)
+  console.log('params', params)
 
   requestURL = requestURL + toURLString(params)
   try {
     var options = {
       method: 'GET',
-    	sessionToken: sessionToken,
+      sessionToken: sessionToken,
     };
     const TournamentList = yield call(request, requestURL, options);
     console.log('TournamentList', TournamentList)
-    if(global.auctionTournamentId){
-    yield put(actions.getTournamentDetail(TournamentList));
+    if (global.auctionTournamentId) {
+      yield put(actions.getTournamentDetail(TournamentList));
 
-    }else{
-    yield put(actions.getTournamentListSuccess(TournamentList));
-    } 
+    } else {
+      yield put(actions.getTournamentListSuccess(TournamentList));
+    }
   }
   catch (err) {
     console.log('err', err)
     yield put(actions.getTournamentListFailure(getError(err)));
+
+  }
+}
+
+export function* getAuctionPlayer() {
+  var requestURL = CONFIG.apiURL + '/apiService/auctionPlayer'
+  const state = yield select();
+  const global = state.global
+  // const sessionToken = login.get("currentUser").token;
+  const sessionToken = global.sessionToken
+  const club = state.global.globalSelectedClub
+  let params = {}
+  if (club && club.id) {
+    params.clubId = parseInt(club.id)
+  }
+  if (global.auctionTournamentId)
+    params.tournamentId = parseInt(global.auctionTournamentId)
+  requestURL = requestURL + toURLString(params)
+  try {
+    var options = {
+      method: 'GET',
+      sessionToken: sessionToken,
+    };
+    const TournamentList = yield call(request, requestURL, options);
+    console.log('TournamentList', TournamentList)
+    yield put(actions.getAuctionPlayerSuccess(TournamentList));
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.getAuctionPlayerFailure(getError(err)));
 
   }
 }
@@ -120,6 +149,7 @@ export default function* globalSaga() {
     takeLatest('GET_CLUB_DETAIL', clubDetails),
     takeLatest('GET_CLUB_ADMINS', clubAdminList),
     takeLatest('GET_TOURNAMENT_LIST_GLOBAL', getTournamentList),
-    
+    takeLatest('GET_AUCTION_PLAYER', getAuctionPlayer),
+
   ]);
 }

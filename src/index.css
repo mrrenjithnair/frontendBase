@@ -25,6 +25,7 @@ code {
   cursor: pointer;
   background-color: #507BFC;
   margin: 0px 10px;
+  max-width: 200px;
 }
 
 .bgPrimary{

@@ -7,8 +7,8 @@ import history from "../utils/history";
 import CONFIG from '../utils/config';
 
 
-
 export default function* TournamentDetailsSaga() {
+  
   yield all([
 
   ]);

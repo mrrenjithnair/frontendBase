@@ -14,6 +14,9 @@ export const GET_TOURNAMENT_LIST_GLOBAL = 'GET_TOURNAMENT_LIST_GLOBAL';
 export const GET_TOURNAMENT_LIST_GLOBAL_SUCCESS = 'GET_TOURNAMENT_LIST_GLOBAL_SUCCESS';
 export const GET_TOURNAMENT_LIST_GLOBAL_FAILURE = 'GET_TOURNAMENT_LIST_GLOBAL_FAILURE';
 export const GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS = 'GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS';
+export const GET_AUCTION_PLAYER = 'GET_AUCTION_PLAYER';
+export const GET_AUCTION_PLAYER_SUCCESS = 'GET_AUCTION_PLAYER_SUCCESS';
+export const GET_AUCTION_PLAYER_FAILURE = 'GET_AUCTION_PLAYER_FAILURE';
 
 
 export function setDataFromLocal() {
@@ -103,5 +106,25 @@ export function getTournamentListFailure(err) {
   toast.error(err);
   return {
       type: GET_TOURNAMENT_LIST_GLOBAL_FAILURE,
+  };
+}
+
+
+
+export function getAuctionPlayer() {
+  return {
+      type: GET_AUCTION_PLAYER,
+  };
+}
+
+export function getAuctionPlayerSuccess(data) {
+  return {
+      type: GET_AUCTION_PLAYER_SUCCESS,
+      data: data
+  };
+}export function getAuctionPlayerFailure(data) {
+  return {
+      type: GET_AUCTION_PLAYER_FAILURE,
+      data: data
   };
 }
