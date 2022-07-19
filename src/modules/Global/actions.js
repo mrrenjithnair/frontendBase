@@ -18,6 +18,12 @@ export const GET_AUCTION_PLAYER = 'GET_AUCTION_PLAYER';
 export const GET_AUCTION_PLAYER_SUCCESS = 'GET_AUCTION_PLAYER_SUCCESS';
 export const GET_AUCTION_PLAYER_FAILURE = 'GET_AUCTION_PLAYER_FAILURE';
 
+export const ADD_PLAYER_TO_TEAM = 'ADD_PLAYER_TO_TEAM';
+export const ADD_PLAYER_TO_TEAM_SUCCESS = 'ADD_PLAYER_TO_TEAM_SUCCESS';
+export const ADD_PLAYER_TO_TEAM_FAILURE = 'ADD_PLAYER_TO_TEAM_FAILURE';
+
+
+
 
 export function setDataFromLocal() {
   return {
@@ -122,9 +128,29 @@ export function getAuctionPlayerSuccess(data) {
       type: GET_AUCTION_PLAYER_SUCCESS,
       data: data
   };
-}export function getAuctionPlayerFailure(data) {
+}
+export function getAuctionPlayerFailure(data) {
   return {
       type: GET_AUCTION_PLAYER_FAILURE,
+      data: data
+  };
+}
+
+export function addPlayerToTeam() {
+  return {
+      type: ADD_PLAYER_TO_TEAM,
+  };
+}
+
+export function addPlayerToTeamrSuccess(data) {
+  return {
+      type: ADD_PLAYER_TO_TEAM_SUCCESS,
+      data: data
+  };
+}
+export function addPlayerToTeamFailure(data) {
+  return {
+      type: ADD_PLAYER_TO_TEAM_FAILURE,
       data: data
   };
 }

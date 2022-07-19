@@ -11,7 +11,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Team from './team';
 
-import { getTournamentList, onChangeValueGlobal, getAuctionPlayer } from '../Global/actions';
+import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
@@ -35,6 +35,13 @@ export class Auction extends React.PureComponent {
     }
     next(){
         this.props.getAuctionPlayer()
+    }
+    addPlayerToTeam(){
+        let error = false
+
+        if(!error){
+            this.props.addPlayerToTeam()
+        }
     }
 
     render() {
@@ -133,6 +140,7 @@ export class Auction extends React.PureComponent {
                                 <Team player={player}
                                 tournamentDetailGlobal={this.props.tournamentDetailGlobal}
                                 onChangeValueGlobal={this.props.onChangeValueGlobal}
+                                addPlayerToTeam={()=>this.addPlayerToTeam()}
                                 next={()=>this.next()}/>
                             </div>
                         </div>
@@ -177,6 +185,7 @@ function mapDispatchToProps(dispatch) {
         getTournamentDetails: () => dispatch(getTournamentDetails()),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getAuctionPlayer: (evt) => dispatch(getAuctionPlayer(evt)),
+        addPlayerToTeam: (evt) => dispatch(addPlayerToTeam(evt)),
         
     };
 }

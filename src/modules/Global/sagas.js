@@ -143,6 +143,36 @@ export function* getAuctionPlayer() {
 
   }
 }
+export function* addPlayerToTeam() {
+  var requestURL = CONFIG.apiURL + '/apiService/auctionPlayer'
+  const state = yield select();
+  const sessionToken = state.global.sessionToken
+  const club = state.global.globalSelectedClub
+  const global = state.global
+  let clubBody = {
+    "playerUserId": parseInt(global.auctionPlayerId),
+    "teamId": parseInt(global.auctionTournamentTeamId),
+    "tournamentId":parseInt(global.auctionTournamentId),
+    "requestId":  parseInt(global.auctionRequestId),
+    "bidAmount":  parseInt(global.auctionTournamentPlayerBindAmount),
+  }
+  try {
+    var options = {
+      method: 'POST',
+      body: clubBody,
+      sessionToken: sessionToken,
+    };
+    const result = yield call(request, requestURL, options);
+    console.log('result', result)
+    yield put(actions.addPlayerToTeamrSuccess(result));
+    yield put(actions.getAuctionPlayer());
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.addPlayerToTeamFailure(getError(err)));
+
+  }
+}
 
 export default function* globalSaga() {
   yield all([
@@ -150,6 +180,7 @@ export default function* globalSaga() {
     takeLatest('GET_CLUB_ADMINS', clubAdminList),
     takeLatest('GET_TOURNAMENT_LIST_GLOBAL', getTournamentList),
     takeLatest('GET_AUCTION_PLAYER', getAuctionPlayer),
+    takeLatest('ADD_PLAYER_TO_TEAM', addPlayerToTeam),
 
   ]);
 }

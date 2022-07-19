@@ -46,6 +46,9 @@ class Team extends React.Component {
                             <select className="form-control"
                                 onChange={(e) => {
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentTeamId', value: e.target.value } })
+                                    this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
+                                    this.props.onChangeValueGlobal({ target: { id: 'auctionRequestId', value: player.id } })
+                                    this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: player.tournamentId } })
                                 }} >
                                 <option value=""> Select Team</option>
                                 {teamListArray && teamListArray.length > 0 && teamListArray.map(item => <option value={item.value}>{item.label}</option>)}
@@ -62,7 +65,7 @@ class Team extends React.Component {
                         </div>
                     </div>
                     <div className='buttonBox'>
-                        <Button className="buttonPrimary" onClick={() => this.editTournament('item')}>Submit</Button>
+                        <Button className="buttonPrimary" onClick={() => this.props.addPlayerToTeam()}>Submit</Button>
                     </div>
                 </div>
 
