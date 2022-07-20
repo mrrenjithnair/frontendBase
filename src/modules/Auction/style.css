@@ -109,7 +109,7 @@
   margin: 10px;
 }
 
-.teamBox {
+.blogSlider .teamBox {
   display: flex;
   width: 100%;
   flex-wrap: wrap;
@@ -120,7 +120,7 @@
   border-radius: 10px;
 }
 
-.teamBox .detailBox {
+.blogSlider .teamBox .detailBox {
   padding: 20px;
 }
 
@@ -133,12 +133,16 @@ b {
 .imgBox {
   width: 30%;
 }
-
-.auctionBox .detailBox {
-  width: 40%;
+.auctionBox  .detailBox{
+width: 40%;
 }
 
-.detailBox h1 {
+.auctionBox .playerDetailBox {
+  padding: 10px;
+  width: 70%;
+}
+
+.playerDetailBox h1 {
   font-size: 2rem;
   font-weight: 600;
   letter-spacing: 0.2rem;
@@ -146,7 +150,7 @@ b {
   margin-bottom: 5%;
 }
 
-.detailBox h4 {
+.playerDetailBox h4 {
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.2rem;

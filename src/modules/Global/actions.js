@@ -21,6 +21,8 @@ export const GET_AUCTION_PLAYER_FAILURE = 'GET_AUCTION_PLAYER_FAILURE';
 export const ADD_PLAYER_TO_TEAM = 'ADD_PLAYER_TO_TEAM';
 export const ADD_PLAYER_TO_TEAM_SUCCESS = 'ADD_PLAYER_TO_TEAM_SUCCESS';
 export const ADD_PLAYER_TO_TEAM_FAILURE = 'ADD_PLAYER_TO_TEAM_FAILURE';
+export const RESET_TOAST = 'RESET_TOAST';
+export const SET_TOAST = 'SET_TOAST';
 
 
 
@@ -152,5 +154,21 @@ export function addPlayerToTeamFailure(data) {
   return {
       type: ADD_PLAYER_TO_TEAM_FAILURE,
       data: data
+  };
+}
+
+export function setToast(success,message) {
+  return {
+      type: SET_TOAST,
+      message: message,
+      success
+  };
+}
+
+export function resetToast(success,message) {
+  return {
+      type: RESET_TOAST,
+      message: message,
+      success
   };
 }

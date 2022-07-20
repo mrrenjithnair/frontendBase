@@ -8,10 +8,12 @@ import {
     GET_TOURNAMENT_LIST_GLOBAL_SUCCESS,
     GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS,
     GET_AUCTION_PLAYER_SUCCESS,
-    GET_AUCTION_PLAYER_FAILURE
+    GET_AUCTION_PLAYER_FAILURE,
+    SET_TOAST,
+    RESET_TOAST
 } from './actions';
 import roleInfo from '../utils/roleInfo';
-
+import { toast } from "react-toastify";
 // The initial state of the Dashboard Reducer
 export const initialState = {
     sessionToken: null,
@@ -91,7 +93,16 @@ export default function (state = initialState, actions) {
                 assignedClub: false
             }
             return { ...state, ...temp };
-
+        case SET_TOAST:
+            if(actions.success){
+                toast.success(actions.message);
+            }else{
+                toast.error(actions.message);
+            }
+            return state;
+        case RESET_TOAST:
+            toast.dismiss();
+            return state;
         default:
             return state;
     }

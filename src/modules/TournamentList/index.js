@@ -120,7 +120,7 @@ export class TournamentList extends React.PureComponent {
                     <p className="card-text"><b>Start Date:</b>  <Moment format="YYYY/MM/DD">{item.startDate}</Moment></p>
                     <p className="card-text"><b>End Date:</b>  <Moment format="YYYY/MM/DD">{item.endDate}</Moment></p>
                     <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', borderWidth: 2, borderColor: '#e4e4e4' }}>
-                        {this.props.loggedInRoleId == 3 && <div>
+                        {this.props.loggedInRoleId == 3 && this.props.nearByTournament && <div>
                             <Button disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested for join' : 'Request for join'}</Button><br /><br />
                             <Button disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested for Team' : 'Request for Team'}</Button>
                         </div>}

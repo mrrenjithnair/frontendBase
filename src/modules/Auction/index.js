@@ -11,13 +11,14 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Team from './team';
 
-import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam } from '../Global/actions';
+import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam,setToast, resetToast } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import { iteratee } from 'lodash';
 import EditModal from '../../components/EditModal'
 import { getTournamentDetails } from './actions';
+import team from '../../images/team.jpg'
 
 export class Auction extends React.PureComponent {
     constructor(props) {
@@ -38,6 +39,13 @@ export class Auction extends React.PureComponent {
     }
     addPlayerToTeam(){
         let error = false
+        this.props.resetToast()
+        if (!this.props.auctionTournamentTeamId) {
+            error = true
+            this.props.setToast(false, 'Please select team')
+        } else if (!this.props.auctionTournamentPlayerBindAmount) {
+            this.props.setToast(false, 'Please enter bind amount')
+        }
 
         if(!error){
             this.props.addPlayerToTeam()
@@ -116,7 +124,8 @@ export class Auction extends React.PureComponent {
                                         {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div className='tableBox'>
                                             <div className='tableBoxRow'>
                                                 {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams.map((item) => (<Card >
-                                                    {item.teamLogo && <Card.Img variant="top" src={item.teamLogo} />}
+                                                    {item.teamLogo ? <Card.Img variant="top" src={item.teamLogo} />
+                                                        : <Card.Img variant="top" src={team} />}
                                                     <Card.Body>
                                                         <Card.Title> {item.teamName}</Card.Title>
                                                     </Card.Body>
@@ -175,6 +184,12 @@ function mapStateToProps(state) {
         tournamentListGlobal: state.global.tournamentListGlobal,
         auctionTournamentId: state.global.auctionTournamentId,
         auctionPlayer: state.global.auctionPlayer,
+        auctionPlayerId: state.global.auctionPlayerId,
+        auctionTournamentTeamId: state.global.auctionTournamentTeamId,
+        auctionTournamentId: state.global.auctionTournamentId,
+        auctionRequestId: state.global.auctionRequestId,
+        auctionTournamentPlayerBindAmount: state.global.auctionTournamentPlayerBindAmount,
+        
 
     };
 }
@@ -186,6 +201,9 @@ function mapDispatchToProps(dispatch) {
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getAuctionPlayer: (evt) => dispatch(getAuctionPlayer(evt)),
         addPlayerToTeam: (evt) => dispatch(addPlayerToTeam(evt)),
+        setToast: (success, message) => dispatch(setToast(success, message)),
+        resetToast: (evt) => dispatch(resetToast(evt)),
+        
         
     };
 }

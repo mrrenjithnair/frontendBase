@@ -122,7 +122,7 @@ export class Request extends React.PureComponent {
                     </div>
                     <div className='container'>
                         <div >
-                            <Table columns={columns} data={this.props.requestList} />,
+                            {this.props.requestList && this.props.requestList.length >0 &&<Table columns={columns} data={this.props.requestList} />}
                         </div>
                     </div>
 

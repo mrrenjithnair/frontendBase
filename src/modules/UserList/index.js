@@ -19,6 +19,7 @@ import { getClubList } from '../ClubList/actions';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
+import profile from '../../images/profile.jpg'
 
 export class UserList extends React.PureComponent {
     constructor(props) {
@@ -80,7 +81,7 @@ export class UserList extends React.PureComponent {
                         <div className='locationText'>{item.sportName}</div> </div>
             <div className='userBox'>
                {item.logo ? <img className="userDp" src={item.logo} alt={item.name} data-letters="MN"/>
-                     : <div className='letterCircleUser'>{initials}</div>}
+                     :  <img className="userDp" src={profile} alt={item.name}/>}
 
                 <div className="card-body">
                     <h5 className="card-title"><b>Name:</b> {item.firstName} {item.lastName}</h5>

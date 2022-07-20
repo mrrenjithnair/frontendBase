@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
+import profile from '../../images/profile.jpg'
+
 class Team extends React.Component {
     render() {
         let player = this.props.player
@@ -16,17 +18,17 @@ class Team extends React.Component {
         }
         return (
             player ? <div className="blogSlider">
-                <div className='buttonBox'>
+                {/* <div className='buttonBox'>
                     <Button className="buttonPrimary" onClick={() => this.props.next('item')}>Next Player</Button>
                     <Button className="buttonPrimary" onClick={() => this.editTournament('item')}>Complete Auction</Button>
-                </div>
+                </div> */}
                 <br />
                 <br />
                 <div className='teamBox'>
                     <div className='imgBox'>
-                        <img src='https://pbs.twimg.com/profile_images/1146479956798480384/aCCC7qb8_400x400.png' />
+                        <img src={profile} />
                     </div>
-                    <div className='detailBox'>
+                    <div className='playerDetailBox'>
                         <h1>{player.playerName}</h1>
                         <h4>{player.category}</h4>
                         {player.bio && <p>
