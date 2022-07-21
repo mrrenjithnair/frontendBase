@@ -24,6 +24,9 @@ export const ADD_PLAYER_TO_TEAM_FAILURE = 'ADD_PLAYER_TO_TEAM_FAILURE';
 export const RESET_TOAST = 'RESET_TOAST';
 export const SET_TOAST = 'SET_TOAST';
 
+export const GET_USER_LIST_GLOBAL_FAILURE = 'GET_USER_LIST_GLOBAL_FAILURE';
+export const GET_USER_LIST_GLOBAL = 'GET_USER_LIST_GLOBAL';
+export const GET_USER_LIST_GLOBAL_SUCCESS = 'GET_USER_LIST_GLOBAL_SUCCESS';
 
 
 
@@ -172,3 +175,27 @@ export function resetToast(success,message) {
       success
   };
 }
+
+
+export function getUserListSuccess(data) {
+  return {
+      type: GET_USER_LIST_GLOBAL_SUCCESS,
+      data: data
+  };
+}
+
+export function getUserList(data) {
+  return {
+      type: GET_USER_LIST_GLOBAL,
+      data: data
+  };
+}
+
+
+export function getUserListFailure(err) {
+  toast.error(err);
+  return {
+      type: GET_USER_LIST_GLOBAL_FAILURE,
+  };
+}
+

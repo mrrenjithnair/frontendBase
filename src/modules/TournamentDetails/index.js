@@ -6,15 +6,20 @@ import HeaderNavBar from '../../components/HeaderNavBar'
 import history from "../utils/history";
 import { formatDate } from '../utils/commonUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, } from '@fortawesome/free-brands-svg-icons';
 
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { getTournamentDetails,onChangeValueEditTeam, onChangeValueTeam } from './actions';
+import { getUserList, onChangeValueGlobal } from '../Global/actions';
+
 import PropTypes from 'prop-types';
 import './style.css';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import { iteratee } from 'lodash';
 import EditModal from '../../components/EditModal'
 import team from '../../images/team.jpg'
+import profile from '../../images/profile.jpg'
+
 
 export class TournamentDetails extends React.PureComponent {
     constructor(props) {
@@ -36,7 +41,11 @@ export class TournamentDetails extends React.PureComponent {
             this.countdown()
         }
     }
+    componentWillUnmount() {
+        this.props.onChangeValueGlobal({ target: { id: 'globalSelectedTeamId', value: null } })
+        this.props.onChangeValueGlobal({ target: { id: 'teamPlayerList', value: null } })
 
+    }
 
 
     onChangeValueEditClub(evt) {
@@ -72,6 +81,11 @@ export class TournamentDetails extends React.PureComponent {
         this.props.editTeam()
         this.setState({ editModal: false })
     }
+    viewTeam(item){
+        this.props.onChangeValueGlobal({ target: { id: 'globalSelectedTeamId', value: item.teamId } })
+        this.props.getUserList()
+    }
+    
     editTeam(item){
         console.log(item)
         let data= [{
@@ -104,6 +118,7 @@ export class TournamentDetails extends React.PureComponent {
         var current = new Date().valueOf()
         var startDate = this.props.tournamentDetails && this.props.tournamentDetails.startDate ? new Date(this.props.tournamentDetails.startDate).valueOf() : new Date().valueOf()
         var show = current > startDate ? false : true
+        console.log(this.props.teamPlayerList)
         return (
 
 
@@ -190,7 +205,31 @@ export class TournamentDetails extends React.PureComponent {
                                     </div>
                                 </div>}
                             </div>
-                            <div className='teamBox'>
+                          {this.props.globalSelectedTeamId ?<div className='teamBox'>
+                        
+                                <div className='teamList'>
+                                    <div className='arrow'>
+                                        <FontAwesomeIcon icon={faArrowLeft} onClick={() => {
+                                            this.props.onChangeValueGlobal({ target: { id: 'globalSelectedTeamId', value: null } })
+                                            this.props.onChangeValueGlobal({ target: { id: 'teamPlayerList', value: null } })
+
+                                        }} />
+                                    </div>
+                                    <div>Player List</div></div>
+                      
+                                <div class="page-wrapper">
+                                    {this.props.teamPlayerList && this.props.teamPlayerList.length > 0 ?
+                                        this.props.teamPlayerList.map((item) => (
+                                            <div class="profile-box">
+                                               {item.profilePicture ? <img src={item.profilePicture} alt="profile pic" />:
+                                                <img src={profile} alt="profile pic" />}
+                                                <h3>{item.firstName} {item.lastName}</h3>
+                                                <h4>{item.category}</h4>
+                                                <h4>{item.location}</h4>
+                                            </div>
+                                        )):<div> No Player available</div>}
+                                </div>
+                            </div>:  <div className='teamBox'>
                             <div className='teamList'> Team List</div>
                                 <div class="page-wrapper">
                                     {this.props.tournamentDetails && this.props.tournamentDetails.teams && this.props.tournamentDetails.teams.length > 0 &&
@@ -201,13 +240,13 @@ export class TournamentDetails extends React.PureComponent {
                                                 <h3>{item.teamName}</h3>
                                                 <h4>{item.ownerName}</h4>
                                                 <div class="btn-container">
-                                                    <span class="profile-btn" id="view" onClick={() => this.editTeam(item)}><i class="far fa-eye"></i>View</span>
+                                                    <span class="profile-btn" id="view" onClick={() => this.viewTeam(item)}><i class="far fa-eye"></i>View</span>
                                                     <span class="profile-btn" id="view" onClick={() => this.editTeam(item)}><i class="far fa-eye"></i>Edit</span>
                                                 </div>
                                             </div>
                                         ))}
                                 </div>
-                            </div>
+                            </div>}
                         </div>
 
                     </div>
@@ -243,6 +282,9 @@ function mapStateToProps(state) {
         TournamentDetailsPage: state.global.TournamentDetailsPage,
         loggedInRoleId: state.global.loggedInRoleId,
         selectedTeam: state.tournamentDetail.selectedTeam,
+        globalSelectedTeamId: state.global.globalSelectedTeamId,
+        teamPlayerList: state.global.teamPlayerList,
+        
         
     };
 }
@@ -252,6 +294,8 @@ function mapDispatchToProps(dispatch) {
         getTournamentDetails: () => dispatch(getTournamentDetails()),
         onChangeValueEditTeam: (evt) => dispatch(onChangeValueEditTeam(evt)),
         onChangeValueTeam: (evt) => dispatch(onChangeValueTeam(evt)),
+        getUserList: (evt) => dispatch(getUserList(evt)),
+        onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         
     };
 }
