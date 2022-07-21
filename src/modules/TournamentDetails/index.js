@@ -14,6 +14,7 @@ import './style.css';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import { iteratee } from 'lodash';
 import EditModal from '../../components/EditModal'
+import team from '../../images/team.jpg'
 
 export class TournamentDetails extends React.PureComponent {
     constructor(props) {
@@ -195,11 +196,12 @@ export class TournamentDetails extends React.PureComponent {
                                     {this.props.tournamentDetails && this.props.tournamentDetails.teams && this.props.tournamentDetails.teams.length > 0 &&
                                         this.props.tournamentDetails.teams.map((item) => (
                                             <div class="profile-box">
-                                                <img src={item.teamLogo} alt="profile pic" />
+                                               {item.teamLogo ? <img src={item.teamLogo} alt="profile pic" />:
+                                                <img src={team} alt="profile pic" />}
                                                 <h3>{item.teamName}</h3>
                                                 <h4>{item.ownerName}</h4>
                                                 <div class="btn-container">
-                                                    <span class="profile-btn" id="view"><i class="far fa-eye"></i>View</span>
+                                                    <span class="profile-btn" id="view" onClick={() => this.editTeam(item)}><i class="far fa-eye"></i>View</span>
                                                     <span class="profile-btn" id="view" onClick={() => this.editTeam(item)}><i class="far fa-eye"></i>Edit</span>
                                                 </div>
                                             </div>

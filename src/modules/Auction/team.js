@@ -71,7 +71,8 @@ class Team extends React.Component {
                     </div>
                 </div>
 
-            </div> : <div></div>
+            </div> : <div className="blogSlider"> <div className='noTournamentDetail'>No Player detail</div> </div>
+
         )
     }
 }

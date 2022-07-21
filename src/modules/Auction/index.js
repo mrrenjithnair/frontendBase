@@ -89,6 +89,7 @@ export class Auction extends React.PureComponent {
 
                                     </select>
                                     <br />
+                                    {!this.props.tournamentDetailGlobal &&  <div className='noTournamentDetail'>No tournament detail</div> }
                                     {this.props.tournamentDetailGlobal && <div>
                                         <div className='tournamentName'>       {this.props.tournamentDetailGlobal.name}</div>
                                     </div>}
