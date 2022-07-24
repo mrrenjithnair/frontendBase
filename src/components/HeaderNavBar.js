@@ -9,10 +9,14 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
 import Logo from '../images/Logo.png'
+import SportzMitra from '../images/SportzMitra.png'
+import Nav from 'react-bootstrap/Nav';
 import { useNavigate } from "react-router-dom";
 import history from "../modules/utils/history";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import roleInfo from '../../utils/roleInfo';
+
 export class HeaderNavBar extends React.PureComponent {
     logout() {
         localStorage.clear();
@@ -30,40 +34,49 @@ export class HeaderNavBar extends React.PureComponent {
         ).toUpperCase();
         return (
             <>
-                <Navbar className="bgPrimary" variant="dark " fixed="top" >
+                <Navbar bg="light" className="bgPrimary" variant="dark " fixed="top" expand="lg">
                     <Container>
-                        <Navbar.Brand onClick={()=>{history.push('/home');}}>
-                            <img
-                                alt=""
-                                src={Logo}
-                                width="50"
-                                className="d-inline-block align-top"
-                            />{' '}
-                            sportzMitra
-                        </Navbar.Brand>
-                        {isAuthenticated && <NavDropdown title=
-                            {<div className="pull-left">
+                        <Navbar.Brand onClick={() => { history.push('/home'); }}><img
+                            alt=""
+                            src={SportzMitra}
+                            width="150"
+                            className="d-inline-block align-top"
+                        />{' '}</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="me-auto">
+                                <Nav.Link className="navLink" onClick={() => { history.push('/home'); }}>Home</Nav.Link>
+                                <Nav.Link className="navLink" onClick={() => { history.push('/home'); }} >Leagues</Nav.Link>
+                                <Nav.Link className="navLink" onClick={() => { history.push('/tournamentList'); }} href="#tournamentList">Tournament</Nav.Link>
+                                <Nav.Link className="navLink" onClick={() => { history.push('/home'); }} >Teams</Nav.Link>
+                                <Nav.Link className="navLink" onClick={() => { history.push('/auction'); }}>Auction</Nav.Link>
+                                <Nav.Link className="navLink" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>
+                            </Nav>
+                            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                            {isAuthenticated && <NavDropdown title=
+                                {<div className="pull-left">
 
 
-                                {userDetails && userDetails.profilePicture ? 
-                                 <img className="thumbnail-image" src={userDetails.profilePicture} alt={userDetails.firstName} data-letters={initials}/>
-                                    : <div className='profileLetter'>{initials}</div>}
-                            </div>} id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.3">Profile</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item
-                                onClick={e => this.logout(e)}>Logout</NavDropdown.Item>
-                        </NavDropdown>}
+                                    {userDetails && userDetails.profilePicture ?
+                                        <img className="thumbnail-image" src={userDetails.profilePicture} alt={userDetails.firstName} data-letters={initials} />
+                                        : <div className='profileLetter'>{initials}</div>}
+                                </div>} id="basic-nav-dropdown">
+                                <NavDropdown.Item onClick={() => { history.push('/profile'); }}>Profile</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item
+                                    onClick={e => this.logout(e)}>Logout</NavDropdown.Item>
+                            </NavDropdown>}
+                        </Navbar.Collapse>
                     </Container>
                     <ToastContainer position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover />
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover />
                 </Navbar>
             </>
 

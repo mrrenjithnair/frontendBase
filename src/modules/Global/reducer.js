@@ -34,6 +34,7 @@ export const initialState = {
     tournamentListGlobal: false,
     auctionPlayer: false,
     teamPlayerList:false,
+    sidebarOpen:false
 };
 
 export default function (state = initialState, actions) {

@@ -51,6 +51,11 @@
     text-decoration: none;
     margin: 0px 10px;
   }
+  .navLink{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white !important;
+  }
 
   .tableButtonDisable{
     font-size: 14px;
