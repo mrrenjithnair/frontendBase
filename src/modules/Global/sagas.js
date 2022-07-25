@@ -206,6 +206,42 @@ export function* getUserList() {
 
   }
 }
+export function* getUserDetail() {
+  const state = yield select();
+  const global = state.global
+  const club = state.global.globalSelectedClub
+  const teamId = state.global.globalSelectedTeamId
+  let params = {}
+  const playerProfile = state.global.loggedInRoleId ==  3
+    var requestURL = CONFIG.apiURL + '/apiService/player'
+  params.superAdmin = false
+  if (club && club.id) {
+    params.clubId = parseInt(club.id)
+  }
+  if (teamId && playerProfile) {
+    params.teamId = parseInt(teamId)
+  }
+  const userId = localStorage.getItem("userId");
+
+  if (userId) {
+    params.userId = parseInt(userId)
+  }
+  requestURL = requestURL + toURLString(params)
+  const sessionToken = global.sessionToken
+  try {
+    var options = {
+      method: 'GET',
+      sessionToken: sessionToken,
+    };
+    const UserList = yield call(request, requestURL, options);
+    yield put(actions.getUserDetailSuccess(UserList));
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.getUserDetailFailure(getError(err)));
+
+  }
+}
 
 export default function* globalSaga() {
   yield all([
@@ -215,6 +251,7 @@ export default function* globalSaga() {
     takeLatest('GET_AUCTION_PLAYER', getAuctionPlayer),
     takeLatest('ADD_PLAYER_TO_TEAM', addPlayerToTeam),
     takeLatest('GET_USER_LIST_GLOBAL', getUserList),
+    takeLatest('GET_USER_DETAIL', getUserDetail),
     
   ]);
 }

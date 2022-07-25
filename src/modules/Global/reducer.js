@@ -13,7 +13,9 @@ import {
     RESET_TOAST,
     GET_USER_LIST_GLOBAL_FAILURE,
     GET_USER_LIST_GLOBAL,
-    GET_USER_LIST_GLOBAL_SUCCESS
+    GET_USER_LIST_GLOBAL_SUCCESS,
+    GET_USER_DETAILL_SUCCESS,
+    GET_USER_DETAIL_FAILURE
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -34,7 +36,8 @@ export const initialState = {
     tournamentListGlobal: false,
     auctionPlayer: false,
     teamPlayerList:false,
-    sidebarOpen:false
+    sidebarOpen:false,
+    userProfile: false,
 };
 
 export default function (state = initialState, actions) {
@@ -96,8 +99,15 @@ export default function (state = initialState, actions) {
             return { ...state, 'teamPlayerList': teamPlayerList };
 
         case GET_USER_LIST_GLOBAL_FAILURE:
-
                 return { ...state, 'teamPlayerList': [] };
+
+        case GET_USER_DETAILL_SUCCESS:
+            let userProfile = actions.data && actions.data.length > 0 ? actions.data[0] : []
+            return { ...state, 'userProfile': userProfile };
+
+        case GET_USER_DETAIL_FAILURE:
+                return { ...state, 'userProfile': false };
+
         case RESET_DASHBOARD:
             let temp = {
                 clubListPage: false,

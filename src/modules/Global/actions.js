@@ -28,6 +28,9 @@ export const GET_USER_LIST_GLOBAL_FAILURE = 'GET_USER_LIST_GLOBAL_FAILURE';
 export const GET_USER_LIST_GLOBAL = 'GET_USER_LIST_GLOBAL';
 export const GET_USER_LIST_GLOBAL_SUCCESS = 'GET_USER_LIST_GLOBAL_SUCCESS';
 
+export const GET_USER_DETAIL = 'GET_USER_DETAIL';
+export const GET_USER_DETAILL_SUCCESS = 'GET_USER_DETAILL_SUCCESS';
+export const GET_USER_DETAIL_FAILURE = 'GET_USER_DETAIL_FAILURE';
 
 
 export function setDataFromLocal() {
@@ -198,4 +201,26 @@ export function getUserListFailure(err) {
       type: GET_USER_LIST_GLOBAL_FAILURE,
   };
 }
+
+export function getUserDetail() {
+  return {
+      type: GET_USER_DETAIL,
+  };
+}
+
+export function getUserDetailSuccess(data) {
+
+  return {
+      type: GET_USER_DETAILL_SUCCESS,
+      data
+  };
+}
+
+export function getUserDetailFailure(err) {
+  toast.error(err);
+  return {
+      type: GET_USER_DETAIL_FAILURE,
+  };
+}
+
 
