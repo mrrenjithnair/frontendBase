@@ -162,7 +162,7 @@ export class Auction extends React.PureComponent {
                 <br />
                 <br />
 
-                <BottomNavBar />
+               
 
             </section>
         );

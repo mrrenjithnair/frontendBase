@@ -138,7 +138,6 @@ export class Request extends React.PureComponent {
                     feildObj={addClubObj}
                     onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
                 />
-                <BottomNavBar />
             </section>
         );
     }

@@ -131,7 +131,6 @@ export class ClubList extends React.PureComponent {
                 <br/>
                 <br/>
                 <br/>
-                <BottomNavBar />
 
                 <AddModal
                  title="Add Club"

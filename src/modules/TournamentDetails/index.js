@@ -262,7 +262,6 @@ export class TournamentDetails extends React.PureComponent {
                  feildObj={this.props.selectedTeam}
                  onChangeInput={(evt) => this.onChangeValueEditTeam(evt)}
                 />
-                <BottomNavBar />
 
             </section>
         );

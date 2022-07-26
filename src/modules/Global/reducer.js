@@ -15,7 +15,9 @@ import {
     GET_USER_LIST_GLOBAL,
     GET_USER_LIST_GLOBAL_SUCCESS,
     GET_USER_DETAILL_SUCCESS,
-    GET_USER_DETAIL_FAILURE
+    GET_USER_DETAIL_FAILURE,
+    GET_PLAYER_TEAM_LIST_SUCCESS,
+    GET_PLAYER_TEAM_LIST_FAILURE
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -38,6 +40,7 @@ export const initialState = {
     teamPlayerList:false,
     sidebarOpen:false,
     userProfile: false,
+    playerTeamList: false
 };
 
 export default function (state = initialState, actions) {
@@ -108,6 +111,13 @@ export default function (state = initialState, actions) {
         case GET_USER_DETAIL_FAILURE:
                 return { ...state, 'userProfile': false };
 
+        case GET_PLAYER_TEAM_LIST_SUCCESS:
+            let teamList = actions.data && actions.data.length > 0 ? actions.data : []
+            return { ...state, 'playerTeamList': teamList };
+
+        case GET_PLAYER_TEAM_LIST_FAILURE:
+                return { ...state, 'playerTeamList': false };
+                
         case RESET_DASHBOARD:
             let temp = {
                 clubListPage: false,

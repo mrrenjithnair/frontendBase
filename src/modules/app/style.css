@@ -56,7 +56,9 @@
     font-weight: bold;
     color: white !important;
   }
-
+  .nav-tabs{
+    background: #1abc9c;
+  }
   .tableButtonDisable{
     font-size: 14px;
     color: white;

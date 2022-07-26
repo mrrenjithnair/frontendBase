@@ -146,7 +146,6 @@ export class Login extends React.PureComponent {
                         </div>
                     </div>
                 </div>
-                <BottomNavBar />
                 <ToastContainer position="top-right"
                     autoClose={5000}
                     hideProgressBar={false}

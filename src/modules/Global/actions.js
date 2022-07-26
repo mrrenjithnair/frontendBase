@@ -32,6 +32,10 @@ export const GET_USER_DETAIL = 'GET_USER_DETAIL';
 export const GET_USER_DETAILL_SUCCESS = 'GET_USER_DETAILL_SUCCESS';
 export const GET_USER_DETAIL_FAILURE = 'GET_USER_DETAIL_FAILURE';
 
+export const GET_PLAYER_TEAM_LIST_FAILURE = 'GET_PLAYER_TEAM_LIST_FAILURE';
+export const GET_PLAYER_TEAM_LIST_SUCCESS = 'GET_PLAYER_TEAM_LIST_SUCCESS';
+export const GET_PLAYER_TEAM_LIST = 'GET_PLAYER_TEAM_LIST';
+
 
 export function setDataFromLocal() {
   return {
@@ -224,3 +228,23 @@ export function getUserDetailFailure(err) {
 }
 
 
+export function getPlayerTeamList() {
+  return {
+      type: GET_PLAYER_TEAM_LIST,
+  };
+}
+
+export function getPlayerTeamListSuccess(data) {
+
+  return {
+      type: GET_PLAYER_TEAM_LIST_SUCCESS,
+      data
+  };
+}
+
+export function getPlayerTeamListFailure(err) {
+  toast.error(err);
+  return {
+      type: GET_PLAYER_TEAM_LIST_FAILURE,
+  };
+}

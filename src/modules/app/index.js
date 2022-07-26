@@ -30,7 +30,10 @@ export class APP extends React.PureComponent {
    
     render() {
 
-        return (<div></div>
+        return (<div>
+                <BottomNavBar />
+
+        </div>
         );
     }
 }

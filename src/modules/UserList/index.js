@@ -190,7 +190,6 @@ export class UserList extends React.PureComponent {
                 <br/>
                 <br/>
                 <br/>
-                <BottomNavBar />
 
                 <AddModal
                  title="Add Admin"

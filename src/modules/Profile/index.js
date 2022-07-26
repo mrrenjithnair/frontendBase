@@ -18,10 +18,15 @@ import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-b
 import { ToastContainer, toast } from 'react-toastify';
 import history from "../utils/history";
 
-import { onChangeValueGlobal, getUserDetail } from '../Global/actions';
+import { onChangeValueGlobal, getUserDetail,getPlayerTeamList } from '../Global/actions';
 import profile from '../../images/profile.jpg'
 
 import 'react-toastify/dist/ReactToastify.css';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import ClubList from "../ClubList"
+import TournamentList from "../TournamentList"
+
 export class Profile extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -39,6 +44,7 @@ export class Profile extends React.PureComponent {
 
     componentDidMount() {
         this.props.getUserDetail()
+        this.props.getPlayerTeamList()
     }
     handleSubmit(e) {
         this.props.onClickLogin()
@@ -61,42 +67,14 @@ export class Profile extends React.PureComponent {
         localStorage.setItem("userLogin", JSON.stringify(user._profile));
 
     };
-    listRender(item) {
-        let request = item.approved == 0 && item.playerId
-        let name = item.name
-        let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
-        let initials = [...name.matchAll(rgx)] || [];
-        initials = (
-            (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
-        ).toUpperCase();
 
-        return (
-            <div className="card clubItem" style={{ width: '18rem' }} key={item.id}>
-                    <div className='locationBox'>
-                        <div className='locationText'>{item.location}</div> </div>
-
-               {item.logo ? <img className="clubLogo" src={item.logo} alt={item.name} data-letters="MN"/>
-                     : <div className='letterCircleClub'>{initials}</div>}
-
-                <div className="card-body">
-                    <h5 className="card-title">{item.name}</h5>
-                    <p className="card-text"><b>Address:</b> {item.Address}</p>
-                    {/* <a href="#" className= "btn btn-primary"onClick={()=>{
-                        this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } }) 
-                        this.props.getClubDetail()
-                        history.push('/clubDetails',{clubDetails:item})
-                        }}> Detail</a> */}
-                </div>
-            </div>
-        )
-    }
     handleSocialLoginFailure = (err) => {
         console.error(err);
     };
 
     render() {
         console.log(this.props.count)
-
+        let showTabs = this.props.userProfile.roleId == 3 ? true : false
         return (
             <section className="vh-100">
                 <HeaderNavBar />
@@ -122,6 +100,7 @@ export class Profile extends React.PureComponent {
                                     </div>
                                 </div>
                             </div>
+                           
                             <div className="col-md-8">
                                 <div className="card mb-3">
                                     <div className="card-body">
@@ -177,20 +156,28 @@ export class Profile extends React.PureComponent {
                                         </div> */}
                                     </div>
                                 </div>
-                                <div className="card mb-3">
-                                    <div className="card-body">
-                                    <h4> Club List</h4>
-
-                                        <div className="row">
-                                            {this.props.userProfile && this.props.userProfile.club && this.props.userProfile.club.length != 0 &&
-                                                this.props.userProfile.club.map((item) => {
-                                                    return this.listRender(item)
-                                                }
-                                                )}
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
+                            {showTabs ? <Tabs
+                                defaultActiveKey="profile"
+                                id="justify-tab-example"
+                                className="mb-3"
+                                justify
+                            >
+                                <Tab eventKey="clubList" title="Leagues" onClick={() => {
+                                    this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } })
+                                }}>
+                                    <ClubList hideHeader={true} />
+                                </Tab>
+                                <Tab eventKey="Tournement" title="Tournament"
+                                    onClick={() => {
+                                        this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: false } })
+                                    }}>
+                                    <TournamentList />
+                                </Tab>
+                                <Tab eventKey="Teams" title="Teams">
+                                    <div />
+                                </Tab>
+                            </Tabs> : <div />}
                         </div>
 
                     </div>
@@ -220,8 +207,7 @@ function mapDispatchToProps(dispatch) {
     return {
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getUserDetail: (evt) => dispatch(getUserDetail(evt)),
-
-        
+        getPlayerTeamList: (evt) => dispatch(getPlayerTeamList(evt)),
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

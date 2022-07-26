@@ -194,7 +194,6 @@ export class TournamentList extends React.PureComponent {
                 <br />
                 <br />
                 <br />
-                <BottomNavBar />
 
                 <AddModal
                     title="Add Tournament"

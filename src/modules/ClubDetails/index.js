@@ -96,8 +96,6 @@ export class ClubDetails extends React.PureComponent {
                     </div>
                 </div>
 
-                <BottomNavBar />
-
             </section>
         );
     }

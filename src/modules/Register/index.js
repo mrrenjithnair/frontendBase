@@ -195,7 +195,6 @@ export class Register extends React.PureComponent {
                         </div>
                     </div>
                 </div>
-                <BottomNavBar />
 
             </section>
         );
