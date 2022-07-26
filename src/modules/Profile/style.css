@@ -51,3 +51,75 @@ body{
 .shadow-none {
     box-shadow: none!important;
 }
+
+.mainBoxProfile {
+    background-color: rgb(255, 255, 255);
+    color: rgb(52, 49, 76);
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: rgb(0 0 0 / 6%) 0px 3px 3px -2px, rgb(0 0 0 / 4%) 0px 3px 4px 0px, rgb(0 0 0 / 4%) 0px 1px 8px 0px !important;
+}
+.profileRow {
+    padding: 24px;
+    margin: -8px;
+    flex-wrap: wrap;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.profileDetailBox{
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 8px;
+    display: flex;
+}
+.profileImgBox {
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1.25rem;
+    line-height: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    user-select: none;
+    width: 48px;
+    height: 48px;
+}
+.profileImage {
+    width: 48px;
+    height: 48px;
+    text-align: center;
+    object-fit: cover;
+    color: transparent;
+    text-indent: 10000px;
+}
+.profiledetailBox {
+    margin-left: 16px;
+}
+.profileh5 {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-transform: none;
+    white-space: normal;
+}
+.profilep {
+    margin-bottom: 0px;
+    font-size: 14px;
+    white-space: normal;
+    color: rgba(52, 49, 76, 0.54);
+    margin-top: 8px;
+    font-weight: normal;
+    text-transform: capitalize;
+}

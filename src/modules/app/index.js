@@ -30,7 +30,7 @@ export class APP extends React.PureComponent {
    
     render() {
 
-        return (<div>
+        return (<div className='mainBox'>
                 <BottomNavBar />
 
         </div>

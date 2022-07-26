@@ -18,14 +18,14 @@ import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-b
 import { ToastContainer, toast } from 'react-toastify';
 import history from "../utils/history";
 
-import { onChangeValueGlobal, getUserDetail,getPlayerTeamList } from '../Global/actions';
+import { onChangeValueGlobal, getUserDetail, getPlayerTeamList } from '../Global/actions';
 import profile from '../../images/profile.jpg'
+import team from '../../images/team.jpg'
+
 
 import 'react-toastify/dist/ReactToastify.css';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import ClubList from "../ClubList"
-import TournamentList from "../TournamentList"
 
 export class Profile extends React.PureComponent {
     constructor(props) {
@@ -71,7 +71,21 @@ export class Profile extends React.PureComponent {
     handleSocialLoginFailure = (err) => {
         console.error(err);
     };
-
+    
+    teamUi(item) {
+        return (<div className="mainBoxProfile">
+            <div className="profileRow">
+                <div className="profileDetailBox">
+                    <div className="profileImgBox"><img src={team}
+                        className="profileImage" /></div>
+                    <div className="profiledetailBox">
+                        <h5 className="profileh5">{item.teamName}</h5>
+                        <p className="profilep"><b>Bid Anount: </b>{item.bidAmount}</p>
+                    </div>
+                </div>
+            </div>
+        </div>)
+    }
     render() {
         console.log(this.props.count)
         let showTabs = this.props.userProfile.roleId == 3 ? true : false
@@ -86,9 +100,9 @@ export class Profile extends React.PureComponent {
                                 <div className="card">
                                     <div className="card-body">
                                         <div className="d-flex flex-column align-items-center text-center">
-                                        {this.props.userProfile. profilePicture ? <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width="150" />
-                                          : <img src={profile} alt="Admin" className="rounded-circle" width="150" />}
-                                            
+                                            {this.props.userProfile.profilePicture ? <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width="150" />
+                                                : <img src={profile} alt="Admin" className="rounded-circle" width="150" />}
+
                                             <div className="mt-3">
                                                 <h4>  {this.props.userProfile.firstName}   {this.props.userProfile.lastName}</h4>
                                                 <p className="text-secondary mb-1">  {this.props.userProfile.category}</p>
@@ -100,7 +114,7 @@ export class Profile extends React.PureComponent {
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div className="col-md-8">
                                 <div className="card mb-3">
                                     <div className="card-body">
@@ -109,7 +123,7 @@ export class Profile extends React.PureComponent {
                                                 <h6 className="mb-0">First Name</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary">
-                                               {this.props.userProfile.firstName}
+                                                {this.props.userProfile.firstName}
                                             </div>
                                         </div>
                                         <hr />
@@ -118,7 +132,7 @@ export class Profile extends React.PureComponent {
                                                 <h6 className="mb-0">Last Name</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary">
-                                               {this.props.userProfile.lastName}
+                                                {this.props.userProfile.lastName}
                                             </div>
                                         </div>
                                         <hr />
@@ -127,7 +141,7 @@ export class Profile extends React.PureComponent {
                                                 <h6 className="mb-0">Email</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary">
-                                            {this.props.userProfile.emailId}
+                                                {this.props.userProfile.emailId}
                                             </div>
                                         </div>
                                         <hr />
@@ -136,7 +150,7 @@ export class Profile extends React.PureComponent {
                                                 <h6 className="mb-0">Mobile</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary">
-                                            {this.props.userProfile.mobile}
+                                                {this.props.userProfile.mobile}
                                             </div>
                                         </div>
                                         <hr />
@@ -145,7 +159,7 @@ export class Profile extends React.PureComponent {
                                                 <h6 className="mb-0">location</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary">
-                                            {this.props.userProfile.location}
+                                                {this.props.userProfile.location}
                                             </div>
                                         </div>
                                         <hr />
@@ -166,15 +180,23 @@ export class Profile extends React.PureComponent {
                                 <Tab eventKey="clubList" title="Leagues" onClick={() => {
                                     this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } })
                                 }}>
-                                    <ClubList hideHeader={true} />
+
                                 </Tab>
                                 <Tab eventKey="Tournement" title="Tournament"
                                     onClick={() => {
                                         this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: false } })
                                     }}>
-                                    <TournamentList />
+
                                 </Tab>
-                                <Tab eventKey="Teams" title="Teams">
+                                <Tab eventKey="Teams" title="Teams"
+                                    onClick={() => {
+                                        this.props.getPlayerTeamList()
+                                    }}
+                                >
+                                    {this.props.playerTeamList && this.props.playerTeamList.length > 0 &&
+                                        this.props.playerTeamList.map((item) => {
+                                            return this.teamUi(item)
+                                        })}
                                     <div />
                                 </Tab>
                             </Tabs> : <div />}
@@ -199,7 +221,8 @@ function mapStateToProps(state) {
         password: state.login.password,
         username: state.login.username,
         userProfile: state.global.userProfile,
-        
+        playerTeamList: state.global.playerTeamList,
+
     };
 }
 
