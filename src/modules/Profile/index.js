@@ -19,6 +19,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import history from "../utils/history";
 
 import { onChangeValueGlobal, getUserDetail, getPlayerTeamList } from '../Global/actions';
+import { getTournamentList } from '../TournamentList/actions';
+import { getClubList } from '../ClubList/actions';
+
 import profile from '../../images/profile.jpg'
 import team from '../../images/team.jpg'
 
@@ -45,6 +48,7 @@ export class Profile extends React.PureComponent {
     componentDidMount() {
         this.props.getUserDetail()
         this.props.getPlayerTeamList()
+        this.props.getClubList()
     }
     handleSubmit(e) {
         this.props.onClickLogin()
@@ -71,16 +75,16 @@ export class Profile extends React.PureComponent {
     handleSocialLoginFailure = (err) => {
         console.error(err);
     };
-    
+
     teamUi(item) {
         return (<div className="mainBoxProfile">
             <div className="profileRow">
                 <div className="profileDetailBox">
-                    <div className="profileImgBox"><img src={team}
-                        className="profileImage" /></div>
+                    <div className="profileImgBox"><img src={team} className="profileImage" /></div>
                     <div className="profiledetailBox">
-                        <h5 className="profileh5">{item.teamName}</h5>
-                        <p className="profilep"><b>Bid Anount: </b>{item.bidAmount}</p>
+                    {item.teamName&&<h5 className="profileh5">{item.teamName}</h5>}
+                    {item.name&& <h5 className="profileh5">{item.name}</h5>}
+                    {item.bidAmount&& <p className="profilep"><b>Bid Anount: </b>{item.bidAmount}</p>}
                     </div>
                 </div>
             </div>
@@ -176,23 +180,32 @@ export class Profile extends React.PureComponent {
                                 id="justify-tab-example"
                                 className="mb-3"
                                 justify
-                            >
-                                <Tab eventKey="clubList" title="Leagues" onClick={() => {
-                                    this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } })
-                                }}>
-
-                                </Tab>
-                                <Tab eventKey="Tournement" title="Tournament"
-                                    onClick={() => {
-                                        this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: false } })
-                                    }}>
-
-                                </Tab>
-                                <Tab eventKey="Teams" title="Teams"
-                                    onClick={() => {
+                                onSelect={(key) => {
+                                    console.log(key)
+                                    if(key == 'Teams'){
                                         this.props.getPlayerTeamList()
-                                    }}
-                                >
+                                    }else if(key == 'Tournement'){
+                                        this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: false } })
+                                        this.props.getTournamentList()
+                                    }else if(key == 'clubList'){
+                                        this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } })
+                                        this.props.getClubList()
+                                    }
+                                }}
+                            >
+                                <Tab eventKey="clubList" title="Leagues">
+                                {this.props.clubList && this.props.clubList.length > 0 &&
+                                        this.props.clubList.map((item) => {
+                                            return this.teamUi(item)
+                                        })}
+                                </Tab>
+                                <Tab eventKey="Tournement" title="Tournament">
+                                        {this.props.tournamentList && this.props.tournamentList.length > 0 &&
+                                        this.props.tournamentList.map((item) => {
+                                            return this.teamUi(item)
+                                        })}
+                                </Tab>
+                                <Tab eventKey="Teams" title="Teams">
                                     {this.props.playerTeamList && this.props.playerTeamList.length > 0 &&
                                         this.props.playerTeamList.map((item) => {
                                             return this.teamUi(item)
@@ -222,7 +235,8 @@ function mapStateToProps(state) {
         username: state.login.username,
         userProfile: state.global.userProfile,
         playerTeamList: state.global.playerTeamList,
-
+        tournamentList: state.tournament.tournamentList,
+        clubList: state.clubs.clubList,
     };
 }
 
@@ -231,6 +245,9 @@ function mapDispatchToProps(dispatch) {
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getUserDetail: (evt) => dispatch(getUserDetail(evt)),
         getPlayerTeamList: (evt) => dispatch(getPlayerTeamList(evt)),
+        getTournamentList: () => dispatch(getTournamentList()),
+        getClubList: () => dispatch(getClubList()),
+
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
