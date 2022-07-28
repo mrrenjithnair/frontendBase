@@ -173,7 +173,45 @@ export function* addPlayerToTeam() {
 
   }
 }
+export function* createAuction() {
+  var requestURL = CONFIG.apiURL + '/apiService/auction'
+  const state = yield select();
+  const sessionToken = state.global.sessionToken
+  const club = state.global.globalSelectedClub
+  const global = state.global
+  let obj = {
+    venue: global.auctionVenue,
+    date:  new Date(global.auctionDate).valueOf(),
+    type: global.auctionType,
+    teamPoint: global.auctionTeamPoint,
+    tournamentId: global.auctionCreateTournamentId,
+    
+  }
+  if (global.auctionType == 'noCategory') {
+    obj.pointJson = [{ min: global.auctionMinPoint, max: global.auctionMaxPoint }]
+  } else if (global.auctionType == 'category') {
+    obj.pointJson = [
+      { category: 'A', min: global.auctionCategoryAMinPoint, max: global.auctionCategoryAMaxPoint },
+      { category: 'B', min: global.auctionCategoryBMinPoint, max: global.auctionCategoryBMaxPoint },
+      { category: 'C', min: global.auctionCategoryCMinPoint, max: global.auctionCategoryCMaxPoint },
+    ]
+  }
+  try {
+    var options = {
+      method: 'POST',
+      body: obj,
+      sessionToken: sessionToken,
+    };
+    const result = yield call(request, requestURL, options);
+    console.log('result', result)
+    yield put(actions.createAuctionSuccess(result));
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.createAuctionFailure(getError(err)));
 
+  }
+}
 export function* getUserList() {
   const state = yield select();
   const global = state.global
@@ -279,6 +317,7 @@ export default function* globalSaga() {
     takeLatest('GET_USER_LIST_GLOBAL', getUserList),
     takeLatest('GET_USER_DETAIL', getUserDetail),
     takeLatest('GET_PLAYER_TEAM_LIST', getPlayerTeamList),
+    takeLatest('CREATE_AUCTION', createAuction),
     
   ]);
 }

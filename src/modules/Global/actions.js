@@ -36,6 +36,10 @@ export const GET_PLAYER_TEAM_LIST_FAILURE = 'GET_PLAYER_TEAM_LIST_FAILURE';
 export const GET_PLAYER_TEAM_LIST_SUCCESS = 'GET_PLAYER_TEAM_LIST_SUCCESS';
 export const GET_PLAYER_TEAM_LIST = 'GET_PLAYER_TEAM_LIST';
 
+export const CREATE_AUCTION = 'CREATE_AUCTION';
+export const CREATE_AUCTION_SUCCESS = 'CREATE_AUCTION_SUCCESS';
+export const CREATE_AUCTION_FAILURE = 'CREATE_AUCTION_FAILURE';
+
 
 export function setDataFromLocal() {
   return {
@@ -141,10 +145,11 @@ export function getAuctionPlayerSuccess(data) {
       data: data
   };
 }
-export function getAuctionPlayerFailure(data) {
+export function getAuctionPlayerFailure(err) {
+  toast.error(err);
   return {
       type: GET_AUCTION_PLAYER_FAILURE,
-      data: data
+      data: err
   };
 }
 
@@ -161,6 +166,7 @@ export function addPlayerToTeamrSuccess(data) {
   };
 }
 export function addPlayerToTeamFailure(data) {
+  toast.error(data);
   return {
       type: ADD_PLAYER_TO_TEAM_FAILURE,
       data: data
@@ -246,5 +252,25 @@ export function getPlayerTeamListFailure(err) {
   toast.error(err);
   return {
       type: GET_PLAYER_TEAM_LIST_FAILURE,
+  };
+}
+
+export function createAuction() {
+  return {
+      type: CREATE_AUCTION,
+  };
+}
+
+export function createAuctionSuccess(data) {
+  return {
+      type: CREATE_AUCTION_SUCCESS,
+      data: data
+  };
+}
+export function createAuctionFailure(err) {
+  toast.error(err);
+  return {
+      type: CREATE_AUCTION_FAILURE,
+      err
   };
 }

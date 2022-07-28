@@ -6,12 +6,24 @@
   padding: 10px;
 
 }
+.auctionBox .detailBox{
+  background: #ff7979;
+  color: white;
+}
 
 .tournamentDetailBoxAuction {
-  padding: 10px;
+  padding: 25px 20px;
   min-height: 528px;
   border-radius: 16px;
   box-shadow: 0 24px 64px rgb(0 0 0 / 4%);
+}
+.tournamentDetailBoxAuction .flabel{
+  font-weight: bold;
+  padding: 10px 0px;
+
+}
+.tournamentDetailBoxAuction  .card{
+  font-weight: bold;  color: #2c3e50;
 }
 
 .tournamentDetailBoxAuctionTeam {
@@ -21,6 +33,7 @@
   margin-left: 15px;
   box-shadow: 0 24px 64px rgb(0 0 0 / 4%);
   width: 60%;
+  background: #FFFF;
 }
 .blogSlider{
   height: 100%;
@@ -162,8 +175,15 @@ width: 40%;
   border: 1px #bdc3c7 solid;
   width: 100%;
   padding: 10px;
+  display: flex;
+  justify-content: space-around;
 }
-
+.basePrice{
+  padding: 10px;
+  font-weight: bold;
+  line-height: 1.5rem;
+  color: #455a64;
+}
 .buttonBox {
   display: flex;
   margin: 20px;

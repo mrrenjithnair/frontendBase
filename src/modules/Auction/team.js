@@ -4,9 +4,37 @@ import { Button } from 'react-bootstrap';
 import profile from '../../images/profile.jpg'
 
 class Team extends React.Component {
+    getPrice(cat, min) {
+        let type = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : ''
+        let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
+        let basePriceMin
+        let basePriceMax
+        if (type == 'category') {
+            pointJson.map((item) => {
+                if (item.category == cat) {
+                    basePriceMin = item.min
+                    basePriceMax = item.max
+                }
+            })
+        } else {
+            if (pointJson && pointJson.length > 0) {
+                basePriceMin = pointJson[0].min
+                basePriceMax = pointJson[0].max
+            }
+        }
+        if (min) {
+            return basePriceMin
+        } else {
+            return basePriceMax
+        }
+    }
     render() {
         let player = this.props.player
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams  && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
+        let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
+        let teamPoint = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : ''
+        let type = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : ''
+
         let teamListArray = []
         if (teamList && teamList.length > 0) {
             teamList.map((item) => {
@@ -29,15 +57,27 @@ class Team extends React.Component {
                         <img src={profile} />
                     </div>
                     <div className='playerDetailBox'>
-                        <h1>{player.playerName}</h1>
-                        <h4>{player.category}</h4>
+                        {player.playerName && <p>
+                            <b>Name</b> :    {player.playerName}
+                        </p>} 
+                        {player.category && <p>
+                            <b>Type</b> :    {player.category}
+                        </p>} 
+                        {player.playerType && <p>
+                            <b>Category</b> :    {player.playerType}
+                        </p>}
                         {player.bio && <p>
                             <b>About</b>:    {player.bio}
                         </p>}
                     </div>
                     <br />
-                    <div className='bidBox'>
-                        <b>Base Price</b> 20000
+                    <br />
+                    <div style={{padding:'10px', width:'100%'}}>
+                        <h4 className='basePrice'>Base Price</h4>
+                        <div className='bidBox'>
+                            <b>Min Price</b> {this.getPrice(player.playerType, true)}
+                            <b>Max Price</b> {this.getPrice(player.playerType, false)}
+                        </div>
                     </div>
 
                 </div>
