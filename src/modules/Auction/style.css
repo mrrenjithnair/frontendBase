@@ -191,10 +191,11 @@ width: 40%;
 }
 .noTournamentDetail {
   display: flex;
-  flex: 1;
+  /* flex: 1 1; */
   justify-content: center;
   align-items: center;
   padding: 15px 0px;
+  flex-direction: column;
 }
 @media (max-width: 768px) {
   .auctionBox {

@@ -10,6 +10,7 @@ import history from "../utils/history";
 import { onChangeValueGlobal, getClubDetail, resetDashboard } from '../Global/actions';
 import roleInfo from '../utils/roleInfo';
 
+import profile from '../../images/profile.jpg'
 
 import { login, onChangeValueLogin } from './actions';
 
@@ -40,8 +41,22 @@ export class Dashboard extends React.PureComponent {
             <section className="vh-100">
                 <HeaderNavBar />
                 <div id="root">
-                    <div className="container pt-5">
-                        <div className="row align-items-stretch">
+                    <div className="dashboard container pt-5">
+                        <div className="dashProfileBox">
+                            <div className='dashImgBox'>
+                                <div className='imgMain'>
+                                    <img src={profile} />
+                                </div>
+                                <div className='dashNameBox'>
+                                <div className='dashName'>{this.props.myDetails.firstName + ' ' + this.props.myDetails.lastName}</div>
+                                {this.props.myDetails.category &&<div  className='dashType'><b>Type : </b>{this.props.myDetails.category}</div>}
+                                {this.props.myDetails.playerType &&<div  className='dashType'><b>catergory : </b> {this.props.myDetails.playerType}</div>}
+                                {this.props.myDetails.roleId == 2 &&<div  className='dashType'><b>Club : </b>{this.props.myDetails.club.map((item)=>(<p>{item.name}</p>))}</div>}
+                                </div>
+                            </div>
+
+                    </div>
+                        <div className="col row align-items-stretch">
                             {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub && <div className="c-dashboardInfo col-lg-3 col-md-6 pointer"
                                 onClick={() => {
                                     this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } })
@@ -166,6 +181,7 @@ function mapStateToProps(state) {
         count: state.login.count,
         password: state.login.password,
         username: state.login.username,
+        myDetails: state.global.myDetails,
 
     };
 }

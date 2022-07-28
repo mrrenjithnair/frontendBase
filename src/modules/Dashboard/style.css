@@ -52,6 +52,35 @@
   margin-left: 5px;
 }
 .pointer {cursor: pointer;}
+.dashProfileBox{
+  padding: 10px;
+  background-color: #ffffff;
+  margin: 20px 0px;
+
+}
+.dashImgBox{
+  display: flex;
+}
+.dashNameBox{
+  padding: 0px 20px;
+
+}
+.dashName{
+  font-weight: 600;
+  font-size: 1.5em;
+  line-height: 50px;
+  color: #323c43;
+}
+.dashType{
+  color: #323c43;
+}
+.imgMain{
+  width: 100px;
+}
+.imgMain img {
+  width: 100px;
+  border-radius: 10px;
+}
 @media
 only screen 
 and (max-width: 760px), (min-device-width: 768px) 

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import profile from '../../images/profile.jpg'
+import nodata from '../../images/nodata.jpg'
 
 class Team extends React.Component {
     getPrice(cat, min) {
@@ -111,7 +112,12 @@ class Team extends React.Component {
                     </div>
                 </div>
 
-            </div> : <div className="blogSlider"> <div className='noTournamentDetail'>No Player detail</div> </div>
+            </div> : <div className="blogSlider"> 
+                    
+                    <div className='noTournamentDetail'>
+                    <div className='imgBox'>
+                        <img src={nodata} />
+                    </div><b>No Player detail</b></div> </div>
 
         )
     }
