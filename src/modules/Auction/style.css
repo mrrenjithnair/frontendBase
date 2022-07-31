@@ -1,11 +1,4 @@
-.headerRow {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 5px;
-  border: 1px #e4e4e4 solid;
-  padding: 10px;
 
-}
 .auctionBox .detailBox{
   background: #ff7979;
   color: white;
@@ -39,15 +32,6 @@
   height: 100%;
 }
 
-.addCol {
-  display: flex;
-  width: 50%;
-  justify-content: end;
-}
-
-.headerCol {
-  width: 50%;
-}
 
 .auctionBox {
   display: flex;

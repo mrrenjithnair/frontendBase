@@ -174,7 +174,7 @@ export class TournamentList extends React.PureComponent {
 
                         </div>
                         <div className='addCol'>
-                            {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addTournament && this.props.tournamentListPage && <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
+                            {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addTournament && this.props.tournamentListPage && <Button className="buttonPrimary" variant="primary" onClick={() => this.setState({ showModal: true })}>
                                 Add Tournament
                             </Button>}
                         </div>

@@ -24,22 +24,9 @@
   display: flex;
   background-color: #14a184;
 }
-.headerRow{
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 5px;
-  border: 1px #e4e4e4 solid;
-  padding: 10px;
 
-}
-.addCol{
-  display: flex;
-  width: 50%;
-  justify-content: end;
-}
-.headerCol{
-  width: 50%;
-}
+
+
 .letterCircleClub {
   border-radius: 50%;
   width: 5rem;

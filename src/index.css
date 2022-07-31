@@ -19,7 +19,7 @@ code {
   color: white;
   box-shadow: 0 10px 20px 0 rgba(80, 123, 252, 0.50);
   font-weight: 300;
-  padding: 8px 0;
+  /* padding: 8px 0; */
   border-radius: 100px;
   transition: 300ms;
   cursor: pointer;
@@ -29,9 +29,11 @@ code {
 }
 
 .bgPrimary{
-  background-color: #16a085  !important;
+  background-color: #4b6584  !important;
   --bs-bg-opacity:1;
-  border-color: #16a085  !important;
+  border-bottom-color: #FFFFFF  !important;
+  border-bottom-width: 1px;
+  border-style: solid;
 }
 .bottomFotter{
   position: fixed;
@@ -39,6 +41,34 @@ code {
   bottom: 0;
   z-index: 1000;
 }
+.headerRow{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  border: 1px #e4e4e4 solid;
+  padding: 10px;
+  background-color: #4b6584  !important;
+  border-color: #FFFFFF  !important;
+  /* justify-content: center; */
+  align-items: center;
+
+}
+.headerCol h2 {
+  font-size: 16px !important;
+  color:#ffff;
+  font-weight: bold;
+  margin: 0px !important;
+}
+.headerCol {
+  /* width: 50%; */
+}
+.addCol {
+  display: flex;
+  width: 50%;
+  justify-content: end;
+}
+
+
 
 .nav-link{
   display: flex;
@@ -91,6 +121,10 @@ text-transform: capitalize;
   }
   .card-body{
     font-size: 12px !important;
+  }
+  .buttonPrimary{
+    width: 100%;
+    font-size: 10px;
   }
 }
 
