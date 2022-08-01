@@ -17,7 +17,10 @@ import {
     GET_USER_DETAILL_SUCCESS,
     GET_USER_DETAIL_FAILURE,
     GET_PLAYER_TEAM_LIST_SUCCESS,
-    GET_PLAYER_TEAM_LIST_FAILURE
+    GET_PLAYER_TEAM_LIST_FAILURE,
+    UPLOAD_PHOTO,
+    UPLOAD_PHOTO_SUCCESS,
+    UPLOAD_PHOTO_FAILURE
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -135,6 +138,17 @@ export default function (state = initialState, actions) {
         case RESET_TOAST:
             toast.dismiss();
             return state;
+ 
+        case UPLOAD_PHOTO:
+       
+            return { ...state, 'fileToUpload': actions.data, 'fileToUploadName': actions.fileId, [actions.key]: actions.fileId  };
+
+        case UPLOAD_PHOTO_SUCCESS:
+            return { ...state, 'fileToUpload': false, fileToUploadName: false };
+
+        case UPLOAD_PHOTO_FAILURE:
+                return { ...state, 'fileToUpload': false, fileToUploadName: false };
+            
         default:
             return state;
     }

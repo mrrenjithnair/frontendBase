@@ -62,6 +62,8 @@ export function* addTournament() {
     "endDate": new Date(state.tournament.endDate).valueOf(),
     "teamTotal":  parseInt(state.tournament.teamTotal),
     "memberTotal":  parseInt(state.tournament.memberTotal),
+    "logo":  state.tournament.tournamentLogo,
+    "banner":  state.tournament.tournamentBanner,
     "clubId": parseInt(club[0].id)
 }
   try {

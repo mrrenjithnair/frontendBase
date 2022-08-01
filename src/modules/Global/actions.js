@@ -40,6 +40,10 @@ export const CREATE_AUCTION = 'CREATE_AUCTION';
 export const CREATE_AUCTION_SUCCESS = 'CREATE_AUCTION_SUCCESS';
 export const CREATE_AUCTION_FAILURE = 'CREATE_AUCTION_FAILURE';
 
+export const UPLOAD_PHOTO = 'UPLOAD_PHOTO';
+export const UPLOAD_PHOTO_SUCCESS = 'UPLOAD_PHOTO_SUCCESS';
+export const UPLOAD_PHOTO_FAILURE = 'UPLOAD_PHOTO_FAILURE';
+
 
 export function setDataFromLocal() {
   return {
@@ -274,3 +278,27 @@ export function createAuctionFailure(err) {
       err
   };
 }
+
+
+export function uploadPhoto(data, fileId, key) {
+  return {
+      type: UPLOAD_PHOTO,
+      data,
+      fileId,
+      key
+  };
+}
+
+export function uploadPhotoSuccess(data) {
+  return {
+      type: UPLOAD_PHOTO_SUCCESS,
+      data: data
+  };
+}
+export function uploadPhotoFailure(err) {
+  toast.error(err);
+  return {
+      type: UPLOAD_PHOTO_FAILURE,
+  };
+}
+

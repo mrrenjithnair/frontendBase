@@ -9,8 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, } from '@fortawesome/free-brands-svg-icons';
 
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { getTournamentDetails,onChangeValueEditTeam, onChangeValueTeam } from './actions';
-import { getUserList, onChangeValueGlobal } from '../Global/actions';
+import { getTournamentDetails, onChangeValueEditTeam, onChangeValueTeam } from './actions';
+import { getUserList, onChangeValueGlobal, uploadPhoto } from '../Global/actions';
 
 import PropTypes from 'prop-types';
 import './style.css';
@@ -260,6 +260,7 @@ export class TournamentDetails extends React.PureComponent {
                  onHide={() => this.setState({ editModal: false })}
                  onSubmit={() => this.editTournamentSubmit()}
                  feildObj={this.props.selectedTeam}
+                 uploadPhoto={this.props.uploadPhoto}
                  onChangeInput={(evt) => this.onChangeValueEditTeam(evt)}
                 />
 
@@ -295,6 +296,8 @@ function mapDispatchToProps(dispatch) {
         onChangeValueTeam: (evt) => dispatch(onChangeValueTeam(evt)),
         getUserList: (evt) => dispatch(getUserList(evt)),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
+        uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
+        
         
     };
 }

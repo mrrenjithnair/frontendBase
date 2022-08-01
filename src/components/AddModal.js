@@ -16,7 +16,10 @@ class addModal extends React.Component {
             className="form-control form-control-lg"
             placeholder={"please enter " + item.label} />}
           {item.type == 'file' && <input type={item.type} id="form3Example3"
-            onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
+            onChange={(e) => { 
+              const fileId =  new Date().valueOf() + e.target.files[0].name 
+              this.props.uploadPhoto(e.target.files[0], fileId, item.key)
+              this.props.onChangeInput({ target: { id: item.key, value: fileId} }) }}
             className="form-control form-control-lg"
             placeholder={"please enter " + item.label} />}
           {item.type == 'textarea' && <textarea type={item.type} id="form3Example3"

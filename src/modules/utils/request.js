@@ -53,7 +53,13 @@ export async function request(url, opts) {
   if (opts.body) {
     reqOpts.body = JSON.stringify(opts.body)
   }
-
+  
+  if (opts.method === 'FILEPOST') {
+    reqOpts.headers['Accept'] = 'application/json'
+    // reqOpts.headers['Content-Type'] = 'application/json'
+    reqOpts.method = 'POST'
+    reqOpts.body = opts.formData
+  }
   let res = {}
 
   let response = await fetch(url, reqOpts)

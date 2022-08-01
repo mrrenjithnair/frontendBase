@@ -17,8 +17,9 @@ export const initialState = {
     count:0,
     loginUser:null,
     sessionToken:null,
-    requestType: null
-
+    requestType: null,
+    tournamentLogo: false,
+    tournamentBanner: false,
   };
 
 export default function(state = initialState,actions){

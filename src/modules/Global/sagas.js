@@ -307,6 +307,37 @@ export function* getPlayerTeamList() {
 
   }
 }
+export function* uploadPhoto() {
+  var requestURL = CONFIG.apiURL + '/apiService/file'
+  const state = yield select();
+  const global = state.global
+  // const sessionToken = login.get("currentUser").token;
+  const sessionToken = global.sessionToken
+  const userId = localStorage.getItem("userId");
+  const fileToUpload = global.fileToUpload
+  const fileToUploadName = global.fileToUploadName
+  
+  if (!fileToUpload || fileToUpload == undefined) {
+    return
+  }
+  const fileId = fileToUploadName
+	var formData  = new FormData();
+	formData.append('file', fileToUpload, fileId)
+  try {
+    const options = {
+      method: 'FILEPOST',
+      sessionToken: sessionToken,
+      userID: userId,
+      formData: formData,
+    };
+    const obj = yield call(request, requestURL, options);
+    yield put(actions.uploadPhotoSuccess(obj));
+  }
+  catch (err) {
+    yield put(actions.uploadPhotoFailure(getError(err)));
+
+  }
+}
 export default function* globalSaga() {
   yield all([
     takeLatest('GET_CLUB_DETAIL', clubDetails),
@@ -318,6 +349,7 @@ export default function* globalSaga() {
     takeLatest('GET_USER_DETAIL', getUserDetail),
     takeLatest('GET_PLAYER_TEAM_LIST', getPlayerTeamList),
     takeLatest('CREATE_AUCTION', createAuction),
+    takeLatest('UPLOAD_PHOTO', uploadPhoto),
     
   ]);
 }

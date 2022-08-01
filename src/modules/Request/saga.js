@@ -64,7 +64,7 @@ export function* addTournament() {
     console.log('currentUser', currentUser)
     yield put(actions.addTournamentSuccess(currentUser));
     yield put(actions.getClubRequest());
-    history.push('/requestList')
+    // history.push('/requestList')
   }
   catch (err) {
     console.log('err', err)
@@ -92,7 +92,7 @@ export function* editTournament() {
     console.log('currentUser', currentUser)
     yield put(actions.editTournamentSuccess(currentUser));
     yield put(actions.getClubRequest());
-    history.push('/requestList')
+    // history.push('/requestList')
   }
   catch (err) {
     console.log('err', err)

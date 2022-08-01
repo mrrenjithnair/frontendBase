@@ -14,7 +14,7 @@ import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
 
 import { getTournamentList, onChangeValueClub, onChangeValueEditClub, addTournament,editTournament, requestJoin } from './actions';
-import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
+import { onChangeValueGlobal, getClubDetail, uploadPhoto } from '../Global/actions';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -148,6 +148,19 @@ export class TournamentList extends React.PureComponent {
             type: 'date'
         },
         {
+            key: 'tournamentLogo',
+            label: 'logo',
+            type: 'file',
+            value:this.props.tournamentLogo
+
+        },
+        {
+            key: 'tournamentBanner',
+            label: 'banner',
+            type: 'file',
+            value:this.props.tournamentBanner
+        },
+        {
             key: 'endDate',
             label: 'endDate',
             type: 'date'
@@ -201,6 +214,7 @@ export class TournamentList extends React.PureComponent {
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.addTournament()}
                     feildObj={addTournamentObj}
+                    uploadPhoto={this.props.uploadPhoto}
                     onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
                 />
                 <EditModal
@@ -228,7 +242,10 @@ function mapStateToProps(state) {
         nearByTournament: state.global.nearByTournament,
         tournamentListPage: state.global.tournamentListPage,
         loggedInRoleId: state.global.loggedInRoleId,
-        selectedTournament: state.tournament.selectedTournament
+        selectedTournament: state.tournament.selectedTournament,
+        tournamentLogo: state.tournament.tournamentLogo,
+        tournamentBanner: state.tournament.tournamentBanner,
+        
     };
 }
 
@@ -243,6 +260,8 @@ function mapDispatchToProps(dispatch) {
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
         requestJoin: (type, tournamentId, clubId) => dispatch(requestJoin(type, tournamentId, clubId)),
+        
+        uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
 
 
     };
