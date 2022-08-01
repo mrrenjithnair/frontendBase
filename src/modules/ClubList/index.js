@@ -12,7 +12,7 @@ import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
 
 import { getClubList, onChangeValueClub, addClub, joinClub } from './actions';
-import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
+import { onChangeValueGlobal, getClubDetail, uploadPhoto } from '../Global/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -90,11 +90,11 @@ export class ClubList extends React.PureComponent {
             type: 'textarea'
         },
         {
-            key: ' logo',
+            key: 'logo',
             label: 'logo',
             type: 'file'
         },{
-            key: ' banner',
+            key: 'banner',
             label: 'banner',
             type: 'file'
         },]
@@ -138,6 +138,7 @@ export class ClubList extends React.PureComponent {
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.addClub()}
                     feildObj={addClubObj}
+                    uploadPhoto={this.props.uploadPhoto}
                     onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
                 />
             </section>
@@ -167,7 +168,7 @@ function mapDispatchToProps(dispatch) {
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
         joinClub: (evt) => dispatch(joinClub(evt)),
-        
+        uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ClubList);

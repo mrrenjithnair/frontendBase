@@ -13,7 +13,7 @@ import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
 import { getUserList, onChangeValueUser, addUser, userUpdate, onChangeUserUpdate } from './actions';
 
-import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
+import { onChangeValueGlobal, getClubDetail, uploadPhoto } from '../Global/actions';
 import { getClubList } from '../ClubList/actions';
 
 import PropTypes from 'prop-types';
@@ -48,7 +48,7 @@ export class UserList extends React.PureComponent {
             <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
                     {/* <div className='locationBox'><div className='locationText'>{item.sportName}</div> </div> */}
 
-               {item.logo ? <img className="userDp" src={item.logo} alt={item.name} data-letters="MN"/>
+               {item.profilePicture ? <img className="userDp" src={item.profilePicture} alt={item.name} data-letters="MN"/>
                      : <div className='letterCircleUser'>{initials}</div>}
 
                 <div className="card-body">
@@ -151,7 +151,13 @@ export class UserList extends React.PureComponent {
             key: 'password',
             label: 'password',
             type: 'text'
-        },{
+        },
+        {
+            key: 'profilePicture',
+            label: 'profile Picture',
+            type: 'file'
+        },
+        {
             key: 'clubId',
             label: 'club',
             type: 'select',
@@ -197,6 +203,7 @@ export class UserList extends React.PureComponent {
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.addUser()}
                     feildObj={addUserObj}
+                    uploadPhoto={this.props.uploadPhoto}
                     onChangeInput={(evt) => this.props.onChangeValueUser(evt)}
                 />
             </section>
@@ -227,7 +234,7 @@ function mapDispatchToProps(dispatch) {
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
         getClubList: (evt) => dispatch(getClubList(evt)),
         onChangeUserUpdate: (id, key, value) => dispatch(onChangeUserUpdate(id ,key, value)),
-
+        uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
         userUpdate: (id) => dispatch(userUpdate(id)),
         
     };

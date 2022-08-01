@@ -50,7 +50,8 @@ export class ClubDetails extends React.PureComponent {
                 <div id="root">
                     <div className='padding'>
 
-                        <div className="card"> <img className="card-img-top" src="https://i.imgur.com/K7A78We.jpg" alt="Card image cap" />
+                        <div className="card"> 
+                        <img className="card-img-top" src={ clubDetails.banner? clubDetails.banner:"https://i.imgur.com/K7A78We.jpg"} alt="Card image cap" />
                             <div className="card-body little-profile text-center">
                                 <div className="pro-img">
                                     {/* <img src={clubDetails.logo} alt="user" /> */}
@@ -59,7 +60,7 @@ export class ClubDetails extends React.PureComponent {
                                 </div>
                                 <h3 className="m-b-0">{clubDetails.name}</h3>
                                 {clubDetails.ownerName && <h3 className="m-b-5"> <b>Owner Name : {clubDetails.ownerName}</b></h3>}
-                                {!clubDetails.ownerName &&  <div className='selectBox'>
+                                {/* {!clubDetails.ownerName &&  <div className='selectBox'>
                                 <label className="form-label capitalize" >Please select owner </label>
 
                                 <div className="input-group mb-3">
@@ -73,7 +74,7 @@ export class ClubDetails extends React.PureComponent {
                                         <button className="btn btn-outline-secondary" type="button">Submit</button>
                                     </div>
                                 </div>
-                                </div>}
+                                </div>} */}
                             
                                 <p>{clubDetails.Address}</p>
                                 <div className="row text-center m-t-20">

@@ -19,10 +19,10 @@ export function* getClubList() {
   if(!global.nearByClub && !global.clubListPage){
     params.approved = 1
   }
-  if(global.clubListPage){
+  if (global.loggedInRoleId == 1) {
     params.superAdmin = true
   }
-  if(global.assignedClub){
+  if(global.assignedClub&& 1 != global.loggedInRoleId){
     params.assigned = true
   }
   requestURL = requestURL + toURLString(params)
@@ -51,6 +51,8 @@ export function* addClub() {
     "location": state.clubs.location,
     "sportType": 1,
     "address": state.clubs.address,
+    "logo": state.clubs.logo,
+    "banner": state.clubs.banner,
 }
   try {
     var options = {

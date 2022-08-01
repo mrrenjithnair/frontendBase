@@ -23,6 +23,10 @@ export function* clubDetails() {
   if (global.selectedClub) {
     params.clubId = global.selectedClub
   }
+  if (global.loggedInRoleId == 1) {
+    params.superAdmin = true
+    delete params.userId
+  }
   console.log('params', params)
 
   requestURL = requestURL + toURLString(params)

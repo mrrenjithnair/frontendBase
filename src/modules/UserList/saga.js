@@ -52,6 +52,7 @@ export function* addUser() {
     "dob": new Date(state.userList.dob).valueOf(),
     "username": state.userList.username,
     "password": state.userList.password,
+    "profilePicture": state.userList.profilePicture,
     "clubId": parseInt(state.userList.clubId),
   }
   try {

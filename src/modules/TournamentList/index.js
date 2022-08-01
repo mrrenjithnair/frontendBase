@@ -122,16 +122,16 @@ export class TournamentList extends React.PureComponent {
         ).toUpperCase();
         return (
             <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
-
+                {item.banner &&<img class="card-img-top" src={item.banner} alt="Card image cap"></img>}
                 {item.logo ? <img className="userDp" src={item.logo} alt={item.name} data-letters="MN" />
                     : <div className='letterCircleUser'>{initials}</div>}
 
                 <div className="card-body">
-                    <h5 className="card-title"><b>Name:</b> {item.name} </h5>
-                    <p className="card-text"><b>Team Total:</b> {item.teamTotal}</p>
-                    <p className="card-text"><b>Member Total:</b> {item.memberTotal}</p>
-                    <p className="card-text"><b>Start Date:</b>  <Moment format="YYYY/MM/DD">{item.startDate}</Moment></p>
-                    <p className="card-text"><b>End Date:</b>  <Moment format="YYYY/MM/DD">{item.endDate}</Moment></p>
+                    <p  className="card-title"><b>Name: </b> {item.name} </p >
+                    <p className="card-text"><b>Team Total: </b> {item.teamTotal}</p>
+                    <p className="card-text"><b>Member Total: </b> {item.memberTotal}</p>
+                    <p className="card-text"><b>Start Date: </b>  <Moment format="YYYY/MM/DD">{item.startDate}</Moment></p>
+                    <p className="card-text"><b>End Date: </b>  <Moment format="YYYY/MM/DD">{item.endDate}</Moment></p>
                     <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', borderWidth: 2, borderColor: '#e4e4e4' }}>
                         {this.props.loggedInRoleId == 3 && this.props.nearByTournament && <div>
                             <Button disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested for join' : 'Request for join'}</Button><br /><br />
