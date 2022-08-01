@@ -79,6 +79,19 @@ export class TournamentList extends React.PureComponent {
             value: item.memberTotal,
         },
         {
+            key: 'logo',
+            label: 'logo',
+            type: 'file',
+            value: item.logo
+
+        },
+        {
+            key: 'banner',
+            label: 'banner',
+            type: 'file',
+            value: item.banner
+        },
+        {
             key: 'id',
             value: item.id,
         }]
@@ -148,6 +161,11 @@ export class TournamentList extends React.PureComponent {
             type: 'date'
         },
         {
+            key: 'endDate',
+            label: 'endDate',
+            type: 'date'
+        },
+        {
             key: 'tournamentLogo',
             label: 'logo',
             type: 'file',
@@ -159,11 +177,6 @@ export class TournamentList extends React.PureComponent {
             label: 'banner',
             type: 'file',
             value:this.props.tournamentBanner
-        },
-        {
-            key: 'endDate',
-            label: 'endDate',
-            type: 'date'
         },
         {
             key: 'teamTotal',
@@ -223,6 +236,7 @@ export class TournamentList extends React.PureComponent {
                  onHide={() => this.setState({ editModal: false })}
                  onSubmit={() => this.editTournamentSubmit()}
                  feildObj={this.props.selectedTournament}
+                 uploadPhoto={this.props.uploadPhoto}
                  onChangeInput={(evt) => this.onChangeValueEditClub(evt)}
                 />
             </section>
