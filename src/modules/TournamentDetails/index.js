@@ -129,8 +129,13 @@ export class TournamentDetails extends React.PureComponent {
                         <div className='detailBoxMain'>
                             <div className='detailBox'>
                                 {this.props.tournamentDetails && <div className='tournamentDetailBox'>
-                                    <div>
-                                        <div className='tournamentName'>{this.props.tournamentDetails.name}</div>
+                                {this.props.tournamentDetails.banner && <div>
+                                    <img src={this.props.tournamentDetails.banner} className='tournamentBanner' alt="banner pic" />
+                                    </div>}
+                                    <div className='tournamentLogBox'>
+                                    {this.props.tournamentDetails.logo && <div>
+                                    <img src={this.props.tournamentDetails.logo} className='tournamentLogo' alt="banner pic" />
+                                    </div>}  <div className='tournamentName'>{this.props.tournamentDetails.name}</div>
                                     </div>
                                     <div>
                                         <div className='tableBox'>
