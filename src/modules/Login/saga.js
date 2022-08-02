@@ -11,7 +11,12 @@ export function* login() {
   const state = yield select();
   let loginCredentials = {
     "username": state.login.username,
-    "password": state.login.password
+    "password": state.login.password,
+  }
+  if (state.login.socialLogin) {
+    loginCredentials.socialLogin = state.login.socialLogin;
+    loginCredentials.socialLoginType = state.login.socialLoginType;
+    loginCredentials.socialLoginData = state.login.socialLoginData;
   }
   try {
     var options = {

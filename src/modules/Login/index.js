@@ -17,6 +17,21 @@ import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-b
 import { ToastContainer, toast } from 'react-toastify';
 import SportzMitra from '../../images/SportzMitra.png'
 import 'react-toastify/dist/ReactToastify.css';
+import {
+    LoginSocialGoogle,
+    LoginSocialAmazon,
+    LoginSocialFacebook,
+    LoginSocialGithub,
+    LoginSocialInstagram,
+    LoginSocialLinkedin,
+    LoginSocialMicrosoft,
+    LoginSocialPinterest,
+    LoginSocialTwitter,
+    IResolveParams,
+  } from 'reactjs-social-login'
+
+const REDIRECT_URI = 'http://localhost:3000/account/login'
+
 export class Login extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -50,9 +65,17 @@ export class Login extends React.PureComponent {
 
         // }
     }
-    handleSocialLogin = (user) => {
-        console.log(user);
-        localStorage.setItem("userLogin", JSON.stringify(user._profile));
+    setNodeRef (provider, node) {
+        if (node) {
+          this.nodes[ provider ] = node
+        }
+    }
+    handleSocialLogin = (result) => {
+        this.props.onChangeValueLogin({ target: { id: 'socialLogin', value: true } })
+        this.props.onChangeValueLogin({ target: { id: 'socialLoginData', value: result.data } })
+        this.props.onChangeValueLogin({ target: { id: 'socialLoginType', value: result.provider } })
+        this.props.onClickLogin()
+        localStorage.setItem("userLogin", JSON.stringify(result.data));
 
     };
 
@@ -67,6 +90,8 @@ export class Login extends React.PureComponent {
 
 
             <section className="vh-100">
+                <script src="https://apis.google.com/js/platform.js" async defer></script>
+                <meta name="google-signin-client_id" content="174987584924-3bt94g2sm65ift53mubbvisqiui1ckal.apps.googleusercontent.com"></meta>
                 <div className="container-fluid h-custom">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-md-9 col-lg-6 col-xl-5">
@@ -79,21 +104,18 @@ export class Login extends React.PureComponent {
                                 <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                                     <p className="lead fw-normal mb-0 me-3">Sign in with</p>
 
-                                    <SocialButton variant="primary" className="btn btn-default btn-circle mx-1 bgPrimary"
-                                        scope="public_profile,email"
-                                        provider="facebook"
-                                        appId="1817456088401252"
-                                        onLoginSuccess={() => this.handleSocialLogin}
-                                        onLoginFailure={() => this.handleSocialLoginFailure}
+                                    <LoginSocialFacebook
+                                        appId={5522832564472310}
+                                        onResolve={(provider, data ) => {
+                                        console.log(provider, data)
+                                        this.handleSocialLogin(provider, data)
+                                        }}
+                                        onReject={(err) => {
+                                            console.log(err)
+                                        }}
                                     >
                                         <FontAwesomeIcon icon={faFacebook} />
-                                    </SocialButton>
-                                    <Button variant="primary" className="btn btn-default btn-circle mx-1 bgPrimary">
-                                        <FontAwesomeIcon icon={faTwitter} />
-                                    </Button>
-                                    <Button variant="primary" className="btn btn-default btn-circle mx-1 bgPrimary">
-                                        <FontAwesomeIcon icon={faLinkedin} />
-                                    </Button>
+                                    </LoginSocialFacebook>
 
                                 </div>
 

@@ -15,7 +15,9 @@ export const initialState = {
     count: 0,
     loginUser: null,
     sessionToken: null,
-    loggedInUseId: null
+    loggedInUseId: null,
+    socialLoginData: false,
+    socialLogin: false
 };
 
 export default function (state = initialState, actions) {
