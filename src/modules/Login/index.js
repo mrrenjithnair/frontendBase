@@ -103,8 +103,8 @@ export class Login extends React.PureComponent {
                             <form>
                                 <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                                     <p className="lead fw-normal mb-0 me-3">Sign in with</p>
-
-                                    <LoginSocialFacebook
+                                <div>
+                                    <LoginSocialFacebook className="btn btn-default btn-circle mx-1 bgPrimary"
                                         appId={5522832564472310}
                                         onResolve={(provider, data ) => {
                                         console.log(provider, data)
@@ -114,9 +114,23 @@ export class Login extends React.PureComponent {
                                             console.log(err)
                                         }}
                                     >
-                                        <FontAwesomeIcon icon={faFacebook} />
+                                        <FontAwesomeIcon icon={faFacebook} color={"#ffff"}/>
                                     </LoginSocialFacebook>
 
+                                    <LoginSocialGoogle className="btn btn-default btn-circle mx-1 bgPrimary"
+                                        client_id={'174987584924-3bt94g2sm65ift53mubbvisqiui1ckal.apps.googleusercontent.com'}
+                                        onResolve={(provider, data ) => {
+                                        console.log(provider, data)
+                                        this.handleSocialLogin(provider, data)
+                                        }}
+                                        scope = 'email profile'
+                                        onReject={(err) => {
+                                            console.log(err)
+                                        }}
+                                    >
+                                        <FontAwesomeIcon icon={faGoogle} color={"#ffff"}/>
+                                    </LoginSocialGoogle>
+                                    </div>
                                 </div>
 
                                 <div className="divider d-flex align-items-center my-4">
