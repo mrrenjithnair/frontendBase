@@ -18,7 +18,7 @@ import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-b
 import { ToastContainer, toast } from 'react-toastify';
 import history from "../utils/history";
 
-import { onChangeValueGlobal, getUserDetail, getPlayerTeamList } from '../Global/actions';
+import { onChangeValueGlobal, getUserDetail, getPlayerTeamList, onChangeValueProfile, editProfile, setToast, resetToast, uploadPhoto} from '../Global/actions';
 import { getTournamentList } from '../TournamentList/actions';
 import { getClubList } from '../ClubList/actions';
 
@@ -29,6 +29,7 @@ import team from '../../images/team.jpg'
 import 'react-toastify/dist/ReactToastify.css';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import EditModal from '../../components/EditModal'
 
 export class Profile extends React.PureComponent {
     constructor(props) {
@@ -41,7 +42,9 @@ export class Profile extends React.PureComponent {
             isEditing: false,
             errorMessage: '',
             username: '',
-            password: ""
+            password: "",
+            editProfile: false,
+            typing: false
         }
     }
 
@@ -50,15 +53,21 @@ export class Profile extends React.PureComponent {
         this.props.getUserDetail()
         this.props.getPlayerTeamList()
         this.props.getClubList()
+        if (this.props.profileIncomplte && !this.state.editProfile && this.props.userProfile) {
+            this.editProfile()
+        }
+    }
+    componentDidUpdate(){
+ 
     }
     handleSubmit(e) {
         this.props.onClickLogin()
 
         e.preventDefault();
         //if username or password field is empty, return error message
-        // if (this.state.username === "" || this.state.password === "") {
+        // if (this.state.username ==== "" || this.state.password ==== "") {
         // this.setState({ errorMessage: "Empty username/password field" })
-        // } else if (this.state.username == "admin" && this.state.password == "123456") {
+        // } else if (this.state.username === "admin" && this.state.password === "123456") {
         //Signin Success
         // localStorage.setItem("isAuthenticated", "true");
         // window.location.pathname = "/";
@@ -72,7 +81,99 @@ export class Profile extends React.PureComponent {
         localStorage.setItem("userLogin", JSON.stringify(user._profile));
 
     };
+    editProfileSubmit() {
+        let error = false
+        let profileEdit = this.props.profileEdit
+        for (var i = 0; i < profileEdit.length; i++) {
+            if (profileEdit[i].key == 'profilePicture' && !profileEdit[i].value) {
+                error = true
+                this.props.setToast(false, 'Please select profile picture')
+                 break;
+            }
+          }
+        if(!error){
+            this.props.editProfile()
+            this.setState({ editModal: false })
+        }
 
+    }
+    onChangeValueProfile(evt){
+        console.log(evt)
+        this.setState({typing: !this.state.typing})
+        this.props.onChangeValueProfile(evt)
+    }
+        
+    editProfile(){
+        console.log(this.props.userProfile)
+        let data= [{
+            key: 'firstName',
+            label: 'firstName',
+            type: 'text',
+            value: this.props.userProfile.firstName,
+        },
+        {
+            key: 'lastName',
+            label: 'lastName',
+            type: 'text',
+            value: this.props.userProfile.lastName,
+        },
+        {
+            key: 'dob',
+            label: 'DOB',
+            type: 'date',
+            value: this.props.userProfile.dob,
+        },
+        {
+            key: 'profilePicture',
+            label: 'Profile Piture',
+            type: 'file',
+            oldValue: this.props.userProfile.profilePictureUrl,
+        },
+        {
+            key: 'emailId',
+            label: 'email',
+            type: 'text',
+            value: this.props.userProfile.emailId,
+        },
+        {
+            key: 'mobile',
+            label: 'Mobile Number',
+            type: 'text',
+            value: this.props.userProfile.mobile,
+        },
+        {
+            key: 'location',
+            label: 'location',
+            type: 'text',
+            value: this.props.userProfile.location,
+        },
+        {
+            key: 'username',
+            label: 'username',
+            type: 'text',
+            value: this.props.userProfile.username,
+        },
+        {
+            key: 'password',
+            label: 'password',
+            type: 'password',
+            value: this.props.userProfile.password,
+        },
+        {
+            key: 'confirmPassword',
+            label: 'confirm Password',
+            type: 'password',
+            value: this.props.userProfile.confirmPassword,
+        },
+        
+        {
+            key: 'id',
+            value:  this.props.userProfile.id,
+        }]
+        this.props.onChangeValueGlobal({ target: { id: 'profileEdit', value: data } })
+        
+        this.setState({ editModal:true, selectedItem: data })
+    }
     handleSocialLoginFailure = (err) => {
         console.error(err);
     };
@@ -93,7 +194,7 @@ export class Profile extends React.PureComponent {
     }
     render() {
         console.log(this.props.count)
-        let showTabs = this.props.userProfile.roleId == 3 ? true : false
+        let showTabs = this.props.userProfile.roleId === 3 ? true : false
         return (
             <section className="vh-100">
                 <HeaderNavBar />
@@ -105,15 +206,15 @@ export class Profile extends React.PureComponent {
                                 <div className="card">
                                     <div className="card-body">
                                         <div className="d-flex flex-column align-items-center text-center">
-                                            {this.props.userProfile.profilePicture ? <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width="150" />
+                                            {this.props.userProfile.profilePictureUrl ? <img src={this.props.userProfile.profilePictureUrl } alt="Admin" className="rounded-circle" width="150" />
                                                 : <img src={profile} alt="Admin" className="rounded-circle" width="150" />}
 
                                             <div className="mt-3">
                                                 <h4>  {this.props.userProfile.firstName}   {this.props.userProfile.lastName}</h4>
                                                 <p className="text-secondary mb-1">  {this.props.userProfile.category}</p>
                                                 <p className="text-muted font-size-sm"> {this.props.userProfile.location}</p>
-                                                {/* <button className="btn btn-primary">Follow</button>
-                                                <button className="btn btn-outline-primary">Message</button> */}
+                                                {/* {/* <button className="btn btn-primary">Follow</button> */}
+                                                <button className="btn btn-outline-primary"onClick={()=>{this.editProfile()}}>Edit</button>
                                             </div>
                                         </div>
                                     </div>
@@ -183,12 +284,12 @@ export class Profile extends React.PureComponent {
                                 justify
                                 onSelect={(key) => {
                                     console.log(key)
-                                    if(key == 'Teams'){
+                                    if(key === 'Teams'){
                                         this.props.getPlayerTeamList()
-                                    }else if(key == 'Tournement'){
+                                    }else if(key === 'Tournement'){
                                         this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: false } })
                                         this.props.getTournamentList()
-                                    }else if(key == 'clubList'){
+                                    }else if(key === 'clubList'){
                                         this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } })
                                         this.props.getClubList()
                                     }
@@ -218,6 +319,15 @@ export class Profile extends React.PureComponent {
 
                     </div>
                 </div>
+                <EditModal
+                 title={"Edit Profile"}
+                 show={this.state.editModal}
+                 onHide={() => this.setState({ editModal: false })}
+                 onSubmit={() => this.editProfileSubmit()}
+                 feildObj={this.props.profileEdit}
+                 uploadPhoto={this.props.uploadPhoto}
+                 onChangeInput={(evt) => this.onChangeValueProfile(evt)}
+                />
             </section>
         );
     }
@@ -238,17 +348,25 @@ function mapStateToProps(state) {
         playerTeamList: state.global.playerTeamList,
         tournamentList: state.tournament.tournamentList,
         clubList: state.clubs.clubList,
+        profileIncomplte: state.global.profileIncomplte,    
+        profileEdit: state.global.profileEdit,    
+            
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
+        onChangeValueProfile: (evt) => dispatch(onChangeValueProfile(evt)),
+        
         getUserDetail: (evt) => dispatch(getUserDetail(evt)),
         getPlayerTeamList: (evt) => dispatch(getPlayerTeamList(evt)),
         getTournamentList: () => dispatch(getTournamentList()),
         getClubList: () => dispatch(getClubList()),
-
+        editProfile: () => dispatch(editProfile()),
+        uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
+        setToast: (success, message) => dispatch(setToast(success, message)),
+        resetToast: (evt) => dispatch(resetToast(evt)),
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -20,7 +20,8 @@ import {
     GET_PLAYER_TEAM_LIST_FAILURE,
     UPLOAD_PHOTO,
     UPLOAD_PHOTO_SUCCESS,
-    UPLOAD_PHOTO_FAILURE
+    UPLOAD_PHOTO_FAILURE,
+    ON_CHANGE_VALUE_PROFILE
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -117,6 +118,16 @@ export default function (state = initialState, actions) {
         case GET_PLAYER_TEAM_LIST_SUCCESS:
             let teamList = actions.data && actions.data.length > 0 ? actions.data : []
             return { ...state, 'playerTeamList': teamList };
+
+        case ON_CHANGE_VALUE_PROFILE:
+            let userProfileDetail = state.profileEdit
+            userProfileDetail.map((item)=>{
+                if(item.key == actions.id){
+                    item.value = actions.value
+                }
+            })
+            return { ...state, profileEdit: userProfileDetail };
+            
 
         case GET_PLAYER_TEAM_LIST_FAILURE:
                 return { ...state, 'playerTeamList': false };

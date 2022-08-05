@@ -2,7 +2,7 @@
 import { put, all, call, takeLatest, select } from "redux-saga/effects";
 import * as actions from './actions';
 import { request, toURLString } from '../utils/request';
-import { getError, } from '../utils/commonUtils';
+import { getError,exportKeyValue } from '../utils/commonUtils';
 import history from "../utils/history";
 import CONFIG from '../utils/config';
 
@@ -342,6 +342,39 @@ export function* uploadPhoto() {
 
   }
 }
+
+export function* editProfile() {
+  const state = yield select();
+  const global = state.global
+  const club = state.global.globalSelectedClub
+  const teamId = state.global.globalSelectedTeamId
+  const profileEdit = state.global.profileEdit
+  const sessionToken = global.sessionToken
+
+  let params = {}
+  const playerProfile = state.global.loggedInRoleId ==  3
+  if (playerProfile) {
+    var requestURL = CONFIG.apiURL + '/apiService/player'
+  } else {
+    var requestURL = CONFIG.apiURL + '/apiService/user'
+  }
+  let profileBody = exportKeyValue(profileEdit)
+  try {
+    var options = {
+      method: 'POST',
+      body: profileBody,
+      sessionToken: sessionToken,
+    };
+    const profile = yield call(request, requestURL, options);
+    yield put(actions.getUserDetail(profile));
+    yield put(actions.editProfileSuccess(profile));
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.editProfileFailure(getError(err)));
+
+  }
+}
 export default function* globalSaga() {
   yield all([
     takeLatest('GET_CLUB_DETAIL', clubDetails),
@@ -354,6 +387,7 @@ export default function* globalSaga() {
     takeLatest('GET_PLAYER_TEAM_LIST', getPlayerTeamList),
     takeLatest('CREATE_AUCTION', createAuction),
     takeLatest('UPLOAD_PHOTO', uploadPhoto),
+    takeLatest('PROFILE_EDIT', editProfile),
     
   ]);
 }

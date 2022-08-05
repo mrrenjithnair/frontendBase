@@ -12,18 +12,21 @@ class editModal extends React.Component {
       <div>
         <div className="form-outline mb-4" key={i}>
           <label className="form-label capitalize" htmlFor="form3Example3">{item.label}</label>
-          {(item.type == 'text' || item.type == 'number') && <input type={item.type} id="form3Example3"
+          {(item.type == 'text' || item.type == 'number'|| item.type == 'password') && <input type={item.type} id="form3Example3"
             value={item.value}  onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className="form-control form-control-lg"
             placeholder={"please enter " + item.label} />}
-          {item.type == 'file' && <input type={item.type} id="form3Example3"
+          {item.type == 'file' && 
+          <div>
+          {item.oldValue &&<img src={item.oldValue} style={{height:50,width:50,borderWidth:1}}/>}
+          <input type={item.type} id="form3Example3"
            onChange={(e) => { 
               const fileId =  new Date().valueOf() + e.target.files[0].name 
               this.props.uploadPhoto(e.target.files[0], fileId, item.key)
               this.props.onChangeInput({ target: { id: item.key, value: fileId} })
              }}
             className="form-control form-control-lg"
-            placeholder={"please enter " + item.label} />}
+            placeholder={"please enter " + item.label} /></div>}
           {item.type == 'textarea' && <textarea type={item.type} id="form3Example3"
             value={item.value}  onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className="form-control form-control-lg"

@@ -31,6 +31,10 @@ export const GET_USER_LIST_GLOBAL_SUCCESS = 'GET_USER_LIST_GLOBAL_SUCCESS';
 export const GET_USER_DETAIL = 'GET_USER_DETAIL';
 export const GET_USER_DETAILL_SUCCESS = 'GET_USER_DETAILL_SUCCESS';
 export const GET_USER_DETAIL_FAILURE = 'GET_USER_DETAIL_FAILURE';
+export const ON_CHANGE_VALUE_PROFILE = 'ON_CHANGE_VALUE_PROFILE';
+export const PROFILE_EDIT = 'PROFILE_EDIT';
+export const PROFILE_EDIT_SUCCESS = 'PROFILE_EDIT_SUCCESS';
+export const PROFILE_EDIT_FAILURE = 'PROFILE_EDIT_FAILURE';
 
 export const GET_PLAYER_TEAM_LIST_FAILURE = 'GET_PLAYER_TEAM_LIST_FAILURE';
 export const GET_PLAYER_TEAM_LIST_SUCCESS = 'GET_PLAYER_TEAM_LIST_SUCCESS';
@@ -237,6 +241,32 @@ export function getUserDetailFailure(err) {
   };
 }
 
+export function onChangeValueProfile(evt) {
+  return {
+    type: ON_CHANGE_VALUE_PROFILE,
+    id: (!evt.target.id) ? evt.target.name : evt.target.id,
+    value: evt.target.value,
+    };
+}
+export function editProfile() {
+  return {
+      type: PROFILE_EDIT,
+  };
+}
+export function editProfileSuccess(data) {
+  toast.success("profile submited SuccessFully");
+  return {
+      type: PROFILE_EDIT_SUCCESS,
+      data: data
+  };
+}
+export function editProfileFailure(err) {
+  console.log('err', err)
+  toast.error(err);
+  return {
+      type: PROFILE_EDIT_FAILURE,
+  };
+}
 
 export function getPlayerTeamList() {
   return {
