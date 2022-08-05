@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import history from "../modules/utils/history";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import roleInfo from '../../utils/roleInfo';
+import roleInfo from '../modules/utils/roleInfo';
 
 export class HeaderNavBar extends React.PureComponent {
     logout() {
@@ -46,11 +46,11 @@ export class HeaderNavBar extends React.PureComponent {
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
                                 <Nav.Link className="navLink" onClick={() => { history.push('/home'); }}>Home</Nav.Link>
-                                <Nav.Link className="navLink" onClick={() => { history.push('/home'); }} >Leagues</Nav.Link>
-                                <Nav.Link className="navLink" onClick={() => { history.push('/tournamentList'); }} href="#tournamentList">Tournament</Nav.Link>
+                                {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub && <Nav.Link className="navLink" onClick={() => { history.push('/home'); }} >Leagues</Nav.Link>}
+                                {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournement && <Nav.Link className="navLink" onClick={() => { history.push('/tournamentList'); }} href="#tournamentList">My Tournament</Nav.Link>}
                                 <Nav.Link className="navLink" onClick={() => { history.push('/home'); }} >Teams</Nav.Link>
-                                <Nav.Link className="navLink" onClick={() => { history.push('/auction'); }}>Auction</Nav.Link>
-                                <Nav.Link className="navLink" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>
+                                {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.auction && <Nav.Link className="navLink" onClick={() => { history.push('/auction'); }}>Auction</Nav.Link>}
+                                {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && <Nav.Link className="navLink" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>}
                             </Nav>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             {isAuthenticated && <NavDropdown title=

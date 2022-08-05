@@ -33,7 +33,7 @@ export default function (state = initialState, actions) {
             // localStorage.setItem("userPrivileges",JSON.stringify(data.user.privileges));
             localStorage.setItem("user", JSON.stringify(data.user));
             let privileges = JSON.stringify(data.user.privileges)
-            privileges = JSON.parse(privileges.replace(/\r?\n|\r|\t/g, ''))
+            privileges =privileges ? JSON.parse(privileges.replace(/\r?\n|\r|\t/g, '')): ''
             roleInfo.set(JSON.parse(privileges))
             return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: privileges, loggedInUseId:data.user.id, loggedInRoleId:data.user.roleId  };
         case INPUT_VALUE_CHANGED_LOGIN:
