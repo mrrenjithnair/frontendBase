@@ -5,16 +5,22 @@ import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal'
 import 'react-toastify/dist/ReactToastify.css';
 import { formatDate } from '../modules/utils/commonUtils';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 class editModal extends React.Component {
 
   feildObj(item, i) {
+    let cssInputClass =  "form-control form-control-lg"
+    if(item.required ){
+      item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid"
+    }
     return (
       <div>
         <div className="form-outline mb-4" key={i}>
           <label className="form-label capitalize" htmlFor="form3Example3">{item.label}</label>
           {(item.type == 'text' || item.type == 'number'|| item.type == 'password') && <input type={item.type} id="form3Example3"
             value={item.value}  onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
-            className="form-control form-control-lg"
+            className={cssInputClass} 
             placeholder={"please enter " + item.label} />}
           {item.type == 'file' && 
           <div>
@@ -25,15 +31,15 @@ class editModal extends React.Component {
               this.props.uploadPhoto(e.target.files[0], fileId, item.key)
               this.props.onChangeInput({ target: { id: item.key, value: fileId} })
              }}
-            className="form-control form-control-lg"
+            className={cssInputClass}
             placeholder={"please enter " + item.label} /></div>}
           {item.type == 'textarea' && <textarea type={item.type} id="form3Example3"
             value={item.value}  onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
-            className="form-control form-control-lg"
+            className={cssInputClass}
             placeholder={"please enter " + item.label} />}
           {item.type == 'date' && <input type={item.type} id="form3Example3"
             onChange={(e) => { console.log(formatDate(item.value), 'renjith'); this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
-            className="form-control form-control-lg" 
+            className={cssInputClass} 
             value={formatDate(item.value)}
             placeholder={"please enter " + item.label} />}
           {item.type == 'select' &&
@@ -74,6 +80,15 @@ class editModal extends React.Component {
           <Button onClick={this.props.onSubmit}>Submit</Button>
           <Button onClick={this.props.onHide}>Close</Button>
         </Modal.Footer>
+        <ToastContainer position="top-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover />
       </Modal>
     );
   }

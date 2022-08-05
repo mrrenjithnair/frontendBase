@@ -84,12 +84,36 @@ export class Profile extends React.PureComponent {
     editProfileSubmit() {
         let error = false
         let profileEdit = this.props.profileEdit
+        let password 
+        let confirmPassword 
         for (var i = 0; i < profileEdit.length; i++) {
-            if (profileEdit[i].key == 'profilePicture' && !profileEdit[i].value) {
+         if (profileEdit[i].key == 'firstName' && !profileEdit[i].value) {
                 error = true
-                this.props.setToast(false, 'Please select profile picture')
+                this.props.setToast(false, 'Please enter First Name')
+                break;
+            } else if (profileEdit[i].key == 'lastName' && !profileEdit[i].value) {
+                error = true
+                this.props.setToast(false, 'Please enter Last Name')
+                break;
+            } else if (profileEdit[i].key == 'emailId' && !profileEdit[i].value) {
+                error = true
+                this.props.setToast(false, 'Please enter email Id')
+                break;
+            } else if (profileEdit[i].key == 'location' && !profileEdit[i].value) {
+                error = true
+                this.props.setToast(false, 'Please enter location')
+                break;
+            }   if (profileEdit[i].key == 'password' && profileEdit[i].value) {
+                password = profileEdit[i].value
+            } else if (profileEdit[i].key == 'confirmPassword' && profileEdit[i].value) {
+                confirmPassword = profileEdit[i].value
+            } else if (profileEdit[i].key == 'confirmPassword' && profileEdit[i].value) {
+                password = profileEdit[i].value
+            } else if (confirmPassword != password) {
+                error = true
+                this.props.setToast(false, 'Password and confirm password does not match')
                  break;
-            }
+            } 
           }
         if(!error){
             this.props.editProfile()

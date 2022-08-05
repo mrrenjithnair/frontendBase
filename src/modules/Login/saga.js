@@ -31,8 +31,14 @@ export function* login() {
     if (currentUser.user && currentUser.user.club && currentUser.user.club.length > 0) {
       yield put(globalActions.onChangeValueGlobal({ target: { id: 'globalSelectedClub', value: currentUser.user.club[0] } }))
     }
-    
-    history.push('/home');
+    history.push('/profile');
+    yield put(globalActions.onChangeValueGlobal({ target: { id: 'profileIncomplte', value: true } }))
+    if(currentUser && currentUser.user && currentUser.user.showProfile){
+      history.push('/profile');
+    }
+    else{
+      history.push('/home');
+    }
   }
   catch (err) {
     console.log('err', err)

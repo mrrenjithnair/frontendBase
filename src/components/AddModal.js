@@ -7,28 +7,32 @@ import 'react-toastify/dist/ReactToastify.css';
 class addModal extends React.Component {
 
   feildObj(item){
+    let cssInputClass =  "form-control form-control-lg"
+    if(item.required ){
+      item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid"
+    }
     return(
       <div>
         <div className="form-outline mb-4">
           <label className="form-label capitalize" htmlFor="form3Example3">{item.label}</label>
           {(item.type == 'text' || item.type == 'number') && <input type={item.type} id="form3Example3"
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
-            className="form-control form-control-lg"
+            className={cssInputClass}
             placeholder={"please enter " + item.label} />}
           {item.type == 'file' && <input type={item.type} id="form3Example3"
             onChange={(e) => { 
               const fileId =  new Date().valueOf() + e.target.files[0].name 
               this.props.uploadPhoto(e.target.files[0], fileId, item.key)
               this.props.onChangeInput({ target: { id: item.key, value: fileId} }) }}
-            className="form-control form-control-lg"
+            className={cssInputClass}
             placeholder={"please enter " + item.label} />}
           {item.type == 'textarea' && <textarea type={item.type} id="form3Example3"
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
-            className="form-control form-control-lg"
+            className={cssInputClass}
             placeholder={"please enter " + item.label} />}
           {item.type == 'date' && <input type={item.type} id="form3Example3"
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
-            className="form-control form-control-lg"
+            className={cssInputClass}
             placeholder={"please enter " + item.label} />}
             {item.type == 'select' && 
               <select className="form-control"

@@ -46,7 +46,7 @@ export class Dashboard extends React.PureComponent {
                         <div className="dashProfileBox">
                             <div className='dashImgBox'>
                                 <div className='imgMain'>
-                                    <img src={profile} />
+                                {this.props.myDetails.profilePictureUrl ? <img src={this.props.myDetails.profilePictureUrl} />:<img src={profile} />}
                                 </div>
                                 <div className='dashNameBox'>
                                 <div className='dashName'>{this.props.myDetails.firstName + ' ' + this.props.myDetails.lastName}</div>

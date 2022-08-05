@@ -57,8 +57,8 @@ export class HeaderNavBar extends React.PureComponent {
                                 {<div className="pull-left">
 
 
-                                    {userDetails && userDetails.profilePicture ?
-                                        <img className="thumbnail-image" src={userDetails.profilePicture} alt={userDetails.firstName} data-letters={initials} />
+                                    {userDetails && userDetails.profilePictureUrl ?
+                                        <img className="thumbnail-image" src={userDetails.profilePictureUrl} alt={userDetails.firstName} data-letters={initials} />
                                         : <div className='profileLetter'>{initials}</div>}
                                 </div>} id="basic-nav-dropdown">
                                 <NavDropdown.Item onClick={() => { history.push('/profile'); }}>Profile</NavDropdown.Item>
