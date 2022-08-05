@@ -107,7 +107,7 @@ export class ClubList extends React.PureComponent {
                 <div id="root">
                     <div className='headerRow'>
                         <div className='headerCol'>
-                       {this.props.clubListPage ? <h2>CLUB LIST</h2> : <h2> {this.props.nearByClub ? "NEAR-BY CLUB LIST": "MY CLUB LIST"}</h2>}
+                       {this.props.clubListPage ? <h2>LEAGUES LIST</h2> : <h2> {this.props.nearByClub ? "NEAR-BY LEAGUES LIST": "MY LEAGUES LIST"}</h2>}
                             
                         </div>
                         <div className='addCol'>

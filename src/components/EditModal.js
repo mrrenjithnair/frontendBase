@@ -12,7 +12,7 @@ class editModal extends React.Component {
   feildObj(item, i) {
     let cssInputClass =  "form-control form-control-lg"
     if(item.required ){
-      item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid"
+      cssInputClass =  item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid"
     }
     return (
       <div>
