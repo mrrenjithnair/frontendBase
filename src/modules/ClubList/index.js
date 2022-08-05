@@ -27,6 +27,7 @@ export class ClubList extends React.PureComponent {
 
     componentDidMount() {
         this.props.getClubList()
+        window.scrollTo(0, 0)
     }
 
     listRender(item) {

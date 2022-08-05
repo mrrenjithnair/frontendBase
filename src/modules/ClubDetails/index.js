@@ -19,6 +19,7 @@ export class ClubDetails extends React.PureComponent {
 
     componentDidMount() {
         this.props.getClubAdmins()
+        window.scrollTo(0, 0)
     }
 
     render() {

@@ -46,6 +46,7 @@ export class Profile extends React.PureComponent {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0)
         this.props.getUserDetail()
         this.props.getPlayerTeamList()
         this.props.getClubList()

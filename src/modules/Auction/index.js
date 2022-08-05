@@ -34,6 +34,7 @@ export class Auction extends React.PureComponent {
 
     componentDidMount() {
         this.props.getTournamentList()
+        window.scrollTo(0, 0)
     }
     next(){
         this.props.getAuctionPlayer()

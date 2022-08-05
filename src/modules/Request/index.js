@@ -35,6 +35,7 @@ export class Request extends React.PureComponent {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0)
         this.props.getClubRequest()
     }
     requestAction(type, tournamentId, clubId, id, status) {

@@ -18,6 +18,7 @@ export class Counter extends React.PureComponent {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0)
         const { match: { params: { id } } } = this.props;
         if (id) {
             this.props.getBookDetail(id);

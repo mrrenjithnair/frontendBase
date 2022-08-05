@@ -28,11 +28,12 @@ export class Dashboard extends React.PureComponent {
             errorMessage: '',
             username: '',
             password: ""
-        }
+        } 
     }
 
     componentDidMount() {
         this.props.resetDashboard()
+        window.scrollTo(0, 0)
     }
 
     render() {

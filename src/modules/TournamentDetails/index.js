@@ -33,6 +33,7 @@ export class TournamentDetails extends React.PureComponent {
     }
 
     componentDidMount() {
+           window.scrollTo(0, 0)
         this.props.getTournamentDetails()
         var current = new Date().valueOf()
         var startDate = this.props.tournamentDetails && this.props.tournamentDetails.startDate ? new Date(this.props.tournamentDetails.startDate).valueOf() : new Date().valueOf()

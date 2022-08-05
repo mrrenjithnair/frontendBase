@@ -48,6 +48,7 @@ export class Login extends React.PureComponent {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0)
     }
     handleSubmit(e) {
         this.props.onClickLogin()

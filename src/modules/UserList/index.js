@@ -29,6 +29,7 @@ export class UserList extends React.PureComponent {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0)
         this.props.getUserList()
         this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: true } }) 
         this.props.onChangeValueGlobal({ target: { id: 'clubListPage', value: false } }) 

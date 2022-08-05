@@ -33,6 +33,7 @@ export class TournamentList extends React.PureComponent {
     }
 
     componentDidMount() {
+           window.scrollTo(0, 0)
         this.props.getTournamentList()
     }
     addTournament() {
