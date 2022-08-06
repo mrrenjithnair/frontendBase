@@ -40,7 +40,6 @@ export class Dashboard extends React.PureComponent {
         console.log(this.props.count)
         return (
             <section className="vh-100">
-                <HeaderNavBar />
                 <div id="root">
                     <div className="dashboard container pt-5">
                         <div className="dashProfileBox">

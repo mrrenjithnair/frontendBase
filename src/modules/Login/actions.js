@@ -1,6 +1,8 @@
 import { toast } from "react-toastify";
 
 export const LOGIN = 'LOGIN';
+export const ON_LOG_OUT = 'ON_LOG_OUT';
+
 export const ON_LOGIN_FAILURE = 'ON_LOGIN_FAILURE';
 export const ON_LOGIN_SUCCESS = 'ON_LOGIN_SUCCESS';
 export const INPUT_VALUE_CHANGED_LOGIN = 'INPUT_VALUE_CHANGED_LOGIN';

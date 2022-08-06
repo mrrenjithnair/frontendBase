@@ -11,7 +11,7 @@ import AddModal from '../../components/AddModal'
 import history from "../utils/history";
 
 
-import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
+import { logout } from '../Global/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -31,6 +31,7 @@ export class APP extends React.PureComponent {
     render() {
 
         return (<div className='mainBox'>
+                <HeaderNavBar logout={()=>this.props.logout} sessionToken={this.props.sessionToken}></HeaderNavBar>
                 <BottomNavBar />
 
         </div>
@@ -45,13 +46,14 @@ APP.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        
+        sessionToken: state.global.sessionToken
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
     
+        logout: (evt) => dispatch(logout(evt)),        
         
     };
 }

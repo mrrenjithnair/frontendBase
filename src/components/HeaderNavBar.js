@@ -20,7 +20,9 @@ import roleInfo from '../modules/utils/roleInfo';
 export class HeaderNavBar extends React.PureComponent {
     logout() {
         localStorage.clear();
+        this.props.logout()
         history.push('/login');
+        window.location.reload(false);
 
     }
     render() {
@@ -45,10 +47,10 @@ export class HeaderNavBar extends React.PureComponent {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
-                                <Nav.Link className="navLink" onClick={() => { history.push('/home'); }}>Home</Nav.Link>
+                                {this.props.sessionToken && <Nav.Link className="navLink" onClick={() => { history.push('/home'); }}>Home</Nav.Link>}
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub && <Nav.Link className="navLink" onClick={() => { history.push('/home'); }} >Leagues</Nav.Link>}
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournement && <Nav.Link className="navLink" onClick={() => { history.push('/tournamentList'); }} href="#tournamentList">My Tournament</Nav.Link>}
-                                <Nav.Link className="navLink" onClick={() => { history.push('/home'); }} >Teams</Nav.Link>
+                                {this.props.sessionToken && <Nav.Link className="navLink" onClick={() => { history.push('/home'); }} >Teams</Nav.Link>}
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.auction && <Nav.Link className="navLink" onClick={() => { history.push('/auction'); }}>Auction</Nav.Link>}
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && <Nav.Link className="navLink" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>}
                             </Nav>

@@ -54,7 +54,6 @@ export class Register extends React.PureComponent {
 
 
             <section className="vh-100">
-                <HeaderNavBar/>
 
                 <div className="container-fluid h-custom">
                     <div className="row d-flex justify-content-center align-items-center h-100">

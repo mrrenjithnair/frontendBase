@@ -124,7 +124,6 @@ export class TournamentDetails extends React.PureComponent {
 
 
             <section className="vh-100">
-                <HeaderNavBar />
                 <div id="root">
                     <div className='container'>
                         <div className='detailBoxMain'>

@@ -2,7 +2,8 @@ import {
     LOGIN,
     INPUT_VALUE_CHANGED_LOGIN,
     ON_LOGIN_SUCCESS,
-    ON_LOGIN_FAILURE
+    ON_LOGIN_FAILURE,
+    ON_LOG_OUT
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 // The initial state of the Login Reducer
@@ -23,7 +24,8 @@ export const initialState = {
 
 export default function (state = initialState, actions) {
     switch (actions.type) {
-
+        case ON_LOG_OUT:
+            return { state: initialState , errors: {} };
         case LOGIN:
             return { ...state, errors: {} };
         case ON_LOGIN_SUCCESS:

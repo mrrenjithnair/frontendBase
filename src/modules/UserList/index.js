@@ -168,7 +168,6 @@ export class UserList extends React.PureComponent {
 
 
             <section className="vh-100">
-                <HeaderNavBar />
                 <div id="root">
                     <div className='headerRow'>
                         <div className='headerCol'>

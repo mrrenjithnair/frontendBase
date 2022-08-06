@@ -33,6 +33,7 @@ class editModal extends React.Component {
         <div className="form-outline mb-4" key={i}>
           <label className="form-label capitalize" htmlFor="form3Example3">{item.label}</label>
           {(item.type == 'text' || item.type == 'number'|| item.type == 'password') && <input type={item.type} id="form3Example3"
+            disabled ={item.disabled}
             value={item.value}  onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className={cssInputClass} 
             placeholder={"please enter " + item.label} />}

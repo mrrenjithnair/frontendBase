@@ -22,7 +22,8 @@ import {
     UPLOAD_PHOTO_SUCCESS,
     UPLOAD_PHOTO_FAILURE,
     ON_CHANGE_VALUE_PROFILE,
-    ON_LOGIN_FAILURE
+    ON_LOGIN_FAILURE,
+    ON_LOG_OUT
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -45,12 +46,18 @@ export const initialState = {
     teamPlayerList:false,
     sidebarOpen:false,
     userProfile: false,
-    playerTeamList: false
+    playerTeamList: false,
+    globalSelectedClub: false,
+    loginClub: false,
+    loginUser: false,
+    myDetails:false
 };
 
 export default function (state = initialState, actions) {
     switch (actions.type) {
-
+        case ON_LOG_OUT:
+            roleInfo.reset()
+            return {state :undefined}
         case INPUT_VALUE_CHANGED_GLOBAL:
             console.log(actions.id, actions.value)
             return { ...state, [actions.id]: actions.value };

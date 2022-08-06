@@ -161,7 +161,7 @@ export class Profile extends React.PureComponent {
             key: 'emailId',
             label: 'email',
             type: 'text',
-            required:true,
+            disabled:true,
             value: this.props.userProfile.emailId,
         },
         {
@@ -229,7 +229,6 @@ export class Profile extends React.PureComponent {
         let showTabs = this.props.userProfile.roleId === 3 ? true : false
         return (
             <section className="vh-100">
-                <HeaderNavBar />
                 <div className="container">
                     <div className="main-body">
 

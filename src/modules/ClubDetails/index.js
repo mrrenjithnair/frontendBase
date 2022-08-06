@@ -4,7 +4,7 @@ import BottomNavBar from '../../components/BottomNavBar'
 import HeaderNavBar from '../../components/HeaderNavBar'
 import history from "../utils/history";
 
-import { onChangeValueGlobal, getClubAdmins } from '../Global/actions';
+import { onChangeValueGlobal, getClubAdmins, logout } from '../Global/actions';
 
 
 import PropTypes from 'prop-types';
@@ -47,7 +47,6 @@ export class ClubDetails extends React.PureComponent {
 
         return (
             <section className="vh-100">
-                <HeaderNavBar />
                 <div id="root">
                     <div className='padding'>
 
@@ -121,7 +120,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getClubAdmins: () => dispatch(getClubAdmins()),
-        onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
+        onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),        
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ClubDetails);

@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 
+export const ON_LOG_OUT = 'ON_LOG_OUT';
 export const SET_DATA_FROM_LOCAL = 'SET_DATA_FROM_LOCAL';
 export const INPUT_VALUE_CHANGED_GLOBAL = 'INPUT_VALUE_CHANGED_GLOBAL';
 export const GET_CLUB_DETAIL = 'GET_CLUB_DETAIL';
@@ -333,4 +334,12 @@ export function uploadPhotoFailure(err) {
       type: UPLOAD_PHOTO_FAILURE,
   };
 }
+
+export function logout(err) {
+  toast.success('Logout succesfully');
+  return {
+      type: ON_LOG_OUT,
+  };
+}
+
 
