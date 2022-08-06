@@ -55,7 +55,7 @@ export class HeaderNavBar extends React.PureComponent {
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && <Nav.Link className="navLink" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>}
                             </Nav>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                            {isAuthenticated && <NavDropdown title=
+                            {this.props.sessionToken && <NavDropdown title=
                                 {<div className="pull-left">
 
 
