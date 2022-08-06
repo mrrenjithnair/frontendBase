@@ -53,29 +53,34 @@ export class TournamentList extends React.PureComponent {
             key: 'name',
             label: 'name',
             type: 'text',
+            required:true,
             value: item.name,
         },
         {
             key: 'startDate',
             label: 'startDate',
             type: 'date',
+            required:true,
             value: item.startDate,
         },
         {
             key: 'endDate',
             label: 'endDate',
             type: 'date',
+            required:true,
             value: item.endDate,
         },
         {
             key: 'teamTotal',
             label: 'team Total',
+            required:true,
             type: 'number',
             value: item.teamTotal,
         },
         {
             key: 'memberTotal',
             label: 'member Total',
+            required:true,
             type: 'number',
             value: item.memberTotal,
         },
@@ -83,14 +88,16 @@ export class TournamentList extends React.PureComponent {
             key: 'logo',
             label: 'logo',
             type: 'file',
-            value: item.logo
+            value: item.logo,
+            oldValue: item.logoUrl
 
         },
         {
             key: 'banner',
             label: 'banner',
             type: 'file',
-            value: item.banner
+            value: item.banner,
+            oldValue: item.bannerUrl
         },
         {
             key: 'id',
@@ -154,16 +161,19 @@ export class TournamentList extends React.PureComponent {
         let addTournamentObj = [{
             key: 'name',
             label: 'name',
+            required:true,
             type: 'text'
         },
         {
             key: 'startDate',
             label: 'startDate',
+            required:true,
             type: 'date'
         },
         {
             key: 'endDate',
             label: 'endDate',
+            required:true,
             type: 'date'
         },
         {
@@ -182,11 +192,13 @@ export class TournamentList extends React.PureComponent {
         {
             key: 'teamTotal',
             label: 'team Total',
+            required:true,
             type: 'number'
         },
         {
             key: 'memberTotal',
             label: 'member Total',
+            required:true,
             type: 'number'
         }]
         return (

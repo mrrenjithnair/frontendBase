@@ -21,7 +21,8 @@ import {
     UPLOAD_PHOTO,
     UPLOAD_PHOTO_SUCCESS,
     UPLOAD_PHOTO_FAILURE,
-    ON_CHANGE_VALUE_PROFILE
+    ON_CHANGE_VALUE_PROFILE,
+    ON_LOGIN_FAILURE
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -61,7 +62,10 @@ export default function (state = initialState, actions) {
                 loginClub: data.user.club
             }
             return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: data.user.privileges, loggedInUseId: data.user.id, loggedInRoleId: data.user.roleId, ...tempKey };
+        case ON_LOGIN_FAILURE:
+            return { ...state, loginUser: false, sessionToken: false, userPrivileges: false, loggedInUseId: false, loggedInRoleId: false, ...tempKey };
 
+            
         case SET_DATA_FROM_LOCAL:
             console.log(roleInfo)
             const sessionToken = localStorage.getItem("token");

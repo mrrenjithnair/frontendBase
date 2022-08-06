@@ -167,7 +167,7 @@ export class Profile extends React.PureComponent {
         {
             key: 'mobile',
             label: 'Mobile Number',
-            type: 'text',
+            type: 'number',
             required:true,
             value: this.props.userProfile.mobile,
         },

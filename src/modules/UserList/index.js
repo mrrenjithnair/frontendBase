@@ -49,7 +49,7 @@ export class UserList extends React.PureComponent {
             <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
                     {/* <div className='locationBox'><div className='locationText'>{item.sportName}</div> </div> */}
 
-               {item.profilePicture ? <img className="userDp" src={item.profilePicture} alt={item.name} data-letters="MN"/>
+               {item.profilePictureUrl ? <img className="userDp" src={item.profilePictureUrl} alt={item.name} data-letters="MN"/>
                      : <div className='letterCircleUser'>{initials}</div>}
 
                 <div className="card-body">
@@ -81,8 +81,8 @@ export class UserList extends React.PureComponent {
                     <div className='locationBox'>
                         <div className='locationText'>{item.sportName}</div> </div>
             <div className='userBox'>
-               {item.logo ? <img className="userDp" src={item.logo} alt={item.name} data-letters="MN"/>
-                     :  <img className="userDp" src={profile} alt={item.name}/>}
+            {item.profilePictureUrl ? <img className="userDp" src={item.profilePictureUrl} alt={item.name} data-letters="MN"/>
+                     : <img className="userDp" src={profile} alt={item.name}/>}
 
                 <div className="card-body">
                     <h5 className="card-title"><b>Name:</b> {item.firstName} {item.lastName}</h5>

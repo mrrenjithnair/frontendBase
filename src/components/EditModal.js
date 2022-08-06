@@ -12,7 +12,21 @@ class editModal extends React.Component {
   feildObj(item, i) {
     let cssInputClass =  "form-control form-control-lg"
     if(item.required ){
-      cssInputClass =  item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid"
+    let regex = new RegExp("^[a-zA-Z]+$");
+      // cssInputClass =  item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid"
+      // if(item.type == 'text' &&(item.key != 'mobile')){
+      //   regex = null
+      //   regex = new RegExp("^[a-zA-Z]+$");
+      // } else if(item.key == 'email' ){
+      //   regex = null
+      //   regex = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+      // }else if(item.key == 'mobile' ){
+      //   regex = null
+      //   regex = new RegExp(/^[0-9]{10}$/)
+      // }
+
+      if(item.value)
+      cssInputClass =  regex.test(item.value) ? "form-control form-control-lg" : "form-control form-control-lg is-invalid"
     }
     return (
       <div>
