@@ -183,6 +183,7 @@ export class Profile extends React.PureComponent {
             label: 'username',
             type: 'text',
             required:true,
+            disabled:true,
             value: this.props.userProfile.username,
         },
         {

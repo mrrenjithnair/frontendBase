@@ -50,7 +50,7 @@ export class HeaderNavBar extends React.PureComponent {
                                 {this.props.sessionToken && <Nav.Link className="navLink" onClick={() => { history.push('/home'); }}>Home</Nav.Link>}
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub && <Nav.Link className="navLink" onClick={() => { history.push('/home'); }} >Leagues</Nav.Link>}
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournement && <Nav.Link className="navLink" onClick={() => { history.push('/tournamentList'); }} href="#tournamentList">My Tournament</Nav.Link>}
-                                {this.props.sessionToken && <Nav.Link className="navLink" onClick={() => { history.push('/home'); }} >Teams</Nav.Link>}
+                                {/* {this.props.sessionToken && <Nav.Link className="navLink" onClick={() => { history.push('/home'); }} >Teams</Nav.Link>} */}
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.auction && <Nav.Link className="navLink" onClick={() => { history.push('/auction'); }}>Auction</Nav.Link>}
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && <Nav.Link className="navLink" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>}
                             </Nav>

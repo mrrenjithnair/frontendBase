@@ -76,7 +76,7 @@ export default function (state = initialState, actions) {
             }
             return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: data.user.privileges, loggedInUseId: data.user.id, loggedInRoleId: data.user.roleId, ...tempKey };
         case ON_LOGIN_FAILURE:
-            return { ...state, loginUser: false, sessionToken: false, userPrivileges: false, loggedInUseId: false, loggedInRoleId: false, ...tempKey };
+            return { ...state, loginUser: false, sessionToken: false, userPrivileges: false, loggedInUseId: false, loggedInRoleId: false };
 
             
         case SET_DATA_FROM_LOCAL:

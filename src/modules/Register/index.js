@@ -152,14 +152,14 @@ export class Register extends React.PureComponent {
                                     <input type="username" id="form3Example3"
                                      onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'mobile', value: e.target.value } })}}
                                     className="form-control form-control-lg"
-                                        placeholder="Enter a valid email address" />
+                                        placeholder="Enter a valid mobile number" />
                                 </div>
                                 <div className="form-outline mb-4">
                                     <label className="form-label" htmlFor="form3Example3">Location</label>
                                     <input type="username" id="form3Example3"
                                      onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'location', value: e.target.value } })}}
                                     className="form-control form-control-lg"
-                                        placeholder="Enter a valid email address" />
+                                        placeholder="Enter a valid location" />
                                 </div>
 
                                 <div className="form-outline mb-4">
@@ -167,7 +167,7 @@ export class Register extends React.PureComponent {
                                     <input type="username" id="form3Example3"
                                      onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'username', value: e.target.value } })}}
                                     className="form-control form-control-lg"
-                                        placeholder="Enter a valid email address" />
+                                        placeholder="Enter a valid username" />
                                 </div>
 
 

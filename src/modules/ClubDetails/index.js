@@ -77,7 +77,7 @@ export class ClubDetails extends React.PureComponent {
                                 </div>} */}
                             
                                 <p>{clubDetails.Address}</p>
-                                <div className="row text-center m-t-20">
+                                {/* <div className="row text-center m-t-20">
                                     <div className="col-lg-4 col-md-4 m-t-20">
                                         <h3 className="m-b-0 font-light">10</h3><small>Players</small>
                                     </div>
@@ -87,7 +87,7 @@ export class ClubDetails extends React.PureComponent {
                                     <div className="col-lg-4 col-md-4 m-t-20">
                                         <h3 className="m-b-0 font-light">50</h3><small>Total Tournemets</small>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="row m-t-20">
 
                                     {clubDetails.description && <p><b>Description :</b> {clubDetails.description}</p>}

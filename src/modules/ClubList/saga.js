@@ -5,6 +5,8 @@ import { request, toURLString } from '../utils/request';
 import {getError,} from '../utils/commonUtils';
 import history from "../utils/history";
 import CONFIG from '../utils/config';
+import * as globalActions from '../Global/actions';
+
 export function* getClubList() {
   var requestURL = CONFIG.apiURL + '/apiService/club'
   const state = yield select();
@@ -31,11 +33,17 @@ export function* getClubList() {
       method: 'GET',
     	sessionToken: sessionToken,
     };
+    yield put(globalActions.setOverlayLoading(true));
+
     const ClubList = yield call(request, requestURL, options);
     yield put(actions.getClubListSuccess(ClubList));
+    yield put(globalActions.setOverlayLoading(false));
+
   }
   catch (err) {
     yield put(actions.getClubListFailure(getError(err)));
+    yield put(globalActions.setOverlayLoading(false));
+
 
   }
 }
@@ -60,12 +68,19 @@ export function* addClub() {
       body: clubBody,
       sessionToken: sessionToken,
     };
+    yield put(globalActions.setOverlayLoading(true));
+
     const currentUser = yield call(request, requestURL, options);
+
     yield put(actions.addClubSuccess(currentUser));
+    yield put(globalActions.setOverlayLoading(false));
+
     history.push('/clubList')
   }
   catch (err) {
     yield put(actions.addClubFailure(getError(err)));
+    yield put(globalActions.setOverlayLoading(false));
+
 
   }
 }
@@ -86,12 +101,17 @@ export function* joinClub() {
       body: clubBody,
       sessionToken: sessionToken,
     };
+    yield put(globalActions.setOverlayLoading(true));
+
     const club = yield call(request, requestURL, options);
     yield put(actions.getClubList());
     yield put(actions.joinClubSuccess(club));
+    yield put(globalActions.setOverlayLoading(false));
+
 
   }
   catch (err) {
+    yield put(globalActions.setOverlayLoading(false));
     yield put(actions.joinClubFailure(getError(err)));
 
   }
