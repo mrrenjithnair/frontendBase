@@ -9,6 +9,7 @@ import HeaderNavBar from '../../components/HeaderNavBar'
 import Image from 'react-bootstrap/Image'
 import AddModal from '../../components/AddModal'
 import history from "../utils/history";
+import Loading from '../../components/Loading'
 
 
 import { logout } from '../Global/actions';
@@ -30,7 +31,10 @@ export class APP extends React.PureComponent {
    
     render() {
 
-        return (<div className='mainBox'>
+        return (
+
+        <div className='mainBox'>
+               {this.props.loading && <Loading/>}
                 <HeaderNavBar logout={()=>this.props.logout} sessionToken={this.props.sessionToken}></HeaderNavBar>
                 <BottomNavBar />
 
@@ -46,7 +50,8 @@ APP.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        sessionToken: state.global.sessionToken
+        sessionToken: state.global.sessionToken,
+        loading: state.global.loading
     };
 }
 
