@@ -3,6 +3,8 @@ import { put, all, call, takeLatest, select } from "redux-saga/effects";
 import * as actions from './actions';
 import { request, toURLString } from '../utils/request';
 import { getError, } from '../utils/commonUtils';
+import * as globalActions from '../Global/actions';
+
 import history from "../utils/history";
 import CONFIG from '../utils/config';
 export function* getUserList() {
@@ -29,11 +31,17 @@ export function* getUserList() {
       method: 'GET',
       sessionToken: sessionToken,
     };
+    yield put(globalActions.setOverlayLoading(true));
+
     const UserList = yield call(request, requestURL, options);
     yield put(actions.getUserListSuccess(UserList));
+    yield put(globalActions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
+    yield put(globalActions.setOverlayLoading(false));
+
     yield put(actions.getUserListFailure(getError(err)));
 
   }

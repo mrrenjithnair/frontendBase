@@ -8,6 +8,7 @@ import BottomNavBar from '../../components/BottomNavBar'
 
 
 import { login, onChangeValueLogin } from './actions';
+import { setToast, resetToast } from '../Global/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -50,21 +51,50 @@ export class Login extends React.PureComponent {
     componentDidMount() {
         window.scrollTo(0, 0)
     }
+    validate(data) {
+        let valid = false
+        let errMsg =false 
+        let regex
+        if (data && data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                console.log(data[i])
+                if (data[i].type == 'text') {
+                    regex =  new RegExp(/[0-9a-zA-Z]{3,}/);
+                    valid = regex.test(data[i].value)
+                    if(!valid){
+                        errMsg = "  " + data[i].label + " need to be atleast 3 characters"
+                        break;
+                    }
+             
+                }
+            }
+        }
+        return errMsg
+    }
     handleSubmit(e) {
-        this.props.onClickLogin()
-
-        e.preventDefault();
-        //if username or password field is empty, return error message
-        // if (this.state.username === "" || this.state.password === "") {
-        // this.setState({ errorMessage: "Empty username/password field" })
-        // } else if (this.state.username == "admin" && this.state.password == "123456") {
-        //Signin Success
-        // localStorage.setItem("isAuthenticated", "true");
-        // window.location.pathname = "/";
-        // } else {
-        // this.setState({ errorMessage: "Invalid username/password" })
-
-        // }
+        this.props.onChangeValueLogin({ target: { id: 'socialLogin', value: false } })
+        let error = false
+        let data =[
+            {
+                key:'username',
+                type:'text',
+                label:'username',
+                value: this.props.username,
+            },
+            {
+                key:'password',
+                type:'text',
+                value: this.props.password,
+                label:'password',
+            }
+        ]
+        error = this.validate(data)
+        if(error)
+            this.props.setToast(false, error)
+        if (error == false) {
+            console.log(error)
+            this.props.onClickLogin()
+        }
     }
     setNodeRef (provider, node) {
         if (node) {
@@ -143,8 +173,8 @@ export class Login extends React.PureComponent {
                                     <input type="email" id="form3Example3"
                                         onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'username', value: e.target.value } })}} 
                                             className="form-control form-control-lg"
-                                        placeholder="Enter a valid email address" />
-                                    <label className="form-label" htmlFor="form3Example3">Email address</label>
+                                        placeholder="Enter a valid email address or username" />
+                                    <label className="form-label" htmlFor="form3Example3">Email address or Username</label>
                                 </div>
 
 
@@ -216,7 +246,9 @@ function mapDispatchToProps(dispatch) {
     return {
         onClickLogin: (id) => dispatch(login(id)),
         onChangeValueLogin: (evt) => dispatch(onChangeValueLogin(evt)),
-
+        setToast: (success, message) => dispatch(setToast(success, message)),
+        resetToast: (evt) => dispatch(resetToast(evt)),
+        
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

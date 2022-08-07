@@ -23,6 +23,8 @@ export function* login() {
       method: 'POST',
       body: loginCredentials
     };
+    yield put(globalActions.setOverlayLoading(true));
+
     const currentUser = yield call(request, requestURL, options);
     console.log('currentUser', currentUser)
     yield put(actions.onLoginSuccess(currentUser));
@@ -39,9 +41,13 @@ export function* login() {
     else{
       history.push('/home');
     }
+    yield put(globalActions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
+    yield put(globalActions.setOverlayLoading(false));
+
     yield put(actions.onLoginFailure(getError(err)));
 
   }

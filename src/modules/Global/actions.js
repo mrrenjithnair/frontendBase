@@ -1,6 +1,8 @@
 import { toast } from "react-toastify";
 
 export const ON_LOG_OUT = 'ON_LOG_OUT';
+export const SET_OVERLAY_LOADING = 'SET_OVERLAY_LOADING';
+
 export const SET_DATA_FROM_LOCAL = 'SET_DATA_FROM_LOCAL';
 export const INPUT_VALUE_CHANGED_GLOBAL = 'INPUT_VALUE_CHANGED_GLOBAL';
 export const GET_CLUB_DETAIL = 'GET_CLUB_DETAIL';
@@ -342,4 +344,12 @@ export function logout(err) {
   };
 }
 
+
+export function setOverlayLoading(data) {
+
+  return {
+      type: SET_OVERLAY_LOADING,
+      value: data
+  };
+}
 

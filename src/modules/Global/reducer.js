@@ -23,7 +23,8 @@ import {
     UPLOAD_PHOTO_FAILURE,
     ON_CHANGE_VALUE_PROFILE,
     ON_LOGIN_FAILURE,
-    ON_LOG_OUT
+    ON_LOG_OUT,
+    SET_OVERLAY_LOADING
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -50,7 +51,8 @@ export const initialState = {
     globalSelectedClub: false,
     loginClub: false,
     loginUser: false,
-    myDetails:false
+    myDetails:false,
+    loading:false
 };
 
 export default function (state = initialState, actions) {
@@ -58,6 +60,10 @@ export default function (state = initialState, actions) {
         case ON_LOG_OUT:
             roleInfo.reset()
             return {state :undefined}
+        case SET_OVERLAY_LOADING:
+            roleInfo.reset()
+            return {...state, loading: actions.value }
+            
         case INPUT_VALUE_CHANGED_GLOBAL:
             console.log(actions.id, actions.value)
             return { ...state, [actions.id]: actions.value };

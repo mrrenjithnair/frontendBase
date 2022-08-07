@@ -35,11 +35,17 @@ export function* clubDetails() {
       method: 'GET',
       sessionToken: sessionToken,
     };
+    yield put(actions.setOverlayLoading(true));
+
     const ClubList = yield call(request, requestURL, options);
     yield put(actions.getClubDetailSuccess(ClubList));
+    yield put(actions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
+    yield put(actions.setOverlayLoading(false));
+
     yield put(actions.getClubDetailFailed(getError(err)));
 
   }
@@ -59,11 +65,16 @@ export function* clubAdminList() {
       method: 'GET',
       sessionToken: sessionToken,
     };
+    yield put(actions.setOverlayLoading(true));
     const adminList = yield call(request, requestURL, options);
     let obj = { clubAdminList: adminList }
     yield put(actions.globalSuccess(obj));
+    yield put(actions.setOverlayLoading(false));
+    
   }
   catch (err) {
+    yield put(actions.setOverlayLoading(false));
+
     yield put(actions.globalFailed(getError(err)));
 
   }
@@ -102,6 +113,8 @@ export function* getTournamentList() {
       method: 'GET',
       sessionToken: sessionToken,
     };
+    yield put(actions.setOverlayLoading(true));
+
     const TournamentList = yield call(request, requestURL, options);
     console.log('TournamentList', TournamentList)
     if (global.auctionTournamentId) {
@@ -110,9 +123,13 @@ export function* getTournamentList() {
     } else {
       yield put(actions.getTournamentListSuccess(TournamentList));
     }
+    yield put(actions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
+    yield put(actions.setOverlayLoading(false));
+
     yield put(actions.getTournamentListFailure(getError(err)));
 
   }
@@ -137,12 +154,15 @@ export function* getAuctionPlayer() {
       method: 'GET',
       sessionToken: sessionToken,
     };
+    yield put(actions.setOverlayLoading(true));
+
     const TournamentList = yield call(request, requestURL, options);
     console.log('TournamentList', TournamentList)
     yield put(actions.getAuctionPlayerSuccess(TournamentList));
   }
   catch (err) {
     console.log('err', err)
+    yield put(actions.setOverlayLoading(false));
     yield put(actions.getAuctionPlayerFailure(getError(err)));
 
   }
@@ -166,13 +186,17 @@ export function* addPlayerToTeam() {
       body: clubBody,
       sessionToken: sessionToken,
     };
+    yield put(actions.setOverlayLoading(true));
     const result = yield call(request, requestURL, options);
     console.log('result', result)
     yield put(actions.addPlayerToTeamrSuccess(result));
     yield put(actions.getAuctionPlayer());
+    yield put(actions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
+    yield put(actions.setOverlayLoading(false));
     yield put(actions.addPlayerToTeamFailure(getError(err)));
 
   }
@@ -206,12 +230,18 @@ export function* createAuction() {
       body: obj,
       sessionToken: sessionToken,
     };
+    yield put(actions.setOverlayLoading(true));
+
     const result = yield call(request, requestURL, options);
     console.log('result', result)
     yield put(actions.createAuctionSuccess(result));
+    yield put(actions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
+    yield put(actions.setOverlayLoading(false));
+
     yield put(actions.createAuctionFailure(getError(err)));
 
   }
@@ -239,12 +269,18 @@ export function* getUserList() {
       method: 'GET',
       sessionToken: sessionToken,
     };
+    yield put(actions.setOverlayLoading(true));
+
     const UserList = yield call(request, requestURL, options);
     yield put(actions.getUserListSuccess(UserList));
+    yield put(actions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
     yield put(actions.getUserListFailure(getError(err)));
+    yield put(actions.setOverlayLoading(false));
+
 
   }
 }
@@ -275,12 +311,18 @@ export function* getUserDetail() {
       method: 'GET',
       sessionToken: sessionToken,
     };
+    yield put(actions.setOverlayLoading(true));
+
     const UserList = yield call(request, requestURL, options);
     yield put(actions.getUserDetailSuccess(UserList));
+    yield put(actions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
     yield put(actions.getUserDetailFailure(getError(err)));
+    yield put(actions.setOverlayLoading(false));
+
 
   }
 }
@@ -302,12 +344,18 @@ export function* getPlayerTeamList() {
       method: 'GET',
       sessionToken: sessionToken,
     };
+    yield put(actions.setOverlayLoading(true));
+
     const UserList = yield call(request, requestURL, options);
     yield put(actions.getPlayerTeamListSuccess(UserList));
+    yield put(actions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
     yield put(actions.getPlayerTeamListFailure(getError(err)));
+    yield put(actions.setOverlayLoading(false));
+
 
   }
 }
@@ -335,10 +383,16 @@ export function* uploadPhoto() {
       formData: formData,
     };
     const obj = yield call(request, requestURL, options);
+    yield put(actions.setOverlayLoading(true));
+
     yield put(actions.uploadPhotoSuccess(obj));
+    yield put(actions.setOverlayLoading(false));
+
   }
   catch (err) {
     yield put(actions.uploadPhotoFailure(getError(err)));
+    yield put(actions.setOverlayLoading(false));
+
 
   }
 }
@@ -365,12 +419,18 @@ export function* editProfile() {
       body: profileBody,
       sessionToken: sessionToken,
     };
+    yield put(actions.setOverlayLoading(true));
+
     const profile = yield call(request, requestURL, options);
     yield put(actions.getUserDetail(profile));
     yield put(actions.editProfileSuccess(profile));
+    yield put(actions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
+    yield put(actions.setOverlayLoading(false));
+
     yield put(actions.editProfileFailure(getError(err)));
 
   }
