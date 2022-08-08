@@ -102,6 +102,8 @@ export class Register extends React.PureComponent {
                         
                                      <DatePicker className="form-control form-control-lg" 
                                         selected={this.props.dob} 
+                                        showYearDropdown
+                                        scrollableYearDropdown
                                      onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'dob', value: e } })}} 
                                             />  
                                 </div>
