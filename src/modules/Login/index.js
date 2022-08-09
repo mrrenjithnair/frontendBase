@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SocialButton from '../../components/SocialButton'
 import BottomNavBar from '../../components/BottomNavBar'
 
+import history from "../utils/history";
 
 import { login, onChangeValueLogin } from './actions';
 import { setToast, resetToast } from '../Global/actions';
@@ -29,7 +30,7 @@ import {
     LoginSocialPinterest,
     LoginSocialTwitter,
     IResolveParams,
-  } from 'reactjs-social-login'
+} from 'reactjs-social-login'
 
 const REDIRECT_URI = 'http://localhost:3000/account/login'
 
@@ -53,19 +54,19 @@ export class Login extends React.PureComponent {
     }
     validate(data) {
         let valid = false
-        let errMsg =false 
+        let errMsg = false
         let regex
         if (data && data.length > 0) {
             for (var i = 0; i < data.length; i++) {
                 console.log(data[i])
                 if (data[i].type == 'text') {
-                    regex =  new RegExp(/[0-9a-zA-Z]{3,}/);
+                    regex = new RegExp(/[0-9a-zA-Z]{3,}/);
                     valid = regex.test(data[i].value)
-                    if(!valid){
+                    if (!valid) {
                         errMsg = "  " + data[i].label + " need to be atleast 3 characters"
                         break;
                     }
-             
+
                 }
             }
         }
@@ -74,31 +75,31 @@ export class Login extends React.PureComponent {
     handleSubmit(e) {
         this.props.onChangeValueLogin({ target: { id: 'socialLogin', value: false } })
         let error = false
-        let data =[
+        let data = [
             {
-                key:'username',
-                type:'text',
-                label:'username',
+                key: 'username',
+                type: 'text',
+                label: 'username',
                 value: this.props.username,
             },
             {
-                key:'password',
-                type:'text',
+                key: 'password',
+                type: 'text',
                 value: this.props.password,
-                label:'password',
+                label: 'password',
             }
         ]
         error = this.validate(data)
-        if(error)
+        if (error)
             this.props.setToast(false, error)
         if (error == false) {
             console.log(error)
             this.props.onClickLogin()
         }
     }
-    setNodeRef (provider, node) {
+    setNodeRef(provider, node) {
         if (node) {
-          this.nodes[ provider ] = node
+            this.nodes[provider] = node
         }
     }
     handleSocialLogin = (result) => {
@@ -118,98 +119,70 @@ export class Login extends React.PureComponent {
         console.log(this.props.count)
 
         return (
-
-
-            <section className="vh-100">
-                <script src="https://apis.google.com/js/platform.js" async defer></script>
-                <meta name="google-signin-client_id" content="174987584924-3bt94g2sm65ift53mubbvisqiui1ckal.apps.googleusercontent.com"></meta>
-                <div className="container-fluid h-custom">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-md-9 col-lg-6 col-xl-5">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" className="img-fluid" alt="Sample image" />
-                            <img src={SportzMitra} className="img-fluid" alt="Sample image" />
-                            
+            <section class="sign-in">
+                <div class="container">
+                    <a href="index.html" class="logo me-auto display-flex-center "><img src="assets/img/logo1.png" alt="" width="50%" /></a>
+                    <div class="signin-content">
+                        <div class="signin-image">
+                            <figure class="d-none d-md-block"><img src="assets/img/100.webp" alt="sing up image" /></figure>
+                            <a onClick={() => { history.push('/Register') }} class="signup-image-link">Don't have an account? Register</a>
                         </div>
-                        <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                            <form>
-                                <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                                    <p className="lead fw-normal mb-0 me-3">Sign in with</p>
-                                <div>
-                                    <LoginSocialFacebook className="btn btn-default btn-circle mx-1 bgPrimary"
+
+                        <div class="signin-form">
+                            <h2 class="form-title">Sign In</h2>
+                            <div class="register-form" id="login-form">
+                                <div class="form-group">
+                                    <label for="username"><i class="fa fa-envelope"></i></label>
+                                    <input type="text" name="username" id="username" placeholder="Your Email" 
+                                      onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'username', value: e.target.value } })}} 
+                                      />
+                                </div>
+                                <div class="form-group">
+                                    <label for="your_pass"><i class="fa fa-lock"></i></label>
+                                    <input type="password" name="your_pass" id="your_pass" placeholder="Password" 
+                                     onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'password', value: e.target.value } })}} />
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                                    <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                                </div>
+
+                                <div class="form-group form-button">
+                                    <input onClick={this.handleSubmit} type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                                </div>
+                            </div>
+                            <div class="social-login">
+                                <span class="social-label">Or Sign in with</span>
+                                <ul class="socials">
+                                    <LoginSocialFacebook
                                         appId={5522832564472310}
-                                        onResolve={(provider, data ) => {
-                                        console.log(provider, data)
-                                        this.handleSocialLogin(provider, data)
+                                        onResolve={(provider, data) => {
+                                            console.log(provider, data)
+                                            this.handleSocialLogin(provider, data)
                                         }}
                                         onReject={(err) => {
                                             console.log(err)
                                         }}
                                     >
-                                        <FontAwesomeIcon icon={faFacebook} color={"#ffff"}/>
+                                        <li><a href="#"><i class="display-flex-center   fab fa-facebook-f" aria-hidden="true"></i></a></li>
+
                                     </LoginSocialFacebook>
-
-                                    <LoginSocialGoogle className="btn btn-default btn-circle mx-1 bgPrimary"
+                                    <LoginSocialGoogle
                                         client_id={'174987584924-3bt94g2sm65ift53mubbvisqiui1ckal.apps.googleusercontent.com'}
-                                        onResolve={(provider, data ) => {
-                                        console.log(provider, data)
-                                        this.handleSocialLogin(provider, data)
+                                        onResolve={(provider, data) => {
+                                            console.log(provider, data)
+                                            this.handleSocialLogin(provider, data)
                                         }}
-                                        scope = 'email profile'
+                                        scope='email profile'
                                         onReject={(err) => {
                                             console.log(err)
                                         }}
                                     >
-                                        <FontAwesomeIcon icon={faGoogle} color={"#ffff"}/>
+                                        <li><a href="#"><i class="display-flex-center fab fa-google"></i></a></li>
+
                                     </LoginSocialGoogle>
-                                    </div>
-                                </div>
-
-                                <div className="divider d-flex align-items-center my-4">
-                                    <p className="text-center fw-bold mx-3 mb-0">Or</p>
-                                </div>
-
-
-                                <div className="form-outline mb-4">
-                                    <input type="email" id="form3Example3"
-                                        onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'username', value: e.target.value } })}} 
-                                            className="form-control form-control-lg"
-                                        placeholder="Enter a valid email address or username" />
-                                    <label className="form-label" htmlFor="form3Example3">Email address or Username</label>
-                                </div>
-
-
-                                <div className="form-outline mb-3">
-                                    <input type="password" id="form3Example4" className="form-control form-control-lg"
-                                        placeholder="Enter password"
-                                        onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'password', value: e.target.value } })}} />
-                                    <label className="form-label" htmlFor="form3Example4">Password</label>
-                                </div>
-
-                                <div className="d-flex justify-content-between align-items-center">
-
-                                    <div className="form-check mb-0">
-                                        <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                                        <label className="form-check-label" htmlFor="form2Example3">
-                                            Remember me
-                                        </label>
-                                    </div>
-                                    <a href="#!" className="text-body">Forgot password?</a>
-                                </div>
-
-                                <div className="text-center text-lg-start mt-4 pt-2">
-                                    <Button variant="primary" className="btn btn-primary btn-lg bgPrimary"
-                                        style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }} onClick={this.handleSubmit}>Login</Button>{' '}
-                                    <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account?
-                                        <Link className="link-danger" to='/Register'>Register</Link>
-
-                                    </p>
-                                </div>
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                            </form>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -223,6 +196,7 @@ export class Login extends React.PureComponent {
                     draggable
                     pauseOnHover />
             </section>
+
         );
     }
 }
@@ -248,7 +222,7 @@ function mapDispatchToProps(dispatch) {
         onChangeValueLogin: (evt) => dispatch(onChangeValueLogin(evt)),
         setToast: (success, message) => dispatch(setToast(success, message)),
         resetToast: (evt) => dispatch(resetToast(evt)),
-        
+
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
