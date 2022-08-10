@@ -26,6 +26,7 @@ import history from "../utils/history";
 import Login from '../Login'
 import Register from '../Register'
 import { setDataFromLocal } from '../Global/actions';
+import BottomNavBar from '../../components/BottomNavBar'
 
 const NavigateSetter = () => {
   history.navigate = useNavigate();
@@ -42,6 +43,7 @@ export class AppRoutes extends React.PureComponent {
     // this.props.setDataFromLocal()
 
     return (<div>
+      
       <APP />
       <BrowserRouter forceRefresh={true} >
         <NavigateSetter />
@@ -61,6 +63,9 @@ export class AppRoutes extends React.PureComponent {
           
         </Routes>
       </BrowserRouter>
+      <a href="#" className="back-to-top d-flex align-items-center justify-content-center active"><i
+      className="bi bi-arrow-up-short"></i></a>
+      <BottomNavBar />
     </div>)
   }
 }

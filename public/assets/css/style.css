@@ -8,12 +8,12 @@ body {
 }
 
 a {
-  color: #50ac00;
+  color: #50ac00 ;
   text-decoration: none;
 }
 
 a:hover {
-  color: #65c9cd;
+  color: #65c9cd !important;
   text-decoration: none;
 }
 
@@ -196,8 +196,8 @@ h6 {
 }
 
 .league-btn:hover {
-  background: #e11962;
-  color: #fff;
+  background: #e11962 !important;
+  color: #fff !important;
 }
 
 @media (max-width: 768px) {
@@ -408,7 +408,7 @@ h6 {
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
-  color: #50ac00;
+  color: #50ac00 !important;
 }
 
 .navbar .dropdown ul {
@@ -443,7 +443,7 @@ h6 {
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
-  color: #50ac00;
+  color: #50ac00 !important;
 }
 
 .navbar .dropdown:hover>ul {
@@ -543,7 +543,7 @@ h6 {
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover>a {
-  color: #50ac00;
+  color: #50ac00 !important;
 }
 
 .navbar-mobile .dropdown ul {
@@ -573,7 +573,7 @@ h6 {
 .navbar-mobile .dropdown ul a:hover,
 .navbar-mobile .dropdown ul .active:hover,
 .navbar-mobile .dropdown ul li:hover>a {
-  color: #50ac00;
+  color: #50ac00 !important;
 }
 
 .navbar-mobile .dropdown>.dropdown-active {
@@ -946,7 +946,7 @@ section {
 # Cta
 --------------------------------------------------------------*/
 .cta {
-  background: #50ac00;
+  background: #50ac00 !important;
   color: #fff;
   background-size: cover;
   padding: 60px 0;

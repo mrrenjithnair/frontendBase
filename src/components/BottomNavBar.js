@@ -8,27 +8,14 @@ class BottomNavBar extends React.Component {
     render() {
 
         return (
-            <div className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-2 px-2 px-xl-2 bgPrimary bottomFotter">
+            <footer id="footer">
 
-                <div className="text-white mb-3 mb-md-0">
-                    Copyright © 2020. All rights reserved.
-                </div>
-                <div>
-                    <a href="#!" className="text-white me-4">
-                        <FontAwesomeIcon icon={faFacebook} />
-                    </a>
-                    <a href="#!" className="text-white me-4">
-                        <FontAwesomeIcon icon={faTwitter} />
-                    </a>
-                    <a href="#!" className="text-white me-4">
-                        <FontAwesomeIcon icon={faGoogle} />
-                    </a>
-                    <a href="#!" className="text-white">
-                        <FontAwesomeIcon icon={faLinkedin} />
-                    </a>
-                </div>
-               
+            <div class="container">
+              <div class="copyright">
+                &copy; Copyright <strong><span>SportzMitra</span></strong>. All Rights Reserved
+              </div>
             </div>
+          </footer>
         );
     }
 }

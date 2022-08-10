@@ -131,19 +131,19 @@ export class Login extends React.PureComponent {
                             <h2 className="form-title">Sign In</h2>
                             <div className="register-form" id="login-form">
                                 <div className="form-group">
-                                    <label for="username"><i className="fa fa-envelope"></i></label>
+                                    <label htmlFor="username"><i className="fa fa-envelope"></i></label>
                                     <input type="text" name="username" id="username" placeholder="Your Email" 
                                       onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'username', value: e.target.value } })}} 
                                       />
                                 </div>
                                 <div className="form-group">
-                                    <label for="your_pass"><i className="fa fa-lock"></i></label>
+                                    <label htmlFor="your_pass"><i className="fa fa-lock"></i></label>
                                     <input type="password" name="your_pass" id="your_pass" placeholder="Password" 
                                      onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'password', value: e.target.value } })}} />
                                 </div>
                                 <div className="form-group">
                                     <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                    <label for="remember-me" className="label-agree-term"><span><span></span></span>Remember me</label>
+                                    <label htmlFor="remember-me" className="label-agree-term"><span><span></span></span>Remember me</label>
                                 </div>
 
                                 <div className="form-group form-button">

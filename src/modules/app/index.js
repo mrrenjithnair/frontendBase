@@ -36,7 +36,6 @@ export class APP extends React.PureComponent {
         <div className='mainBox'>
                {this.props.loading && <Loading/>}
                 <HeaderNavBar logout={()=>this.props.logout} sessionToken={this.props.sessionToken}></HeaderNavBar>
-                <BottomNavBar />
 
         </div>
         );

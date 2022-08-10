@@ -77,7 +77,7 @@ export class HeaderNavBar extends React.PureComponent {
                             />{' '}</Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
-                                <Nav id="navbar" className="navbar order-last order-lg-0">
+                            {this.props.sessionToken?   <Nav id="navbar" className="navbar order-last order-lg-0">
                                     {this.props.sessionToken && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/home'); }}>Home</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/home'); }} >Leagues</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournement && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/tournamentList'); }} href="#tournamentList">My Tournament</Nav.Link>}
@@ -85,7 +85,14 @@ export class HeaderNavBar extends React.PureComponent {
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.auction && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/auction'); }}>Auction</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>}
                                     {this.props.sessionToken && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/profile'); }}>Profile</Nav.Link>}
-                                </Nav>
+                                </Nav>:
+                                <Nav id="navbar" className="navbar order-last order-lg-0">
+                                    <Nav.Link  href="#hero" className="nav-link scrollto">Home</Nav.Link>
+                                    <Nav.Link  href="#about" className="nav-link scrollto">About</Nav.Link>
+                                    <Nav.Link  href="#services" className="nav-link scrollto">Features</Nav.Link>
+                                    <Nav.Link  href="#departments" className="nav-link scrollto">Leagues</Nav.Link>
+                                    <Nav.Link  href="#contact" className="nav-link scrollto">Contact</Nav.Link>
+                                </Nav>}
                                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             </Navbar.Collapse>
                             {this.props.sessionToken ? <div className="navButtonBox"><a className="league-btn -btn scrollto" onClick={e => this.logout(e)}><span className="">Logout</span></a></div> 

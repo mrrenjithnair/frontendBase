@@ -51,154 +51,111 @@ export class Register extends React.PureComponent {
     render() {
         console.log(this.props.count)
         return (
-
-
-            <section className="vh-100">
-
-                <div className="container-fluid h-custom">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                            <form>
-                                <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                                    <p className="lead fw-normal mb-0 me-3">Register with</p>
-
-                                    <SocialButton variant="primary" className="btn btn-default btn-circle mx-1 bgPrimary"
-                                        scope="public_profile,email"
-                                        provider="facebook"
-                                        appId="1817456088401252"
-                                        onLoginSuccess={() => this.handleSocialLogin}
-                                        onLoginFailure={() => this.handleSocialLoginFailure}
-                                    >
-                                        <FontAwesomeIcon icon={faFacebook} />
-                                    </SocialButton>
-                                    <Button variant="primary" className="btn btn-default btn-circle mx-1 bgPrimary">
-                                        <FontAwesomeIcon icon={faTwitter} />
-                                    </Button>
-                                    <Button variant="primary" className="btn btn-default btn-circle mx-1 bgPrimary">
-                                        <FontAwesomeIcon icon={faLinkedin} />
-                                    </Button>
-
-                                </div>
-
-                                <div className="divider d-flex align-items-center my-4">
-                                    <p className="text-center fw-bold mx-3 mb-0">Or</p>
-                                </div>
-                                <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">First Name</label>
-                                    <input type="firstName" id="form3Example3"
-                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'firstName', value: e.target.value } })}} 
-                                     className="form-control form-control-lg"
-                                     placeholder="Enter a first name" />
-                                </div>
-                                <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">Last Name</label>
-                                    <input type="lastName" id="form3Example3"
-                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'lastName', value: e.target.value } })}} 
-                                     className="form-control form-control-lg"
-                                     placeholder="Enter a last name" />
-                                </div>
-                                <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">DOB</label>
-                        
-                                     <DatePicker className="form-control form-control-lg" 
-                                        selected={this.props.dob} 
-                                        showYearDropdown
-                                        scrollableYearDropdown
-                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'dob', value: e } })}} 
-                                            />  
-                                </div>
-                                
-                                <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">Profile Piture</label>
-                                    <input type="file" id="form3Example3"
-                                         onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'profilePicture', value: e.target.value } })}} 
-                                        className="form-control form-control-lg"
-                                        placeholder="Enter a last name" />
-                                </div>
-                                <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">Sports</label>
-                                    <select className="form-control form-control-lg"
+            <main id="main">
+              <div class="inner-page">
+                <div class="">
+                  <section class="sign-in ">
+                    <div class="container">
+                       <a href="index.html" class="logo me-auto display-flex-center d-none "><img src="assets/img/logo1.png" alt="" width="50%"/></a>
+                      <div class="signup-content">
+                        <div class="signup-form">
+                          <h2 class="form-title">Sign up</h2>
+                          <form >
+                            <div class="form-group">
+                              <label htmlFor="Fname"><i class="zmdi zmdi-account fa fa-user"></i></label>
+                              <input type="text" name="name" id="Fname" placeholder="First Name"
+                              onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'firstName', value: e.target.value } })}}  />
+                            </div>
+                            <div class="form-group">
+                              <label htmlFor="Lname"><i class="fa fa-lock"></i></label>
+                              <input type="text" name="name" id="Lname" placeholder="Last Name"
+                              onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'lastName', value: e.target.value } })}}  />
+                            </div>
+                            <div class="form-group">
+                              <label htmlFor="datepicker"><i class="zmdi zmdi-account fa fa-calendar" autocomplete="off"></i></label>
+                              <input type="date" name="name" utocomplete="off" placeholder="Select Date" 
+                                onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'dob', value: e.target.value } })}} />
+                            </div>
+                            <div class="form-group">
+                              <label htmlFor="file" class="sr-only">File</label>
+                              <div class="input-group">
+                                <input type="text" name="filename" class="form-control" placeholder="No file selected" readonly/>
+                                <span class="input-group-btn">
+                                  <div class="btn btn-default  custom-file-uploader">
+                                    <input type="file" name="file"
+                                      onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'profilePicture', value: e.target.value } })}}  />
+                                    Select a file
+                                  </div>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="form-group drops">
+                              <label htmlFor="Lname"><i class="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
+                              <select class="form-control form-control-sm">
                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'sportsType', value: e.target.value } })}} >
                                         <option value={1}>Cricket</option>
                                     </select>
-                                </div>
-                                <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">Type</label>
-                                    <select className="form-control form-control-lg"
+                            </div>
+        
+                            <div class="form-group drops">
+                              <label htmlFor="Lname"><i class="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
+                               <select class="form-control form-control-sm">
                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'playerType', value: e.target.value } })}} >
-
+                                       <option value='null'>Player Type</option>
                                         <option value={'all-rounder'}>all-rounder</option>
+                                        <option value={'batsman'}>batsman</option>
+                                        <option value={'bowler'}>bowler</option>
+                                        <option value={'wicket-keeper'}>wicket-keeper</option>
                                     </select>
-                                </div>
-                                <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">Player Category</label>
-                                    <select className="form-control form-control-lg"
+                            </div>
+        
+                            <div class="form-group drops">
+                              <label htmlFor="Lname"><i class="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
+                       <select class="form-control form-control-sm">
                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'category', value: e.target.value } })}} >
-
+                                        <option value='null'>Player Category</option>
                                         <option value={'A'}>A</option>
                                         <option value={'B'}>B</option>
                                         <option value={'A'}>C</option>
                                     </select>
-                                </div>
-
-                                <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">Email address</label>
-                                    <input type="email" id="form3Example3"
-                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'emailId', value: e.target.value } })}}
-                                    className="form-control form-control-lg"
-                                        placeholder="Enter a valid email address" />
-                                </div>
-
-                                <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">Mobile Number</label>
-                                    <input type="username" id="form3Example3"
-                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'mobile', value: e.target.value } })}}
-                                    className="form-control form-control-lg"
-                                        placeholder="Enter a valid mobile number" />
-                                </div>
-                                <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">Location</label>
-                                    <input type="username" id="form3Example3"
-                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'location', value: e.target.value } })}}
-                                    className="form-control form-control-lg"
-                                        placeholder="Enter a valid location" />
-                                </div>
-
-                                <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form3Example3">User name</label>
-                                    <input type="username" id="form3Example3"
-                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'username', value: e.target.value } })}}
-                                    className="form-control form-control-lg"
-                                        placeholder="Enter a valid username" />
-                                </div>
-
-
-                                <div className="form-outline mb-3">
-                                    <label className="form-label" htmlFor="form3Example4">Password</label>
-                                    <input type="password" id="form3Example4" className="form-control form-control-lg"
-                                        placeholder="Enter password" 
-                                        onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'password', value: e.target.value } })}}
-                                        />
-                                </div>
-
-
-                                <div className="text-center text-lg-start mt-4 pt-2">
-                                    <Button variant="primary" className="btn btn-primary btn-lg bgPrimary"
-                                        style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }} onClick={this.handleSubmit}>Register</Button>{' '}
-                                    <p className="small fw-bold mt-2 pt-1 mb-0">Already have an account?
-                                        <Link className="link-danger" to='/login'>login</Link></p>
-                                </div>
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                            </form>
+                            </div>
+                            <div class="form-group">
+                            <label htmlFor="location"><i class="zmdi fa fa-map-marker"></i></label>
+                            <input type="text" name="location" id="location" placeholder="location"
+                             onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'location', value: e.target.value } })}} />
+                          </div>
+                            <div class="form-group">
+                              <label htmlFor="mobile"><i class="zmdi fa fa-mobile"></i></label>
+                              <input type="text" name="mobile" id="mobile" placeholder="Mobile Number"
+                               onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'mobile', value: e.target.value } })}} />
+                            </div>
+                            <div class="form-group">
+                              <label htmlFor="email"><i class="zmdi fa fa-envelope"></i></label>
+                              <input type="email" name="email" id="email" placeholder="Your Email" 
+                               onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'emailId', value: e.target.value } })}}/>
+                            </div>
+                            <div class="form-group">
+                              <label htmlFor="pass"><i class="zmdi fa fa-lock"></i></label>
+                              <input type="password" name="pass" id="pass" placeholder="Password" 
+                               onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'password', value: e.target.value } })}}/>
+                            </div>
+                            <div class="form-group form-button">
+                              <input onClick={this.handleSubmit} type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                            </div>
+                          </form>
                         </div>
+                        <div class="signup-image">
+                          <figure class="d-none d-md-block"><img src="assets/img/signup-image.jpg" alt="sing up image"/></figure>
+                          <a href="/login" class="signin-image-link">I am already member</a>
+                        </div>
+                      </div>
                     </div>
+                  </section>
                 </div>
-
-            </section>
+              </div>
+        
+        
+            </main>
         );
     }
 }
