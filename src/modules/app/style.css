@@ -52,12 +52,12 @@
     margin: 0px 10px;
   }
   .navLink{
-    font-size: 1.2rem;
+    /* font-size: 1.2rem;
     font-weight: bold;
-    color: white !important;
+    color: white !important; */
   }
   .nav-tabs{
-    background: #1abc9c;
+    /* background: #1abc9c; */
   }
   .tableButtonDisable{
     font-size: 14px;

@@ -140,21 +140,21 @@ export class TournamentDetails extends React.PureComponent {
                                     <div>
                                         <div className='tableBox'>
                                             <div className='tableBoxRow'>
-                                                <div class="cardView">
-                                                    <div class="item">
+                                                <div className="cardView">
+                                                    <div className="item">
                                                         <h5>  Start Date </h5>
                                                     </div>
-                                                    <div class="name">
+                                                    <div className="name">
                                                         <h3>
                                                             {formatDate(this.props.tournamentDetails.startDate)}
                                                         </h3>
                                                     </div>
                                                 </div>
-                                                <div class="cardView">
-                                                    <div class="item">
+                                                <div className="cardView">
+                                                    <div className="item">
                                                         <h5>  End Date </h5>
                                                     </div>
-                                                    <div class="name">
+                                                    <div className="name">
                                                         <h3>
                                                             {formatDate(this.props.tournamentDetails.endDate)}
                                                         </h3>
@@ -162,21 +162,21 @@ export class TournamentDetails extends React.PureComponent {
                                                 </div>
                                             </div>
                                             <div className='tableBoxRow'>
-                                                <div class="cardView">
-                                                    <div class="item">
+                                                <div className="cardView">
+                                                    <div className="item">
                                                         <h5> Team Total </h5>
                                                     </div>
-                                                    <div class="name">
+                                                    <div className="name">
                                                         <h3>
                                                             {this.props.tournamentDetails.teamTotal}
                                                         </h3>
                                                     </div>
                                                 </div>
-                                                <div class="cardView">
-                                                    <div class="item">
+                                                <div className="cardView">
+                                                    <div className="item">
                                                         <h5>  Member Total </h5>
                                                     </div>
-                                                    <div class="name">
+                                                    <div className="name">
                                                         <h3>
                                                             {this.props.tournamentDetails.memberTotal}
                                                         </h3>
@@ -188,22 +188,22 @@ export class TournamentDetails extends React.PureComponent {
                                         <hr />
                                         {show ? <div>
                                             <div className='startIn'>Tournament start In</div>
-                                            <div class="clock">
+                                            <div className="clock">
                                                 <div>
                                                     <span id="hour">{this.state.days}</span>
-                                                    <span class="text">Days</span>
+                                                    <span className="text">Days</span>
                                                 </div>
                                                 <div>
                                                     <span id="hour">{this.state.hours}</span>
-                                                    <span class="text">Hours</span>
+                                                    <span className="text">Hours</span>
                                                 </div>
                                                 <div>
                                                     <span id="minutes">{this.state.mins}</span>
-                                                    <span class="text">Minutes</span>
+                                                    <span className="text">Minutes</span>
                                                 </div>
                                                 <div>
                                                     <span id="seconds">{this.state.seconds}</span>
-                                                    <span class="text">Seconds</span>
+                                                    <span className="text">Seconds</span>
                                                 </div>
                                             </div>
                                         </div> : <div className='startIn'>Tournament Ended</div>}
@@ -222,10 +222,10 @@ export class TournamentDetails extends React.PureComponent {
                                     </div>
                                     <div>Player List</div></div>
                       
-                                <div class="page-wrapper">
+                                <div className="page-wrapper">
                                     {this.props.teamPlayerList && this.props.teamPlayerList.length > 0 ?
                                         this.props.teamPlayerList.map((item) => (
-                                            <div class="profile-box">
+                                            <div className="profile-box">
                                                {item.profilePicture ? <img src={item.profilePicture} alt="profile pic" />:
                                                 <img src={profile} alt="profile pic" />}
                                                 <h3>{item.firstName} {item.lastName}</h3>
@@ -236,17 +236,17 @@ export class TournamentDetails extends React.PureComponent {
                                 </div>
                             </div>:  <div className='teamBox'>
                             <div className='teamList'> Team List</div>
-                                <div class="page-wrapper">
+                                <div className="page-wrapper">
                                     {this.props.tournamentDetails && this.props.tournamentDetails.teams && this.props.tournamentDetails.teams.length > 0 &&
                                         this.props.tournamentDetails.teams.map((item) => (
-                                            <div class="profile-box">
+                                            <div className="profile-box">
                                                {item.teamLogo ? <img src={item.teamLogo} alt="profile pic" />:
                                                 <img src={team} alt="profile pic" />}
                                                 <h3>{item.teamName}</h3>
                                                 <h4>{item.ownerName}</h4>
-                                                <div class="btn-container">
-                                                    <span class="profile-btn" id="view" onClick={() => this.viewTeam(item)}><i class="far fa-eye"></i>View</span>
-                                                    <span class="profile-btn" id="view" onClick={() => this.editTeam(item)}><i class="far fa-eye"></i>Edit</span>
+                                                <div className="btn-container">
+                                                    <span className="profile-btn" id="view" onClick={() => this.viewTeam(item)}><i className="far fa-eye"></i>View</span>
+                                                    <span className="profile-btn" id="view" onClick={() => this.editTeam(item)}><i className="far fa-eye"></i>Edit</span>
                                                 </div>
                                             </div>
                                         ))}

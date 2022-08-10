@@ -92,7 +92,7 @@ body {
   font-weight: 400;
   font-family: Poppins; }
 
-#main .container,.sign-in .container{
+#main #login .container,.sign-in .container{
   width: 900px;
   background: #fff;
   margin: 0 auto;
@@ -446,13 +446,24 @@ label.valid {
   margin-left: 110px;
   margin-right: 20px;
   margin-top: 10px; }
-
+.navbar-collapse{
+  flex-direction: row-reverse;
+}
+.navButtonBox{
+  display: flex;
+  justify-content: center;
+}
+.navbar-toggler{
+  padding: 5px 10px !important;
+  font-size: 12px !important;
+  margin-right: 2px !important;
+}
 @media screen and (max-width: 1200px) {
-  #main .container,.sign-in .container {
+  #main #login .container,.sign-in .container {
     width: calc( 100% - 30px);
     max-width: 100%; } }
 @media screen and (min-width: 1024px) {
-  #main .container,.sign-in .container {
+  #main #login .container,.sign-in .container {
     max-width: 1200px; } }
 @media screen and (max-width: 768px) {
   .signin-content {

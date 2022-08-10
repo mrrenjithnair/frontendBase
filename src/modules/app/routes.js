@@ -16,6 +16,7 @@ import TournamentList from "../TournamentList"
 import Request from "../Request"
 import TournamentDetails from "../TournamentDetails"
 import Profile from "../Profile"
+import Home from "../Home"
 
 import Auction from "../Auction"
 
@@ -45,8 +46,8 @@ export class AppRoutes extends React.PureComponent {
       <BrowserRouter forceRefresh={true} >
         <NavigateSetter />
         <Routes>
+        <Route exact path="/" element={<Home sessionToken={this.props.sessionToken} />}></Route>
           <Route path="/home" element={<PrivateRoute ><Dashboard sessionToken={this.props.sessionToken} /></PrivateRoute>} />
-          <Route exact path="/" element={<PrivateRoute ><Dashboard sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/clubList" element={<PrivateRoute ><ClubList sessionToken={this.props.sessionToken} /></PrivateRoute>} />

@@ -119,41 +119,40 @@ export class Login extends React.PureComponent {
         console.log(this.props.count)
 
         return (
-            <section class="sign-in">
-                <div class="container">
-                    <a href="index.html" class="logo me-auto display-flex-center "><img src="assets/img/logo1.png" alt="" width="50%" /></a>
-                    <div class="signin-content">
-                        <div class="signin-image">
-                            <figure class="d-none d-md-block"><img src="assets/img/100.webp" alt="sing up image" /></figure>
-                            <a onClick={() => { history.push('/Register') }} class="signup-image-link">Don't have an account? Register</a>
+            <section id="login"className="sign-in">
+                <div className="container">
+                    <div className="signin-content">
+                        <div className="signin-image">
+                            <figure className="d-none d-md-block"><img src="assets/img/100.webp" alt="sing up image" /></figure>
+                            <a onClick={() => { history.push('/Register') }} className="signup-image-link">Don't have an account? Register</a>
                         </div>
 
-                        <div class="signin-form">
-                            <h2 class="form-title">Sign In</h2>
-                            <div class="register-form" id="login-form">
-                                <div class="form-group">
-                                    <label for="username"><i class="fa fa-envelope"></i></label>
+                        <div className="signin-form">
+                            <h2 className="form-title">Sign In</h2>
+                            <div className="register-form" id="login-form">
+                                <div className="form-group">
+                                    <label for="username"><i className="fa fa-envelope"></i></label>
                                     <input type="text" name="username" id="username" placeholder="Your Email" 
                                       onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'username', value: e.target.value } })}} 
                                       />
                                 </div>
-                                <div class="form-group">
-                                    <label for="your_pass"><i class="fa fa-lock"></i></label>
+                                <div className="form-group">
+                                    <label for="your_pass"><i className="fa fa-lock"></i></label>
                                     <input type="password" name="your_pass" id="your_pass" placeholder="Password" 
                                      onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'password', value: e.target.value } })}} />
                                 </div>
-                                <div class="form-group">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                    <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                                <div className="form-group">
+                                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                    <label for="remember-me" className="label-agree-term"><span><span></span></span>Remember me</label>
                                 </div>
 
-                                <div class="form-group form-button">
-                                    <input onClick={this.handleSubmit} type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                                <div className="form-group form-button">
+                                    <input onClick={this.handleSubmit} type="submit" name="signin" id="signin" className="form-submit" value="Log in" />
                                 </div>
                             </div>
-                            <div class="social-login">
-                                <span class="social-label">Or Sign in with</span>
-                                <ul class="socials">
+                            <div className="social-login">
+                                <span className="social-label">Or Sign in with</span>
+                                <ul className="socials">
                                     <LoginSocialFacebook
                                         appId={5522832564472310}
                                         onResolve={(provider, data) => {
@@ -164,7 +163,7 @@ export class Login extends React.PureComponent {
                                             console.log(err)
                                         }}
                                     >
-                                        <li><a href="#"><i class="display-flex-center   fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i className="display-flex-center   fab fa-facebook-f" aria-hidden="true"></i></a></li>
 
                                     </LoginSocialFacebook>
                                     <LoginSocialGoogle
@@ -178,7 +177,7 @@ export class Login extends React.PureComponent {
                                             console.log(err)
                                         }}
                                     >
-                                        <li><a href="#"><i class="display-flex-center fab fa-google"></i></a></li>
+                                        <li><a href="#"><i className="display-flex-center fab fa-google"></i></a></li>
 
                                     </LoginSocialGoogle>
                                 </ul>

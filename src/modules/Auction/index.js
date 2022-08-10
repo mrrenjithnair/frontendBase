@@ -175,21 +175,21 @@ export class Auction extends React.PureComponent {
                                     <div>
                                         {this.props.tournamentDetailGlobal && <div className='tableBox'>
                                             <div className='tableBoxRow'>
-                                                <div class="cardView">
-                                                    <div class="item">
+                                                <div className="cardView">
+                                                    <div className="item">
                                                         <h5> Team Total </h5>
                                                     </div>
-                                                    <div class="name">
+                                                    <div className="name">
                                                         <h3>
                                                             {this.props.tournamentDetailGlobal.teamTotal}
                                                         </h3>
                                                     </div>
                                                 </div>
-                                                <div class="cardView">
-                                                    <div class="item">
+                                                <div className="cardView">
+                                                    <div className="item">
                                                         <h5>  Member Total </h5>
                                                     </div>
-                                                    <div class="name">
+                                                    <div className="name">
                                                         <h3>
                                                             {this.props.tournamentDetailGlobal.memberTotal}
                                                         </h3>

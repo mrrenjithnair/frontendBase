@@ -130,7 +130,7 @@ export class TournamentList extends React.PureComponent {
         ).toUpperCase();
         return (
             <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
-                {item.bannerUrl &&<img class="card-img-top" src={item.bannerUrl} alt="Card image cap"></img>}
+                {item.bannerUrl &&<img className="card-img-top" src={item.bannerUrl} alt="Card image cap"></img>}
                 {item.logoUrl ? <img className="userDp" src={item.logoUrl} alt={item.name} data-letters="MN" />
                     : <div className='letterCircleUser'>{initials}</div>}
 
