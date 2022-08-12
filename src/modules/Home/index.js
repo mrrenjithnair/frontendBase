@@ -19,6 +19,7 @@ import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-b
 import { ToastContainer, toast } from 'react-toastify';
 import SportzMitra from '../../images/SportzMitra.png'
 import 'react-toastify/dist/ReactToastify.css';
+import Carousel from 'react-bootstrap/Carousel';
 
 
 const REDIRECT_URI = 'http://localhost:3000/account/login'
@@ -37,28 +38,50 @@ export class Home extends React.PureComponent {
     render() {
 
         return (
-            <div>
-                <section id="hero">
-                    <div id="heroCarousel" data-bs-interval="5000" className="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div >
+                <Carousel>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="assets/img/2.png"
+                            alt="First slide"
+                        />
+                        <Carousel.Caption >
+                            <div className='slidercontainer'>
+                                <h2>Player registration</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                            </div>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="assets/img/league.png"
+                            alt="Second slide"
+                        />
 
-                        <ol className="carousel-indicators" id="hero-carousel-indicators"></ol>
+                        <Carousel.Caption >
+                            <div className='slidercontainer'>
+                                <h2>Auction /Bid</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                            </div>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="assets/img/league.png"
+                            alt="Third slide"
+                        />
 
-                        <div className="carousel-inner" role="listbox">
-                            <div className="carousel-item active" style={{"backgroundImage": "url(assets/img/92.webp)"}}>
+                        <Carousel.Caption >
+                            <div className='slidercontainer'>
+                                <h2>League</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
                             </div>
-                            <div className="carousel-item" style={{"backgroundImage":" url(assets/img/99.webp)"}}>
-                            </div>
-                            <div className="carousel-item" style={{"backgroundImage":" url(assets/img/95.webp)"}}>
-                            </div>
-                        </div>
-                        <a className="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-                            <span className="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-                        </a>
-                        <a className="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-                            <span className="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                </section>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                </Carousel>
                 <main id="main">
 
                     <section id="about" className="about">

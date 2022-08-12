@@ -579,7 +579,19 @@ h6 {
 .navbar-mobile .dropdown>.dropdown-active {
   display: block;
 }
-
+/*--------------------------------------------------------------
+# slider renjith Section
+--------------------------------------------------------------*/
+.slidercontainer {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding-top: 30px;
+  width: 70%;
+  margin: auto;
+  margin-bottom: 50px;
+  border-top: 4px solid #50ac00;
+  box-shadow: 0px 2px 15px rgb(0 0 0 / 10%);
+}
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
@@ -627,14 +639,14 @@ h6 {
   }
 }
 
-#hero h2 {
+.slidercontainer h2 {
   color: #2f2f2f;
   margin-bottom: 20px;
   font-size: 36px;
   font-weight: 700;
 }
 
-#hero p {
+.slidercontainer p {
   margin: 0 auto 30px auto;
   color: #555555;
 }
@@ -733,10 +745,18 @@ h6 {
   #hero .container {
     margin-top: 100px;
   }
+  .slidercontainer{
+    margin-top: 100px;
+    width: 80%;
+    margin-bottom: 15px !important;
+  }
+  .carousel-caption{
+    bottom: 0px !important;
+  }
 }
 
 @media (max-width: 768px) {
-  #hero h2 {
+  .slidercontainer h2 {
     font-size: 28px;
   }
   #header .logo img {
@@ -1207,8 +1227,10 @@ section {
   padding: 20px;
   color: #555555;
   border-radius: 0;
-  border-left: 5px solid #fff;
+  border-left: 5px solid #fff !important;
   cursor: pointer;
+  flex-direction: column;
+  align-items: baseline;
 }
 
 .departments .nav-link h4 {
@@ -1227,8 +1249,8 @@ section {
 }
 
 .departments .nav-link.active {
-  background: #f7fcfc;
-  border-color: #50ac00;
+  background: #f7fcfc !important;
+  border-color: #50ac00 !important;
 }
 
 .departments .nav-link.active h4 {
