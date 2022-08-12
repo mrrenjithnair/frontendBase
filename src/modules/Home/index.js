@@ -43,7 +43,7 @@ export class Home extends React.PureComponent {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="assets/img/2.png"
+                            src="assets/img/first.jpeg"
                             alt="First slide"
                         />
                         <Carousel.Caption >
