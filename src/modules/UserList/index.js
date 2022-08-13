@@ -31,82 +31,86 @@ export class UserList extends React.PureComponent {
     componentDidMount() {
         window.scrollTo(0, 0)
         this.props.getUserList()
-        this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: true } }) 
-        this.props.onChangeValueGlobal({ target: { id: 'clubListPage', value: false } }) 
-        this.props.onChangeValueGlobal({ target: { id: 'assignedClub', value: true } }) 
-        
+        this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: true } })
+        this.props.onChangeValueGlobal({ target: { id: 'clubListPage', value: false } })
+        this.props.onChangeValueGlobal({ target: { id: 'assignedClub', value: true } })
+
         this.props.getClubList()
     }
-    adminUi(item){
+    adminUi(item) {
         let request = item.approved == 0 && item.playerId
-        let name = item.firstName + " "+ item.lastName
+        let name = item.firstName + " " + item.lastName
         let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
         let initials = [...name.matchAll(rgx)] || [];
         initials = (
             (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
         ).toUpperCase();
         return (
-            <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
-                    {/* <div className='locationBox'><div className='locationText'>{item.sportName}</div> </div> */}
+            <div className="col-md-6 col-lg-3 item" key={item.id}>
 
-               {item.profilePictureUrl ? <img className="userDp" src={item.profilePictureUrl} alt={item.name} data-letters="MN"/>
-                     : <div className='letterCircleUser'>{initials}</div>}
+            <div className="box">
+ {item.profilePicture ? <img className="rounded-circle"  src={item.profilePicture} alt={item.name} data-letters="MN" />
+                    : <div className="rounded-circle letterCircleUser" >{initials}</div>}
+                <h3 className="name">{item.firstName} {item.lastName}</h3>
+                <div className="text-left"><span className="font-weight-bolder">Username :</span> <span className="team-text"> {item.username}</span></div>
+                <div className="text-left"><span className="font-weight-bolder">Player type:</span> <span className="team-text"> {item.playerType}</span></div>
+                <div className="text-left"><span className="font-weight-bolder">Email ID :</span> <span className="team-text"> {item.emailId}</span></div>
+                <div className="text-left"><span className="font-weight-bolder">Clubs :</span>
+                 
+                 {item.clubList && item.clubList.map((item) =>
+                         <span className="team-text"> {item.name}</span>
+                     )}
+                 </div>
 
-                <div className="card-body">
-                    <h5 className="card-title"><b>Name:</b> {item.firstName} {item.lastName}</h5>
-                    <h5 className="card-title"><b>Username:</b> {item.username}</h5>
-                    <h5 className="card-title"><b>Email ID:</b> {item.emailId}</h5>
-                    <h5 className="card-title"><b>Clubs</b>{item.clubList && item.clubList.map((item)=>
-                        <p>{item.name}</p>
-                    )} </h5>
-                </div>
             </div>
+
+        </div>
         )
     }
-    action(item,status){
+    action(item, status) {
         this.props.onChangeUserUpdate(item.id, 'approvedUpdate', true)
         this.props.onChangeUserUpdate(item.id, 'approved', status == 'accept' ? 1 : 0)
         this.props.userUpdate(item.id)
     }
-    userUi(item){
+    userUi(item) {
         let request = item.approved == 0 && item.playerId
-        let name = item.firstName + " "+ item.lastName
+        let name = item.firstName + " " + item.lastName
         let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
         let initials = [...name.matchAll(rgx)] || [];
         initials = (
             (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
         ).toUpperCase();
         return (
-            <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
-                    <div className='locationBox'>
-                        <div className='locationText'>{item.sportName}</div> </div>
-            <div className='userBox'>
-            {item.profilePictureUrl ? <img className="userDp" src={item.profilePictureUrl} alt={item.name} data-letters="MN"/>
-                     : <img className="userDp" src={profile} alt={item.name}/>}
+            <div className="col-md-6 col-lg-3 item"  key={item.id}>
 
-                <div className="card-body">
-                    <h5 className="card-title"><b>Name:</b> {item.firstName} {item.lastName}</h5>
-                    <p className="card-text"><b>Category:</b> {item.category}</p>
-                    <p className="card-text"><b>Player type:</b> {item.playerType}</p>
-                    <p className="card-text"><b>Location:</b> {item.location}</p>
-                    {!item.approved ? <div>
-                        <a  disabled={item.approved == 1 } onClick={() => item.approved == 1 ? '' : this.action(item,'accept')} className= { item.approved == 1 ? 'tableButtonDisable' :'tableButtonPrimary'}>Accept</a>
-                        <a disabled={item.approved == 0 } onClick={() => item.approved == 0 ? '' : this.action(item, 'reject')} className={item.approved == 0 ? 'tableButtonDisable' : 'tableButtonDanger'}>Reject</a>
-              
-                    </div>:<div>
-                    <p className="card-text"><b>Status:</b>Approved</p>
-                        </div>}
-                    </div>   
+            <div className="box">
+                <div className="label-top shadow-sm">
+                    <a className="text-white" href="#">{item.sportName}</a>
                 </div>
+            {item.profilePictureUrl ? <img className="rounded-circle" src={item.profilePictureUrl} alt={item.name} data-letters="MN"/>
+                : <img className="rounded-circle" src={profile} alt={item.name}/>}
+
+                <h3 className="name">{item.firstName} {item.lastName}</h3>
+                <div className="text-left"><span className="font-weight-bolder">Category :</span> <span className="team-text">  {item.category}</span></div>
+                <div className="text-left"><span className="font-weight-bolder">Player type:</span> <span className="team-text"> {item.playerType}</span></div>
+                <div className="text-left"><span className="font-weight-bolder">Location :</span> <span className="team-text"> {item.location}</span></div>
+                {!item.approved ? <div className="btn-wrap">
+                    <a href="#"  disabled={item.approved == 1 } onClick={() => item.approved == 1 ? '' : this.action(item,'accept')} className="btn-buy">Approved</a> &nbsp;
+                    <a href="#" disabled={item.approved == 0 } onClick={() => item.approved == 0 ? '' : this.action(item, 'reject')} className="btn-reject">Reject</a>
+                </div>:
+                <div className="text-left"><span className="font-weight-bolder">Status :</span> <span className="team-text"> Approved</span></div>
+        }
             </div>
+
+        </div>
         )
     }
 
     listRender(item) {
-        if(this.props.adminList){
-           return this.adminUi(item) 
-        }else{
-            return this.userUi(item) 
+        if (this.props.adminList) {
+            return this.adminUi(item)
+        } else {
+            return this.userUi(item)
         }
     }
     addUser() {
@@ -114,14 +118,14 @@ export class UserList extends React.PureComponent {
         this.setState({ showModal: false })
     }
     render() {
-        let clubList =  this.props.clubList && this.props.clubList.length > 0 ? this.props.clubList : []
-        let clubListArray =[]
-        if(clubList && clubList.length> 0){
-            clubList.map((item)=>{
+        let clubList = this.props.clubList && this.props.clubList.length > 0 ? this.props.clubList : []
+        let clubListArray = []
+        if (clubList && clubList.length > 0) {
+            clubList.map((item) => {
                 clubListArray.push({
                     value: item.id,
                     label: item.name,
-                  })  
+                })
             })
         }
         let addUserObj = [{
@@ -148,7 +152,7 @@ export class UserList extends React.PureComponent {
             key: 'username',
             label: 'username',
             type: 'text'
-        },{
+        }, {
             key: 'password',
             label: 'password',
             type: 'text'
@@ -162,43 +166,48 @@ export class UserList extends React.PureComponent {
             key: 'clubId',
             label: 'club',
             type: 'select',
-            data:clubListArray
+            data: clubListArray
         },]
         return (
 
 
-            <section className="vh-100">
+            <section className="compMain">
                 <div id="root">
-                    <div className='headerRow'>
-                        <div className='headerCol'>
-                        <h2> {this.props.adminList ? "CLUB ADMIN LIST": "PLAYER LIST"}</h2>
-                            
-                        </div>
-                        <div className='addCol'>
-                        {roleInfo && roleInfo.privileges && roleInfo.privileges.user && roleInfo.privileges.user.addAdmin &&   <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
-                            Add Admin
-                        </Button>}
+                    <div className="team-boxed">
+                        <div className="container">
+                            <div className="intro">
+                                <h2 className="text-center">{this.props.adminList ? "Club Admin List" : "Player List"} </h2>
+                                {/* <p className="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p> */}
+                                {roleInfo && roleInfo.privileges && roleInfo.privileges.user && roleInfo.privileges.user.addAdmin &&<div  className="text-center"> <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
+                                Add Admin
+                            </Button></div>}
+                            </div>
+                            <div className="row people">
+                            {this.props.userList && this.props.userList.length > 0 &&
+                                this.props.userList.map((item) => {
+                                    return this.listRender(item)
+                                }
+                                )}
+                         
+
+
+                            </div>
                         </div>
                     </div>
-        
-                <div className='container'>
-                    <div className='userList'>
-                        {this.props.userList && this.props.userList.length > 0 &&
-                            this.props.userList.map((item) => {
-                                return this.listRender(item)
-                            }
-                            )}
-                    </div>
+                    <div className='container'>
+                        <div className='userList'>
+                    
+                        </div>
                     </div>
 
 
                 </div>
-                <br/>
-                <br/>
-                <br/>
+                <br />
+                <br />
+                <br />
 
                 <AddModal
-                 title="Add Admin"
+                    title="Add Admin"
                     show={this.state.showModal}
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.addUser()}
@@ -221,7 +230,7 @@ function mapStateToProps(state) {
         userList: state.userList.userList,
         adminList: state.global.adminList,
         clubList: state.clubs.clubList,
-        
+
     };
 }
 
@@ -233,10 +242,10 @@ function mapDispatchToProps(dispatch) {
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
         getClubList: (evt) => dispatch(getClubList(evt)),
-        onChangeUserUpdate: (id, key, value) => dispatch(onChangeUserUpdate(id ,key, value)),
+        onChangeUserUpdate: (id, key, value) => dispatch(onChangeUserUpdate(id, key, value)),
         uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
         userUpdate: (id) => dispatch(userUpdate(id)),
-        
+
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserList);

@@ -143,7 +143,7 @@ export class Auction extends React.PureComponent {
         return (
 
 
-            <section className="vh-100">
+            <section className="compMain">
                 <div id="root">
                     <div className='container'>
                         <div className='auctionBox'>

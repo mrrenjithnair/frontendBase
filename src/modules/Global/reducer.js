@@ -52,7 +52,8 @@ export const initialState = {
     loginClub: false,
     loginUser: false,
     myDetails:false,
-    loading:false
+    loading:false,
+    profileIncomplte: false
 };
 
 export default function (state = initialState, actions) {

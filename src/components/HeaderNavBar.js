@@ -87,11 +87,11 @@ export class HeaderNavBar extends React.PureComponent {
                                     {this.props.sessionToken && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/profile'); }}>Profile</Nav.Link>}
                                 </Nav>:
                                 <Nav id="navbar" className="navbar order-last order-lg-0">
-                                    <Nav.Link  href="#hero" className="nav-link scrollto">Home</Nav.Link>
-                                    <Nav.Link  href="#about" className="nav-link scrollto">About</Nav.Link>
-                                    <Nav.Link  href="#services" className="nav-link scrollto">Features</Nav.Link>
-                                    <Nav.Link  href="#departments" className="nav-link scrollto">Leagues</Nav.Link>
-                                    <Nav.Link  href="#contact" className="nav-link scrollto">Contact</Nav.Link>
+                                    <Nav.Link  href="/#hero" className="nav-link scrollto">Home</Nav.Link>
+                                    <Nav.Link  href="/#about" className="nav-link scrollto">About</Nav.Link>
+                                    <Nav.Link  href="/#services" className="nav-link scrollto">Features</Nav.Link>
+                                    <Nav.Link  href="/#departments" className="nav-link scrollto">Leagues</Nav.Link>
+                                    <Nav.Link  href="/#contact" className="nav-link scrollto">Contact</Nav.Link>
                                 </Nav>}
                                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             </Navbar.Collapse>

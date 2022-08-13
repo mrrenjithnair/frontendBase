@@ -229,7 +229,7 @@ export class Profile extends React.PureComponent {
         console.log(this.props.count)
         let showTabs = this.props.userProfile.roleId === 3 ? true : false
         return (
-            <section className="vh-100">
+            <section className="compMain">
                 <div className="container">
                     <div className="main-body">
 
@@ -246,7 +246,7 @@ export class Profile extends React.PureComponent {
                                                 <p className="text-secondary mb-1">  {this.props.userProfile.category}</p>
                                                 <p className="text-muted font-size-sm"> {this.props.userProfile.location}</p>
                                                 {/* {/* <button className="btn btn-primary">Follow</button> */}
-                                                <button className="btn btn-outline-primary"onClick={()=>{this.editProfile()}}>Edit</button>
+                                                <a className="league-btn -btn scrollto" onClick={() => { this.editProfile() }}><span className="">Edit</span></a>
                                             </div>
                                         </div>
                                     </div>
