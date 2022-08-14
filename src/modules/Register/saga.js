@@ -21,7 +21,8 @@ export function* register() {
     "mobile": parseInt(state.register.mobile),
     "city": state.register.village,
     "location": state.register.location,
-    "category": state.register.category
+    "category": state.register.category,
+    "bio": state.register.bio,
 }
   try {
     var options = {

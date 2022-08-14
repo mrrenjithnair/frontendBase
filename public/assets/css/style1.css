@@ -63,12 +63,12 @@ img {
 figure {
   margin: 0; }
 
-p {
+.home p {
   margin-bottom: 0px;
   font-size: 15px;
   color: #777; }
 
-h2 {
+.home h2 {
   line-height: 1.66;
   margin: 0;
   padding: 0;
@@ -77,14 +77,14 @@ h2 {
   font-family: Poppins;
   font-size: 36px; }
 
-.main {
+.home .main {
   background: #f8f8f8;
   padding: 150px 0; }
 
 .clear {
   clear: both; }
 
-body {
+.home body {
   font-size: 13px;
   line-height: 1.8;
   color: #222;

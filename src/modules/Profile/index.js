@@ -129,80 +129,159 @@ export class Profile extends React.PureComponent {
         
     editProfile(){
         console.log(this.props.userProfile)
-        let data= [{
-            key: 'firstName',
-            label: 'firstName',
-            required:true,
-            type: 'text',
-            value: this.props.userProfile.firstName,
-        },
-        {
-            key: 'lastName',
-            label: 'lastName',
-            type: 'text',
-            required:true,
-            value: this.props.userProfile.lastName,
-        },
-        {
-            key: 'dob',
-            label: 'DOB',
-            type: 'date',
-            required:true,
-            value: this.props.userProfile.dob,
-        },
-        {
-            key: 'profilePicture',
-            label: 'Profile Piture',
-            type: 'file',
-            required:true,
-            oldValue: this.props.userProfile.profilePictureUrl,
-        },
-        {
-            key: 'emailId',
-            label: 'email',
-            type: 'text',
-            disabled:true,
-            value: this.props.userProfile.emailId,
-        },
-        {
-            key: 'mobile',
-            label: 'Mobile Number',
-            type: 'number',
-            required:true,
-            value: this.props.userProfile.mobile,
-        },
-        {
-            key: 'location',
-            label: 'location',
-            type: 'text',
-            required:true,
-            value: this.props.userProfile.location,
-        },
-        {
-            key: 'username',
-            label: 'username',
-            type: 'text',
-            required:true,
-            disabled:true,
-            value: this.props.userProfile.username,
-        },
-        {
-            key: 'password',
-            label: 'password',
-            type: 'password',
-            value: this.props.userProfile.password,
-        },
-        {
-            key: 'confirmPassword',
-            label: 'confirm Password',
-            type: 'password',
-            value: this.props.userProfile.confirmPassword,
-        },
-        
-        {
-            key: 'id',
-            value:  this.props.userProfile.id,
-        }]
+        let data =[]
+        if(this.props.userProfile.roleId === 3){
+            data= [{
+                key: 'firstName',
+                label: 'firstName',
+                required:true,
+                type: 'text',
+                value: this.props.userProfile.firstName,
+            },
+            {
+                key: 'lastName',
+                label: 'lastName',
+                type: 'text',
+                required:true,
+                value: this.props.userProfile.lastName,
+            },
+            {
+                key: 'dob',
+                label: 'DOB',
+                type: 'date',
+                required:true,
+                value: this.props.userProfile.dob,
+            },
+            {
+                key: 'profilePicture',
+                label: 'Profile Piture',
+                type: 'file',
+                required:true,
+                oldValue: this.props.userProfile.profilePictureUrl,
+            },
+            {
+                key: 'emailId',
+                label: 'email',
+                type: 'text',
+                disabled:true,
+                value: this.props.userProfile.emailId,
+            },
+            {
+                key: 'mobile',
+                label: 'Mobile Number',
+                type: 'number',
+                required:true,
+                value: this.props.userProfile.mobile,
+            },
+            {
+                key: 'location',
+                label: 'location',
+                type: 'text',
+                required:true,
+                value: this.props.userProfile.location,
+            },
+            {
+                key: 'bio',
+                label: 'bio',
+                type: 'text',
+                required:true,
+                value: this.props.userProfile.bio,
+            },
+            {
+                key: 'username',
+                label: 'username',
+                type: 'text',
+                required:true,
+                disabled:true,
+                value: this.props.userProfile.username,
+            },
+            {
+                key: 'password',
+                label: 'password',
+                type: 'password',
+                value: this.props.userProfile.password,
+            },
+            {
+                key: 'confirmPassword',
+                label: 'confirm Password',
+                type: 'password',
+                value: this.props.userProfile.confirmPassword,
+            },
+            
+            {
+                key: 'id',
+                value:  this.props.userProfile.id,
+            }]
+        }else{
+            data= [{
+                key: 'firstName',
+                label: 'firstName',
+                required:true,
+                type: 'text',
+                value: this.props.userProfile.firstName,
+            },
+            {
+                key: 'lastName',
+                label: 'lastName',
+                type: 'text',
+                required:true,
+                value: this.props.userProfile.lastName,
+            },
+            {
+                key: 'dob',
+                label: 'DOB',
+                type: 'date',
+                required:true,
+                value: this.props.userProfile.dob,
+            },
+            {
+                key: 'profilePicture',
+                label: 'Profile Piture',
+                type: 'file',
+                required:true,
+                oldValue: this.props.userProfile.profilePictureUrl,
+            },
+            {
+                key: 'emailId',
+                label: 'email',
+                type: 'text',
+                disabled:true,
+                value: this.props.userProfile.emailId,
+            },
+            {
+                key: 'mobile',
+                label: 'Mobile Number',
+                type: 'number',
+                required:true,
+                value: this.props.userProfile.mobile,
+            },
+            {
+                key: 'username',
+                label: 'username',
+                type: 'text',
+                required:true,
+                disabled:true,
+                value: this.props.userProfile.username,
+            },
+            {
+                key: 'password',
+                label: 'password',
+                type: 'password',
+                value: this.props.userProfile.password,
+            },
+            {
+                key: 'confirmPassword',
+                label: 'confirm Password',
+                type: 'password',
+                value: this.props.userProfile.confirmPassword,
+            },
+            
+            {
+                key: 'id',
+                value:  this.props.userProfile.id,
+            }]
+        }
+   
         this.props.onChangeValueGlobal({ target: { id: 'profileEdit', value: data } })
         
         this.setState({ editModal:true, selectedItem: data })
@@ -228,6 +307,7 @@ export class Profile extends React.PureComponent {
     render() {
         console.log(this.props.count)
         let showTabs = this.props.userProfile.roleId === 3 ? true : false
+        let isPlayer =  this.props.userProfile.roleId === 3 ? true : false
         return (
             <section className="compMain">
                 <div className="container">
@@ -292,6 +372,7 @@ export class Profile extends React.PureComponent {
                                             </div>
                                         </div>
                                         <hr />
+                                        {isPlayer &&  <div>
                                         <div className="row">
                                             <div className="col-sm-3">
                                                 <h6 className="mb-0">location</h6>
@@ -301,6 +382,17 @@ export class Profile extends React.PureComponent {
                                             </div>
                                         </div>
                                         <hr />
+                                        </div>}
+                                        {isPlayer &&<div> <div className="row">
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-0">Bio</h6>
+                                            </div>
+                                            <div className="col-sm-9 text-secondary">
+                                                {this.props.userProfile.bio}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        </div>}
                                         {/* <div className="row">
                                             <div className="col-sm-12">
                                                 <a className="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>

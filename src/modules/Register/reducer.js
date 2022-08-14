@@ -12,6 +12,7 @@ export const initialState = {
     updatedBook: {},
     count:0,
     playerType: 'A',
+    sportsType:1,
     category: 'all-rounder'
   };
 

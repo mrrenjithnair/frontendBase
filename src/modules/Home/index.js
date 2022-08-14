@@ -94,7 +94,7 @@ export class Home extends React.PureComponent {
 
                             <div className="row">
                                 <div className="col-lg-6" data-aos="fade-right">
-                                    <img src="assets/img/94.webp" className="img-fluid" alt="" />
+                                <img src="assets/img/Allplayers.png" className="img-fluid" alt=""/>
                                 </div>
                                 <div className="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
                                     <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>

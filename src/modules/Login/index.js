@@ -119,11 +119,11 @@ export class Login extends React.PureComponent {
         console.log(this.props.count)
 
         return (
-            <section id="login"className="sign-in">
+            <section id="login"className="sign-in home">
                 <div className="container">
                     <div className="signin-content">
                         <div className="signin-image">
-                            <figure className="d-none d-md-block"><img src="assets/img/100.webp" alt="sing up image" /></figure>
+                            <figure className="d-none d-md-block"><img src="assets/img/sport.webp" alt="sing up image" /></figure>
                             <a onClick={() => { history.push('/Register') }} className="signup-image-link">Don't have an account? Register</a>
                         </div>
 

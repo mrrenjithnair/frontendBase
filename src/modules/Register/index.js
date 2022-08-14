@@ -8,12 +8,11 @@ import HeaderNavBar from '../../components/HeaderNavBar'
 import { Route, Link, Routes } from "react-router-dom";
 
 import { onRegister, onChangeValueRegister } from './actions';
+import { setToast, resetToast } from '../Global/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
-import { faSortNumericUpAlt } from '@fortawesome/free-solid-svg-icons';
-import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -35,6 +34,58 @@ export class Register extends React.PureComponent {
     }
     handleSubmit(e) {
         e.preventDefault();
+        var emailRe = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
+        var mobileRe = /^[1-9]{1}[0-9]{9}$/;
+        let error = false
+        this.props.resetToast()
+        if (!this.props.firstName) {
+            error = true
+            this.props.setToast(false, 'Please enter first name')
+        } else if (!this.props.lastName) {
+          error = true
+          this.props.setToast(false, 'Please enter last name')
+        } else if (!this.props.dob) {
+          error = true
+          this.props.setToast(false, 'Please enter date of birth')
+        } 
+        // else if (!this.props.profilePicture) {
+        //   error = true
+        //   this.props.setToast(false, 'Please select profile picture')
+        // }
+         else if (!this.props.sportsType) {
+          error = true
+          this.props.setToast(false, 'Please select sports type')
+        } else if (!this.props.playerType) {
+          error = true
+          this.props.setToast(false, 'Please select player type')
+        } else if (!this.props.category) {
+          error = true
+          this.props.setToast(false, 'Please select category')
+        } else if (!this.props.location) {
+          error = true
+          this.props.setToast(false, 'Please enter location')
+        } else if (!this.props.mobile) {
+          error = true
+          this.props.setToast(false, 'Please enter mobile')
+        } else if (!mobileRe.test(this.props.mobile)) {
+          error = true
+          this.props.setToast(false, 'Please enter valid mobile')
+        } else if (!this.props.emailId) {
+          error = true
+          this.props.setToast(false, 'Please enter emailId')
+        }  else if (!emailRe.test(this.props.emailId)) {
+          error = true
+          this.props.setToast(false, 'Please enter valid emailId')
+        } 
+        else if (!this.props.password) {
+          error = true
+          this.props.setToast(false, 'Please enter password')
+        } else if (this.props.password != this.props.confirmPassword ) {
+          error = true
+          this.props.setToast(false, 'Password and confirm password does not match')
+        }
+        
+        if(!error)
         this.props.onRegister()
     }
     handleSocialRegister = (user) => {
@@ -52,56 +103,56 @@ export class Register extends React.PureComponent {
         console.log(this.props.count)
         return (
             <main id="main">
-              <div class="inner-page">
-                <div class="">
-                  <section class="sign-in ">
-                    <div class="container">
-                       <a href="index.html" class="logo me-auto display-flex-center d-none "><img src="assets/img/logo1.png" alt="" width="50%"/></a>
-                      <div class="signup-content">
-                        <div class="signup-form">
-                          <h2 class="form-title">Sign up</h2>
+              <div className="inner-page">
+                <div className="">
+                  <section className="sign-in home">
+                    <div className="container">
+                       <a href="index.html" className="logo me-auto display-flex-center d-none "><img src="assets/img/logo1.png" alt="" width="50%"/></a>
+                      <div className="signup-content">
+                        <div className="signup-form">
+                          <h2 className="form-title">Sign up</h2>
                           <form >
-                            <div class="form-group">
-                              <label htmlFor="Fname"><i class="zmdi zmdi-account fa fa-user"></i></label>
+                            <div className="form-group">
+                              <label htmlFor="Fname"><i className="zmdi zmdi-account fa fa-user"></i></label>
                               <input type="text" name="name" id="Fname" placeholder="First Name"
+                              required={true}
                               onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'firstName', value: e.target.value } })}}  />
                             </div>
-                            <div class="form-group">
-                              <label htmlFor="Lname"><i class="fa fa-lock"></i></label>
+                            <div className="form-group">
+                              <label htmlFor="Lname"><i className="fa fa-lock"></i></label>
                               <input type="text" name="name" id="Lname" placeholder="Last Name"
                               onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'lastName', value: e.target.value } })}}  />
                             </div>
-                            <div class="form-group">
-                              <label htmlFor="datepicker"><i class="zmdi zmdi-account fa fa-calendar" autocomplete="off"></i></label>
+                            <div className="form-group">
+                              <label htmlFor="datepicker"><i className="zmdi zmdi-account fa fa-calendar" autocomplete="off"></i></label>
                               <input type="date" name="name" utocomplete="off" placeholder="Select Date" 
                                 onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'dob', value: e.target.value } })}} />
                             </div>
-                            <div class="form-group">
-                              <label htmlFor="file" class="sr-only">File</label>
-                              <div class="input-group">
-                                <input type="text" name="filename" class="form-control" placeholder="No file selected" readonly/>
-                                <span class="input-group-btn">
-                                  <div class="btn btn-default  custom-file-uploader">
+                            {/* <div className="form-group">
+                              <label htmlFor="file" className="sr-only">Profile Pic</label>
+                              <div className="input-group">
+                                <input type="text" name="filename" className="form-control" placeholder="No file selected" readonly/>
+                                <span className="input-group-btn">
+                                  <div className="btn btn-default  custom-file-uploader">
                                     <input type="file" name="file"
                                       onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'profilePicture', value: e.target.value } })}}  />
                                     Select a file
                                   </div>
                                 </span>
                               </div>
-                            </div>
-                            <div class="form-group drops">
-                              <label htmlFor="Lname"><i class="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
-                              <select class="form-control form-control-sm">
-                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'sportsType', value: e.target.value } })}} >
+                            </div> */}
+                            <div className="form-group drops">
+                              <label htmlFor="Lname"><i className="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
+                              <select className="form-control form-control-sm">
+                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'sportsType', value: e.target.value } })}}
                                         <option value={1}>Cricket</option>
                                     </select>
                             </div>
         
-                            <div class="form-group drops">
-                              <label htmlFor="Lname"><i class="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
-                               <select class="form-control form-control-sm">
-                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'playerType', value: e.target.value } })}} >
-                                       <option value='null'>Player Type</option>
+                            <div className="form-group drops">
+                              <label htmlFor="Lname"><i className="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
+                               <select className="form-control form-control-sm">
+                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'playerType', value: e.target.value } })}}
                                         <option value={'all-rounder'}>all-rounder</option>
                                         <option value={'batsman'}>batsman</option>
                                         <option value={'bowler'}>bowler</option>
@@ -109,44 +160,53 @@ export class Register extends React.PureComponent {
                                     </select>
                             </div>
         
-                            <div class="form-group drops">
-                              <label htmlFor="Lname"><i class="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
-                       <select class="form-control form-control-sm">
-                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'category', value: e.target.value } })}} >
-                                        <option value='null'>Player Category</option>
+                            <div className="form-group drops">
+                              <label htmlFor="Lname"><i className="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
+                       <select className="form-control form-control-sm">
+                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'category', value: e.target.value } })}}
                                         <option value={'A'}>A</option>
                                         <option value={'B'}>B</option>
                                         <option value={'A'}>C</option>
                                     </select>
                             </div>
-                            <div class="form-group">
-                            <label htmlFor="location"><i class="zmdi fa fa-map-marker"></i></label>
+                            <div className="form-group">
+                            <label htmlFor="location"><i className="zmdi fa fa-map-marker"></i></label>
                             <input type="text" name="location" id="location" placeholder="location"
                              onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'location', value: e.target.value } })}} />
                           </div>
-                            <div class="form-group">
-                              <label htmlFor="mobile"><i class="zmdi fa fa-mobile"></i></label>
-                              <input type="text" name="mobile" id="mobile" placeholder="Mobile Number"
+                          <div className="form-group">
+                            <label htmlFor="bio"></label>
+                            <textarea type="text" name="bio" id="bio" placeholder="Bio"
+                             onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'bio', value: e.target.value } })}} />
+                          </div>
+                            <div className="form-group">
+                              <label htmlFor="mobile"><i className="zmdi fa fa-mobile"></i></label>
+                              <input type="text" maxlength="10" name="mobile" id="mobile" placeholder="Mobile Number"
                                onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'mobile', value: e.target.value } })}} />
                             </div>
-                            <div class="form-group">
-                              <label htmlFor="email"><i class="zmdi fa fa-envelope"></i></label>
+                            <div className="form-group">
+                              <label htmlFor="email"><i className="zmdi fa fa-envelope"></i></label>
                               <input type="email" name="email" id="email" placeholder="Your Email" 
                                onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'emailId', value: e.target.value } })}}/>
                             </div>
-                            <div class="form-group">
-                              <label htmlFor="pass"><i class="zmdi fa fa-lock"></i></label>
+                            <div className="form-group">
+                              <label htmlFor="pass"><i className="zmdi fa fa-lock"></i></label>
                               <input type="password" name="pass" id="pass" placeholder="Password" 
                                onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'password', value: e.target.value } })}}/>
                             </div>
-                            <div class="form-group form-button">
-                              <input onClick={this.handleSubmit} type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                            <div className="form-group">
+                              <label htmlFor="confirmPassword"><i className="zmdi fa fa-lock"></i></label>
+                              <input type="confirmPassword" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" 
+                               onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'confirmPassword', value: e.target.value } })}}/>
+                            </div>
+                            <div className="form-group form-button">
+                              <input onClick={this.handleSubmit} type="submit" name="signup" id="signup" className="form-submit" value="Register" />
                             </div>
                           </form>
                         </div>
-                        <div class="signup-image">
-                          <figure class="d-none d-md-block"><img src="assets/img/signup-image.jpg" alt="sing up image"/></figure>
-                          <a href="/login" class="signin-image-link">I am already member</a>
+                        <div className="signup-image">
+                          <figure className="d-none d-md-block"><img src="assets/img/signup-image.jpg" alt="sing up image"/></figure>
+                          <a href="/login" className="signin-image-link">I am already member</a>
                         </div>
                       </div>
                     </div>
@@ -175,6 +235,12 @@ function mapStateToProps(state) {
         username: state.register.username,
         emailId: state.register.emailId,
         password: state.register.password,
+        confirmPassword: state.register.confirmPassword,
+        sportsType: state.register.sportsType,
+        playerType: state.register.playerType,
+        category: state.register.category,
+        location: state.register.location,
+        mobile: state.register.mobile,
         
     };
 }
@@ -182,7 +248,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         onRegister: (data) => dispatch(onRegister(data)),
-        onChangeValueRegister: (data) => dispatch(onChangeValueRegister(data)),
+        onChangeValueRegister: (data) => dispatch(onChangeValueRegister(data)),        
+        setToast: (success, message) => dispatch(setToast(success, message)),
+        resetToast: (evt) => dispatch(resetToast(evt)),
         
     };
 }
