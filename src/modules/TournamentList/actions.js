@@ -14,7 +14,15 @@ export const JOIN_TOURNAMENT = 'JOIN_TOURNAMENT';
 export const JOIN_TOURNAMENT_SUCCESS = 'JOIN_TOURNAMENT_SUCCESS';
 export const JOIN_TOURNAMENT_FAILURE = 'JOIN_TOURNAMENT_FAILURE';
 
+export const GET_MY_TOURNAMENT_LIST = 'GET_MY_TOURNAMENT_LIST';
 
+
+
+export function getMyTournamentList() {
+    return {
+        type: GET_MY_TOURNAMENT_LIST,
+    };
+}
 
 export function getTournamentList() {
     return {

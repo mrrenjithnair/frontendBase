@@ -13,7 +13,7 @@ import EditModal from '../../components/EditModal'
 import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
 
-import { getTournamentList, onChangeValueClub, onChangeValueEditClub, addTournament,editTournament, requestJoin } from './actions';
+import { getTournamentList, getMyTournamentList, onChangeValueClub, onChangeValueEditClub, addTournament,editTournament, requestJoin } from './actions';
 import { onChangeValueGlobal, getClubDetail, uploadPhoto } from '../Global/actions';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
@@ -34,7 +34,11 @@ export class TournamentList extends React.PureComponent {
 
     componentDidMount() {
            window.scrollTo(0, 0)
-        this.props.getTournamentList()
+           if(this.props.nearByTournament){
+            this.props.getTournamentList()
+           }else{
+            this.props.getMyTournamentList()
+           }
     }
     addTournament() {
         console.log('addClub')
@@ -278,6 +282,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getTournamentList: () => dispatch(getTournamentList()),
+        getMyTournamentList: () => dispatch(getMyTournamentList()),
         addTournament: () => dispatch(addTournament()),
         editTournament: () => dispatch(editTournament()),
         onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),

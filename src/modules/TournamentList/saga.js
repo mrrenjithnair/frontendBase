@@ -17,6 +17,7 @@ export function* getTournamentList() {
   let params ={}
   params.userId = userId
   params.list = true
+  params.roleId = global.loggedInRoleId
   if (!global.nearByTournament && !global.tournamentListPage) {
     params.list = false
   }
@@ -48,6 +49,35 @@ export function* getTournamentList() {
   }
 }
 
+export function* getMyTournamentList() {
+  var requestURL = CONFIG.apiURL + '/apiService/tournament'
+  const state = yield select();
+  const login = state.login
+  const global = state.global
+	// const sessionToken = login.get("currentUser").token;
+  const sessionToken = global.sessionToken
+  const userId = localStorage.getItem("userId");
+  const club = state.global.globalSelectedClub
+  let params ={}
+  params.userId = userId
+  params.roleId = global.loggedInRoleId
+  params.myTournament = true
+  requestURL = requestURL + toURLString(params)
+  try {
+    var options = {
+      method: 'GET',
+    	sessionToken: sessionToken,
+    };
+    const TournamentList = yield call(request, requestURL, options);
+    console.log('TournamentList', TournamentList)
+    yield put(actions.getTournamentListSuccess(TournamentList));
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.getTournamentListFailure(getError(err)));
+
+  }
+}
 
 export function* addTournament() {
   var requestURL = CONFIG.apiURL + '/apiService/tournament'
@@ -156,6 +186,7 @@ export default function* tournamentListSaga() {
     takeLatest('TOURNAMENT_ADD', addTournament),
     takeLatest('TOURNAMENT_EDIT', editTournament),
     takeLatest('JOIN_TOURNAMENT', requestJoin),
+    takeLatest('GET_MY_TOURNAMENT_LIST', getMyTournamentList),
     
 
   ]);

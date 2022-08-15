@@ -413,6 +413,9 @@ export function* editProfile() {
     var requestURL = CONFIG.apiURL + '/apiService/user'
   }
   let profileBody = exportKeyValue(profileEdit)
+  if (profileBody.password == "") {
+    delete profileBody.password
+  }
   try {
     var options = {
       method: 'POST',
