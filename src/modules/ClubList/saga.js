@@ -62,6 +62,10 @@ export function* addClub() {
     "logo": state.clubs.logo,
     "banner": state.clubs.banner,
 }
+  if (state.clubs.logo)
+    clubBody.logo = state.clubs.logo
+  if (state.clubs.banner)
+    clubBody.banner = state.clubs.banner
   try {
     var options = {
       method: 'POST',

@@ -13,32 +13,33 @@ import EditModal from '../../components/EditModal'
 import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
 
-import { getTournamentList, getMyTournamentList, onChangeValueClub, onChangeValueEditClub, addTournament,editTournament, requestJoin } from './actions';
+import { getTournamentList, getMyTournamentList, onChangeValueClub, onChangeValueEditClub, addTournament, editTournament, requestJoin } from './actions';
 import { onChangeValueGlobal, getClubDetail, uploadPhoto } from '../Global/actions';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
 import { actions } from 'react-table';
+import nodata from '../../images/nodata1.jpg'
 
 export class TournamentList extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            showModal:false,
+            showModal: false,
             selectedItem: false,
             editModal: false,
-            typing:false
+            typing: false
         }
     }
 
     componentDidMount() {
-           window.scrollTo(0, 0)
-           if(this.props.nearByTournament){
+        window.scrollTo(0, 0)
+        if (this.props.nearByTournament) {
             this.props.getTournamentList()
-           }else{
+        } else {
             this.props.getMyTournamentList()
-           }
+        }
     }
     addTournament() {
         console.log('addClub')
@@ -50,41 +51,41 @@ export class TournamentList extends React.PureComponent {
         this.props.editTournament()
         this.setState({ editModal: false })
     }
-    
-    editTournament(item){
+
+    editTournament(item) {
         console.log(item)
-        let data= [{
+        let data = [{
             key: 'name',
             label: 'name',
             type: 'text',
-            required:true,
+            required: true,
             value: item.name,
         },
         {
             key: 'startDate',
             label: 'startDate',
             type: 'date',
-            required:true,
+            required: true,
             value: item.startDate,
         },
         {
             key: 'endDate',
             label: 'endDate',
             type: 'date',
-            required:true,
+            required: true,
             value: item.endDate,
         },
         {
             key: 'teamTotal',
             label: 'team Total',
-            required:true,
+            required: true,
             type: 'number',
             value: item.teamTotal,
         },
         {
             key: 'memberTotal',
             label: 'member Total',
-            required:true,
+            required: true,
             type: 'number',
             value: item.memberTotal,
         },
@@ -107,20 +108,20 @@ export class TournamentList extends React.PureComponent {
             key: 'id',
             value: item.id,
         }]
-        
+
         this.props.onChangeValueClub({ target: { id: 'selectedTournament', value: data } })
-        this.setState({ editModal:true, selectedItem: data })
+        this.setState({ editModal: true, selectedItem: data })
     }
 
-    detailTournament(item){
+    detailTournament(item) {
         this.props.onChangeValueGlobal({ target: { id: 'selectedTournament', value: item } })
         history.push('/tournamentDetail')
     }
     listRender(item) {
         return this.userUi(item)
     }
-    onChangeValueEditClub(evt){
-        this.setState({typing: !this.state.typing})
+    onChangeValueEditClub(evt) {
+        this.setState({ typing: !this.state.typing })
         this.props.onChangeValueEditClub(evt)
     }
     userUi(item) {
@@ -134,12 +135,12 @@ export class TournamentList extends React.PureComponent {
         ).toUpperCase();
         return (
             <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
-                {item.bannerUrl &&<img className="card-img-top" src={item.bannerUrl} alt="Card image cap"></img>}
+                {item.bannerUrl && <img className="card-img-top" src={item.bannerUrl} alt="Card image cap"></img>}
                 {item.logoUrl ? <img className="userDp" src={item.logoUrl} alt={item.name} data-letters="MN" />
                     : <div className='letterCircleUser'>{initials}</div>}
 
                 <div className="card-body">
-                    <p  className="card-title"><b>Name: </b> {item.name} </p >
+                    <p className="card-title"><b>Name: </b> {item.name} </p >
                     <p className="card-text"><b>Team Total: </b> {item.teamTotal}</p>
                     <p className="card-text"><b>Member Total: </b> {item.memberTotal}</p>
                     <p className="card-text"><b>Start Date: </b>  <Moment format="YYYY/MM/DD">{item.startDate}</Moment></p>
@@ -149,10 +150,10 @@ export class TournamentList extends React.PureComponent {
                             <Button disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested for join' : 'Request for join'}</Button><br /><br />
                             <Button disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested for Team' : 'Request for Team'}</Button>
                         </div>}
-                        <div style={{display:'flex','justifyContent':'space-around'}}>
+                        <div style={{ display: 'flex', 'justifyContent': 'space-around' }}>
 
-                        {this.props.loggedInRoleId ==  2 && <Button className="buttonPrimary" onClick={() => this.editTournament(item)}>Edit</Button>}
-                        {this.props.loggedInRoleId ==  2 && <Button className="buttonPrimary"  onClick={() => this.detailTournament(item)}>Details</Button>}
+                            {this.props.loggedInRoleId == 2 && <Button className="buttonPrimary" onClick={() => this.editTournament(item)}>Edit</Button>}
+                            {this.props.loggedInRoleId == 2 && <Button className="buttonPrimary" onClick={() => this.detailTournament(item)}>Details</Button>}
                         </div>
 
                     </div>
@@ -165,44 +166,44 @@ export class TournamentList extends React.PureComponent {
         let addTournamentObj = [{
             key: 'name',
             label: 'name',
-            required:true,
+            required: true,
             type: 'text'
         },
         {
             key: 'startDate',
             label: 'startDate',
-            required:true,
+            required: true,
             type: 'date'
         },
         {
             key: 'endDate',
             label: 'endDate',
-            required:true,
+            required: true,
             type: 'date'
         },
         {
             key: 'tournamentLogo',
             label: 'logo',
             type: 'file',
-            value:this.props.tournamentLogo
+            value: this.props.tournamentLogo
 
         },
         {
             key: 'tournamentBanner',
             label: 'banner',
             type: 'file',
-            value:this.props.tournamentBanner
+            value: this.props.tournamentBanner
         },
         {
             key: 'teamTotal',
             label: 'team Total',
-            required:true,
+            required: true,
             type: 'number'
         },
         {
             key: 'memberTotal',
             label: 'member Total',
-            required:true,
+            required: true,
             type: 'number'
         }]
         return (
@@ -224,11 +225,16 @@ export class TournamentList extends React.PureComponent {
 
                     <div className='container'>
                         <div className='userList'>
-                            {this.props.tournamentList && this.props.tournamentList.length > 0 &&
+                            {this.props.tournamentList && this.props.tournamentList.length > 0 ?
                                 this.props.tournamentList.map((item) => {
                                     return this.listRender(item)
                                 }
-                                )}
+                                ) : <div className="blogSlider">
+
+                                    <div className='noTournamentDetail'>
+                                        <div className='imgBox'>
+                                            <img src={nodata} />
+                                        </div><b>{this.props.tournamentListPage ? 'No Tournament Found' : this.props.nearByTournament ? "No Near-by Tournament Found" : "No Tournament Found"}</b></div> </div>}
                         </div>
                     </div>
 
@@ -247,13 +253,13 @@ export class TournamentList extends React.PureComponent {
                     onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
                 />
                 <EditModal
-                 title={"Edit Tournament"}
-                 show={this.state.editModal}
-                 onHide={() => this.setState({ editModal: false })}
-                 onSubmit={() => this.editTournamentSubmit()}
-                 feildObj={this.props.selectedTournament}
-                 uploadPhoto={this.props.uploadPhoto}
-                 onChangeInput={(evt) => this.onChangeValueEditClub(evt)}
+                    title={"Edit Tournament"}
+                    show={this.state.editModal}
+                    onHide={() => this.setState({ editModal: false })}
+                    onSubmit={() => this.editTournamentSubmit()}
+                    feildObj={this.props.selectedTournament}
+                    uploadPhoto={this.props.uploadPhoto}
+                    onChangeInput={(evt) => this.onChangeValueEditClub(evt)}
                 />
             </section>
         );
@@ -275,7 +281,7 @@ function mapStateToProps(state) {
         selectedTournament: state.tournament.selectedTournament,
         tournamentLogo: state.tournament.tournamentLogo,
         tournamentBanner: state.tournament.tournamentBanner,
-        
+
     };
 }
 
@@ -287,11 +293,11 @@ function mapDispatchToProps(dispatch) {
         editTournament: () => dispatch(editTournament()),
         onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),
         onChangeValueEditClub: (evt) => dispatch(onChangeValueEditClub(evt)),
-        
+
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
         requestJoin: (type, tournamentId, clubId) => dispatch(requestJoin(type, tournamentId, clubId)),
-        
+
         uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
 
 
