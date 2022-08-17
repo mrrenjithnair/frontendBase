@@ -43,19 +43,19 @@ export class Dashboard extends React.PureComponent {
             <section className="compMain">
                 <div id="root">
                     <div className="dashboard container pt-5">
-                    {this.props.loggedInRoleId == 2 ?  <article class="postcard light red">
-                            <a class="postcard__img_link" href="#">
-                                <img class="postcard__img" src={club.logoUrl} alt="Image Title" />
+                    {this.props.loggedInRoleId == 2 ?  <article className="postcard light red">
+                            <a className="postcard__img_link" href="#">
+                                <img className="postcard__img" src={club.logoUrl} alt="Image Title" />
                             </a>
-                            <div class="postcard__text t-dark">
-                                <h1 class="postcard__title red"><a href="#">{club.name}</a></h1>
-                                <div class="postcard__subtitle small">
+                            <div className="postcard__text t-dark">
+                                <h1 className="postcard__title red"><a href="#">{club.name}</a></h1>
+                                <div className="postcard__subtitle small">
                                     <time datetime="2020-05-25 12:00:00">
-                                        <i class="fas fa-calendar-alt mr-2"></i>{formatDate(club.createdAt)}
+                                        <i className="fas fa-calendar-alt mr-2"></i>{formatDate(club.createdAt)}
                                     </time>
                                 </div>
-                                <div class="postcard__bar"></div>
-                                <div class="postcard__preview-txt">{club.description}</div>
+                                <div className="postcard__bar"></div>
+                                <div className="postcard__preview-txt">{club.description}</div>
                             </div>
                         </article>:
                         <div className="dashProfileBox">
