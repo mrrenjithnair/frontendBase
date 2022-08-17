@@ -215,20 +215,16 @@ export class TournamentList extends React.PureComponent {
 
             <section className="compMain">
                 <div id="root">
-                    <div className='headerRow'>
-                        <div className='headerCol'>
-                            {this.props.tournamentListPage ? <h2>TOURNAMENT LIST</h2> : <h2> {this.props.nearByTournament ? "NEAR-BY TOURNAMENT LIST" : "MY TOURNAMENT LIST"}</h2>}
-
-                        </div>
-                        <div className='addCol'>
-                            {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addTournament && this.props.tournamentListPage && <Button className="buttonPrimary" variant="primary" onClick={() => this.setState({ showModal: true })}>
+                <div className="team-boxed">
+                        <div className="container">
+                            <div className="intro">
+                                <h2 className="text-center">
+                                {this.props.tournamentListPage ? 'Tournament List' : this.props.nearByTournament ? "Near-by Tournament List" : "My Tournament List"}</h2>
+                                {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addTournament && this.props.tournamentListPage && <div  className="text-center"> <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
                                 Add Tournament
-                            </Button>}
-                        </div>
-                    </div>
-
-                    <div className='container'>
-                        <div className='userList'>
+                            </Button></div>}
+                            </div>
+                            <div className="row people">
                             {this.props.tournamentList && this.props.tournamentList.length > 0 ?
                                 this.props.tournamentList.map((item) => {
                                     return this.listRender(item)
@@ -239,8 +235,10 @@ export class TournamentList extends React.PureComponent {
                                         <div className='imgBox'>
                                             <img src={nodata} />
                                         </div><b>{this.props.tournamentListPage ? 'No Tournament Found' : this.props.nearByTournament ? "No Near-by Tournament Found" : "No Tournament Found"}</b></div> </div>}
+                            </div>
                         </div>
                     </div>
+
 
                 </div>
                 <br />

@@ -22,6 +22,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
 import _ from 'lodash';
+import nodata from '../../images/nodata1.jpg'
 
 export class Request extends React.PureComponent {
     constructor(props) {
@@ -114,18 +115,25 @@ export class Request extends React.PureComponent {
 
             <section className="compMain">
                 <div id="root">
-                    <div className='headerRow'>
-                        <div className='headerCol'>
-                            <h2>Tournament Request</h2>
-                        </div>
-                        <div className='addCol'></div>
-                    </div>
-                    <div className='container'>
-                        <div >
-                            {this.props.requestList && this.props.requestList.length >0 &&<Table className='tableCs' columns={columns} data={this.props.requestList} />}
-                        </div>
-                    </div>
+                <div className="team-boxed">
+                        <div className="container">
+                            <div className="intro">
+                                <h2 className="text-center">Tournament Request</h2>
+                            </div>
+                            <div className="row people">
+                            {this.props.requestList && this.props.requestList.length >0 ? <Table className='tableCs' columns={columns} data={this.props.requestList} /> :
+                                    <div className="blogSlider">
+                                        <div className='noDataFound'>
+                                            <div className='imgBox'>
+                                                <img src={nodata} />
+                                            </div><b>
+                                            No Tournament Request Found                  </b>
+                                        </div>
+                                    </div>}
 
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <br />
                 <br />
