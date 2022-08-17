@@ -410,7 +410,7 @@ export class Profile extends React.PureComponent {
                                     console.log(key)
                                     if(key === 'Teams'){
                                         this.props.getPlayerTeamList()
-                                    }else if(key === 'Tournement'){
+                                    }else if(key === 'Tournament'){
                                         this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: false } })
                                         this.props.getTournamentList()
                                     }else if(key === 'clubList'){
@@ -425,7 +425,7 @@ export class Profile extends React.PureComponent {
                                             return this.teamUi(item)
                                         })}
                                 </Tab>
-                                <Tab eventKey="Tournement" title="Tournament">
+                                <Tab eventKey="Tournament" title="Tournament">
                                         {this.props.tournamentList && this.props.tournamentList.length > 0 &&
                                         this.props.tournamentList.map((item) => {
                                             return this.teamUi(item)

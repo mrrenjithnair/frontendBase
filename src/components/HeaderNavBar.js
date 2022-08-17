@@ -79,8 +79,13 @@ export class HeaderNavBar extends React.PureComponent {
                             <Navbar.Collapse id="basic-navbar-nav">
                             {this.props.sessionToken?   <Nav id="navbar" className="navbar order-last order-lg-0">
                                     {this.props.sessionToken && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/home'); }}>Home</Nav.Link>}
-                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/home'); }} >Leagues</Nav.Link>}
-                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournement && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/tournamentList'); }} href="#tournamentList">My Tournament</Nav.Link>}
+                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub && <Nav.Link className="nav-link scrollto" onClick={() => { 
+                                          this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } })
+                                 
+                                        history.push('/clubList'); }} >Leagues</Nav.Link>}
+                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournament && <Nav.Link className="nav-link scrollto" onClick={() => {
+                                                                            this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: false } })
+                                                                            history.push('/tournamentList'); }} href="#tournamentList">My Tournament</Nav.Link>}
                                     {this.props.sessionToken && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/home'); }} >Teams</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.auction && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/auction'); }}>Auction</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>}
@@ -132,7 +137,7 @@ export class HeaderNavBar extends React.PureComponent {
                                 <Nav className="me-auto">
                                     {this.props.sessionToken && <Nav.Link className="navLink" onClick={() => { history.push('/home'); }}>Home</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/home'); }} >Leagues</Nav.Link>}
-                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournement && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/tournamentList'); }} href="#tournamentList">My Tournament</Nav.Link>}
+                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournament && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/tournamentList'); }} href="#tournamentList">My Tournament</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.auction && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/auction'); }}>Auction</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>}
                                     {this.props.sessionToken && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/Profile'); }}>Profile</Nav.Link>}

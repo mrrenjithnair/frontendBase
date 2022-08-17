@@ -12,7 +12,7 @@ import history from "../utils/history";
 import Loading from '../../components/Loading'
 
 
-import { logout } from '../Global/actions';
+import { logout,onChangeValueGlobal } from '../Global/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -35,7 +35,9 @@ export class APP extends React.PureComponent {
 
         <div className='mainBox'>
                {this.props.loading && <Loading/>}
-                <HeaderNavBar logout={()=>this.props.logout} sessionToken={this.props.sessionToken}></HeaderNavBar>
+                <HeaderNavBar logout={()=>this.props.logout} sessionToken={this.props.sessionToken}
+                onChangeValueGlobal={this.props.onChangeValueGlobal}
+                ></HeaderNavBar>
 
         </div>
         );
@@ -56,7 +58,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-    
+        
+        onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),      
         logout: (evt) => dispatch(logout(evt)),        
         
     };
