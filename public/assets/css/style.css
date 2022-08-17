@@ -285,7 +285,7 @@ h6 {
   .team-boxed h2 {
     margin-bottom:25px;
     padding-top:55px;
-    font-size:24px;
+    font-size:24px !important;
   }
 }
 

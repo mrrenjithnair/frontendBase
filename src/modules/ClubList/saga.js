@@ -78,6 +78,7 @@ export function* addClub() {
     const currentUser = yield call(request, requestURL, options);
 
     yield put(actions.addClubSuccess(currentUser));
+    yield put(actions.getClubList(currentUser));
     yield put(globalActions.setOverlayLoading(false));
 
     history.push('/clubList')

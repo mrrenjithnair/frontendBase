@@ -114,7 +114,7 @@ class Team extends React.Component {
 
             </div> : <div className="blogSlider"> 
                     
-                    <div className='noTournamentDetail'>
+                    <div className='noDataFound'>
                     <div className='imgBox'>
                         <img src={nodata} />
                     </div><b>No Player detail</b></div> </div>

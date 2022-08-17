@@ -99,7 +99,7 @@ export class Dashboard extends React.PureComponent {
                             }}>
                                 <div className="wrap">
                                     <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faGamepad} size="2x" style={{ color: '#FC8471' }} /></h4>
-                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">Player List</span>
+                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">League Request</span>
                                 </div>
                             </div>}
                             {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.clubAdminList && <div className="c-dashboardInfo col-lg-3 col-md-6"
@@ -161,7 +161,7 @@ export class Dashboard extends React.PureComponent {
                                 }}>
                                 <div className="wrap">
                                     <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faBook} size="2x" style={{ color: '#FC8471' }} /></h4>
-                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">Request</span>
+                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">Tournament Request</span>
                                 </div>
                             </div>}
                             {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.auction && <div className="c-dashboardInfo col-lg-3 col-md-6"

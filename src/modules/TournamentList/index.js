@@ -235,7 +235,7 @@ export class TournamentList extends React.PureComponent {
                                 }
                                 ) : <div className="blogSlider">
 
-                                    <div className='noTournamentDetail'>
+                                    <div className='noDataFound'>
                                         <div className='imgBox'>
                                             <img src={nodata} />
                                         </div><b>{this.props.tournamentListPage ? 'No Tournament Found' : this.props.nearByTournament ? "No Near-by Tournament Found" : "No Tournament Found"}</b></div> </div>}

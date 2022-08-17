@@ -116,7 +116,7 @@ export class Request extends React.PureComponent {
                 <div id="root">
                     <div className='headerRow'>
                         <div className='headerCol'>
-                            <h2>Request LIST</h2>
+                            <h2>Tournament Request</h2>
                         </div>
                         <div className='addCol'></div>
                     </div>

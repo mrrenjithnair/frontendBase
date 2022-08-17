@@ -20,6 +20,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
 import profile from '../../images/profile.jpg'
+import nodata from '../../images/nodata1.jpg'
 
 export class UserList extends React.PureComponent {
     constructor(props) {
@@ -176,31 +177,30 @@ export class UserList extends React.PureComponent {
                     <div className="team-boxed">
                         <div className="container">
                             <div className="intro">
-                                <h2 className="text-center">{this.props.adminList ? "Club Admin List" : "Player List"} </h2>
+                                <h2 className="text-center">{this.props.adminList ? "Club Admin List" : "Players League Request"} </h2>
                                 {/* <p className="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p> */}
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.user && roleInfo.privileges.user.addAdmin &&<div  className="text-center"> <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
                                 Add Admin
                             </Button></div>}
                             </div>
                             <div className="row people">
-                            {this.props.userList && this.props.userList.length > 0 &&
+                            {this.props.userList && this.props.userList.length > 0 ?
                                 this.props.userList.map((item) => {
                                     return this.listRender(item)
                                 }
-                                )}
-                         
-
+                                ) :
+                                    <div className="blogSlider">
+                                        <div className='noDataFound'>
+                                            <div className='imgBox'>
+                                                <img src={nodata} />
+                                            </div><b>
+                                                {this.props.adminList ? "No Club Admin Found" : "No Players League Request Found"}                                            </b>
+                                        </div>
+                                    </div>}
 
                             </div>
                         </div>
                     </div>
-                    <div className='container'>
-                        <div className='userList'>
-                    
-                        </div>
-                    </div>
-
-
                 </div>
                 <br />
                 <br />

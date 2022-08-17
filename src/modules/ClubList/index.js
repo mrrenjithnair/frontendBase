@@ -13,6 +13,8 @@ import roleInfo from '../utils/roleInfo';
 
 import { getClubList, onChangeValueClub, addClub, joinClub } from './actions';
 import { onChangeValueGlobal, getClubDetail, uploadPhoto } from '../Global/actions';
+import { formatDate } from '../../modules/utils/commonUtils';
+import nodata from '../../images/nodata1.jpg'
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -41,26 +43,26 @@ export class ClubList extends React.PureComponent {
 
         return (
             <div className="card clubItem" style={{ width: '18rem' }} key={item.id}>
-                    <div className='locationBox'>
-                        <div className='locationText'>{item.location}</div> </div>
+                <div className='locationBox'>
+                    <div className='locationText'>{item.location}</div> </div>
 
-               {item.logo ? <img className="clubLogo" src={item.logo} alt={item.name} data-letters="MN"/>
-                     : <div className='letterCircleClub'>{initials}</div>}
+                {item.logo ? <img className="clubLogo" src={item.logo} alt={item.name} data-letters="MN" />
+                    : <div className='letterCircleClub'>{initials}</div>}
 
                 <div className="card-body">
                     <h5 className="card-title">{item.name}</h5>
                     <p className="card-text"><b>Address:</b> {item.Address}</p>
-                    {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.requested &&  <spam>
-                    {item.approved != 1  && <a href="#" className={request ? "btn btn-secondary": "btn btn-primary"}
-                    onClick={()=>{
-                        this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } }) 
-                        this.props.joinClub()
-                        }}> { request ? "Requested":"Join" }</a> }&nbsp;</spam>}
-                    <a href="#" className= "btn btn-primary"onClick={()=>{
-                        this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } }) 
+                    {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.requested && <spam>
+                        {item.approved != 1 && <a href="#" className={request ? "btn btn-secondary" : "btn btn-primary"}
+                            onClick={() => {
+                                this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } })
+                                this.props.joinClub()
+                            }}> {request ? "Requested" : "Join"}</a>}&nbsp;</spam>}
+                    <a href="#" className="btn btn-primary" onClick={() => {
+                        this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } })
                         this.props.getClubDetail()
-                        history.push('/clubDetails',{clubDetails:item})
-                        }}> Detail</a>
+                        history.push('/clubDetails', { clubDetails: item })
+                    }}> Detail</a>
                 </div>
             </div>
         )
@@ -94,46 +96,55 @@ export class ClubList extends React.PureComponent {
             key: 'logo',
             label: 'logo',
             type: 'file'
-        },{
+        }, {
             key: 'banner',
             label: 'banner',
             type: 'file'
         },]
+        console.log( this.props.clubList)
         return (
 
 
             <section className="compMain">
                 <div id="root">
-                    <div className='headerRow'>
-                        <div className='headerCol'>
-                       {this.props.clubListPage ? <h2>LEAGUES LIST</h2> : <h2> {this.props.nearByClub ? "NEAR-BY LEAGUES LIST": "MY LEAGUES LIST"}</h2>}
-                            
-                        </div>
-                        <div className='addCol'>
-                        {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addClub &&   <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
-                            Add Club
-                        </Button>}
-                        </div>
-                    </div>
-        
-                <div className='container'>
-                    <div className='clubList'>
-                        {this.props.clubList && this.props.clubList.length != 0 &&
-                            this.props.clubList.map((item) => {
-                                return this.listRender(item)
-                            }
-                            )}
-                    </div>
-                    </div>
+                    <div className="team-boxed">
+                        <div className="container">
+                            <div className="intro">
+                                <h2 className="text-center">
+                                    {this.props.clubListPage ? 'Leagues List' : this.props.nearByClub ? "Near-by Leagues" : "My Leagues"}
+                                </h2>
+                                {/* <p className="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p> */}
+                                {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addClub && <div className="text-center"> <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
+                                    Add Club
+                                </Button></div>}
+                            </div>
+                            <div className="row ">
+                                {this.props.clubList && this.props.clubList.length >0  ?
+                                    this.props.clubList.map((item) => {
+                                        return this.listRender(item)
+                                    }
+                                    ) :
+                                    <div className="blogSlider">
 
+                                        <div className='noDataFound'>
+                                            <div className='imgBox'>
+                                                <img src={nodata} />
+                                            </div><b>
+                                            {this.props.clubListPage ? 'No Leagues Found' : this.props.nearByClub ? "No Near-by Leagues Found" : "No Leagues Found"}                                             </b></div> </div>}
+
+
+
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-                <br/>
-                <br/>
-                <br/>
+                <br />
+                <br />
+                <br />
 
                 <AddModal
-                 title="Add Club"
+                    title="Add Club"
                     show={this.state.showModal}
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.addClub()}
@@ -156,7 +167,7 @@ function mapStateToProps(state) {
         clubList: state.clubs.clubList,
         nearByClub: state.global.nearByClub,
         clubListPage: state.global.clubListPage,
-        
+
     };
 }
 
