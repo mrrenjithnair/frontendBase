@@ -102,6 +102,7 @@ class editModal extends React.Component {
                         closeOnClick
                         rtl={false}
                         pauseOnFocusLoss
+                        theme='colored'
                         draggable
                         pauseOnHover />
       </Modal>

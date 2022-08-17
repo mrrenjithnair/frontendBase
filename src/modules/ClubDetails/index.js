@@ -51,43 +51,15 @@ export class ClubDetails extends React.PureComponent {
                     <div className='padding'>
 
                         <div className="card"> 
-                        <img className="card-img-top" src={ clubDetails.banner? clubDetails.banner:"https://i.imgur.com/K7A78We.jpg"} alt="Card image cap" />
+                        <img className="card-img-top1" src={ clubDetails.banner? clubDetails.banner:"https://i.imgur.com/K7A78We.jpg"} alt="Card image cap" />
                             <div className="card-body little-profile text-center">
                                 <div className="pro-img">
-                                    {/* <img src={clubDetails.logo} alt="user" /> */}
                                     {clubDetails.logo ? <img className='detailImg' src={clubDetails.logo} alt={clubDetails.name} />
                                         : <div className='letterCircleClubDetail'>{initials}</div>}
                                 </div>
                                 <h3 className="m-b-0">{clubDetails.name}</h3>
                                 {clubDetails.ownerName && <h3 className="m-b-5"> <b>Owner Name : {clubDetails.ownerName}</b></h3>}
-                                {/* {!clubDetails.ownerName &&  <div className='selectBox'>
-                                <label className="form-label capitalize" >Please select owner </label>
-
-                                <div className="input-group mb-3">
-                                    <select className="form-control"
-                                        onChange={(e) => { this.props.onChangeValueGlobal({ target: { id: 'clubAdminSelected', value: e.target.value } }) }} >
-                                        <option value=""> Select Type</option>
-                                            {clubAdminListArray && clubAdminListArray.length > 0 && clubAdminListArray.map(item =>  <option value={item.value}>{item.label}</option>) }
-
-                                    </select>
-                                    <div className="input-group-append">
-                                        <button className="btn btn-outline-secondary" type="button">Submit</button>
-                                    </div>
-                                </div>
-                                </div>} */}
-                            
                                 <p>{clubDetails.Address}</p>
-                                {/* <div className="row text-center m-t-20">
-                                    <div className="col-lg-4 col-md-4 m-t-20">
-                                        <h3 className="m-b-0 font-light">10</h3><small>Players</small>
-                                    </div>
-                                    <div className="col-lg-4 col-md-4 m-t-20">
-                                        <h3 className="m-b-0 font-light">10</h3><small>Active Tournemets</small>
-                                    </div>
-                                    <div className="col-lg-4 col-md-4 m-t-20">
-                                        <h3 className="m-b-0 font-light">50</h3><small>Total Tournemets</small>
-                                    </div>
-                                </div> */}
                                 <div className="row m-t-20">
 
                                     {clubDetails.description && <p><b>Description :</b> {clubDetails.description}</p>}

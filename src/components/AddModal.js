@@ -8,9 +8,9 @@ class addModal extends React.Component {
 
   feildObj(item){
     let cssInputClass =  "form-control form-control-lg"
-    // if(item.required ){
-    //   cssInputClass =  item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid";
-    // }
+    if(item.required ){
+      cssInputClass =  item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid";
+    }
     return(
       <div>
         <div className="form-outline mb-4">

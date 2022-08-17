@@ -43,7 +43,7 @@ export class HeaderNavBar extends React.PureComponent {
                                 <i className="display-flex-center   fab fa-facebook-f" aria-hidden="true"></i>
                             </div>
                             <div className="d-flex align-items-center">
-                                <i className="bi bi-phone"></i> Call us now +1 5589 55488 55
+                                <i className="bi bi-phone"></i> Call us now +91-8097538306
                             </div>
                         </div>
                     </div>
@@ -92,10 +92,10 @@ export class HeaderNavBar extends React.PureComponent {
                                     {this.props.sessionToken && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/profile'); }}>Profile</Nav.Link>}
                                 </Nav>:
                                 <Nav id="navbar" className="navbar order-last order-lg-0">
-                                    <Nav.Link  href="/#hero" className="nav-link scrollto">Home</Nav.Link>
+                                    <Nav.Link  href="/#home" className="nav-link scrollto">Home</Nav.Link>
                                     <Nav.Link  href="/#about" className="nav-link scrollto">About</Nav.Link>
                                     <Nav.Link  href="/#services" className="nav-link scrollto">Features</Nav.Link>
-                                    <Nav.Link  href="/#departments" className="nav-link scrollto">Leagues</Nav.Link>
+                                    <Nav.Link  href="/#pricing" className="nav-link scrollto">License</Nav.Link>
                                     <Nav.Link  href="/#contact" className="nav-link scrollto">Contact</Nav.Link>
                                 </Nav>}
                                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

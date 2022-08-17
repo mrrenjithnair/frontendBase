@@ -193,6 +193,7 @@ export class Login extends React.PureComponent {
                     rtl={false}
                     pauseOnFocusLoss
                     draggable
+                    theme='colored'
                     pauseOnHover />
             </section>
 

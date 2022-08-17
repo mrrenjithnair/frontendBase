@@ -1517,7 +1517,56 @@ section {
   background: #f8f8f8;
   text-align: center;
 }
-
+.league .btn-wrap {
+  margin: 0px;
+  padding: 20px 15px;
+  background: #ffffff;
+  text-align: center;
+}
+.league .btn-detail {
+  background: #50ac00;
+  display: inline-block;
+  padding: 8px 35px 10px 35px;
+  border-radius: 4px;
+  color: #fff;
+  transition: none;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.league .btn-join {
+  background: #50ac00;
+  display: inline-block;
+  padding: 8px 35px 10px 35px;
+  border-radius: 4px;
+  color: #fff;
+  transition: none;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.league .btn-detail, .btn-join:hover {
+  background: #e11962 !important;
+  color: #fff !important;
+}
+.league .btn-detail-disable{
+  background: #e4e4e4;
+  display: inline-block;
+  padding: 8px 35px 10px 35px;
+  border-radius: 4px;
+  color: #fff;
+  transition: none;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  transition: 0.3s;
+  cursor: not-allowed;
+}
 .pricing .btn-buy {
   background: #50ac00;
   display: inline-block;

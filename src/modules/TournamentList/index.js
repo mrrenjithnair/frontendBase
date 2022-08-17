@@ -139,7 +139,7 @@ export class TournamentList extends React.PureComponent {
         ).toUpperCase();
         return (
             <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
-                {item.bannerUrl && <img className="card-img-top" src={item.bannerUrl} alt="Card image cap"></img>}
+                {item.bannerUrl && <img className="card-img-top1" src={item.bannerUrl} alt="Card image cap"></img>}
                 {item.logoUrl ? <img className="userDp" src={item.logoUrl} alt={item.name} data-letters="MN" />
                     : <div className='letterCircleUser'>{initials}</div>}
 
@@ -171,25 +171,28 @@ export class TournamentList extends React.PureComponent {
             key: 'name',
             label: 'name',
             required: true,
-            type: 'text'
+            type: 'text',
+            value: this.props.name
         },
         {
             key: 'startDate',
             label: 'startDate',
             required: true,
-            type: 'date'
+            type: 'date',
+            value: this.props.startDate
         },
         {
             key: 'endDate',
             label: 'endDate',
             required: true,
-            type: 'date'
+            type: 'date',
+            value: this.props.date
         },
         {
             key: 'tournamentLogo',
             label: 'logo',
             type: 'file',
-            value: this.props.tournamentLogo
+            value: this.props.tournamentLogo,
 
         },
         {
@@ -202,13 +205,15 @@ export class TournamentList extends React.PureComponent {
             key: 'teamTotal',
             label: 'team Total',
             required: true,
-            type: 'number'
+            type: 'number',
+            value: this.props.teamTotal
         },
         {
             key: 'memberTotal',
             label: 'member Total',
             required: true,
-            type: 'number'
+            type: 'number',
+            value: this.props.memberTotal
         }]
         return (
 
@@ -283,6 +288,12 @@ function mapStateToProps(state) {
         selectedTournament: state.tournament.selectedTournament,
         tournamentLogo: state.tournament.tournamentLogo,
         tournamentBanner: state.tournament.tournamentBanner,
+        memberTotal: state.tournament.memberTotal,
+        teamTotal: state.tournament.teamTotal,
+        name: state.tournament.name,
+        startDate: state.tournament.startDate,
+        endDate: state.tournament.endDate,
+        
 
     };
 }

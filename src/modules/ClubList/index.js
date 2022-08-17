@@ -42,29 +42,60 @@ export class ClubList extends React.PureComponent {
         ).toUpperCase();
 
         return (
-            <div className="card clubItem" style={{ width: '18rem' }} key={item.id}>
-                <div className='locationBox'>
-                    <div className='locationText'>{item.location}</div> </div>
-
-                {item.logo ? <img className="clubLogo" src={item.logo} alt={item.name} data-letters="MN" />
-                    : <div className='letterCircleClub'>{initials}</div>}
-
-                <div className="card-body">
-                    <h5 className="card-title">{item.name}</h5>
-                    <p className="card-text"><b>Address:</b> {item.Address}</p>
-                    {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.requested && <spam>
-                        {item.approved != 1 && <a href="#" className={request ? "btn btn-secondary" : "btn btn-primary"}
-                            onClick={() => {
-                                this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } })
-                                this.props.joinClub()
-                            }}> {request ? "Requested" : "Join"}</a>}&nbsp;</spam>}
-                    <a href="#" className="btn btn-primary" onClick={() => {
-                        this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } })
-                        this.props.getClubDetail()
-                        history.push('/clubDetails', { clubDetails: item })
-                    }}> Detail</a>
+            <div className="col-sm-6 mt-4">
+            <div className="card league">
+                <div className="row g-0">
+                    <div className="col-sm-5" style={{"background": "#868e96;"}}>
+                    {item.logo ?<img src={item.logo} className="card-img-top h-100" alt="..." />:
+                        <div className='letterCircleClubBox'>{initials}</div>}
+                    </div>
+                    <div className="col-sm-7">
+                        <div className="card-body">
+                            <div className="text-left"><span className="font-weight-bolder">Name :</span> <span className="team-text"> {item.name}</span></div>
+                            <div className="text-left"><span className="font-weight-bolder">Location :</span> <span className="team-text"> {item.location}</span></div>
+                            <div className="text-left"><span className="font-weight-bolder">Address :</span> <span className="team-text"> {item.Address}</span></div>
+                            <div className="text-left"><span className="font-weight-bolder">Address :</span> <span className="team-text"> {item.Address}</span></div>
+                            <div className="btn-wrap">
+                                {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.requested && <spam>
+                                    {item.approved != 1 && <a href="#" className={request ? "btn-detail-disable" : "btn-join"}
+                                        onClick={() => {
+                                            this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } })
+                                           if(!request) this.props.joinClub()
+                                        }}> {request ? "Requested" : "Join"}</a>}&nbsp;</spam>}
+                                <a href="#" className="btn-detail" onClick={() => {
+                                    this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } })
+                                    this.props.getClubDetail()
+                                    history.push('/clubDetails', { clubDetails: item })
+                                }}> Detail</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+            // <div className="card clubItem" style={{ width: '18rem' }} key={item.id}>
+            //     <div className='locationBox'>
+            //         <div className='locationText'>{item.location}</div> </div>
+
+            //     {item.logo ? <img className="clubLogo" src={item.logo} alt={item.name} data-letters="MN" />
+            //         : <div className='letterCircleClub'>{initials}</div>}
+
+            //     <div className="card-body">
+            //         <h5 className="card-title">{item.name}</h5>
+            //         <p className="card-text"><b>Address:</b> {item.Address}</p>
+            //         {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.requested && <spam>
+            //             {item.approved != 1 && <a href="#" className={request ? "btn btn-secondary" : "btn btn-primary"}
+            //                 onClick={() => {
+            //                     this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } })
+            //                     this.props.joinClub()
+            //                 }}> {request ? "Requested" : "Join"}</a>}&nbsp;</spam>}
+            //         <a href="#" className="btn btn-primary" onClick={() => {
+            //             this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } })
+            //             this.props.getClubDetail()
+            //             history.push('/clubDetails', { clubDetails: item })
+            //         }}> Detail</a>
+            //     </div>
+            // </div>
         )
     }
     addClub() {
