@@ -7,13 +7,15 @@ import SocialButton from '../../components/SocialButton'
 import BottomNavBar from '../../components/BottomNavBar'
 import HeaderNavBar from '../../components/HeaderNavBar'
 import history from "../utils/history";
-import { onChangeValueGlobal, getClubDetail, resetDashboard } from '../Global/actions';
+import { onChangeValueGlobal, getClubDetail, resetDashboard, setToast, resetToast } from '../Global/actions';
 import roleInfo from '../utils/roleInfo';
 import { formatDate } from '../../modules/utils/commonUtils';
 
 import profile from '../../images/profile.jpg'
 
 import { login, onChangeValueLogin } from './actions';
+import { getMyTournamentList, getTournamentList } from '../TournamentList/actions';
+import { getClubList } from '../ClubList/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -34,6 +36,11 @@ export class Dashboard extends React.PureComponent {
 
     componentDidMount() {
         this.props.resetDashboard()
+        // if (this.props.loggedInRoleId == 3) {
+        //     this.props.getClubList()
+        // } else {
+        //     this.props.getTournamentList()
+        // }
         window.scrollTo(0, 0)
     }
 
@@ -198,7 +205,8 @@ function mapStateToProps(state) {
         username: state.login.username,
         myDetails: state.global.myDetails,
         loggedInRoleId: state.global.loggedInRoleId,
-
+        tournamentList: state.tournament.tournamentList,
+        clubList: state.clubs.clubList,
     };
 }
 
@@ -208,7 +216,12 @@ function mapDispatchToProps(dispatch) {
         onChangeValueLogin: (evt) => dispatch(onChangeValueLogin(evt)),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         resetDashboard: (evt) => dispatch(resetDashboard(evt)),
-
+        getTournamentList: (evt) => dispatch(getTournamentList(evt)),
+        getMyTournamentList: (evt) => dispatch(getMyTournamentList(evt)),
+        setToast: (success, message) => dispatch(setToast(success, message)),
+        resetToast: (evt) => dispatch(resetToast(evt)),
+        getClubList: (evt) => dispatch(getClubList(evt)),
+        
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

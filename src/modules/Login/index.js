@@ -185,7 +185,7 @@ export class Login extends React.PureComponent {
                         </div>
                     </div>
                 </div>
-                <ToastContainer position="top-right"
+                <ToastContainer position="top-center"
                     autoClose={5000}
                     hideProgressBar={false}
                     newestOnTop={false}

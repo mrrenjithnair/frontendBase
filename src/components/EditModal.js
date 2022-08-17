@@ -95,7 +95,7 @@ class editModal extends React.Component {
           <Button onClick={this.props.onSubmit}>Submit</Button>
           <Button onClick={this.props.onHide}>Close</Button>
         </Modal.Footer>
-        <ToastContainer position="top-right"
+        <ToastContainer position="top-center"
                         autoClose={5000}
                         hideProgressBar={false}
                         newestOnTop={false}

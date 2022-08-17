@@ -107,7 +107,7 @@ export class HeaderNavBar extends React.PureComponent {
                                 </div>}
 
                         </Container>
-                        <ToastContainer position="top-right"
+                        <ToastContainer position="top-center"
                             autoClose={5000}
                             hideProgressBar={false}
                             newestOnTop={false}
@@ -115,6 +115,7 @@ export class HeaderNavBar extends React.PureComponent {
                             rtl={false}
                             pauseOnFocusLoss
                             draggable
+                            theme='colored'
                             pauseOnHover />
                     </Navbar>
                 </section>
@@ -150,7 +151,7 @@ export class HeaderNavBar extends React.PureComponent {
                             <a href="login" className="league-btn -btn scrollto"><span className="">Register</span></a>
 
                         </Container>
-                        <ToastContainer position="top-right"
+                        <ToastContainer position="top-center"
                             autoClose={5000}
                             hideProgressBar={false}
                             newestOnTop={false}
