@@ -38,7 +38,11 @@ export class TournamentList extends React.PureComponent {
         if (this.props.nearByTournament) {
             this.props.getTournamentList()
         } else {
-            this.props.getMyTournamentList()
+            if(this.props.loggedInRoleId == 3){
+                this.props.getMyTournamentList()
+            }else{
+            this.props.getTournamentList()
+            }
         }
     }
     addTournament() {

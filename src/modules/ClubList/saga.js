@@ -61,6 +61,7 @@ export function* addClub() {
     "address": state.clubs.address,
     "logo": state.clubs.logo,
     "banner": state.clubs.banner,
+    "description": state.clubs.description,
 }
   if (state.clubs.logo)
     clubBody.logo = state.clubs.logo

@@ -18,22 +18,22 @@ class addModal extends React.Component {
           {(item.type == 'text' || item.type == 'number') && <input type={item.type} id="form3Example3"
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className={cssInputClass}
-            placeholder={"please enter " + item.label} />}
+            placeholder={"Please enter " + item.label} />}
           {item.type == 'file' && <input type={item.type} id="form3Example3"
             onChange={(e) => { 
               const fileId =  new Date().valueOf() + e.target.files[0].name 
               this.props.uploadPhoto(e.target.files[0], fileId, item.key)
               this.props.onChangeInput({ target: { id: item.key, value: fileId} }) }}
             className={cssInputClass}
-            placeholder={"please enter " + item.label} />}
+            placeholder={"Please enter " + item.label} />}
           {item.type == 'textarea' && <textarea type={item.type} id="form3Example3"
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className={cssInputClass}
-            placeholder={"please enter " + item.label} />}
+            placeholder={"Please enter " + item.label} />}
           {item.type == 'date' && <input type={item.type} id="form3Example3"
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className={cssInputClass}
-            placeholder={"please enter " + item.label} />}
+            placeholder={"Please enter " + item.label} />}
             {item.type == 'select' && 
               <select className="form-control"
                   onChange={(e) =>  { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }} >
