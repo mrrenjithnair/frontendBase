@@ -112,8 +112,22 @@ export class Profile extends React.PureComponent {
             } else if (confirmPassword != password) {
                 error = true
                 this.props.setToast(false, 'Password and confirm password does not match')
-                 break;
-            } 
+                break;
+            } else if (this.props.userProfile.roleId === 3) {
+                if (profileEdit[i].key == 'mobile' && !profileEdit[i].value) {
+                    error = true
+                    this.props.setToast(false, 'Please enter mobile')
+                    break;
+                } if (profileEdit[i].key == 'category' && !profileEdit[i].value) {
+                    error = true
+                    this.props.setToast(false, 'Please select category')
+                    break;
+                } if (profileEdit[i].key == 'playerType' && !profileEdit[i].value) {
+                    error = true
+                    this.props.setToast(false, 'Please select playerType')
+                    break;
+                }
+            }
           }
         if(!error){
             this.props.editProfile()
@@ -153,10 +167,35 @@ export class Profile extends React.PureComponent {
                 value: this.props.userProfile.dob,
             },
             {
+                key: 'sportsTypeId',
+                label: 'sports',
+                type: 'select',
+                required:true,
+                value: this.props.userProfile.sportsType,
+                data:[{label:'Cricket',value:'1'}]
+            },
+            {
+                key: 'category',
+                label: 'category',
+                type: 'select',
+                required:true,
+                value: this.props.userProfile.category,
+                data: [{ label: 'all-rounder', value: 'all-rounder' }, { label: 'batsman', value: 'batsman' }, { label: 'bowler', value: 'bowler' }, { label: 'wicket-keeper', value: 'wicket-keeper' }]
+            },
+            {
+                key: 'player Type',
+                label: 'playerType',
+                type: 'select',
+                required:true,
+                value: this.props.userProfile.playerType,
+                data: [{ label: 'A', value: 'A' }, { label: 'B', value: 'B' }, { label: 'C', value: 'C' }]
+            },
+            
+            {
                 key: 'profilePicture',
                 label: 'Profile Piture',
                 type: 'file',
-                required:true,
+                required: false,
                 oldValue: this.props.userProfile.profilePictureUrl,
             },
             {
@@ -183,7 +222,7 @@ export class Profile extends React.PureComponent {
             {
                 key: 'bio',
                 label: 'bio',
-                type: 'text',
+                type: 'textarea',
                 required:true,
                 value: this.props.userProfile.bio,
             },
@@ -207,12 +246,17 @@ export class Profile extends React.PureComponent {
                 type: 'password',
                 value: this.props.userProfile.confirmPassword,
             },
-            
             {
                 key: 'id',
                 value:  this.props.userProfile.id,
-            }]
-        }else{
+            },
+            {
+                key: 'roleId',
+                value:  this.props.userProfile.roleId,
+            }
+            ]
+        }
+        else{
             data= [{
                 key: 'firstName',
                 label: 'firstName',

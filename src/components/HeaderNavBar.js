@@ -68,29 +68,37 @@ export class HeaderNavBar extends React.PureComponent {
                         </div>
                     </header> */}
 
-                    <Navbar expand="lg" id="header" className="fixed-top">
+                    <Navbar expand="lg" id="header" className="fixed-top" collapseOnSelect>
                         <Container className="container d-flex align-items-center">
                             <Navbar.Brand  className="logo me-auto" onClick={() => { history.push('/home'); }}><img
                                 alt=""
                                 src={SportzMitra}
                                 className="d-inline-block align-top"
                             />{' '}</Navbar.Brand>
-                            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                            <Navbar.Collapse id="basic-navbar-nav">
-                            {this.props.sessionToken?   <Nav id="navbar" className="navbar order-last order-lg-0">
-                                    {this.props.sessionToken && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/home'); }}>Home</Nav.Link>}
-                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub && <Nav.Link className="nav-link scrollto" onClick={() => { 
-                                          this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } })
-                                 
-                                        history.push('/clubList'); }} >Leagues</Nav.Link>}
-                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournament && <Nav.Link className="nav-link scrollto" onClick={() => {
-                                                                            this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: false } })
-                                                                            history.push('/tournamentList'); }} href="#tournamentList">My Tournament</Nav.Link>}
-                                    {this.props.sessionToken && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/home'); }} >Teams</Nav.Link>}
-                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.auction && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/auction'); }}>Auction</Nav.Link>}
-                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>}
-                                    {this.props.sessionToken && <Nav.Link className="nav-link scrollto" onClick={() => { history.push('/profile'); }}>Profile</Nav.Link>}
-                                </Nav>:
+                            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                            <Navbar.Collapse id="responsive-navbar-nav">
+                                {this.props.sessionToken ? <Nav id="navbar" className="navbar order-last order-lg-0">
+                                    {this.props.sessionToken && 
+                                    <Nav.Link href="#home" className="nav-link scrollto" onClick={() => { history.push('/home'); }}>Home</Nav.Link>}
+                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub &&
+                                     <Nav.Link href="#clubList" className="nav-link scrollto" onClick={() => {
+                                        this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } })
+                                        history.push('/clubList');
+                                    }} >Leagues</Nav.Link>}
+                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournament && 
+                                    <Nav.Link href="#tournamentList" className="nav-link scrollto" onClick={() => {
+                                        this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: false } })
+                                        history.push('/tournamentList');
+                                    }}>My Tournament</Nav.Link>}
+                                    {this.props.sessionToken && 
+                                    <Nav.Link href="#home" className="nav-link scrollto" onClick={() => { history.push('/home'); }} >Teams</Nav.Link>}
+                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.auction && 
+                                    <Nav.Link href="#auction" className="nav-link scrollto" onClick={() => { history.push('/auction'); }}>Auction</Nav.Link>}
+                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && 
+                                    <Nav.Link href="#userList" className="nav-link scrollto" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>}
+                                    {this.props.sessionToken && 
+                                    <Nav.Link href="#profile" className="nav-link scrollto" onClick={() => { history.push('/profile'); }}>Profile</Nav.Link>}
+                                </Nav> :
                                 <Nav id="navbar" className="navbar order-last order-lg-0">
                                     <Nav.Link  href="/#home" className="nav-link scrollto">Home</Nav.Link>
                                     <Nav.Link  href="/#about" className="nav-link scrollto">About</Nav.Link>
@@ -98,7 +106,6 @@ export class HeaderNavBar extends React.PureComponent {
                                     <Nav.Link  href="/#pricing" className="nav-link scrollto">License</Nav.Link>
                                     <Nav.Link  href="/#contact" className="nav-link scrollto">Contact</Nav.Link>
                                 </Nav>}
-                                <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             </Navbar.Collapse>
                             {this.props.sessionToken ? <div className="navButtonBox"><a className="league-btn -btn scrollto" onClick={e => this.logout(e)}><span className="">Logout</span></a></div> 
                                 : <div className="navButtonBox">
@@ -133,7 +140,7 @@ export class HeaderNavBar extends React.PureComponent {
                                 width="150"
                                 className="d-inline-block align-top"
                             />{' '}</Navbar.Brand>
-                            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                             <Navbar.Collapse >
                                 <Nav className="me-auto">
                                     {this.props.sessionToken && <Nav.Link className="navLink" onClick={() => { history.push('/home'); }}>Home</Nav.Link>}
@@ -145,7 +152,7 @@ export class HeaderNavBar extends React.PureComponent {
                                     {this.props.sessionToken && <Nav.Link className="nav-link scrollto" onClick={e => this.logout(e)}>Logout</Nav.Link>}
 
                                 </Nav>
-                                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                             </Navbar.Collapse>
                             <a href="login" className="league-btn -btn scrollto"><span className="">Login</span></a>
                             <a href="login" className="league-btn -btn scrollto"><span className="">Register</span></a>

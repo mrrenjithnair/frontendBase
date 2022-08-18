@@ -11,7 +11,6 @@ class editModal extends React.Component {
 
   feildObj(item, i) {
     let cssInputClass =  "form-control form-control-lg"
-    if(item.required ){
     let regex = new RegExp("^[a-zA-Z]+$");
       // cssInputClass =  item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid"
       // if(item.type == 'text' &&(item.key != 'mobile')){
@@ -25,14 +24,14 @@ class editModal extends React.Component {
       //   regex = new RegExp(/^[0-9]{10}$/)
       // }
 
-      if(item.value)
-      cssInputClass =  regex.test(item.value) ? "form-control form-control-lg" : "form-control form-control-lg is-invalid"
-    }
+      if(item.required ){
+        cssInputClass =  item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid";
+      }
     return (
       <div>
         <div className="form-outline mb-4" key={i}>
           <label className="form-label capitalize" htmlFor="form3Example3">{item.label}</label>
-          {(item.type == 'text' || item.type == 'number'|| item.type == 'password') && <input type={item.type} id="form3Example3"
+          {(item.type === 'text' || item.type === 'number'|| item.type === 'password') && <input type={item.type} id="form3Example3"
             disabled ={item.disabled}
             value={item.value}  onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className={cssInputClass} 
@@ -59,6 +58,7 @@ class editModal extends React.Component {
             placeholder={"please enter " + item.label} />}
           {item.type == 'select' &&
             <select className="form-control"
+            value={item.value}
               onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }} >
               <option value=""> {item.label}</option>
               {item.data && item.data.length > 0 && item.data.map(item => <option value={item.value} >{item.label}</option>)}

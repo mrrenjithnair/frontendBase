@@ -44,6 +44,7 @@ export class Home extends React.PureComponent {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
+                            src="assets/img/cricket.jpeg"
                             alt="Register"
                         />
                         <Carousel.Caption >
