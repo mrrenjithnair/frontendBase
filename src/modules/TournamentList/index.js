@@ -38,10 +38,10 @@ export class TournamentList extends React.PureComponent {
         if (this.props.nearByTournament) {
             this.props.getTournamentList()
         } else {
-            if(this.props.loggedInRoleId == 3){
+            if (this.props.loggedInRoleId == 3) {
                 this.props.getMyTournamentList()
-            }else{
-            this.props.getTournamentList()
+            } else {
+                this.props.getTournamentList()
             }
         }
     }
@@ -122,13 +122,13 @@ export class TournamentList extends React.PureComponent {
         history.push('/tournamentDetail')
     }
     listRender(item) {
-        return this.userUi(item)
+        return this.tournamentUi(item)
     }
     onChangeValueEditClub(evt) {
         this.setState({ typing: !this.state.typing })
         this.props.onChangeValueEditClub(evt)
     }
-    userUi(item) {
+    tournamentUi(item) {
         let requestedTeam = item.requestedTeam == 1 || item.requestedTournament == 1
         let requestedTournament = item.requestedTournament == 1 || item.requestedTeam == 1
         let name = item.name
@@ -138,31 +138,61 @@ export class TournamentList extends React.PureComponent {
             (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
         ).toUpperCase();
         return (
-            <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
-                {item.bannerUrl && <img className="card-img-top1" src={item.bannerUrl} alt="Card image cap"></img>}
-                {item.logoUrl ? <img className="userDp" src={item.logoUrl} alt={item.name} data-letters="MN" />
-                    : <div className='letterCircleUser'>{initials}</div>}
-
-                <div className="card-body">
-                    <p className="card-title"><b>Name: </b> {item.name} </p >
-                    <p className="card-text"><b>Team Total: </b> {item.teamTotal}</p>
-                    <p className="card-text"><b>Member Total: </b> {item.memberTotal}</p>
-                    <p className="card-text"><b>Start Date: </b>  <Moment format="YYYY/MM/DD">{item.startDate}</Moment></p>
-                    <p className="card-text"><b>End Date: </b>  <Moment format="YYYY/MM/DD">{item.endDate}</Moment></p>
-                    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', borderWidth: 2, borderColor: '#e4e4e4' }}>
-                        {this.props.loggedInRoleId == 3 && this.props.nearByTournament && <div>
-                            <Button disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested for join' : 'Request for join'}</Button><br /><br />
-                            <Button disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested for Team' : 'Request for Team'}</Button>
-                        </div>}
-                        <div style={{ display: 'flex', 'justifyContent': 'space-around' }}>
-
-                            {this.props.loggedInRoleId == 2 && <Button className="buttonPrimary" onClick={() => this.editTournament(item)}>Edit</Button>}
-                            {this.props.loggedInRoleId == 2 && <Button className="buttonPrimary" onClick={() => this.detailTournament(item)}>Details</Button>}
+            <div className="col-sm-6 mt-4" key={item.id}>
+                <div className="card league">
+                    <div className="row g-0">
+                        <div className="col-sm-5" style={{ "background": "#868e96;" }}>
+                            {item.logoUrl ? <img src={item.logoUrl} className="card-img-top boxImageSize" alt="..." /> :
+                                <div className='letterCircleClubBox'>{initials}</div>}
                         </div>
+                        <div className="col-sm-7">
+                            <div className="card-body">
+                                <div className="text-left"><span className="team-text itemName"> {item.name}</span></div>
+                                <div className="text-left"><span className="font-weight-bolder">Team Total: </span> <span className="team-text"> {item.teamTotal}</span></div>
+                                <div className="text-left"><span className="font-weight-bolder">Member Total: </span> <span className="team-text"> {item.memberTotal}</span></div>
+                                <div className="text-left"><span className="font-weight-bolder">Start Date: </span> <span className="team-text"> <Moment format="YYYY/MM/DD">{item.startDate}</Moment></span></div>
+                                <div className="text-left"><span className="font-weight-bolder">End Date: </span> <span className="team-text"> <Moment format="YYYY/MM/DD">{item.endDate}</Moment></span></div>     
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', borderWidth: 2, borderColor: '#e4e4e4' }}>
+                                        {this.props.loggedInRoleId == 3 && this.props.nearByTournament && <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
+                                            <a disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-primary"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested join' : 'Request join'}</a>
+                                            <a disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-primary"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested Team' : 'Request Team'}</a>
+                                        </div>}
+                                        <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
+                                            {this.props.loggedInRoleId == 2 && <a className="btn-join" onClick={() => this.editTournament(item)}>Edit</a>}
+                                            {this.props.loggedInRoleId == 2 && <a className="btn-detail" onClick={() => this.detailTournament(item)}>Details</a>}
+                                        </div>
 
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            // <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
+            //     {item.bannerUrl && <img className="card-img-top1" src={item.bannerUrl} alt="Card image cap"></img>}
+            //     {item.logoUrl ? <img className="userDp" src={item.logoUrl} alt={item.name} data-letters="MN" />
+            //         : <div className='letterCircleUser'>{initials}</div>}
+
+            //     <div className="card-body">
+            //         <p className="card-title"><b>Name: </b> {item.name} </p >
+            //         <p className="card-text"><b>Team Total: </b> {item.teamTotal}</p>
+            //         <p className="card-text"><b>Member Total: </b> {item.memberTotal}</p>
+            //         <p className="card-text"><b>Start Date: </b>  <Moment format="YYYY/MM/DD">{item.startDate}</Moment></p>
+            //         <p className="card-text"><b>End Date: </b>  <Moment format="YYYY/MM/DD">{item.endDate}</Moment></p>
+            //         <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', borderWidth: 2, borderColor: '#e4e4e4' }}>
+            //             {this.props.loggedInRoleId == 3 && this.props.nearByTournament && <div>
+            //                 <Button disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested for join' : 'Request for join'}</Button><br /><br />
+            //                 <Button disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested for Team' : 'Request for Team'}</Button>
+            //             </div>}
+            //             <div style={{ display: 'flex', 'justifyContent': 'space-around' }}>
+
+            //                 {this.props.loggedInRoleId == 2 && <Button className="buttonPrimary" onClick={() => this.editTournament(item)}>Edit</Button>}
+            //                 {this.props.loggedInRoleId == 2 && <Button className="buttonPrimary" onClick={() => this.detailTournament(item)}>Details</Button>}
+            //             </div>
+
+            //         </div>
+            //     </div>
+            // </div>
         )
     }
     render() {
@@ -220,26 +250,26 @@ export class TournamentList extends React.PureComponent {
 
             <section className="compMain">
                 <div id="root">
-                <div className="team-boxed">
+                    <div className="team-boxed">
                         <div className="container">
                             <div className="intro">
                                 <h2 className="text-center">
-                                {this.props.tournamentListPage ? 'Tournament List' : this.props.nearByTournament ? "Near-by Tournament List" : "My Tournament List"}</h2>
-                                {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addTournament && this.props.tournamentListPage && <div  className="text-center"> <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
-                                Add Tournament
-                            </Button></div>}
+                                    {this.props.tournamentListPage ? 'Tournament List' : this.props.nearByTournament ? "Near-by Tournament List" : "My Tournament List"}</h2>
+                                {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addTournament && this.props.tournamentListPage && <div className="text-center"> <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
+                                    Add Tournament
+                                </Button></div>}
                             </div>
                             <div className="row people">
-                            {this.props.tournamentList && this.props.tournamentList.length > 0 ?
-                                this.props.tournamentList.map((item) => {
-                                    return this.listRender(item)
-                                }
-                                ) : <div className="blogSlider">
+                                {this.props.tournamentList && this.props.tournamentList.length > 0 ?
+                                    this.props.tournamentList.map((item) => {
+                                        return this.listRender(item)
+                                    }
+                                    ) : <div className="blogSlider">
 
-                                    <div className='noDataFound'>
-                                        <div className='imgBox'>
-                                            <img src={nodata} />
-                                        </div><b>{this.props.tournamentListPage ? 'No Tournament Found' : this.props.nearByTournament ? "No Near-by Tournament Found" : "No Tournament Found"}</b></div> </div>}
+                                        <div className='noDataFound'>
+                                            <div className='imgBox'>
+                                                <img src={nodata} />
+                                            </div><b>{this.props.tournamentListPage ? 'No Tournament Found' : this.props.nearByTournament ? "No Near-by Tournament Found" : "No Tournament Found"}</b></div> </div>}
                             </div>
                         </div>
                     </div>
@@ -293,7 +323,7 @@ function mapStateToProps(state) {
         name: state.tournament.name,
         startDate: state.tournament.startDate,
         endDate: state.tournament.endDate,
-        
+
 
     };
 }

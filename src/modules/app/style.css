@@ -67,8 +67,12 @@
     background-color: #797C34;
   }
   .itemName{
-    font-weight: bold;
     font-size: 18px;
+    color: #000;
+    font-size: 1.5rem;
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
   }
   .tableButtonDisable{
     font-size: 14px;
@@ -98,7 +102,7 @@
   .btn-primary {
     background: #50ac00;
     display: inline-block;
-    padding: 8px 35px 10px 35px;
+    padding: 8px 25px 10px 25px;
     border-radius: 4px;
     color: #fff;
     transition: none;
