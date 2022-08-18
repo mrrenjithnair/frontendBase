@@ -47,11 +47,11 @@ export class Home extends React.PureComponent {
                             src="assets/img/cricket.jpeg"
                             alt="Register"
                         />
-                        <Carousel.Caption >
+                        {/* <Carousel.Caption >
                             <div className='slidercontainer'>
                                   <h4 style={{"color":"#ffffff"}}>Register yourself to join leagues</h4>
                             </div>
-                        </Carousel.Caption>
+                        </Carousel.Caption> */}
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
@@ -60,12 +60,11 @@ export class Home extends React.PureComponent {
                             alt="Second slide"
                         />
 
-                        <Carousel.Caption >
+                        {/* <Carousel.Caption >
                             <div className='slidercontainer'>
                             <h4 style={{"color":"#ffffff"}}>Manage your Leagues</h4>
-                                {/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p> */}
                             </div>
-                        </Carousel.Caption>
+                        </Carousel.Caption> */}
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
@@ -74,11 +73,11 @@ export class Home extends React.PureComponent {
                             alt="Third slide"
                         />
 
-                        <Carousel.Caption >
+                        {/* <Carousel.Caption >
                             <div className='slidercontainer'>
                             <h4 style={{"color":"#ffffff"}}>Bid your team players</h4>
                             </div>
-                        </Carousel.Caption>
+                        </Carousel.Caption> */}
                     </Carousel.Item>
                 </Carousel>
                     <section id="about" className="about">
@@ -86,7 +85,7 @@ export class Home extends React.PureComponent {
 
                             <div className="section-title">
                                 <h2>About Us</h2>
-                                <p>Sportzmitra, founded by friends have always been cricket fanatics! We would love to play in our gully and end up fighting over who performed the best, who swung the ball most and who could have taken more wickets! Amateurs as we were, we made our own rules and scorekeeping! As we grew out of our gully’s what remained itched in our hearts was our passion for this sport and thus was born the idea of <b>Sportzmitra!</b></p>
+                                <p>Sportzmitra, founded by friends have always been cricket fanatics! We would love to play in our gully and end up fighting over who performed the best, who swung the ball most and who could have taken more wickets! Amateurs as we were, we made our own rules and scorekeeping! As we grew out of our gully’s what remained itched in our hearts was our passion for this sport and thus was born the idea of <b>Sportzmitra!</b></p><br/>
                                 <p><b>Sportzmitra</b> is one stop destination for sports fans who wish to participate in local competitions and tournaments. Sportzmitra is the perfect spot for you to expand your play zone! We can help you set a match against the next gully, neighbourhood or community!!</p>
                             </div>
 
@@ -137,6 +136,8 @@ export class Home extends React.PureComponent {
                     </section>
 
                     <section id="featured-services" class="featured-services">
+                    {/* container aos-init aos-animate */}
+                    <div className="container" >
                         <div class="section-title">
                             <h2>Products</h2>
 
@@ -171,6 +172,7 @@ export class Home extends React.PureComponent {
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </section>
                     <section id="pricing" class="pricing">
       <div class="container" data-aos="fade-up">
@@ -201,7 +203,7 @@ export class Home extends React.PureComponent {
           <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
             <div class="box featured" data-aos="fade-up" data-aos-delay="200">
               <h3>Plan 1</h3>
-              <h4><sup>INR</sup>3000<span> / Year</span></h4>
+              <h4><sup>INR</sup>2000<span> / Year</span></h4>
               <ul>
                 <li>Single League Management</li>
                 <li>1 Auction Managment for 1 Tournament</li>                
@@ -216,7 +218,7 @@ export class Home extends React.PureComponent {
           <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
             <div class="box featured" data-aos="fade-up" data-aos-delay="300">
               <h3>Plan 2</h3>
-              <h4><sup>INR</sup>6000<span> / year</span></h4>
+              <h4><sup>INR</sup>3000<span> / year</span></h4>
               <ul>
                   <li>Single League Management</li>
                   <li>1-3 Auction Managment for 1-3 Tournaments</li>
@@ -232,7 +234,7 @@ export class Home extends React.PureComponent {
             <div class="box" data-aos="fade-up" data-aos-delay="400">
               <span class="advanced">Advanced</span>
               <h3>Ultimate</h3>
-              <h4><sup>INR</sup>9000<span> / year</span></h4>
+              <h4><sup>INR</sup>5000<span> / year</span></h4>
               <ul>
                 <li>Unlimited League Management</li>
                 <li>Unlimited Auction Management</li>

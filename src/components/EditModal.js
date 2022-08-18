@@ -35,7 +35,7 @@ class editModal extends React.Component {
             disabled ={item.disabled}
             value={item.value}  onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className={cssInputClass} 
-            placeholder={"please enter " + item.label} />}
+            placeholder={"Please enter " + item.label} />}
           {item.type == 'file' && 
           <div>
           {item.oldValue &&<img src={item.oldValue} style={{height:50,width:50,borderWidth:1}}/>}
@@ -46,16 +46,16 @@ class editModal extends React.Component {
               this.props.onChangeInput({ target: { id: item.key, value: fileId} })
              }}
             className={cssInputClass}
-            placeholder={"please enter " + item.label} /></div>}
+            placeholder={"Please enter " + item.label} /></div>}
           {item.type == 'textarea' && <textarea type={item.type} id="form3Example3"
             value={item.value}  onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className={cssInputClass}
-            placeholder={"please enter " + item.label} />}
+            placeholder={"Please enter " + item.label} />}
           {item.type == 'date' && <input type={item.type} id="form3Example3"
             onChange={(e) => { console.log(formatDate(item.value), 'renjith'); this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className={cssInputClass} 
             value={formatDate(item.value)}
-            placeholder={"please enter " + item.label} />}
+            placeholder={"Please enter " + item.label} />}
           {item.type == 'select' &&
             <select className="form-control"
             value={item.value}

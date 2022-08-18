@@ -11,12 +11,16 @@ import { faFacebook, } from '@fortawesome/free-brands-svg-icons';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { getTournamentDetails, onChangeValueEditTeam, onChangeValueTeam } from './actions';
 import { getUserList, onChangeValueGlobal, uploadPhoto } from '../Global/actions';
+import roleInfo from '../utils/roleInfo';
+import { Button } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 import './style.css';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import { iteratee } from 'lodash';
 import EditModal from '../../components/EditModal'
+import AddModal from '../../components/AddModal'
+
 import team from '../../images/team.jpg'
 import profile from '../../images/profile.jpg'
 
@@ -28,6 +32,7 @@ export class TournamentDetails extends React.PureComponent {
             showModal: false,
             selectedItem: false,
             editModal: false,
+            addModal:false,
             typing: false
         }
     }
@@ -109,6 +114,32 @@ export class TournamentDetails extends React.PureComponent {
         this.props.onChangeValueTeam({ target: { id: 'selectedTeam', value: data } })
         this.props.onChangeValueTeam({ target: { id: 'selectedItem', value: item } })
         this.setState({ editModal: true, selectedItem: data })
+    }
+     
+    addTeam(){
+        var tournamentId = this.props.tournamentDetails && this.props.tournamentDetails.tournamentId ? this.props.tournamentDetails.tournamentId : null
+        var clubId = this.props.tournamentDetails && this.props.tournamentDetails.clubId ? this.props.tournamentDetails.clubId : null
+        let data= [{
+            key: 'teamName',
+            label: 'Team Name',
+            type: 'text',
+        },
+        {
+            key: 'teamLogo',
+            label: 'Team Logo',
+            type: 'file',
+            value: ''
+        },
+        {
+            key: 'tournamentId',
+            value: tournamentId
+        },
+        {
+            key: 'clubId',
+            value: clubId
+        }]
+        this.props.onChangeValueTeam({ target: { id: 'selectedTeam', value: data } })
+        this.setState({ addModal: true, selectedItem: data })
     }
     onChangeValueEditTeam(evt){
         console.log(evt)
@@ -235,7 +266,12 @@ export class TournamentDetails extends React.PureComponent {
                                         )):<div> No Player available</div>}
                                 </div>
                             </div>:  <div className='teamBox'>
-                            <div className='teamList'> Team List</div>
+                            <div className='teamList'> Team List
+                            
+                            <div className="btn-wrap">
+                              <a href="#" onClick={() => this.addTeam()} className="btn-primary">Add Team</a> &nbsp;
+                            </div>
+                            </div>
                                 <div className="page-wrapper">
                                     {this.props.tournamentDetails && this.props.tournamentDetails.teams && this.props.tournamentDetails.teams.length > 0 &&
                                         this.props.tournamentDetails.teams.map((item) => (
@@ -263,6 +299,15 @@ export class TournamentDetails extends React.PureComponent {
                  title={"Edit Tournament"}
                  show={this.state.editModal}
                  onHide={() => this.setState({ editModal: false })}
+                 onSubmit={() => this.editTournamentSubmit()}
+                 feildObj={this.props.selectedTeam}
+                 uploadPhoto={this.props.uploadPhoto}
+                 onChangeInput={(evt) => this.onChangeValueEditTeam(evt)}
+                />
+                <AddModal
+                 title={"Add Team"}
+                 show={this.state.addModal}
+                 onHide={() => this.setState({ addModal: false })}
                  onSubmit={() => this.editTournamentSubmit()}
                  feildObj={this.props.selectedTeam}
                  uploadPhoto={this.props.uploadPhoto}

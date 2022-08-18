@@ -51,13 +51,24 @@
     text-decoration: none;
     margin: 0px 10px;
   }
-  .navLink{
-    /* font-size: 1.2rem;
-    font-weight: bold;
-    color: white !important; */
+  .boxImageSize{
+    height: 250px !important;
   }
-  .nav-tabs{
-    /* background: #1abc9c; */
+  .letterCircleClubBox {
+    height: 250px;
+    padding: 8px;
+    color: #fff;
+    border: 2px solid #ffff;
+    text-align: center;
+    font-size: 32px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: #797C34;
+  }
+  .itemName{
+    font-weight: bold;
+    font-size: 18px;
   }
   .tableButtonDisable{
     font-size: 14px;
@@ -83,4 +94,22 @@
   }
   .noDataFound b {
     padding: 15px 0px;
+  }
+  .btn-primary {
+    background: #50ac00;
+    display: inline-block;
+    padding: 8px 35px 10px 35px;
+    border-radius: 4px;
+    color: #fff;
+    transition: none;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    transition: 0.3s;
+    border-color: #50ac00;
+  }
+ .btn-primary:hover {
+    background: #e11962 !important;
+    color: #fff !important;
   }

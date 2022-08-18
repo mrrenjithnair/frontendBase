@@ -46,14 +46,13 @@ export class ClubList extends React.PureComponent {
             <div className="card league">
                 <div className="row g-0">
                     <div className="col-sm-5" style={{"background": "#868e96;"}}>
-                    {item.logo ?<img src={item.logo} className="card-img-top h-100" alt="..." />:
+                    {item.logo ?<img src={item.logo} className="card-img-top boxImageSize" alt="..." />:
                         <div className='letterCircleClubBox'>{initials}</div>}
                     </div>
                     <div className="col-sm-7">
                         <div className="card-body">
-                            <div className="text-left"><span className="font-weight-bolder">Name :</span> <span className="team-text"> {item.name}</span></div>
+                            <div className="text-left"><span className="team-text itemName"> {item.name}</span></div>
                             <div className="text-left"><span className="font-weight-bolder">Location :</span> <span className="team-text"> {item.location}</span></div>
-                            <div className="text-left"><span className="font-weight-bolder">Address :</span> <span className="team-text"> {item.Address}</span></div>
                             <div className="text-left"><span className="font-weight-bolder">Address :</span> <span className="team-text"> {item.Address}</span></div>
                             <div className="btn-wrap">
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.requested && <spam>
