@@ -157,10 +157,10 @@ export class TournamentList extends React.PureComponent {
                                             <a disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-primary"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested join' : 'Request join'}</a>
                                             <a disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-primary"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested Team' : 'Request Team'}</a>
                                         </div>}
-                                        <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
+                                       {this.props.loggedInRoleId == 2 && <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
                                             {this.props.loggedInRoleId == 2 && <a className="btn-join" onClick={() => this.editTournament(item)}>Edit</a>}
                                             {this.props.loggedInRoleId == 2 && <a className="btn-detail" onClick={() => this.detailTournament(item)}>Details</a>}
-                                        </div>
+                                        </div>}
 
                                 </div>
                             </div>
