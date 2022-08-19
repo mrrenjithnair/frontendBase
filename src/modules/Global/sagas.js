@@ -2,7 +2,7 @@
 import { put, all, call, takeLatest, select } from "redux-saga/effects";
 import * as actions from './actions';
 import { request, toURLString } from '../utils/request';
-import { getError,exportKeyValue } from '../utils/commonUtils';
+import { getError, exportKeyValue, clean } from '../utils/commonUtils';
 import history from "../utils/history";
 import CONFIG from '../utils/config';
 import * as tournamentActions from '../TournamentDetails/actions';
@@ -15,6 +15,8 @@ export function* clubDetails() {
   const global = state.global
   // const sessionToken = login.get("currentUser").token;
   const sessionToken = global.sessionToken
+  const loggedInRoleId = global.loggedInRoleId
+
   const userId = localStorage.getItem("userId");
   console.log('global', global)
 
@@ -98,7 +100,11 @@ export function* getTournamentList() {
   if (global.auction) {
     params.cluAdmin = true
     params.list = true
-    params.auctionPending = true
+    if(global.auctionPending){
+      params.auctionPending = true
+    }else{
+      params.auctionPending = false
+    }
     if (global.auctionTournamentId)
       params.tournamentId = parseInt(global.auctionTournamentId)
   }
@@ -380,10 +386,11 @@ export function* insertOrUpdateTeam() {
     name: selectedTeam.teamName,
     logo: selectedTeam.teamLogo,
     id: selectedTeam.id,
-    ownerId: selectedTeam.ownerId,
+    ownerId: parseInt(selectedTeam.ownerId),
     clubId: selectedTeam.clubId,
     tournamentId: selectedTeam.tournamentId,
   }
+  body = clean(body)
   try {
     var options = {
       method: 'POST',

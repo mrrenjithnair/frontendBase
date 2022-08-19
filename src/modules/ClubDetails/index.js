@@ -51,7 +51,9 @@ export class ClubDetails extends React.PureComponent {
                     <div className='padding'>
 
                         <div className="card"> 
-                        <img className="card-img-top1" src={ clubDetails.banner? clubDetails.banner:"https://i.imgur.com/K7A78We.jpg"} alt="Card image cap" />
+                        <br/>
+                        <br/>
+                        <br/>
                             <div className="card-body little-profile text-center">
                                 <div className="pro-img">
                                     {clubDetails.logo ? <img className='detailImg' src={clubDetails.logo} alt={clubDetails.name} />
@@ -62,7 +64,8 @@ export class ClubDetails extends React.PureComponent {
                                 <p>{clubDetails.Address}</p>
                                 <div className="row m-t-20">
 
-                                    {clubDetails.description && <p><b>Description :</b> {clubDetails.description}</p>}
+                                    {clubDetails.description && <p
+                                    style={{ whiteSpace: 'pre-line',textAlign: 'left'}}><b>Description :</b> {clubDetails.description}</p>}
                                 </div>
                             </div>
                         </div>

@@ -33,6 +33,7 @@ export class Auction extends React.PureComponent {
     }
 
     componentDidMount() {
+        this.props.onChangeValueGlobal({ target: { id: 'auctionPending', value: false } })
         this.props.getTournamentList()
         window.scrollTo(0, 0)
     }
@@ -156,14 +157,21 @@ export class Auction extends React.PureComponent {
                                         <select className="form-control"
                                             onChange={(e) => {
                                                 this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: e.target.value } })
-                                                this.props.getTournamentList()
-                                                this.props.getAuctionPlayer()
+                                                if(e.target.value){
+                                                    this.props.getTournamentList()
+                                                    this.props.getAuctionPlayer()
+                                                }
+                                      
                                             }} >
                                             <option value=""> Select Tournament</option>
                                             {tournamentListGlobalArray && tournamentListGlobalArray.length > 0 && tournamentListGlobalArray.map(item => <option key={item.value} value={item.value}>{item.label}</option>)}
 
                                         </select>
-                                        <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
+                                        <Button variant="primary" onClick={() =>{
+                                            this.props.onChangeValueGlobal({ target: { id: 'auctionPending', value: true } })
+                                            this.props.getTournamentList()
+                                            this.setState({ showModal: true })
+                                        }}>
                                            Create Auction
                                         </Button>
                                     </div>
@@ -204,7 +212,7 @@ export class Auction extends React.PureComponent {
                                         {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div className='tableBox'>
                                             <div className='tableBoxRow'>
                                                 {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams.map((item) => (<Card  key={item.teamId}>
-                                                    {item.teamLogo ? <Card.Img variant="top" src={item.teamLogo} />
+                                                    {item.logoUrl ? <Card.Img variant="top" src={item.logoUrl} className='boxImageSize'/>
                                                         : <Card.Img variant="top" src={team} />}
                                                     <Card.Body>
                                                         <Card.Title> {item.teamName}</Card.Title>

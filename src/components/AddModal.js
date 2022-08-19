@@ -3,6 +3,7 @@
 
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal'
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 class addModal extends React.Component {
 
@@ -15,7 +16,7 @@ class addModal extends React.Component {
       <div>
         <div className="form-outline mb-4">
           <label className="form-label capitalize" htmlFor="form3Example3">{item.label}</label>
-          {(item.type == 'text' || item.type == 'number') && <input type={item.type} id="form3Example3"
+          {(item.type == 'text' || item.type == 'number'|| item.type == 'password') && <input type={item.type} id="form3Example3"
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className={cssInputClass}
             placeholder={"Please enter " + item.label} />}
@@ -72,6 +73,16 @@ class addModal extends React.Component {
                 <Button onClick={this.props.onSubmit}>Submit</Button>
                 <Button onClick={this.props.onHide}>Close</Button>
               </Modal.Footer>
+              <ToastContainer position="top-center"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        theme='colored'
+                        draggable
+                        pauseOnHover />
             </Modal>
           );
     }

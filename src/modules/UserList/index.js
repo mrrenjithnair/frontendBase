@@ -115,6 +115,7 @@ export class UserList extends React.PureComponent {
         }
     }
     addUser() {
+        
         this.props.addUser()
         this.setState({ showModal: false })
     }
@@ -156,7 +157,7 @@ export class UserList extends React.PureComponent {
         }, {
             key: 'password',
             label: 'password',
-            type: 'text'
+            type: 'password'
         },
         {
             key: 'profilePicture',

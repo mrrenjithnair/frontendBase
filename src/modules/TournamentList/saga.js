@@ -79,13 +79,13 @@ export function* getMyTournamentList() {
   }
 }
 
-export function* addTournament() {
+export function* addTournamentData() {
   var requestURL = CONFIG.apiURL + '/apiService/tournament'
   const state = yield select();
   const sessionToken = state.global.sessionToken
   const club = state.global.myDetails.club
   if(!(club && club[0] && club[0].id)) return
-  console.log(state,'addTournament')
+  console.log(state,'addTournamentData')
   let clubBody = {
     "name": state.tournament.name,
     "startDate": new Date(state.tournament.startDate).valueOf(),
@@ -185,7 +185,7 @@ export function* requestJoin() {
 export default function* tournamentListSaga() {
   yield all([
     takeLatest('GET_TOURNAMENT_LIST', getTournamentList),
-    takeLatest('TOURNAMENT_ADD', addTournament),
+    takeLatest('TOURNAMENT_DATA_ADD', addTournamentData),
     takeLatest('TOURNAMENT_EDIT', editTournament),
     takeLatest('JOIN_TOURNAMENT', requestJoin),
     takeLatest('GET_MY_TOURNAMENT_LIST', getMyTournamentList),

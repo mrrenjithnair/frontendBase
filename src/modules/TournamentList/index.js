@@ -13,7 +13,7 @@ import EditModal from '../../components/EditModal'
 import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
 
-import { getTournamentList, getMyTournamentList, onChangeValueClub, onChangeValueEditClub, addTournament, editTournament, requestJoin } from './actions';
+import { getTournamentList, getMyTournamentList, onChangeValueClub, onChangeValueEditClub, addTournamentData, editTournament, requestJoin } from './actions';
 import { onChangeValueGlobal, getClubDetail, uploadPhoto } from '../Global/actions';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
@@ -45,9 +45,9 @@ export class TournamentList extends React.PureComponent {
             }
         }
     }
-    addTournament() {
+    addTournamentData() {
         console.log('addClub')
-        this.props.addTournament()
+        this.props.addTournamentData()
         this.setState({ showModal: false })
     }
     editTournamentSubmit() {
@@ -168,31 +168,6 @@ export class TournamentList extends React.PureComponent {
                     </div>
                 </div>
             </div>
-            // <div className="card userItem" style={{ width: '18rem' }} key={item.id}>
-            //     {item.bannerUrl && <img className="card-img-top1" src={item.bannerUrl} alt="Card image cap"></img>}
-            //     {item.logoUrl ? <img className="userDp" src={item.logoUrl} alt={item.name} data-letters="MN" />
-            //         : <div className='letterCircleUser'>{initials}</div>}
-
-            //     <div className="card-body">
-            //         <p className="card-title"><b>Name: </b> {item.name} </p >
-            //         <p className="card-text"><b>Team Total: </b> {item.teamTotal}</p>
-            //         <p className="card-text"><b>Member Total: </b> {item.memberTotal}</p>
-            //         <p className="card-text"><b>Start Date: </b>  <Moment format="YYYY/MM/DD">{item.startDate}</Moment></p>
-            //         <p className="card-text"><b>End Date: </b>  <Moment format="YYYY/MM/DD">{item.endDate}</Moment></p>
-            //         <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', borderWidth: 2, borderColor: '#e4e4e4' }}>
-            //             {this.props.loggedInRoleId == 3 && this.props.nearByTournament && <div>
-            //                 <Button disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested for join' : 'Request for join'}</Button><br /><br />
-            //                 <Button disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-warning"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested for Team' : 'Request for Team'}</Button>
-            //             </div>}
-            //             <div style={{ display: 'flex', 'justifyContent': 'space-around' }}>
-
-            //                 {this.props.loggedInRoleId == 2 && <Button className="buttonPrimary" onClick={() => this.editTournament(item)}>Edit</Button>}
-            //                 {this.props.loggedInRoleId == 2 && <Button className="buttonPrimary" onClick={() => this.detailTournament(item)}>Details</Button>}
-            //             </div>
-
-            //         </div>
-            //     </div>
-            // </div>
         )
     }
     render() {
@@ -224,12 +199,6 @@ export class TournamentList extends React.PureComponent {
             type: 'file',
             value: this.props.tournamentLogo,
 
-        },
-        {
-            key: 'tournamentBanner',
-            label: 'banner',
-            type: 'file',
-            value: this.props.tournamentBanner
         },
         {
             key: 'teamTotal',
@@ -284,7 +253,7 @@ export class TournamentList extends React.PureComponent {
                     title="Add Tournament"
                     show={this.state.showModal}
                     onHide={() => this.setState({ showModal: false })}
-                    onSubmit={() => this.addTournament()}
+                    onSubmit={() => this.addTournamentData()}
                     feildObj={addTournamentObj}
                     uploadPhoto={this.props.uploadPhoto}
                     onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
@@ -332,7 +301,7 @@ function mapDispatchToProps(dispatch) {
     return {
         getTournamentList: () => dispatch(getTournamentList()),
         getMyTournamentList: () => dispatch(getMyTournamentList()),
-        addTournament: () => dispatch(addTournament()),
+        addTournamentData: () => dispatch(addTournamentData()),
         editTournament: () => dispatch(editTournament()),
         onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),
         onChangeValueEditClub: (evt) => dispatch(onChangeValueEditClub(evt)),

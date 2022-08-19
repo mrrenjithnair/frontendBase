@@ -53,7 +53,8 @@ export const initialState = {
     loginUser: false,
     myDetails:false,
     loading:false,
-    profileIncomplte: false
+    profileIncomplte: false,
+    auctionPending: false
 };
 
 export default function (state = initialState, actions) {

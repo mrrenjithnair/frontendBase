@@ -16,7 +16,7 @@ import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
 
 import { getClubRequest, onChangeValueClub, onChangeValueEditClub, addTournament, editTournament, requestAction } from './actions';
-import { onChangeValueGlobal, getClubDetail } from '../Global/actions';
+import { onChangeValueGlobal, getClubDetail,uploadPhoto } from '../Global/actions';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -105,8 +105,8 @@ export class Request extends React.PureComponent {
             type: 'text'
         },
         {
-            key: 'logo',
-            label: 'teamLogo',
+            key: 'teamLogo',
+            label: 'team Logo',
             type: 'file'
         }
     ]
@@ -144,6 +144,7 @@ export class Request extends React.PureComponent {
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.submitDetail()}
                     feildObj={addClubObj}
+                    uploadPhoto={this.props.uploadPhoto}
                     onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
                 />
             </section>
@@ -174,6 +175,7 @@ function mapDispatchToProps(dispatch) {
         editTournament: () => dispatch(editTournament()),
         onChangeValueClub: (evt) => dispatch(onChangeValueClub(evt)),
         onChangeValueEditClub: (evt) => dispatch(onChangeValueEditClub(evt)),
+        uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
 
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),

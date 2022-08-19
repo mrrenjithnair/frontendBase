@@ -103,11 +103,7 @@ export class ClubList extends React.PureComponent {
             key: 'logo',
             label: 'logo',
             type: 'file'
-        }, {
-            key: 'banner',
-            label: 'banner',
-            type: 'file'
-        },]
+        }]
         console.log( this.props.clubList)
         return (
 

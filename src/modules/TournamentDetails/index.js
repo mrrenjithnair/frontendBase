@@ -10,7 +10,7 @@ import { faFacebook, } from '@fortawesome/free-brands-svg-icons';
 
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { getTournamentDetails, onChangeValueEditTeam, onChangeValueTeam } from './actions';
-import { getUserList, onChangeValueGlobal, uploadPhoto, getAuctionPlayer, insertOrUpdateTeam } from '../Global/actions';
+import { getUserList, onChangeValueGlobal, uploadPhoto, getAuctionPlayer, insertOrUpdateTeam, setToast, resetToast } from '../Global/actions';
 import roleInfo from '../utils/roleInfo';
 import { Button } from 'react-bootstrap';
 
@@ -84,8 +84,26 @@ export class TournamentDetails extends React.PureComponent {
 
     editTournamentSubmit() {
         console.log('edit')
-        this.props.insertOrUpdateTeam()
-        this.setState({ editModal: false, addModal: false })
+        let error = false
+        this.props.resetToast()
+        if(this.props.selectedTeam && this.props.selectedTeam.length>0){
+            this.props.selectedTeam.map((item)=>{
+                if(item.key =='teamName' && !item.value){
+                    error = true
+                    this.props.setToast(false, 'Please enter team name')
+                }
+                if(item.key =='ownerId' && !item.value){
+                    error = true
+                    this.props.setToast(false, 'Please select owner')
+                }
+            })
+        }
+       
+        if(!error){
+            this.props.insertOrUpdateTeam()
+            this.setState({ editModal: false, addModal: false })
+        }
+
     }
     viewTeam(item){
         this.props.onChangeValueGlobal({ target: { id: 'globalSelectedTeamId', value: item.teamId } })
@@ -98,7 +116,8 @@ export class TournamentDetails extends React.PureComponent {
             key: 'teamName',
             label: 'Team Name',
             type: 'text',
-            value: item.teamName
+            value: item.teamName,
+            required: true,
         },
         {
             key: 'teamLogo',
@@ -144,6 +163,7 @@ export class TournamentDetails extends React.PureComponent {
             key: 'teamName',
             label: 'Team Name',
             type: 'text',
+            required: true
         },
         {
             key: 'teamLogo',
@@ -156,6 +176,7 @@ export class TournamentDetails extends React.PureComponent {
             label: 'Team Owner',
             type: 'select',
             value: '',
+            required: true,
             data:data1
         },
         {
@@ -375,7 +396,8 @@ function mapDispatchToProps(dispatch) {
         onChangeValueTeam: (evt) => dispatch(onChangeValueTeam(evt)),
         getAuctionPlayer: (evt) => dispatch(getAuctionPlayer(evt)),
         insertOrUpdateTeam: (evt) => dispatch(insertOrUpdateTeam(evt)),
-        
+        setToast: (success, message) => dispatch(setToast(success, message)),
+        resetToast: (evt) => dispatch(resetToast(evt)),
         getUserList: (evt) => dispatch(getUserList(evt)),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),

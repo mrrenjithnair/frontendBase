@@ -103,6 +103,8 @@ export function exportKeyValue(data) {
 	data.map((item) => {
 		if(item.type== 'number'){
 			obj[item.key] = parseInt(item.value)
+		}if(item.type== 'date'){
+			obj[item.key] = new Date(item.value).valueOf()
 		}else{
 			obj[item.key] = item.value
 

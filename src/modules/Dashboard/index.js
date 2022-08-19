@@ -62,7 +62,7 @@ export class Dashboard extends React.PureComponent {
                                     </time>
                                 </div>
                                 <div className="postcard__bar"></div>
-                                <div className="postcard__preview-txt">{club.description}</div>
+                                <div className="postcard__preview-txt" style={{ whiteSpace: 'pre-line',textAlign: 'left'}}>{club.description}</div>
                             </div>
                         </article>:
                         <div className="dashProfileBox">
