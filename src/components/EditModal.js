@@ -40,6 +40,7 @@ class editModal extends React.Component {
           <div>
           {item.oldValue &&<img src={item.oldValue} style={{height:50,width:50,borderWidth:1}}/>}
           <input type={item.type} id="form3Example3"
+          accept="image/png, image/jpeg"
            onChange={(e) => { 
               const fileId =  new Date().valueOf() + e.target.files[0].name 
               this.props.uploadPhoto(e.target.files[0], fileId, item.key)

@@ -21,6 +21,7 @@ class addModal extends React.Component {
             className={cssInputClass}
             placeholder={"Please enter " + item.label} />}
           {item.type == 'file' && <input type={item.type} id="form3Example3"
+          accept="image/png, image/jpeg"
             onChange={(e) => { 
               const fileId =  new Date().valueOf() + e.target.files[0].name 
               this.props.uploadPhoto(e.target.files[0], fileId, item.key)
