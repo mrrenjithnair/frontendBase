@@ -10,7 +10,7 @@ import { faFacebook, } from '@fortawesome/free-brands-svg-icons';
 
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { getTournamentDetails, onChangeValueEditTeam, onChangeValueTeam } from './actions';
-import { getUserList, onChangeValueGlobal, uploadPhoto } from '../Global/actions';
+import { getUserList, onChangeValueGlobal, uploadPhoto, getAuctionPlayer, insertOrUpdateTeam } from '../Global/actions';
 import roleInfo from '../utils/roleInfo';
 import { Button } from 'react-bootstrap';
 
@@ -83,8 +83,8 @@ export class TournamentDetails extends React.PureComponent {
 
 
     editTournamentSubmit() {
-        console.log('addClub')
-        this.props.editTeam()
+        console.log('edit')
+        this.props.insertOrUpdateTeam()
         this.setState({ editModal: false })
     }
     viewTeam(item){
@@ -109,16 +109,37 @@ export class TournamentDetails extends React.PureComponent {
         {
             key: 'id',
             value: item.teamId
-        }]
+        },
+        {
+            key: 'clubId',
+            value: item.clubId
+        },
+        {
+            key: 'tournamentId',
+            value: item.tournamentId
+        },
+        {
+            key: 'ownerId',
+            value: item.ownerId
+        },
+    ]
         
         this.props.onChangeValueTeam({ target: { id: 'selectedTeam', value: data } })
         this.props.onChangeValueTeam({ target: { id: 'selectedItem', value: item } })
         this.setState({ editModal: true, selectedItem: data })
     }
      
-    addTeam(){
+    async addTeam() {
         var tournamentId = this.props.tournamentDetails && this.props.tournamentDetails.tournamentId ? this.props.tournamentDetails.tournamentId : null
         var clubId = this.props.tournamentDetails && this.props.tournamentDetails.clubId ? this.props.tournamentDetails.clubId : null
+        this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: tournamentId } })
+        await this.props.getAuctionPlayer()
+        let data1=[]
+        if(this.props.auctionPlayer){
+            this.props.auctionPlayer.map((item)=>{
+            data1.push({label:item.playerName, value:item.playerId})
+            })
+        }
         let data= [{
             key: 'teamName',
             label: 'Team Name',
@@ -129,6 +150,13 @@ export class TournamentDetails extends React.PureComponent {
             label: 'Team Logo',
             type: 'file',
             value: ''
+        },
+        {
+            key: 'teamOwner',
+            label: 'Team Owner',
+            type: 'select',
+            value: '',
+            data:data1
         },
         {
             key: 'tournamentId',
@@ -269,14 +297,14 @@ export class TournamentDetails extends React.PureComponent {
                             <div className='teamList'> Team List
                             
                             <div className="btn-wrap">
-                              <a href="#" onClick={() => this.addTeam()} className="btn-primary">Add Team</a> &nbsp;
+                              <a href="#" onClick={() => this.addTeam()} className="btn btn-primary">Add Team</a> &nbsp;
                             </div>
                             </div>
                                 <div className="page-wrapper">
                                     {this.props.tournamentDetails && this.props.tournamentDetails.teams && this.props.tournamentDetails.teams.length > 0 &&
                                         this.props.tournamentDetails.teams.map((item) => (
                                             <div className="profile-box">
-                                               {item.teamLogo ? <img src={item.teamLogo} alt="profile pic" />:
+                                               {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" />:
                                                 <img src={team} alt="profile pic" />}
                                                 <h3>{item.teamName}</h3>
                                                 <h4>{item.ownerName}</h4>
@@ -334,6 +362,7 @@ function mapStateToProps(state) {
         selectedTeam: state.tournamentDetail.selectedTeam,
         globalSelectedTeamId: state.global.globalSelectedTeamId,
         teamPlayerList: state.global.teamPlayerList,
+        auctionPlayer: state.global.auctionPlayer,
         
         
     };
@@ -344,6 +373,9 @@ function mapDispatchToProps(dispatch) {
         getTournamentDetails: () => dispatch(getTournamentDetails()),
         onChangeValueEditTeam: (evt) => dispatch(onChangeValueEditTeam(evt)),
         onChangeValueTeam: (evt) => dispatch(onChangeValueTeam(evt)),
+        getAuctionPlayer: (evt) => dispatch(getAuctionPlayer(evt)),
+        insertOrUpdateTeam: (evt) => dispatch(insertOrUpdateTeam(evt)),
+        
         getUserList: (evt) => dispatch(getUserList(evt)),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),

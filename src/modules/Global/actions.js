@@ -53,6 +53,11 @@ export const UPLOAD_PHOTO = 'UPLOAD_PHOTO';
 export const UPLOAD_PHOTO_SUCCESS = 'UPLOAD_PHOTO_SUCCESS';
 export const UPLOAD_PHOTO_FAILURE = 'UPLOAD_PHOTO_FAILURE';
 
+export const TEAM = 'TEAM';
+export const TEAM_SUCCESS = 'TEAM_SUCCESS';
+export const TEAM_FAILURE = 'TEAM_FAILURE';
+
+
 
 export function setDataFromLocal() {
   return {
@@ -350,6 +355,26 @@ export function setOverlayLoading(data) {
   return {
       type: SET_OVERLAY_LOADING,
       value: data
+  };
+}
+
+export function insertOrUpdateTeam() {
+  return {
+      type: TEAM,
+  };
+}
+export function insertOrUpdateTeamSuccess(data) {
+  toast.success("Team submited SuccessFully");
+  return {
+      type: TEAM_SUCCESS,
+      data: data
+  };
+}
+export function insertOrUpdateTeamFailure(err) {
+  console.log('err', err)
+  toast.error(err);
+  return {
+      type: TEAM_FAILURE,
   };
 }
 

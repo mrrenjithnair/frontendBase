@@ -5,6 +5,9 @@ import { request, toURLString } from '../utils/request';
 import { getError,exportKeyValue } from '../utils/commonUtils';
 import history from "../utils/history";
 import CONFIG from '../utils/config';
+import * as tournamentActions from '../TournamentDetails/actions';
+
+
 
 export function* clubDetails() {
   var requestURL = CONFIG.apiURL + '/apiService/club'
@@ -159,6 +162,8 @@ export function* getAuctionPlayer() {
     const TournamentList = yield call(request, requestURL, options);
     console.log('TournamentList', TournamentList)
     yield put(actions.getAuctionPlayerSuccess(TournamentList));
+    yield put(actions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
@@ -355,10 +360,51 @@ export function* getPlayerTeamList() {
     console.log('err', err)
     yield put(actions.getPlayerTeamListFailure(getError(err)));
     yield put(actions.setOverlayLoading(false));
-
-
   }
 }
+
+export function* insertOrUpdateTeam() {
+  const state = yield select();
+  const global = state.global
+  const tournamentDetail = state.tournamentDetail
+  
+  let params = {}
+  const playerProfile = state.global.loggedInRoleId ==  3
+  var requestURL = CONFIG.apiURL + '/apiService/team'
+  const userId = localStorage.getItem("userId");
+  requestURL = requestURL + toURLString(params)
+  const sessionToken = global.sessionToken
+  let selectedTeam  = exportKeyValue( tournamentDetail.selectedTeam)
+  console.log('selectedTeam',selectedTeam)
+  let body ={
+    name: selectedTeam.teamName,
+    logo: selectedTeam.teamLogo,
+    id: selectedTeam.id,
+    ownerId: selectedTeam.ownerId,
+    clubId: selectedTeam.clubId,
+    tournamentId: selectedTeam.tournamentId,
+  }
+  try {
+    var options = {
+      method: 'POST',
+      sessionToken: sessionToken,
+      body: body
+    };
+    yield put(actions.setOverlayLoading(true));
+
+    const UserList = yield call(request, requestURL, options);
+    yield put(actions.insertOrUpdateTeamSuccess(UserList));
+    yield put(tournamentActions.getTournamentDetails(UserList));
+    yield put(actions.setOverlayLoading(false));
+
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.insertOrUpdateTeamFailure(getError(err)));
+    yield put(actions.setOverlayLoading(false));
+  }
+}
+
 export function* uploadPhoto() {
   var requestURL = CONFIG.apiURL + '/apiService/file'
   const state = yield select();
@@ -451,6 +497,7 @@ export default function* globalSaga() {
     takeLatest('CREATE_AUCTION', createAuction),
     takeLatest('UPLOAD_PHOTO', uploadPhoto),
     takeLatest('PROFILE_EDIT', editProfile),
+    takeLatest('TEAM', insertOrUpdateTeam),
     
   ]);
 }
