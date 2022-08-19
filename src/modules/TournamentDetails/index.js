@@ -85,7 +85,7 @@ export class TournamentDetails extends React.PureComponent {
     editTournamentSubmit() {
         console.log('edit')
         this.props.insertOrUpdateTeam()
-        this.setState({ editModal: false })
+        this.setState({ editModal: false, addModal: false })
     }
     viewTeam(item){
         this.props.onChangeValueGlobal({ target: { id: 'globalSelectedTeamId', value: item.teamId } })
@@ -132,7 +132,7 @@ export class TournamentDetails extends React.PureComponent {
     async addTeam() {
         var tournamentId = this.props.tournamentDetails && this.props.tournamentDetails.tournamentId ? this.props.tournamentDetails.tournamentId : null
         var clubId = this.props.tournamentDetails && this.props.tournamentDetails.clubId ? this.props.tournamentDetails.clubId : null
-        this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: tournamentId } })
+        await this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: tournamentId } })
         await this.props.getAuctionPlayer()
         let data1=[]
         if(this.props.auctionPlayer){
@@ -152,7 +152,7 @@ export class TournamentDetails extends React.PureComponent {
             value: ''
         },
         {
-            key: 'teamOwner',
+            key: 'ownerId',
             label: 'Team Owner',
             type: 'select',
             value: '',
