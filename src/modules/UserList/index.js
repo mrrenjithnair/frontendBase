@@ -8,12 +8,13 @@ import BottomNavBar from '../../components/BottomNavBar'
 import HeaderNavBar from '../../components/HeaderNavBar'
 import Image from 'react-bootstrap/Image'
 import AddModal from '../../components/AddModal'
+import EditModal from '../../components/EditModal'
 import history from "../utils/history";
 
 import roleInfo from '../utils/roleInfo';
-import { getUserList, onChangeValueUser, addUser, userUpdate, onChangeUserUpdate } from './actions';
+import { getUserList, onChangeValueUser, addUser, userUpdate, onChangeUserUpdate, userEdit } from './actions';
 
-import { onChangeValueGlobal, getClubDetail, uploadPhoto } from '../Global/actions';
+import { onChangeValueGlobal, getClubDetail, uploadPhoto, onChangeValueProfile, editProfile,  setToast, resetToast } from '../Global/actions';
 import { getClubList } from '../ClubList/actions';
 
 import PropTypes from 'prop-types';
@@ -54,7 +55,6 @@ export class UserList extends React.PureComponent {
                     : <div className="rounded-circle letterCircleUser" >{initials}</div>}
                 <h3 className="name">{item.firstName} {item.lastName}</h3>
                 <div className="text-left"><span className="font-weight-bolder">Username :</span> <span className="team-text"> {item.username}</span></div>
-                <div className="text-left"><span className="font-weight-bolder">Player type:</span> <span className="team-text"> {item.playerType}</span></div>
                 <div className="text-left"><span className="font-weight-bolder">Email ID :</span> <span className="team-text"> {item.emailId}</span></div>
                 <div className="text-left"><span className="font-weight-bolder">Clubs :</span>
                  
@@ -62,7 +62,9 @@ export class UserList extends React.PureComponent {
                          <span className="team-text"> {item.name}</span>
                      )}
                  </div>
-
+                 <div className="btn-wrap">
+                        <a href="#" onClick={() => this.editUser(item)} className="btn-reject">Edit</a>
+            </div>
             </div>
 
         </div>
@@ -99,7 +101,7 @@ export class UserList extends React.PureComponent {
                     <a href="#"  disabled={item.approved == 1 } onClick={() => item.approved == 1 ? '' : this.action(item,'accept')} className="btn-buy">Approved</a> &nbsp;
                     <a href="#" disabled={item.approved == 0 } onClick={() => item.approved == 0 ? '' : this.action(item, 'reject')} className="btn-reject">Reject</a>
                 </div>:
-                <div className="text-left"><span className="font-weight-bolder">Status :</span> <span className="team-text"> Approved</span></div>
+                <div className="text-left"><span className="font-weight-bolder">Status :</span> <span className="team-text"> Approved</span></div>       
         }
             </div>
 
@@ -115,9 +117,114 @@ export class UserList extends React.PureComponent {
         }
     }
     addUser() {
-        
         this.props.addUser()
         this.setState({ showModal: false })
+    }
+
+    editUser(item) {
+        let userEdit = [{
+            key: 'firstName',
+            label: 'first Name',
+            type: 'text',
+            value: item.firstName,
+            required:true
+        },
+        {
+            key: 'lastName',
+            label: 'last Name',
+            type: 'text',
+            value: item.lastName,
+            required:true
+        },
+        {
+            key: 'emailId',
+            label: 'email Id',
+            type: 'text',
+            value: item.emailId,
+            disabled: true
+        },
+        {
+            key: 'dob',
+            label: 'dob',
+            type: 'date',
+            value: item.dob,
+            required:true
+        }, {
+            key: 'password',
+            label: 'password',
+            type: 'password',
+            value: item.password
+        },
+        {
+            key: 'profilePicture',
+            label: 'profile Picture',
+            type: 'file',
+            value: item.profilePicture,
+            oldValue: item.profilePictureUrl,
+        },
+        {
+            key: 'clubId',
+            label: 'club',
+            type: 'select',
+            value: item.clubId,
+            required:true
+        },
+        {
+            key: 'id',
+            value: item.id,
+        },
+        {
+            key: 'roleId',
+            value: item.roleId,
+        }]
+        this.props.onChangeValueGlobal({ target: { id: 'profileEdit', value: userEdit } })
+
+        this.setState({ editModal: true })
+    }
+    editProfileSubmit() {
+        let error = false
+        let profileEdit = this.props.profileEdit
+        let password 
+        let confirmPassword 
+        for (var i = 0; i < profileEdit.length; i++) {
+         if (profileEdit[i].key == 'firstName' && !profileEdit[i].value) {
+                error = true
+                this.props.setToast(false, 'Please enter First Name')
+                break;
+            } else if (profileEdit[i].key == 'lastName' && !profileEdit[i].value) {
+                error = true
+                this.props.setToast(false, 'Please enter Last Name')
+                break;
+            } else if (profileEdit[i].key == 'emailId' && !profileEdit[i].value) {
+                error = true
+                this.props.setToast(false, 'Please enter email Id')
+                break;
+            } else if (profileEdit[i].key == 'location' && !profileEdit[i].value) {
+                error = true
+                this.props.setToast(false, 'Please enter location')
+                break;
+            }   if (profileEdit[i].key == 'password' && profileEdit[i].value) {
+                password = profileEdit[i].value
+            } else if (profileEdit[i].key == 'confirmPassword' && profileEdit[i].value) {
+                confirmPassword = profileEdit[i].value
+            } else if (profileEdit[i].key == 'confirmPassword' && profileEdit[i].value) {
+                password = profileEdit[i].value
+            } else if (confirmPassword != password) {
+                error = true
+                this.props.setToast(false, 'Password and confirm password does not match')
+                break;
+            } 
+          }
+        if(!error){
+            this.props.editProfile()
+            this.setState({ editModal: false })
+        }
+
+    }  
+    onChangeValueProfile(evt){
+        console.log(evt)
+        this.setState({typing: !this.state.typing})
+        this.props.onChangeValueProfile(evt)
     }
     render() {
         let clubList = this.props.clubList && this.props.clubList.length > 0 ? this.props.clubList : []
@@ -216,6 +323,15 @@ export class UserList extends React.PureComponent {
                     uploadPhoto={this.props.uploadPhoto}
                     onChangeInput={(evt) => this.props.onChangeValueUser(evt)}
                 />
+            <EditModal
+                 title={"Edit User"}
+                 show={this.state.editModal}
+                 onHide={() => this.setState({ editModal: false })}
+                 onSubmit={() => this.editProfileSubmit()}
+                 feildObj={this.props.profileEdit}
+                 uploadPhoto={this.props.uploadPhoto}
+                 onChangeInput={(evt) => this.onChangeValueProfile(evt)}
+                />
             </section>
         );
     }
@@ -231,6 +347,8 @@ function mapStateToProps(state) {
         userList: state.userList.userList,
         adminList: state.global.adminList,
         clubList: state.clubs.clubList,
+        profileEdit: state.global.profileEdit,
+        
 
     };
 }
@@ -246,6 +364,10 @@ function mapDispatchToProps(dispatch) {
         onChangeUserUpdate: (id, key, value) => dispatch(onChangeUserUpdate(id, key, value)),
         uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
         userUpdate: (id) => dispatch(userUpdate(id)),
+        editProfile: (id) => dispatch(editProfile(id)),
+        onChangeValueProfile: (evt) => dispatch(onChangeValueProfile(evt)),
+        setToast: (success, message) => dispatch(setToast(success, message)),
+        resetToast: (evt) => dispatch(resetToast(evt)),
 
     };
 }

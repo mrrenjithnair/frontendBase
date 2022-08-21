@@ -6,6 +6,7 @@ import { getError, exportKeyValue, clean } from '../utils/commonUtils';
 import history from "../utils/history";
 import CONFIG from '../utils/config';
 import * as tournamentActions from '../TournamentDetails/actions';
+import * as userActions from '../UserList/actions';
 
 
 
@@ -460,11 +461,7 @@ export function* editProfile() {
 
   let params = {}
   const playerProfile = state.global.loggedInRoleId ==  3
-  if (playerProfile) {
     var requestURL = CONFIG.apiURL + '/apiService/player'
-  } else {
-    var requestURL = CONFIG.apiURL + '/apiService/user'
-  }
   let profileBody = exportKeyValue(profileEdit)
   if (profileBody.password == "") {
     delete profileBody.password
@@ -479,6 +476,7 @@ export function* editProfile() {
 
     const profile = yield call(request, requestURL, options);
     yield put(actions.getUserDetail(profile));
+    yield put(userActions.getUserList(profile));
     yield put(actions.editProfileSuccess(profile));
     yield put(actions.setOverlayLoading(false));
 
