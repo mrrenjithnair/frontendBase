@@ -14,7 +14,8 @@ export const initialState = {
     password: {},
     count:0,
     loginUser:null,
-    sessionToken:null
+    sessionToken:null,
+    clubSearch:''
 
   };
 

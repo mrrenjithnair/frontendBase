@@ -120,6 +120,17 @@ export class ClubList extends React.PureComponent {
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addClub && <div className="text-center"> <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
                                     Add Club
                                 </Button></div>}
+                                <div style={{display:'flex'}}>
+                                <input type="text" id="Search"
+                                    value={this.props.clubSearch}
+                                    onChange={(e) => { this.props.onChangeValueClub({ target: { id: 'clubSearch', value: e.target.value } }) }}
+                                    className='form-control form-control-lg'
+                                    placeholder={"Search league"} />
+                                <Button variant="primary" onClick={() => this.props.getClubList()}>
+                                   Search
+                                </Button>
+                                </div>
+
                             </div>
                             <div className="row ">
                                 {this.props.clubList && this.props.clubList.length >0  ?
@@ -168,8 +179,10 @@ ClubList.propTypes = {
 function mapStateToProps(state) {
     return {
         clubList: state.clubs.clubList,
+        clubSearch: state.clubs.clubSearch,
         nearByClub: state.global.nearByClub,
         clubListPage: state.global.clubListPage,
+
 
     };
 }
