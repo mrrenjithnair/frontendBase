@@ -62,9 +62,9 @@ export class UserList extends React.PureComponent {
                          <span className="team-text"> {item.name}</span>
                      )}
                  </div>
-                 <div className="btn-wrap">
+                 {roleInfo && roleInfo.privileges && roleInfo.privileges.user && roleInfo.privileges.user.addAdmin && <div className="btn-wrap">
                         <a href="#" onClick={() => this.editUser(item)} className="btn-reject">Edit</a>
-            </div>
+                 </div>}
             </div>
 
         </div>
@@ -102,7 +102,9 @@ export class UserList extends React.PureComponent {
                     <a href="#" disabled={item.approved == 0 } onClick={() => item.approved == 0 ? '' : this.action(item, 'reject')} className="btn-reject">Reject</a>
                 </div>:
                 <div className="text-left"><span className="font-weight-bolder">Status :</span> <span className="team-text"> Approved</span></div>       
-        }
+        }   {roleInfo && roleInfo.privileges && roleInfo.privileges.user && roleInfo.privileges.user.addAdmin && <div className="btn-wrap">
+        <a href="#" onClick={() => this.editUser(item)} className="btn-reject">Edit</a>
+ </div>}
             </div>
 
         </div>
@@ -122,6 +124,16 @@ export class UserList extends React.PureComponent {
     }
 
     editUser(item) {
+        let clubList = this.props.clubList && this.props.clubList.length > 0 ? this.props.clubList : []
+        let clubListArray = []
+        if (clubList && clubList.length > 0) {
+            clubList.map((item) => {
+                clubListArray.push({
+                    value: item.id,
+                    label: item.name,
+                })
+            })
+        }
         let userEdit = [{
             key: 'firstName',
             label: 'first Name',
@@ -167,6 +179,7 @@ export class UserList extends React.PureComponent {
             label: 'club',
             type: 'select',
             value: item.clubId,
+            data: clubListArray,
             required:true
         },
         {
