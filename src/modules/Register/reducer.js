@@ -13,7 +13,8 @@ export const initialState = {
     count:0,
     playerType: 'A',
     sportsType:1,
-    category: 'all-rounder'
+    category: 'all-rounder',
+    firstName: false,
   };
 
 export default function(state = initialState,actions){

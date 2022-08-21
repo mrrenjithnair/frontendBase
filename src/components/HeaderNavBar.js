@@ -11,11 +11,13 @@ import Image from 'react-bootstrap/Image'
 import Logo from '../images/Logo.png'
 import SportzMitra from '../images/SportzMitra.png'
 import Nav from 'react-bootstrap/Nav';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, goBack } from "react-router-dom";
 import history from "../modules/utils/history";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import roleInfo from '../modules/utils/roleInfo';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 export class HeaderNavBar extends React.PureComponent {
     logout() {
@@ -70,6 +72,9 @@ export class HeaderNavBar extends React.PureComponent {
 
                     <Navbar expand="lg" id="header" className="fixed-top" collapseOnSelect>
                         <Container className="container d-flex align-items-center">
+                        {this.props.sessionToken && <div className='arrow'>
+                                        <FontAwesomeIcon icon={faArrowLeft} onClick={() => history.push(-1)} />
+                                    </div>}
                             <Navbar.Brand  className="logo me-auto" onClick={() => { history.push('/home'); }}><img
                                 alt=""
                                 src={SportzMitra}

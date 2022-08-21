@@ -112,3 +112,37 @@ export function exportKeyValue(data) {
 	})
 	return obj
 }
+export function dobValidation(date) {
+	var date = new Date(date)
+	var now = new Date();
+	if (date == null ||
+		(date < now && now.getFullYear() - date.getFullYear() > 14)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+export function emailValidation(value) {
+	var emailRegx = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
+	if(emailRegx.test(value)){
+		return true;
+	}else{
+		return false;
+	}
+}
+export function mobileValidation(value) {
+	var mobileRegx = /^[1-9]{1}[0-9]{9}$/;
+	if(mobileRegx.test(value)){
+		return true;
+	}else{
+		return false;
+	}
+}
+export function passwordValidation(value) {
+	var passwordRegx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/igm;
+	if(passwordRegx.test(value)){
+		return true;
+	}else{
+		return false;
+	}
+}

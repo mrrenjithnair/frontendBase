@@ -235,7 +235,45 @@ input {
       color: #222; }
     input:focus:-moz-placeholder {
       color: #222; }
+.inputError {
+  border-bottom: 1px solid red;
+}
+.inputError:focus{
+  border-bottom: 1px solid red;
+}
+.input {
+  border-bottom: 1px solid #999;
+}
+.textArea{
+  border-bottom: 1px solid #999;
+}
 
+textarea {
+  width: 100%;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #999;
+  padding: 6px 10px 6px 20px;
+  font-family: Poppins;
+  box-sizing: border-box; }
+  textarea::-webkit-input-placeholder {
+    color: #999; }
+  textarea::-moz-placeholder {
+    color: #999; }
+  textarea:-ms-input-placeholder {
+    color: #999; }
+  textarea:-moz-placeholder {
+    color: #999; }
+  textarea:focus {
+    border-bottom: 1px solid #222; }
+    textarea:focus::-webkit-input-placeholder {
+      color: #222; }
+    textarea:focus::-moz-placeholder {
+      color: #222; }
+    textarea:focus:-ms-input-placeholder {
+      color: #222; }
+    textarea:focus:-moz-placeholder {
+      color: #222; }
 input[type=checkbox]:not(old) {
   width: 2em;
   margin: 0;

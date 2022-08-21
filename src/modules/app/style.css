@@ -117,3 +117,8 @@
     background: #e11962 !important;
     color: #fff !important;
   }
+  .errorMsgRegister{
+    color: red;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
