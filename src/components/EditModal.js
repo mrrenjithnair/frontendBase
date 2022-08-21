@@ -6,26 +6,24 @@ import Modal from 'react-bootstrap/Modal'
 import 'react-toastify/dist/ReactToastify.css';
 import { formatDate } from '../modules/utils/commonUtils';
 import 'react-toastify/dist/ReactToastify.css';
+import { dobValidation, mobileValidation, emailValidation, passwordValidation } from '../modules/utils/commonUtils';
 import { ToastContainer, toast } from 'react-toastify';
 class editModal extends React.Component {
 
   feildObj(item, i) {
     let cssInputClass =  "form-control form-control-lg"
     let regex = new RegExp("^[a-zA-Z]+$");
-      // cssInputClass =  item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid"
-      // if(item.type == 'text' &&(item.key != 'mobile')){
-      //   regex = null
-      //   regex = new RegExp("^[a-zA-Z]+$");
-      // } else if(item.key == 'email' ){
-      //   regex = null
-      //   regex = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-      // }else if(item.key == 'mobile' ){
-      //   regex = null
-      //   regex = new RegExp(/^[0-9]{10}$/)
-      // }
-
       if(item.required ){
         cssInputClass =  item.value ? "form-control form-control-lg" : "form-control form-control-lg is-invalid";
+      }
+      if(item.value && item.type == 'password'){
+        cssInputClass =  passwordValidation(item.value) ?  "form-control form-control-lg" : "form-control form-control-lg is-invalid";
+      }
+      if(item.value && item.key == 'emailId'){
+        cssInputClass =  emailValidation(item.value) ?  "form-control form-control-lg" : "form-control form-control-lg is-invalid";
+      }
+      if(item.value && item.key == 'mobile'){
+        cssInputClass =  mobileValidation(item.value) ?  "form-control form-control-lg" : "form-control form-control-lg is-invalid";
       }
     return (
       <div>
@@ -36,6 +34,10 @@ class editModal extends React.Component {
             value={item.value}  onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className={cssInputClass} 
             placeholder={"Please enter " + item.label} />}
+            {item.value && item.type == 'password' && !(passwordValidation(item.value)) && <div className='errorMsg'>* Password should have minimum eight characters, at least one special character or number.</div>}
+            {item.value && item.key == 'mobile' && !(mobileValidation(item.value)) && <div className='errorMsg'>* Mobile number is not valid.</div>}
+            {! item.value && item.required && !(mobileValidation(item.value)) && <div className='errorMsg'>* {item.label} is required.</div>}
+
           {item.type == 'file' && 
           <div>
           {item.oldValue &&<img src={item.oldValue} style={{height:50,width:50,borderWidth:1}}/>}

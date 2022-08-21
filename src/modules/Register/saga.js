@@ -32,7 +32,7 @@ export function* register() {
     const currentUser = yield call(request, requestURL, options);
     console.log('currentUser', currentUser)
     yield put(actions.onRegisterSuccess(currentUser));
-    window.location = '/home';
+    history.push('/login');
   }
   catch (err) {
     console.log('err', err)

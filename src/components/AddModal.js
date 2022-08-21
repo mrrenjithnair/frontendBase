@@ -5,6 +5,8 @@ import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { dobValidation, mobileValidation, emailValidation, passwordValidation } from '../modules/utils/commonUtils';
+
 class addModal extends React.Component {
 
   feildObj(item){
@@ -20,6 +22,9 @@ class addModal extends React.Component {
             onChange={(e) => { this.props.onChangeInput({ target: { id: item.key, value: e.target.value } }) }}
             className={cssInputClass}
             placeholder={"Please enter " + item.label} />}
+              {item.key == 'password' && <div className='errorMsgRegister'>* Password is required</div>}
+              {item.type == 'password' && !(passwordValidation(this.props.password)) && <div className='errorMsgRegister'>* Password should have minimum eight characters, at least one uppercase letter, one special character and one number.</div>}
+
           {item.type == 'file' && <input type={item.type} id="form3Example3"
           accept="image/png, image/jpeg"
             onChange={(e) => { 

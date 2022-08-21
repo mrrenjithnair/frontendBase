@@ -12,7 +12,7 @@ export function onRegister() {
     };
 }
 export function onRegisterSuccess(data) {
-    toast.success("Login Success");
+    toast.success("Register Successfully");
     return {
         type: ON_REGISTER_SUCCESS,
         data: data

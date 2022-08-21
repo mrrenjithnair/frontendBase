@@ -16,6 +16,8 @@ import { Button } from 'react-bootstrap';
 import './style.css';
 import { faSortNumericUpAlt } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { passwordValidation } from '../../modules/utils/commonUtils';
+
 import { ToastContainer, toast } from 'react-toastify';
 import SportzMitra from '../../images/SportzMitra.png'
 import 'react-toastify/dist/ReactToastify.css';

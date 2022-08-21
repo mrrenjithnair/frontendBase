@@ -52,13 +52,7 @@ export class Register extends React.PureComponent {
         } else if (! dobValidation(this.props.dob)) {
           error = true
           this.props.setToast(false, 'Minimum age is 14.')
-        } 
-       
-        else if (!this.props.profilePicture) {
-          error = true
-          this.props.setToast(false, 'Please select profile picture')
-        }
-         else if (!this.props.sportsType) {
+        } else if (!this.props.sportsType) {
           error = true
           this.props.setToast(false, 'Please select sports type.')
         } else if (!this.props.playerType) {
@@ -76,13 +70,13 @@ export class Register extends React.PureComponent {
         } else if (!mobileRegx.test(this.props.mobile)) {
           error = true
           this.props.setToast(false, 'Please enter valid mobile.')
-        }  else if (! mobileValidation(this.props.mobile)) {
+        }  else if (!mobileValidation(this.props.mobile)) {
           error = true
           this.props.setToast(false, 'Mobile Number is not valid.')
         } else if (!this.props.emailId) {
           error = true
           this.props.setToast(false, 'Please enter emailId.')
-        }  else if (!emailValidation(this.props.email)) {
+        }  else if (!emailValidation(this.props.emailId)) {
           error = true
           this.props.setToast(false, 'EmailId is not valid.')
         } else if (!this.props.password) {
@@ -90,7 +84,7 @@ export class Register extends React.PureComponent {
           this.props.setToast(false, 'Please enter password.')
         } else if (!passwordRegx.test(this.props.password)) {
           error = true
-          this.props.setToast(false, "Password should have minimum eight characters, at least one uppercase letter, one special character and one number.")
+          this.props.setToast(false, "Password should have minimum eight characters, at least one special character or number.")
         } else if (this.props.password != this.props.confirmPassword ) {
           error = true
           this.props.setToast(false, 'Password and confirm password does not match.')
@@ -227,7 +221,7 @@ export class Register extends React.PureComponent {
                                onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'password', value: e.target.value } })}}/>
                             </div>
                             {!this.props.password &&<div className='errorMsgRegister'>* Password is required</div>}
-                            {this.props.password && !(passwordValidation(this.props.password)) && <div className='errorMsgRegister'>* Password should have minimum eight characters, at least one uppercase letter, one special character and one number.</div>}
+                            {this.props.password && !(passwordValidation(this.props.password)) && <div className='errorMsgRegister'>* Password should have minimum eight characters, at least one special character or number.</div>}
 
                             <div className="form-group">
                               <label htmlFor="confirmPassword"><i className="zmdi fa fa-lock"></i></label>
