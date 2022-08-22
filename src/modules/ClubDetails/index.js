@@ -61,7 +61,7 @@ export class ClubDetails extends React.PureComponent {
                                 </div>
                                 <h3 className="m-b-0">{clubDetails.name}</h3>
                                 {clubDetails.ownerName && <h3 className="m-b-5"> <b>Owner Name : {clubDetails.ownerName}</b></h3>}
-                                <p>{clubDetails.Address}</p>
+                                <p>{clubDetails.address}</p>
                                 <div className="row m-t-20">
 
                                     {clubDetails.description && <p

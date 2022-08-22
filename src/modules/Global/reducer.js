@@ -24,7 +24,11 @@ import {
     ON_CHANGE_VALUE_PROFILE,
     ON_LOGIN_FAILURE,
     ON_LOG_OUT,
-    SET_OVERLAY_LOADING
+    SET_OVERLAY_LOADING,
+    EDIT_CLUB,
+    EDIT_CLUB_SUCCESS,
+    EDIT_CLUB_FAILURE, 
+    ON_CHANGE_VALUE_CLUB
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -178,6 +182,25 @@ export default function (state = initialState, actions) {
 
         case UPLOAD_PHOTO_FAILURE:
                 return { ...state, 'fileToUpload': false, fileToUploadName: false };
+
+
+        case EDIT_CLUB_SUCCESS:
+            toast.success('League updated succefully');
+            return { ...state };
+
+        case EDIT_CLUB_FAILURE:
+            toast.error('League updated failed');
+                return { ...state,  };
+        
+        case ON_CHANGE_VALUE_CLUB:
+            let seletedClubEdit = state.seletedClubEdit
+            seletedClubEdit.map((item)=>{
+                if(item.key == actions.id){
+                    item.value = actions.value
+                }
+            })
+            return { ...state,seletedClubEdit};
+            
             
         default:
             return state;

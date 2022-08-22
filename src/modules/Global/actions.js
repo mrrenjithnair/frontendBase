@@ -57,6 +57,10 @@ export const TEAM = 'TEAM';
 export const TEAM_SUCCESS = 'TEAM_SUCCESS';
 export const TEAM_FAILURE = 'TEAM_FAILURE';
 
+export const EDIT_CLUB ='EDIT_CLUB';
+export const EDIT_CLUB_SUCCESS ='EDIT_CLUB_SUCCESS ';
+export const EDIT_CLUB_FAILURE ='EDIT_CLUB_FAILURE ';
+export const ON_CHANGE_VALUE_CLUB ='ON_CHANGE_VALUE_CLUB ';
 
 
 export function setDataFromLocal() {
@@ -378,3 +382,32 @@ export function insertOrUpdateTeamFailure(err) {
   };
 }
 
+
+export function editClub() {
+  return {
+      type: EDIT_CLUB,
+  };
+}
+
+export function editClubSuccess(data) {
+  return {
+      type: EDIT_CLUB_SUCCESS,
+      data: data
+  };
+}
+export function editClubFailure(err) {
+  toast.error(err);
+  return {
+      type: EDIT_CLUB_FAILURE,
+      err
+  };
+}
+
+
+export function onChangeGlobalValueClub(evt) {
+  return {
+    type: ON_CHANGE_VALUE_CLUB,
+    id: (!evt.target.id) ? evt.target.name : evt.target.id,
+    value: evt.target.value,
+    };
+}

@@ -489,6 +489,35 @@ export function* editProfile() {
 
   }
 }
+
+export function* editClub() {
+  var requestURL = CONFIG.apiURL + '/apiService/club'
+  const state = yield select();
+  const sessionToken = state.global.sessionToken
+  const seletedClubEdit = state.global.seletedClubEdit
+  let clubBody = exportKeyValue(seletedClubEdit)
+
+  try {
+    var options = {
+      method: 'POST',
+      body: clubBody,
+      sessionToken: sessionToken,
+    };
+    yield put(actions.setOverlayLoading(true));
+
+    const currentUser = yield call(request, requestURL, options);
+
+    yield put(actions.editClubSuccess(currentUser));
+    // yield put(actions.getClubList(currentUser));
+    yield put(actions.setOverlayLoading(false));
+  }
+  catch (err) {
+    yield put(actions.editClubFailure(getError(err)));
+    yield put(actions.setOverlayLoading(false));
+
+
+  }
+}
 export default function* globalSaga() {
   yield all([
     takeLatest('GET_CLUB_DETAIL', clubDetails),
@@ -503,6 +532,7 @@ export default function* globalSaga() {
     takeLatest('UPLOAD_PHOTO', uploadPhoto),
     takeLatest('PROFILE_EDIT', editProfile),
     takeLatest('TEAM', insertOrUpdateTeam),
+    takeLatest('EDIT_CLUB', editClub),
     
   ]);
 }

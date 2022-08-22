@@ -10,9 +10,10 @@ import Image from 'react-bootstrap/Image'
 import AddModal from '../../components/AddModal'
 import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
+import EditModal from '../../components/EditModal'
 
 import { getClubList, onChangeValueClub, addClub, joinClub } from './actions';
-import { onChangeValueGlobal, getClubDetail, uploadPhoto } from '../Global/actions';
+import { onChangeValueGlobal, getClubDetail, uploadPhoto, editClub, onChangeGlobalValueClub } from '../Global/actions';
 import { formatDate } from '../../modules/utils/commonUtils';
 import nodata from '../../images/nodata1.jpg'
 
@@ -24,6 +25,7 @@ export class ClubList extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
+            editModal: false
         }
     }
 
@@ -31,7 +33,51 @@ export class ClubList extends React.PureComponent {
         this.props.getClubList()
         window.scrollTo(0, 0)
     }
-
+    editClub(item) {
+        console.log(item)
+        let clubedit = [{
+            key: 'name',
+            label: 'name',
+            type: 'text',
+            value: item.name
+        },
+        {
+            key: 'location',
+            label: 'location',
+            type: 'text',
+            value: item.location
+        },
+        {
+            key: 'address',
+            label: 'address',
+            type: 'text',
+            value: item.address
+        },
+        {
+            key: 'description',
+            label: 'description',
+            type: 'textarea',
+            value: item.description
+        },
+        {
+            key: 'logo',
+            label: 'logo',
+            type: 'file',
+            value: item.logo,
+            oldValue:item.logoUrl
+        },
+        {
+            key: 'id',
+            value: item.id
+        },
+        {
+            key: 'sportType',
+            value: item.sportType
+        },
+    ]
+        this.props.onChangeValueGlobal({ target: { id: 'seletedClubEdit', value: clubedit } })
+        this.setState({ editModal: true })
+    }
     listRender(item) {
         let request = item.approved == 0 && item.playerId
         let name = item.name
@@ -46,14 +92,14 @@ export class ClubList extends React.PureComponent {
                 <div className="card league">
                     <div className="row g-0">
                         <div className="col-sm-5" style={{ "background": "#868e96;" }}>
-                            {item.logo ? <img src={item.logo} className="card-img-top boxImageSize" alt="..." /> :
+                            {item.logoUrl ? <img src={item.logoUrl} className="card-img-top boxImageSize" alt="..." /> :
                                 <div className='letterCircleClubBox'>{initials}</div>}
                         </div>
                         <div className="col-sm-7">
                             <div className="card-body">
                                 <div className="text-left"><span className="team-text itemName"> {item.name}</span></div>
                                 <div className="text-left"><span className="font-weight-bolder">Location :</span> <span className="team-text"> {item.location}</span></div>
-                                <div className="text-left"><span className="font-weight-bolder">Address :</span> <span className="team-text"> {item.Address}</span></div>
+                                <div className="text-left"><span className="font-weight-bolder">Address :</span> <span className="team-text"> {item.address}</span></div>
                                 <div className="btn-wrap">
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.requested && <spam>
                                         {item.approved != 1 && <a href="#" className={request ? "btn-detail-disable" : "btn-join"}
@@ -65,7 +111,9 @@ export class ClubList extends React.PureComponent {
                                         this.props.onChangeValueGlobal({ target: { id: 'selectedClub', value: item.id } })
                                         this.props.getClubDetail()
                                         history.push('/clubDetails', { clubDetails: item })
-                                    }}> Detail</a>
+                                    }}> Detail</a> &nbsp;
+                                    {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addClub && 
+                                        <a href="#" onClick={() => this.editClub(item)} className="btn btn-reject">Edit</a>}
                                 </div>
                             </div>
                         </div>
@@ -77,6 +125,16 @@ export class ClubList extends React.PureComponent {
     addClub() {
         this.props.addClub()
         this.setState({ showModal: false })
+    }
+    onChangeValueClub(evt){
+        console.log(evt)
+        this.setState({typing: !this.state.typing})
+        this.props.onChangeGlobalValueClub(evt)
+    }
+        
+    editClubSubmit() {
+        this.props.editClub()
+        this.setState({ editModal: false })
     }
     render() {
         let addClubObj = [{
@@ -165,7 +223,16 @@ export class ClubList extends React.PureComponent {
                     feildObj={addClubObj}
                     uploadPhoto={this.props.uploadPhoto}
                     onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
-                />
+                />  
+                <EditModal
+                title={"Edit Club"}
+                show={this.state.editModal}
+                onHide={() => this.setState({ editModal: false })}
+                onSubmit={() => this.editClubSubmit()}
+                feildObj={this.props.seletedClubEdit}
+                uploadPhoto={this.props.uploadPhoto}
+                onChangeInput={(evt) => this.onChangeValueClub(evt)}
+               />
             </section>
         );
     }
@@ -182,7 +249,8 @@ function mapStateToProps(state) {
         clubSearch: state.clubs.clubSearch,
         nearByClub: state.global.nearByClub,
         clubListPage: state.global.clubListPage,
-
+        seletedClubEdit: state.global.seletedClubEdit,
+        
 
     };
 }
@@ -195,6 +263,9 @@ function mapDispatchToProps(dispatch) {
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getClubDetail: (evt) => dispatch(getClubDetail(evt)),
         joinClub: (evt) => dispatch(joinClub(evt)),
+        editClub: (evt) => dispatch(editClub(evt)),
+        onChangeGlobalValueClub: (evt) => dispatch(onChangeGlobalValueClub(evt)),
+        
         uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
     };
 }
