@@ -28,7 +28,9 @@ import {
     EDIT_CLUB,
     EDIT_CLUB_SUCCESS,
     EDIT_CLUB_FAILURE, 
-    ON_CHANGE_VALUE_CLUB
+    ON_CHANGE_VALUE_CLUB,
+    ADD_PLAYER_TO_TEAM_SUCCESS,
+    ADD_PLAYER_TO_TEAM_FAILURE,
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -191,7 +193,15 @@ export default function (state = initialState, actions) {
         case EDIT_CLUB_FAILURE:
             toast.error('League updated failed');
                 return { ...state,  };
-        
+
+        case ADD_PLAYER_TO_TEAM_SUCCESS:
+            toast.success('Player sold to the team');
+            return { ...state };
+
+        case ADD_PLAYER_TO_TEAM_FAILURE:
+            toast.error('Player sold failed');
+                return { ...state,  };
+
         case ON_CHANGE_VALUE_CLUB:
             let seletedClubEdit = state.seletedClubEdit
             seletedClubEdit.map((item)=>{
