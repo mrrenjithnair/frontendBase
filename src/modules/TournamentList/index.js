@@ -163,7 +163,7 @@ export class TournamentList extends React.PureComponent {
                                     <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', borderWidth: 2, borderColor: '#e4e4e4' }}>
                                         {this.props.loggedInRoleId == 3 && this.props.nearByTournament && <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
                                             <a disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-primary"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested join' : 'Request join'}</a>
-                                            <a disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-primary"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested Team' : 'Request Team'}</a>
+                                            {/* <a disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-primary"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested Team' : 'Request Team'}</a> */}
                                         </div>}
                                        {this.props.loggedInRoleId == 2 && <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
                                             {this.props.loggedInRoleId == 2 && <a className="btn-join" onClick={() => this.editTournament(item)}>Edit</a>}
