@@ -40,6 +40,7 @@ export class TournamentDetails extends React.PureComponent {
 
     componentDidMount() {
            window.scrollTo(0, 0)
+        this.props.getUserList()
         this.props.getTournamentDetails()
         var current = new Date().valueOf()
         var startDate = this.props.tournamentDetails && this.props.tournamentDetails.startDate ? new Date(this.props.tournamentDetails.startDate).valueOf() : new Date().valueOf()
@@ -118,12 +119,11 @@ export class TournamentDetails extends React.PureComponent {
         var tournamentId = this.props.tournamentDetails && this.props.tournamentDetails.tournamentId ? this.props.tournamentDetails.tournamentId : null
         var clubId = this.props.tournamentDetails && this.props.tournamentDetails.clubId ? this.props.tournamentDetails.clubId : null
         await this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: tournamentId } })
-        await this.props.getUserList()
         console.log(item)
         let data1=[]
-        if(this.props.auctionPlayer){
-            this.props.auctionPlayer.map((item)=>{
-            data1.push({label:item.playerName, value:item.playerId})
+        if(this.props.teamPlayerList){
+            this.props.teamPlayerList.map((item)=>{
+            data1.push({label: item.firstName + ' ' + item.lastName, value:item.id})
             })
         }
         let data= [{
@@ -170,10 +170,9 @@ export class TournamentDetails extends React.PureComponent {
         var tournamentId = this.props.tournamentDetails && this.props.tournamentDetails.tournamentId ? this.props.tournamentDetails.tournamentId : null
         var clubId = this.props.tournamentDetails && this.props.tournamentDetails.clubId ? this.props.tournamentDetails.clubId : null
         await this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: tournamentId } })
-        await this.props.getUserList()
         let data1=[]
-        if(this.props.auctionPlayer){
-            this.props.auctionPlayer.map((item)=>{
+        if(this.props.teamPlayerList){
+            this.props.teamPlayerList.map((item)=>{
             data1.push({label:item.playerName, value:item.playerId})
             })
         }
@@ -401,7 +400,7 @@ function mapStateToProps(state) {
         selectedTeam: state.tournamentDetail.selectedTeam,
         globalSelectedTeamId: state.global.globalSelectedTeamId,
         teamPlayerList: state.global.teamPlayerList,
-        auctionPlayer: state.global.auctionPlayer,
+        auctionPlayer: state.global.auctionPlayer
         
         
     };
