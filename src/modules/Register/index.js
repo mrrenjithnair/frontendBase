@@ -64,6 +64,9 @@ export class Register extends React.PureComponent {
         } else if (!this.props.location) {
           error = true
           this.props.setToast(false, 'Please enter location.')
+        }  else if (!this.props.village) {
+          error = true
+          this.props.setToast(false, 'Please enter village.')
         } else if (!this.props.mobile) {
           error = true
           this.props.setToast(false, 'Please enter mobile.')
@@ -167,10 +170,10 @@ export class Register extends React.PureComponent {
                               <label htmlFor="Lname"><i className="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
                                <select className="form-control form-control-sm">
                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'playerType', value: e.target.value } })}}
-                                        <option value={'all-rounder'}>all-rounder</option>
-                                        <option value={'batsman'}>batsman</option>
-                                        <option value={'bowler'}>bowler</option>
-                                        <option value={'wicket-keeper'}>wicket-keeper</option>
+                                        <option value={'All-rounder'}>All-rounder</option>
+                                        <option value={'Batsman'}>Batsman</option>
+                                        <option value={'Bowler'}>Bowler</option>
+                                        <option value={'Wicket-keeper'}>Wicket-keeper</option>
                                     </select>
                             </div>
         
@@ -190,6 +193,14 @@ export class Register extends React.PureComponent {
                           </div>
                           {!this.props.location &&<div className='errorMsgRegister'>* Location is required</div>}
                           {this.props.location && !(this.props.location.length> 3) && <div className='errorMsgRegister'>* Minimum 3 letter is required.</div>}
+                         
+                          <div className="form-group">
+                            <label htmlFor="village"><i className="zmdi fa fa-map-marker"></i></label>
+                            <input type="text" name="village" id="village" placeholder="Please enter village" className={this.props.village && (this.props.village.length>= 3) ? 'input':'inputError'}
+                             onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'village', value: e.target.value } })}} />
+                          </div>
+                          {!this.props.village &&<div className='errorMsgRegister'>* Village is required</div>}
+                          {this.props.village && !(this.props.village.length> 3) && <div className='errorMsgRegister'>* Minimum 3 letter is required.</div>}
 
                           <div className="form-group">
                             <label htmlFor="bio"></label>
@@ -272,6 +283,8 @@ function mapStateToProps(state) {
         location: state.register.location,
         mobile: state.register.mobile,
         bio: state.register.bio,
+        village: state.register.village,
+        
         
     };
 }

@@ -3,6 +3,8 @@ import { put, all, call, takeLatest, select } from "redux-saga/effects";
 import * as actions from './actions';
 import { request, toURLString } from '../utils/request';
 import {getError,exportKeyValue} from '../utils/commonUtils';
+import * as globalActions from '../Global/actions';
+
 import history from "../utils/history";
 import CONFIG from '../utils/config';
 export function* getTournamentList() {
@@ -38,12 +40,15 @@ export function* getTournamentList() {
       method: 'GET',
     	sessionToken: sessionToken,
     };
+    yield put(globalActions.setOverlayLoading(true));
     const TournamentList = yield call(request, requestURL, options);
     console.log('TournamentList', TournamentList)
     yield put(actions.getTournamentListSuccess(TournamentList));
+    yield put(globalActions.setOverlayLoading(false));
   }
   catch (err) {
     console.log('err', err)
+    yield put(globalActions.setOverlayLoading(false));
     yield put(actions.getTournamentListFailure(getError(err)));
 
   }
@@ -92,7 +97,10 @@ export function* addTournamentData() {
     "endDate": new Date(state.tournament.endDate).valueOf(),
     "teamTotal":  parseInt(state.tournament.teamTotal),
     "memberTotal":  parseInt(state.tournament.memberTotal),
-    "clubId": parseInt(club[0].id)
+    "clubId": parseInt(club[0].id),
+    "location": state.tournament.location
+
+    
 }
 if(state.tournament.tournamentLogo)
 clubBody.logo =  state.tournament.tournamentLogo

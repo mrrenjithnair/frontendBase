@@ -19,7 +19,7 @@ export function* register() {
     "sportsTypeId": 1,
     "playerType": state.register.playerType,
     "mobile": parseInt(state.register.mobile),
-    "city": state.register.village,
+    "village": state.register.village,
     "location": state.register.location,
     "category": state.register.category,
     "bio": state.register.bio,

@@ -29,3 +29,7 @@
 table{
   background: #ffff;
 }
+
+.tableCs{
+  overflow: scroll;
+}

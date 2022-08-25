@@ -67,17 +67,24 @@ export class TournamentList extends React.PureComponent {
         },
         {
             key: 'startDate',
-            label: 'startDate',
+            label: 'Start Date',
             type: 'date',
             required: true,
             value: item.startDate,
         },
         {
             key: 'endDate',
-            label: 'endDate',
+            label: 'End Date',
             type: 'date',
             required: true,
             value: item.endDate,
+        },
+        {
+        key: 'location',
+        label: 'Location',
+        type: 'text',
+        required: true,
+        value: item.location,
         },
         {
             key: 'teamTotal',
@@ -141,13 +148,14 @@ export class TournamentList extends React.PureComponent {
             <div className="col-sm-6 mt-4" key={item.id}>
                 <div className="card league">
                     <div className="row g-0">
-                        <div className="col-sm-5" style={{ "background": "#868e96;" }}>
+                        <div className="col-sm-5" style={{ "background": "#868e96" }}>
                             {item.logoUrl ? <img src={item.logoUrl} className="card-img-top boxImageSize" alt="..." /> :
                                 <div className='letterCircleClubBox'>{initials}</div>}
                         </div>
                         <div className="col-sm-7">
                             <div className="card-body">
                                 <div className="text-left"><span className="team-text itemName"> {item.name}</span></div>
+                                <div className="text-left"><span className="font-weight-bolder">Location: </span> <span className="team-text"> {item.location}</span></div>
                                 <div className="text-left"><span className="font-weight-bolder">Team Total: </span> <span className="team-text"> {item.teamTotal}</span></div>
                                 <div className="text-left"><span className="font-weight-bolder">Member Total: </span> <span className="team-text"> {item.memberTotal}</span></div>
                                 <div className="text-left"><span className="font-weight-bolder">Start Date: </span> <span className="team-text"> <Moment format="YYYY/MM/DD">{item.startDate}</Moment></span></div>
@@ -194,6 +202,13 @@ export class TournamentList extends React.PureComponent {
             value: this.props.date
         },
         {
+            key: 'location',
+            label: 'location',
+            required: true,
+            type: 'text',
+            value: this.props.location
+        },
+        {
             key: 'tournamentLogo',
             label: 'logo',
             type: 'file',
@@ -213,7 +228,9 @@ export class TournamentList extends React.PureComponent {
             required: true,
             type: 'number',
             value: this.props.memberTotal
-        }]
+        }
+        
+    ]
         return (
 
 

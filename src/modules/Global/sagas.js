@@ -7,6 +7,7 @@ import history from "../utils/history";
 import CONFIG from '../utils/config';
 import * as tournamentActions from '../TournamentDetails/actions';
 import * as userActions from '../UserList/actions';
+import * as clubActions from '../ClubList/actions';
 
 
 
@@ -100,11 +101,11 @@ export function* getTournamentList() {
   }
   if (global.auction) {
     params.cluAdmin = true
-    params.list = true
-    if(global.auctionPending){
+    params.list = 'auction'
+    if (global.auctionPending) {
       params.auctionPending = true
-    }else{
-      params.auctionPending = false
+    } else {
+      params.auctionPending = 'false'
     }
     if (global.auctionTournamentId)
       params.tournamentId = parseInt(global.auctionTournamentId)
@@ -508,7 +509,7 @@ export function* editClub() {
     const currentUser = yield call(request, requestURL, options);
 
     yield put(actions.editClubSuccess(currentUser));
-    // yield put(actions.getClubList(currentUser));
+    yield put(clubActions.getClubList(currentUser));
     yield put(actions.setOverlayLoading(false));
   }
   catch (err) {

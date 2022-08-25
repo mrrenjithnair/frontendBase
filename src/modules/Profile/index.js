@@ -103,7 +103,12 @@ export class Profile extends React.PureComponent {
                 error = true
                 this.props.setToast(false, 'Please enter location')
                 break;
-            }   if (profileEdit[i].key == 'password' && profileEdit[i].value) {
+            }   else if (profileEdit[i].key == 'village' && !profileEdit[i].value) {
+                error = true
+                this.props.setToast(false, 'Please enter village')
+                break;
+            }  
+             if (profileEdit[i].key == 'password' && profileEdit[i].value) {
                 password = profileEdit[i].value
             } else if (profileEdit[i].key == 'confirmPassword' && profileEdit[i].value) {
                 confirmPassword = profileEdit[i].value
@@ -171,7 +176,7 @@ export class Profile extends React.PureComponent {
                 label: 'Sports',
                 type: 'select',
                 required:true,
-                value: this.props.userProfile.sportsType,
+                value: this.props.userProfile.sportTypeId,
                 data:[{label:'Cricket',value:'1'}]
             },
             {
@@ -180,7 +185,7 @@ export class Profile extends React.PureComponent {
                 type: 'select',
                 required:true,
                 value: this.props.userProfile.category,
-                data: [{ label: 'all-rounder', value: 'all-rounder' }, { label: 'batsman', value: 'batsman' }, { label: 'bowler', value: 'bowler' }, { label: 'wicket-keeper', value: 'wicket-keeper' }]
+                data: [{ label: 'All-rounder', value: 'All-rounder' }, { label: 'Batsman', value: 'Batsman' }, { label: 'Bowler', value: 'Bowler' }, { label: 'Wicket-keeper', value: 'Wicket-keeper' }]
             },
             {
                 key: 'player Type',
@@ -218,6 +223,13 @@ export class Profile extends React.PureComponent {
                 type: 'text',
                 required:true,
                 value: this.props.userProfile.location,
+            },
+            {
+                key: 'village',
+                label: 'Village',
+                type: 'text',
+                required:true,
+                value: this.props.userProfile.village,
             },
             {
                 key: 'bio',

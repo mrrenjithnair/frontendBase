@@ -33,7 +33,8 @@ export class TournamentDetails extends React.PureComponent {
             selectedItem: false,
             editModal: false,
             addModal:false,
-            typing: false
+            typing: false,
+            timerCalled:false
         }
     }
 
@@ -43,14 +44,16 @@ export class TournamentDetails extends React.PureComponent {
         var current = new Date().valueOf()
         var startDate = this.props.tournamentDetails && this.props.tournamentDetails.startDate ? new Date(this.props.tournamentDetails.startDate).valueOf() : new Date().valueOf()
         var show = current > startDate ? false : true
-        if (this.props.tournamentDetails && this.props.tournamentDetails.startDate) {
-            this.countdown()
-        }
     }
+        componentWillReceiveProps(nextprops){
+            if (nextprops.tournamentDetails && nextprops.tournamentDetails.startDate) {
+                this.countdown()
+            }
+        }
     componentWillUnmount() {
         this.props.onChangeValueGlobal({ target: { id: 'globalSelectedTeamId', value: null } })
         this.props.onChangeValueGlobal({ target: { id: 'teamPlayerList', value: null } })
-
+        this.setState({timerCalled:false})
     }
 
 
@@ -60,6 +63,7 @@ export class TournamentDetails extends React.PureComponent {
     }
     countdown() {
         let myTimeout
+        this.setState({timerCalled:true})
         clearTimeout(myTimeout);
         let newYears = this.props.tournamentDetails && this.props.tournamentDetails.startDate ? this.props.tournamentDetails.startDate : new Date()
         let newYearsDate = new Date(newYears);

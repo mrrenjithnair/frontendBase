@@ -13,7 +13,7 @@ export const initialState = {
     count:0,
     playerType: 'A',
     sportsType:1,
-    category: 'all-rounder',
+    category: 'All-rounder',
     firstName: false,
   };
 

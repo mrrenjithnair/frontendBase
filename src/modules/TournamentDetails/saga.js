@@ -5,6 +5,8 @@ import { request, toURLString } from '../utils/request';
 import {getError,exportKeyValue} from '../utils/commonUtils';
 import history from "../utils/history";
 import CONFIG from '../utils/config';
+import * as globalActions from '../Global/actions';
+
 export function* getTournamentDetails() {
   var requestURL = CONFIG.apiURL + '/apiService/tournament'
   const state = yield select();
@@ -32,11 +34,16 @@ export function* getTournamentDetails() {
       method: 'GET',
     	sessionToken: sessionToken,
     };
+    yield put(globalActions.setOverlayLoading(true));
     const TournamentDetails = yield call(request, requestURL, options);
     yield put(actions.getTournamentDetailsSuccess(TournamentDetails));
+    yield put(globalActions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
+    yield put(globalActions.setOverlayLoading(false));
+
     yield put(actions.getTournamentDetailsFailure(getError(err)));
 
   }

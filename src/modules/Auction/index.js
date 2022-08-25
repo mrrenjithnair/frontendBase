@@ -85,7 +85,7 @@ export class Auction extends React.PureComponent {
             error = true
             this.props.setToast(false, 'Please enter team point')
         }
-        if (this.props.auctionType == 'category') {
+        if (this.props.auctionType == 'noCategory') {
             if (!this.props.auctionMinPoint) {
                 error = true
                 this.props.setToast(false, 'Please enter min point')
@@ -95,7 +95,7 @@ export class Auction extends React.PureComponent {
                 this.props.setToast(false, 'Please enter max point')
             }
         }
-        if (this.props.auctionType == 'noCategory') {
+        if (this.props.auctionType == 'category') {
             if (!this.props.auctionCategoryAMinPoint) {
                 error = true
                 this.props.setToast(false, 'Please enter category A min point')

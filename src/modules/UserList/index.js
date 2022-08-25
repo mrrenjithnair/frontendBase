@@ -97,6 +97,7 @@ export class UserList extends React.PureComponent {
                 <div className="text-left"><span className="font-weight-bolder">Category :</span> <span className="team-text">  {item.category}</span></div>
                 <div className="text-left"><span className="font-weight-bolder">Player type:</span> <span className="team-text"> {item.playerType}</span></div>
                 <div className="text-left"><span className="font-weight-bolder">Location :</span> <span className="team-text"> {item.location}</span></div>
+                <div className="text-left"><span className="font-weight-bolder">Village :</span> <span className="team-text"> {item.village}</span></div>
                 {!item.approved ? <div className="btn-wrap">
                     <a href="#"  disabled={item.approved == 1 } onClick={() => item.approved == 1 ? '' : this.action(item,'accept')} className="btn-buy">Approved</a> &nbsp;
                     <a href="#" disabled={item.approved == 0 } onClick={() => item.approved == 0 ? '' : this.action(item, 'reject')} className="btn-reject">Reject</a>
