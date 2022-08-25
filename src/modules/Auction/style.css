@@ -173,7 +173,35 @@ width: 40%;
   margin: 20px;
   justify-content: space-evenly;
 }
+.page-wrapper-auction {
+  font-family: 'Lato', sans-serif;
+  /* margin: auto; */
+  /* display: flex; */
+  flex-wrap: wrap;
+  /* align-content: flex-start; */
+  /* justify-content: space-evenly; */
 
+}
+.profile-box-auction {
+  background: #FFFFFF;
+  box-shadow: 0 2px 6px 0 rgba(47, 83, 151, 0.10);
+  border-radius: 3px;
+  margin: 6px 6px;
+  text-align: left;
+  transition: 300ms;
+  display: flex;
+}
+.profile-box-auction img{
+  width: 100px;
+  height: 100px;
+}
+.profile-box-textBox{
+  padding: 10px;
+
+}
+.profile-box-auction span{
+  color: #455a64;
+}
 @media (max-width: 768px) {
   .auctionBox {
     flex-direction: column;

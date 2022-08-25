@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 import Team from './team';
 import AuctionModal from '../../components/AuctionModal'
 
-import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam,setToast, resetToast,createAuction } from '../Global/actions';
+import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam, setToast, resetToast, createAuction } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
@@ -31,16 +31,39 @@ export class Auction extends React.PureComponent {
             typing: false
         }
     }
-
+    getPrice(cat, min) {
+        let type = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : ''
+        let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
+        let basePriceMin
+        let basePriceMax
+        if (type == 'category') {
+            pointJson.map((item) => {
+                if (item.category == cat) {
+                    basePriceMin = item.min
+                    basePriceMax = item.max
+                }
+            })
+        } else {
+            if (pointJson && pointJson.length > 0) {
+                basePriceMin = pointJson[0].min
+                basePriceMax = pointJson[0].max
+            }
+        }
+        if (min) {
+            return basePriceMin
+        } else {
+            return basePriceMax
+        }
+    }
     componentDidMount() {
         this.props.onChangeValueGlobal({ target: { id: 'auctionPending', value: false } })
         this.props.getTournamentList()
         window.scrollTo(0, 0)
     }
-    next(){
+    next() {
         this.props.getAuctionPlayer()
     }
-    addPlayerToTeam(){
+    addPlayerToTeam(playerType) {
         let error = false
         this.props.resetToast()
         if (!this.props.auctionTournamentTeamId) {
@@ -50,12 +73,20 @@ export class Auction extends React.PureComponent {
             error = true
             this.props.setToast(false, 'Please enter bind amount')
         }
+        else if (this.props.auctionTournamentPlayerBindAmount < this.getPrice(playerType,true)) {
+            error = true
+            this.props.setToast(false, 'Please enter bind amount more then minimum price')
+        }
+        else if (this.props.auctionTournamentPlayerBindAmount > this.getPrice(playerType,false)) {
+            error = true
+            this.props.setToast(false, 'Please enter bind amount less then maximum price')
+        }
 
-        if(!error){
+        if (!error) {
             this.props.addPlayerToTeam()
         }
     }
-    auctionSubmit(){
+    auctionSubmit() {
         // let obj ={
         //     venue: this.props.auctionVenue,
         //     date: this.props.auctionDate,
@@ -119,12 +150,12 @@ export class Auction extends React.PureComponent {
                 this.props.setToast(false, 'Please enter category C max point')
             }
         }
-        if(!error){
+        if (!error) {
             console.log('rrr')
             this.props.createAuction()
             this.setState({ showModal: false })
         }
-       
+
     }
 
     render() {
@@ -152,31 +183,31 @@ export class Auction extends React.PureComponent {
 
                                 <div className='tournamentDetailBoxAuction'>
                                     <label className="flabel capitalize" htmlFor="form3Example3"> Please select auction which is created already </label>
-                                   
-                                    <div style={{display:'flex'}}>
+
+                                    <div style={{ display: 'flex' }}>
                                         <select className="form-control"
                                             onChange={(e) => {
                                                 this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: e.target.value } })
-                                                if(e.target.value){
+                                                if (e.target.value) {
                                                     this.props.getTournamentList()
                                                     this.props.getAuctionPlayer()
                                                 }
-                                      
+
                                             }} >
                                             <option value=""> Select Tournament</option>
                                             {tournamentListGlobalArray && tournamentListGlobalArray.length > 0 && tournamentListGlobalArray.map(item => <option key={item.value} value={item.value}>{item.label}</option>)}
 
                                         </select>
-                                        <Button variant="primary" onClick={() =>{
+                                        <Button variant="primary" onClick={() => {
                                             this.props.onChangeValueGlobal({ target: { id: 'auctionPending', value: true } })
                                             this.props.getTournamentList()
                                             this.setState({ showModal: true })
                                         }}>
-                                           Create Auction
+                                            Create Auction
                                         </Button>
                                     </div>
                                     <br />
-                                    {!this.props.tournamentDetailGlobal &&  <div className='noDataFound'>No tournament detail</div> }
+                                    {!this.props.tournamentDetailGlobal && <div className='noDataFound'>No tournament detail</div>}
                                     {this.props.tournamentDetailGlobal && <div>
                                         <div className='tournamentName'>       {this.props.tournamentDetailGlobal.name}</div>
                                     </div>}
@@ -209,7 +240,7 @@ export class Auction extends React.PureComponent {
                                         {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div>
                                             <div className='tournamentName'> team List</div>
                                         </div>}
-                                        {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div className='tableBox'>
+                                        {/* {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div className='tableBox'>
                                             <div className='tableBoxRow'>
                                                 {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams.map((item) => (<Card  key={item.teamId}>
                                                     {item.logoUrl ? <Card.Img variant="top" src={item.logoUrl} className='boxImageSize'/>
@@ -226,7 +257,22 @@ export class Auction extends React.PureComponent {
                                                 ))}
                                             </div>
 
-                                        </div>}
+                                        </div>} */}
+                                        <div className="page-wrapper-auction">
+                                            {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 &&
+                                                this.props.tournamentDetailGlobal.teams.map((item) => (
+                                                    <div className="profile-box-auction">
+                                                        {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
+                                                            <img src={team} alt="profile pic" />}
+                                                        <div className='profile-box-textBox'>
+                                                            <span><b>{item.teamName}</b></span><br />
+                                                            <span><b>Owner Name: </b>{item.ownerName}</span><br />
+                                                            <span><b>Total Player: </b>{item.totalPlayer}</span>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                        </div>
 
                                         <hr />
 
@@ -235,10 +281,12 @@ export class Auction extends React.PureComponent {
                             </div>
                             <div className='tournamentDetailBoxAuctionTeam'>
                                 <Team player={player}
-                                tournamentDetailGlobal={this.props.tournamentDetailGlobal}
-                                onChangeValueGlobal={this.props.onChangeValueGlobal}
-                                addPlayerToTeam={()=>this.addPlayerToTeam()}
-                                next={()=>this.next()}/>
+                                    tournamentDetailGlobal={this.props.tournamentDetailGlobal}
+                                    auctionTournamentTeamId={this.props.auctionTournamentTeamId}
+                                    auctionTournamentPlayerBindAmount={this.props.auctionTournamentPlayerBindAmount}
+                                    onChangeValueGlobal={this.props.onChangeValueGlobal}
+                                    addPlayerToTeam={() => this.addPlayerToTeam()}
+                                    next={() => this.next()} />
                             </div>
                         </div>
 
@@ -250,7 +298,7 @@ export class Auction extends React.PureComponent {
                 <br />
 
                 <AuctionModal
-                 title="Add Auction"
+                    title="Add Auction"
                     show={this.state.showModal}
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.auctionSubmit()}
@@ -297,8 +345,8 @@ function mapStateToProps(state) {
         auctionCategoryBMaxPoint: state.global.auctionCategoryBMaxPoint,
         auctionCategoryCMinPoint: state.global.auctionCategoryCMinPoint,
         auctionCategoryCMaxPoint: state.global.auctionCategoryCMaxPoint,
-        
-        
+
+
     };
 }
 
@@ -312,8 +360,8 @@ function mapDispatchToProps(dispatch) {
         setToast: (success, message) => dispatch(setToast(success, message)),
         resetToast: (evt) => dispatch(resetToast(evt)),
         createAuction: (evt) => dispatch(createAuction(evt)),
-        
-        
+
+
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Auction);

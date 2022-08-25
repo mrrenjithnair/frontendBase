@@ -108,7 +108,13 @@ class Team extends React.Component {
                         </div>
                     </div>
                     <div className='buttonBox'>
-                        <Button className="buttonPrimary" onClick={() => this.props.addPlayerToTeam()}>Submit</Button>
+                        <Button className="buttonPrimary" onClick={() =>{ 
+                             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentTeamId', value: this.props.auctionTournamentTeamId } })
+                             this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
+                             this.props.onChangeValueGlobal({ target: { id: 'auctionRequestId', value: player.id } })
+                             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: player.tournamentId } })
+                            this.props.addPlayerToTeam(player.playerType)
+                        }}>Submit</Button>
                     </div>
                 </div>
 
