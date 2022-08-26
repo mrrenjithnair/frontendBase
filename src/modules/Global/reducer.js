@@ -31,6 +31,7 @@ import {
     ON_CHANGE_VALUE_CLUB,
     ADD_PLAYER_TO_TEAM_SUCCESS,
     ADD_PLAYER_TO_TEAM_FAILURE,
+    RESET_AUCTION
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -60,7 +61,7 @@ export const initialState = {
     myDetails:false,
     loading:false,
     profileIncomplte: false,
-    auctionPending: false
+    auctionPending: false,
 };
 
 export default function (state = initialState, actions) {
@@ -210,8 +211,34 @@ export default function (state = initialState, actions) {
                 }
             })
             return { ...state,seletedClubEdit};
-            
-            
+ 
+            case RESET_AUCTION:
+
+let nearByTournament= false;
+let TournamentDetailsPage= false;
+
+let tournamentListGlobal= false;
+
+
+let auctionPlayerId= false;
+let auctionTournamentTeamId= false;
+let auctionTournamentId= false;
+let auctionRequestId= false;
+let auctionTournamentPlayerBindAmount= false;
+let auctionType= false;
+let auctionDate= false;
+let auctionVenue= false;
+let auctionTeamPoint= false;
+let auctionMinPoint= false;
+let auctionMaxPoint= false;
+let auctionCategoryAMinPoint= false;
+let auctionCategoryAMaxPoint= false;
+let auctionCategoryBMinPoint= false;
+let auctionCategoryBMaxPoint= false;
+let auctionCategoryCMinPoint= false;
+let auctionCategoryCMaxPoint= false;
+            return { ...state, tournamentDetailGlobal:false, nearByTournament, TournamentDetailsPage, tournamentListGlobal, auctionTournamentId, auctionPlayer:{}, auctionPlayerId, auctionTournamentTeamId, auctionTournamentId, auctionRequestId, auctionTournamentPlayerBindAmount, auctionType, auctionDate, auctionVenue, auctionTeamPoint, auctionMinPoint, auctionMaxPoint, auctionCategoryAMinPoint, auctionCategoryAMaxPoint, auctionCategoryBMinPoint, auctionCategoryBMaxPoint, auctionCategoryCMinPoint, auctionCategoryCMaxPoint };
+
         default:
             return state;
     }

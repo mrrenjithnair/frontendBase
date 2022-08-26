@@ -88,17 +88,24 @@ export class HeaderNavBar extends React.PureComponent {
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.myClub &&
                                      <Nav.Link href="#clubList" className="nav-link scrollto" onClick={() => {
                                         this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: false } })
+                                        this.props.onChangeValueGlobal({ target: { id: 'auction', value: false } })
+
                                         history.push('/clubList');
                                     }} >Leagues</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.tournament && 
                                     <Nav.Link href="#tournamentList" className="nav-link scrollto" onClick={() => {
                                         this.props.onChangeValueGlobal({ target: { id: 'nearByTournament', value: false } })
+                                        this.props.onChangeValueGlobal({ target: { id: 'auction', value: false } })
+
                                         history.push('/tournamentList');
                                     }}>My Tournament</Nav.Link>}
                                     {this.props.sessionToken && 
                                     <Nav.Link href="#home" className="nav-link scrollto" onClick={() => { history.push('/home'); }} >Teams</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.auction && 
-                                    <Nav.Link href="#auction" className="nav-link scrollto" onClick={() => { history.push('/auction'); }}>Auction</Nav.Link>}
+                                    <Nav.Link href="#auction" className="nav-link scrollto" onClick={() => { 
+                                        this.props.onChangeValueGlobal({ target: { id: 'auction', value: true } })
+                                        history.push('/auction'); 
+                                        }}>Auction</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && 
                                     <Nav.Link href="#userList" className="nav-link scrollto" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>}
                                     {this.props.sessionToken && 

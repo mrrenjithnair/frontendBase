@@ -61,6 +61,7 @@ export const EDIT_CLUB ='EDIT_CLUB';
 export const EDIT_CLUB_SUCCESS ='EDIT_CLUB_SUCCESS ';
 export const EDIT_CLUB_FAILURE ='EDIT_CLUB_FAILURE ';
 export const ON_CHANGE_VALUE_CLUB ='ON_CHANGE_VALUE_CLUB ';
+export const RESET_AUCTION ='RESET_AUCTION ';
 
 
 export function setDataFromLocal() {
@@ -411,3 +412,11 @@ export function onChangeGlobalValueClub(evt) {
     value: evt.target.value,
     };
 }
+
+export function resetAuction(err) {
+
+  return {
+      type: RESET_AUCTION,
+  };
+}
+

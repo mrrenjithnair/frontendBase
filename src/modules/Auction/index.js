@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 import Team from './team';
 import AuctionModal from '../../components/AuctionModal'
 
-import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam, setToast, resetToast, createAuction } from '../Global/actions';
+import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
@@ -50,12 +50,13 @@ export class Auction extends React.PureComponent {
             }
         }
         if (min) {
-            return basePriceMin
+            return parseInt(basePriceMin)
         } else {
-            return basePriceMax
+            return parseInt(basePriceMax)
         }
     }
     componentDidMount() {
+        this.props.resetAuction()
         this.props.onChangeValueGlobal({ target: { id: 'auctionPending', value: false } })
         this.props.getTournamentList()
         window.scrollTo(0, 0)
@@ -73,17 +74,17 @@ export class Auction extends React.PureComponent {
             error = true
             this.props.setToast(false, 'Please enter bind amount')
         }
-        else if (this.props.auctionTournamentPlayerBindAmount < this.getPrice(playerType,true)) {
+        else if (parseInt(this.props.auctionTournamentPlayerBindAmount) < this.getPrice(playerType,true)) {
             error = true
             this.props.setToast(false, 'Please enter bind amount more then minimum price')
         }
-        else if (this.props.auctionTournamentPlayerBindAmount > this.getPrice(playerType,false)) {
+        else if (parseInt(this.props.auctionTournamentPlayerBindAmount) > this.getPrice(playerType,false)) {
             error = true
             this.props.setToast(false, 'Please enter bind amount less then maximum price')
         }
 
         if (!error) {
-            this.props.addPlayerToTeam()
+            // this.props.addPlayerToTeam()
         }
     }
     auctionSubmit() {
@@ -360,7 +361,8 @@ function mapDispatchToProps(dispatch) {
         setToast: (success, message) => dispatch(setToast(success, message)),
         resetToast: (evt) => dispatch(resetToast(evt)),
         createAuction: (evt) => dispatch(createAuction(evt)),
-
+        resetAuction: (evt) => dispatch(resetAuction(evt)),
+        
 
     };
 }
