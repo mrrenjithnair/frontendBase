@@ -173,7 +173,7 @@ export class TournamentDetails extends React.PureComponent {
         let data1=[]
         if(this.props.teamPlayerList){
             this.props.teamPlayerList.map((item)=>{
-            data1.push({label:item.playerName, value:item.playerId})
+                data1.push({label: item.firstName + ' ' + item.lastName, value:item.id})
             })
         }
         let data= [{
