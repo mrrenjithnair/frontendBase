@@ -193,7 +193,7 @@ export class Profile extends React.PureComponent {
                 type: 'select',
                 required:true,
                 value: this.props.userProfile.playerType,
-                data: [{ label: 'A', value: 'A' }, { label: 'B', value: 'B' }, { label: 'C', value: 'C' }]
+                data: [{ label: 'A - (I am very good player)', value: 'A' }, { label: 'B - (I am average player)', value: 'B' }, { label: 'C - (I am decent player )', value: 'C' }]
             },
             
             {
@@ -352,9 +352,9 @@ export class Profile extends React.PureComponent {
                 <div className="profileDetailBox">
                     <div className="profileImgBox"><img src={team} className="profileImage" /></div>
                     <div className="profiledetailBox">
-                    {item.teamName&&<h5 className="profileh5">{item.teamName}</h5>}
-                    {item.name&& <h5 className="profileh5">{item.name}</h5>}
-                    {item.bidAmount&& <p className="profilep"><b>Bid Anount: </b>{item.bidAmount}</p>}
+                    {item.teamName&&<h5 className="profileh5 text-capitalize">{item.teamName}</h5>}
+                    {item.name&& <h5 className="profileh5 text-capitalize">{item.name}</h5>}
+                    {item.bidAmount&& <p className="profilep text-capitalize"><b>Bid Anount: </b>{item.bidAmount}</p>}
                     </div>
                 </div>
             </div>
@@ -379,8 +379,8 @@ export class Profile extends React.PureComponent {
 
                                             <div className="mt-3">
                                                 <h4>  {this.props.userProfile.firstName}   {this.props.userProfile.lastName}</h4>
-                                                <p className="text-secondary mb-1">  {this.props.userProfile.category}</p>
-                                                <p className="text-muted font-size-sm"> {this.props.userProfile.location}</p>
+                                                <p className="text-secondary mb-1 text-capitalize">  {this.props.userProfile.category}</p>
+                                                <p className="text-muted font-size-sm text-capitalize"> {this.props.userProfile.location}</p>
                                                 {/* {/* <button className="btn btn-primary">Follow</button> */}
                                                 <a className="league-btn -btn scrollto" onClick={() => { this.editProfile() }}><span className="">Edit</span></a>
                                             </div>
@@ -431,7 +431,7 @@ export class Profile extends React.PureComponent {
                                         {isPlayer &&  <div>
                                         <div className="row">
                                             <div className="col-sm-3">
-                                                <h6 className="mb-0">location</h6>
+                                                <h6 className="mb-0">Location</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary">
                                                 {this.props.userProfile.location}

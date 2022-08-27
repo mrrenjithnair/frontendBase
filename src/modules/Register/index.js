@@ -181,9 +181,9 @@ export class Register extends React.PureComponent {
                               <label htmlFor="Lname"><i className="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
                        <select className="form-control form-control-sm">
                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'category', value: e.target.value } })}}
-                                        <option value={'A'}>A</option>
-                                        <option value={'B'}>B</option>
-                                        <option value={'A'}>C</option>
+                                        <option value={'A'}>A - (I am very good player)</option>
+                                        <option value={'B'}>B - (I am average player)</option>
+                                        <option value={'C'}>C - (I am decent player )</option>
                                     </select>
                             </div>
                             <div className="form-group">

@@ -176,7 +176,7 @@ export class ClubList extends React.PureComponent {
                                 </h2>
                                 {/* <p className="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p> */}
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addClub && <div className="text-center"> <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
-                                    Add Club
+                                    Add League
                                 </Button></div>}
                                 <div style={{display:'flex'}}>
                                 <input type="text" id="Search"
@@ -216,7 +216,7 @@ export class ClubList extends React.PureComponent {
                 <br />
 
                 <AddModal
-                    title="Add Club"
+                    title="Add League"
                     show={this.state.showModal}
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.addClub()}

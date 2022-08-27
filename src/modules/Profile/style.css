@@ -122,3 +122,9 @@ body{
     font-weight: normal;
     text-transform: capitalize;
 }
+.text-secondary{
+    text-transform: capitalize;
+}
+.text-capitalize{
+    text-transform: capitalize;
+}

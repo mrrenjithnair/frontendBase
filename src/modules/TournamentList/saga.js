@@ -112,14 +112,18 @@ clubBody.banner =  state.tournament.tournamentBanner
       body: clubBody,
       sessionToken: sessionToken,
     };
+    yield put(globalActions.setOverlayLoading(true));
+
     const currentUser = yield call(request, requestURL, options);
     console.log('currentUser', currentUser)
     yield put(actions.addTournamentSuccess(currentUser));
     yield put(actions.getTournamentList());
-    history.push('/tournamentList')
+    yield put(globalActions.setOverlayLoading(false));
   }
   catch (err) {
     console.log('err', err)
+    yield put(globalActions.setOverlayLoading(false));
+
     yield put(actions.addTournamentFailure(getError(err)));
 
   }
@@ -140,14 +144,18 @@ export function* editTournament() {
       body: clubBody,
       sessionToken: sessionToken,
     };
+    yield put(globalActions.setOverlayLoading(true));
     const currentUser = yield call(request, requestURL, options);
     console.log('currentUser', currentUser)
     yield put(actions.editTournamentSuccess(currentUser));
     yield put(actions.getTournamentList());
-    history.push('/tournamentList')
+    yield put(globalActions.setOverlayLoading(false));
+
   }
   catch (err) {
     console.log('err', err)
+    yield put(globalActions.setOverlayLoading(false));
+
     yield put(actions.editTournamentFailure(getError(err)));
 
   }

@@ -20,7 +20,7 @@ import { getClubList } from '../ClubList/actions';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
-import { faHotel, faSortNumericUpAlt, faTrophy, faUserFriends, faGamepad, faBook, faPoll } from '@fortawesome/free-solid-svg-icons';
+import { faHotel, faPeopleCarry, faTrophy, faUserFriends, faGamepad, faBook, faPoll, screen, faCircle } from '@fortawesome/free-solid-svg-icons';
 
 export class Dashboard extends React.PureComponent {
     constructor(props) {
@@ -160,6 +160,15 @@ export class Dashboard extends React.PureComponent {
                                 <div className="wrap">
                                     <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faTrophy} size="2x" style={{ color: '#FC8471' }} /></h4>
                                     <span className="hind-font caption-12 c-dashboardInfo__count pointer">Tournements</span>
+                                </div>
+                            </div>}
+                            {this.props.loggedInRoleId == 3 && <div className="c-dashboardInfo col-lg-3 col-md-6"
+                                onClick={() => {
+                                    history.push('/team')
+                                }}>
+                                <div className="wrap">
+                                    <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faCircle} size="2x" style={{ color: '#FC8471' }} /></h4>
+                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">Team</span>
                                 </div>
                             </div>}
                             {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.request && <div className="c-dashboardInfo col-lg-3 col-md-6"

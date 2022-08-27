@@ -37,6 +37,7 @@ export class APP extends React.PureComponent {
                {this.props.loading && <Loading/>}
                 <HeaderNavBar logout={()=>this.props.logout} sessionToken={this.props.sessionToken}
                 onChangeValueGlobal={this.props.onChangeValueGlobal}
+                loggedInRoleId={this.props.loggedInRoleId}
                 ></HeaderNavBar>
 
         </div>
@@ -52,7 +53,9 @@ APP.propTypes = {
 function mapStateToProps(state) {
     return {
         sessionToken: state.global.sessionToken,
-        loading: state.global.loading
+        loading: state.global.loading,
+        loggedInRoleId: state.global.loggedInRoleId
+        
     };
 }
 
