@@ -129,7 +129,8 @@ export class TournamentList extends React.PureComponent {
         history.push('/tournamentDetail')
     }
     async deleteOrInActive(item) {
-        await this.props.onChangeValueGlobal({ target: { id: 'selectedTournament', value: item } })
+        item.deleteType ='tournament'
+        await this.props.onChangeValueGlobal({ target: { id: 'selectedForDelete', value: item } })
         this.props.deleteOrInActive()
     }
     listRender(item) {

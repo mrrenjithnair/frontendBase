@@ -432,7 +432,7 @@ export function deleteOrInActive() {
 }
 
 export function deleteOrInActiveSuccess(type) {
-  toast.success("Deleted "+ type + "successFully");
+  toast.success("Deleted "+ type + " successFully");
   return {
       type: DELETE_OR_INACTIVE_SUCCESS,
   };
