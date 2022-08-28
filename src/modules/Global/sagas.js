@@ -6,6 +6,8 @@ import { getError, exportKeyValue, clean } from '../utils/commonUtils';
 import history from "../utils/history";
 import CONFIG from '../utils/config';
 import * as tournamentActions from '../TournamentDetails/actions';
+import * as tournamentListActions from '../TournamentList/actions';
+
 import * as userActions from '../UserList/actions';
 import * as clubActions from '../ClubList/actions';
 
@@ -519,6 +521,39 @@ export function* editClub() {
 
   }
 }
+
+export function* deleteOrInActive() {
+  var requestURL = CONFIG.apiURL + '/apiService/inActivate'
+  const state = yield select();
+  const login = state.login
+  const global = state.global
+	// const sessionToken = login.get("currentUser").token;
+  const sessionToken = global.sessionToken
+  const userId = localStorage.getItem("userId");
+  let selectedTournament = state.global.selectedTournament
+  selectedTournament.type= 'tournament'
+  requestURL = requestURL 
+  try {
+    var options = {
+      method: 'POST',
+      body:selectedTournament,
+    	sessionToken: sessionToken,
+     
+    };
+    yield put(actions.setOverlayLoading(true));
+    const TournamentList = yield call(request, requestURL, options);
+    console.log('TournamentList', TournamentList)
+    yield put(actions.deleteOrInActiveSuccess(TournamentList));
+    yield put(tournamentListActions.getTournamentList(false));
+    yield put(actions.setOverlayLoading(false));
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.setOverlayLoading(false));
+    yield put(actions.deleteOrInActiveFailure(getError(err)));
+
+  }
+}
 export default function* globalSaga() {
   yield all([
     takeLatest('GET_CLUB_DETAIL', clubDetails),
@@ -534,6 +569,7 @@ export default function* globalSaga() {
     takeLatest('PROFILE_EDIT', editProfile),
     takeLatest('TEAM', insertOrUpdateTeam),
     takeLatest('EDIT_CLUB', editClub),
+   takeLatest('DELETE_OR_INACTIVE', deleteOrInActive),
     
   ]);
 }

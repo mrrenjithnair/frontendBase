@@ -63,6 +63,10 @@ export const EDIT_CLUB_FAILURE ='EDIT_CLUB_FAILURE ';
 export const ON_CHANGE_VALUE_CLUB ='ON_CHANGE_VALUE_CLUB ';
 export const RESET_AUCTION ='RESET_AUCTION ';
 
+export const DELETE_OR_INACTIVE = 'DELETE_OR_INACTIVE';
+export const DELETE_OR_INACTIVE_SUCCESS = 'DELETE_OR_INACTIVE_SUCCESS';
+export const DELETE_OR_INACTIVE_FAILURE = 'DELETE_OR_INACTIVE_FAILURE';
+
 
 export function setDataFromLocal() {
   return {
@@ -420,3 +424,25 @@ export function resetAuction(err) {
   };
 }
 
+
+export function deleteOrInActive() {
+  return {
+      type: DELETE_OR_INACTIVE
+  };
+}
+
+export function deleteOrInActiveSuccess(data) {
+  toast.success("Deleted tournament successFully");
+  return {
+      type: DELETE_OR_INACTIVE_SUCCESS,
+      data: data
+  };
+}
+
+export function deleteOrInActiveFailure(err) {
+  console.log('err', err)
+  toast.error(err);
+  return {
+      type: DELETE_OR_INACTIVE_FAILURE,
+  };
+}

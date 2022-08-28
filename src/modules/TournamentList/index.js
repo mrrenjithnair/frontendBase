@@ -14,7 +14,7 @@ import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
 
 import { getTournamentList, getMyTournamentList, onChangeValueClub, onChangeValueEditClub, addTournamentData, editTournament, requestJoin } from './actions';
-import { onChangeValueGlobal, getClubDetail, uploadPhoto } from '../Global/actions';
+import { onChangeValueGlobal, getClubDetail, uploadPhoto,deleteOrInActive } from '../Global/actions';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -128,6 +128,10 @@ export class TournamentList extends React.PureComponent {
         this.props.onChangeValueGlobal({ target: { id: 'selectedTournament', value: item } })
         history.push('/tournamentDetail')
     }
+    async deleteOrInActive(item) {
+        await this.props.onChangeValueGlobal({ target: { id: 'selectedTournament', value: item } })
+        this.props.deleteOrInActive()
+    }
     listRender(item) {
         return this.tournamentUi(item)
     }
@@ -168,6 +172,7 @@ export class TournamentList extends React.PureComponent {
                                        {this.props.loggedInRoleId == 2 && <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
                                             {this.props.loggedInRoleId == 2 && <a className="btn-join" onClick={() => this.editTournament(item)}>Edit</a>}
                                             {this.props.loggedInRoleId == 2 && <a className="btn-detail" onClick={() => this.detailTournament(item)}>Details</a>}
+                                            {this.props.loggedInRoleId == 2 && <a className="btn-join-danger" onClick={() => this.deleteOrInActive(item)}>Delete</a>}
                                         </div>}
 
                                 </div>
@@ -317,6 +322,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getTournamentList: () => dispatch(getTournamentList()),
+        deleteOrInActive: () => dispatch(deleteOrInActive()),
+        
         getMyTournamentList: () => dispatch(getMyTournamentList()),
         addTournamentData: () => dispatch(addTournamentData()),
         editTournament: () => dispatch(editTournament()),

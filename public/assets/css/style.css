@@ -1550,6 +1550,20 @@ section {
   font-weight: 600;
   transition: 0.3s;
 }
+
+.btn-join-danger {
+  background: #e74c3c !important;
+  display: inline-block;
+  padding: 8px 35px 10px 35px;
+  border-radius: 4px;
+  color: #fff;
+  transition: none;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  transition: 0.3s;
+}
 .league .btn-detail, .btn-join:hover {
   background: #e11962 !important;
   color: #fff !important;
