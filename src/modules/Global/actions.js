@@ -431,11 +431,10 @@ export function deleteOrInActive() {
   };
 }
 
-export function deleteOrInActiveSuccess(data) {
-  toast.success("Deleted tournament successFully");
+export function deleteOrInActiveSuccess(type) {
+  toast.success("Deleted "+ type + "successFully");
   return {
       type: DELETE_OR_INACTIVE_SUCCESS,
-      data: data
   };
 }
 

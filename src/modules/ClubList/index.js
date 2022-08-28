@@ -13,7 +13,7 @@ import roleInfo from '../utils/roleInfo';
 import EditModal from '../../components/EditModal'
 
 import { getClubList, onChangeValueClub, addClub, joinClub } from './actions';
-import { onChangeValueGlobal, getClubDetail, uploadPhoto, editClub, onChangeGlobalValueClub } from '../Global/actions';
+import { onChangeValueGlobal, getClubDetail, uploadPhoto, editClub, onChangeGlobalValueClub, deleteOrInActive } from '../Global/actions';
 import { formatDate } from '../../modules/utils/commonUtils';
 import nodata from '../../images/nodata1.jpg'
 
@@ -32,6 +32,11 @@ export class ClubList extends React.PureComponent {
     componentDidMount() {
         this.props.getClubList()
         window.scrollTo(0, 0)
+    }
+    async deleteOrInActive(item) {
+        item.deleteType ='club'
+        await this.props.onChangeValueGlobal({ target: { id: 'selectedForDelete', value: item } })
+        this.props.deleteOrInActive('club')
     }
     editClub(item) {
         console.log(item)
@@ -100,7 +105,7 @@ export class ClubList extends React.PureComponent {
                                 <div className="text-left"><span className="team-text itemName"> {item.name}</span></div>
                                 <div className="text-left"><span className="font-weight-bolder">Location :</span> <span className="team-text"> {item.location}</span></div>
                                 <div className="text-left"><span className="font-weight-bolder">Address :</span> <span className="team-text"> {item.address}</span></div>
-                                <div className="btn-wrap">
+                                <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.requested && <spam>
                                         {item.approved != 1 && <a href="#" className={request ? "btn-detail-disable" : "btn-join"}
                                             onClick={() => {
@@ -113,7 +118,10 @@ export class ClubList extends React.PureComponent {
                                         history.push('/clubDetails', { clubDetails: item })
                                     }}> Detail</a> &nbsp;
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addClub && 
-                                        <a href="#" onClick={() => this.editClub(item)} className="btn btn-reject">Edit</a>}
+                                        <a href="#" onClick={() => this.editClub(item)} className="btn btn-reject">Edit</a>}  <br/>                                  
+                                           {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addClub && <a className="btn-join-danger" onClick={() => this.deleteOrInActive(item)}>Delete</a>}
+
+
                                 </div>
                             </div>
                         </div>
@@ -265,6 +273,7 @@ function mapDispatchToProps(dispatch) {
         joinClub: (evt) => dispatch(joinClub(evt)),
         editClub: (evt) => dispatch(editClub(evt)),
         onChangeGlobalValueClub: (evt) => dispatch(onChangeGlobalValueClub(evt)),
+        deleteOrInActive: (evt) => dispatch(deleteOrInActive(evt)),
         
         uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
     };

@@ -14,7 +14,7 @@ import history from "../utils/history";
 import roleInfo from '../utils/roleInfo';
 
 import { getTournamentList, getMyTournamentList, onChangeValueClub, onChangeValueEditClub, addTournamentData, editTournament, requestJoin } from './actions';
-import { onChangeValueGlobal, getClubDetail, uploadPhoto,deleteOrInActive } from '../Global/actions';
+import { onChangeValueGlobal, getClubDetail, uploadPhoto, deleteOrInActive } from '../Global/actions';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';

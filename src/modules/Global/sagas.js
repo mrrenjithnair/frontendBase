@@ -530,20 +530,32 @@ export function* deleteOrInActive() {
 	// const sessionToken = login.get("currentUser").token;
   const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
-  let selectedTournament = state.global.selectedTournament
-  selectedTournament.type= 'tournament'
   requestURL = requestURL 
+  let selectedForDelete = state.global.selectedForDelete
+  if(selectedForDelete.deleteType){
+    selectedForDelete.type= selectedForDelete.deleteType
+  }else{
+    selectedForDelete.type= 'tournament'
+  }
+  
   try {
     var options = {
       method: 'POST',
-      body:selectedTournament,
+      body:selectedForDelete,
     	sessionToken: sessionToken,
      
     };
     yield put(actions.setOverlayLoading(true));
     const TournamentList = yield call(request, requestURL, options);
     console.log('TournamentList', TournamentList)
-    yield put(actions.deleteOrInActiveSuccess(TournamentList));
+    yield put(actions.deleteOrInActiveSuccess(selectedForDelete.type));
+    if(selectedForDelete.type == 'club'){
+      yield put(clubActions.getClubList());
+
+    }else{
+    yield put(tournamentListActions.getTournamentList(false));
+      
+    }
     yield put(tournamentListActions.getTournamentList(false));
     yield put(actions.setOverlayLoading(false));
   }
