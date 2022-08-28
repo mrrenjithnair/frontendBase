@@ -84,7 +84,7 @@ export class Auction extends React.PureComponent {
         }
 
         if (!error) {
-            // this.props.addPlayerToTeam()
+            this.props.addPlayerToTeam()
         }
     }
     auctionSubmit() {
