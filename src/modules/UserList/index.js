@@ -299,11 +299,21 @@ export class UserList extends React.PureComponent {
                     <div className="team-boxed">
                         <div className="container">
                             <div className="intro">
-                                <h2 className="text-center">{this.props.adminList ? "Club Admin List" : "Players League Request"} </h2>
+                                <h2>{this.props.adminList ? "Club Admin List" : "Players League Request"} </h2>
                                 {/* <p className="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p> */}
                                 {roleInfo && roleInfo.privileges && roleInfo.privileges.user && roleInfo.privileges.user.addAdmin &&<div  className="text-center"> <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
                                 Add Admin
                             </Button></div>}
+                            <div style={{display:'flex'}}>
+                                <input type="text" id="Search"
+                                    value={this.props.clubSearch}
+                                    onChange={(e) => { this.props.onChangeValueUser({ target: { id: 'playerSearch', value: e.target.value } }) }}
+                                    className='form-control form-control-lg'
+                                    placeholder={"Search player"} />
+                                <Button variant="primary" onClick={() => this.props.getUserList()}>
+                                   Search
+                                </Button>
+                                </div>
                             </div>
                             <div className="row people">
                             {this.props.userList && this.props.userList.length > 0 ?

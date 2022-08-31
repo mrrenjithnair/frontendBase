@@ -21,7 +21,8 @@
   flex-direction: row;
   font-weight: bold;
   background-color: #ecf0f1;
-  justify-content: space-between;
+  justify-content: left;
+  align-items: center;
 }
 .teamList .arrow{
   padding: 0px 10px;

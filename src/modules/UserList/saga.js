@@ -11,6 +11,8 @@ export function* getUserList() {
   const state = yield select();
   const global = state.global
   const club = state.global.globalSelectedClub
+  const playerSearch = state.userList.playerSearch
+  
   let params = {}
 
   if (global.adminList) {
@@ -22,6 +24,9 @@ export function* getUserList() {
     if (club && club.id) {
       params.clubId = parseInt(club.id)
     }
+  }
+  if (playerSearch) {
+    params.playerSearch= playerSearch
   }
   requestURL = requestURL + toURLString(params)
   const sessionToken = global.sessionToken

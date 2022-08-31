@@ -19,7 +19,6 @@ import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
-import { actions } from 'react-table';
 import nodata from '../../images/nodata1.jpg'
 
 export class TournamentList extends React.PureComponent {
@@ -170,11 +169,12 @@ export class TournamentList extends React.PureComponent {
                                             <a disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-primary"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested join' : 'Request join'}</a>
                                             {/* <a disabled={requestedTeam} className={requestedTeam ? "btn btn-secondary" : "btn btn-primary"} onClick={() => this.props.requestJoin('team', item.id, item.clubId)}>{requestedTeam ? 'Requested Team' : 'Request Team'}</a> */}
                                         </div>}
-                                       {this.props.loggedInRoleId == 2 && <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
+                                        
+                                      <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
                                             {this.props.loggedInRoleId == 2 && <a className="btn-join" onClick={() => this.editTournament(item)}>Edit</a>}
-                                            {this.props.loggedInRoleId == 2 && <a className="btn-detail" onClick={() => this.detailTournament(item)}>Details</a>}
+                                          <a className="btn-detail" onClick={() => this.detailTournament(item)}>Details</a>
                                             {this.props.loggedInRoleId == 2 && <a className="btn-join-danger" onClick={() => this.deleteOrInActive(item)}>Delete</a>}
-                                        </div>}
+                                        </div>
 
                                 </div>
                             </div>
@@ -245,9 +245,9 @@ export class TournamentList extends React.PureComponent {
                     <div className="team-boxed">
                         <div className="container">
                             <div className="intro">
-                                <h2 className="text-center">
+                                <h2>
                                     {this.props.tournamentListPage ? 'Tournament List' : this.props.nearByTournament ? "Near-by Tournament List" : "My Tournament List"}</h2>
-                                {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addTournament && this.props.tournamentListPage && <div className="text-center"> <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
+                                {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addTournament && this.props.tournamentListPage && <div > <Button variant="primary" onClick={() => this.setState({ showModal: true })}>
                                     Add Tournament
                                 </Button></div>}
                             </div>

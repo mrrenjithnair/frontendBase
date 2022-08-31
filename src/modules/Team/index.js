@@ -50,7 +50,7 @@ export class Team extends React.PureComponent {
                             <div className="team-boxed">
                                 <div className="container">
                                     <div className="intro">
-                                        <h2 className="text-center"> My Team</h2>
+                                        <h2> My Team</h2>
                                     </div>
                                     <div className="row people">
                                         {this.props.playerTeamList && this.props.playerTeamList.length > 0 ?
@@ -64,7 +64,7 @@ export class Team extends React.PureComponent {
                                                             </div>
                                                             {item.logoUrl ? <img class="rounded-circle" src={item.logoUrl} /> : <img class="rounded-circle" src={team} />}
                                                             <h3 class="name">{item.teamName}</h3>
-                                                            <div class="text-left"><span class="font-weight-bolder">Bid Amount :</span> <span class="team-text"> {item.bidAmount}</span></div>
+                                                            <div class="text-left"><span class="font-weight-bolder">My Bid Amount :</span> <span class="team-text"> {item.bidAmount}</span></div>
                                                             <div class="text-left"><span class="font-weight-bolder">Joined :</span> <span class="team-text"> {formatDate(item.joined)}</span></div>
                                                         </div>
                                                     </div>

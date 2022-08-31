@@ -65,6 +65,13 @@ export class ClubList extends React.PureComponent {
             value: item.description
         },
         {
+            key: 'contact',
+            label: 'Contact',
+            type: 'textarea',
+            value: item.contact
+        },
+        
+        {
             key: 'logo',
             label: 'logo',
             type: 'file',
@@ -103,8 +110,12 @@ export class ClubList extends React.PureComponent {
                         <div className="col-sm-7">
                             <div className="card-body">
                                 <div className="text-left"><span className="team-text itemName"> {item.name}</span></div>
+                                <div className="text-left"><span className="font-weight-bolder">Owner name :</span> <span className="team-text"> {item.ownerName}</span></div>
                                 <div className="text-left"><span className="font-weight-bolder">Location :</span> <span className="team-text"> {item.location}</span></div>
                                 <div className="text-left"><span className="font-weight-bolder">Address :</span> <span className="team-text"> {item.address}</span></div>
+                                <div className="text-left"><span className="font-weight-bolder">Contact :</span> <span className="team-text"> {item.contact}</span></div>
+                                
+                                <div className="text-left"><span className="font-weight-bolder">Created At :</span> <span className="team-text"> {formatDate(item.createdAt)}</span></div>
                                 <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.requested && <spam>
                                         {item.approved != 1 && <a href="#" className={request ? "btn-detail-disable" : "btn-join"}
@@ -119,7 +130,7 @@ export class ClubList extends React.PureComponent {
                                     }}> Detail</a> &nbsp;
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addClub && 
                                         <a href="#" onClick={() => this.editClub(item)} className="btn btn-reject">Edit</a>}  <br/>                                  
-                                           {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addClub && <a className="btn-join-danger" onClick={() => this.deleteOrInActive(item)}>Delete</a>}
+                                           {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.addClub && <a className="btn-join-danger" onClick={() => this.deleteOrInActive(item)}>Deactivate</a>}
 
 
                                 </div>
@@ -166,6 +177,11 @@ export class ClubList extends React.PureComponent {
             type: 'textarea'
         },
         {
+            key: 'contact',
+            label: 'Contact',
+            type: 'textarea'
+        },
+        {
             key: 'logo',
             label: 'logo',
             type: 'file'
@@ -179,7 +195,7 @@ export class ClubList extends React.PureComponent {
                     <div className="team-boxed">
                         <div className="container">
                             <div className="intro">
-                                <h2 className="text-center">
+                                <h2>
                                     {this.props.clubListPage ? 'Leagues List' : this.props.nearByClub ? "Near-by Leagues" : "My Leagues"}
                                 </h2>
                                 {/* <p className="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p> */}

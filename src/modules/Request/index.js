@@ -24,6 +24,7 @@ import './style.css';
 import _ from 'lodash';
 import nodata from '../../images/nodata1.jpg'
 
+// import Table from './TableReact.js'
 export class Request extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -47,6 +48,7 @@ export class Request extends React.PureComponent {
 
         }
     }
+            
     submitDetail(){
         let data = this.state.teamDetail
         this.props.requestAction(data.type, data.tournamentId, data.clubId, data.id, data.status) 
@@ -61,6 +63,16 @@ export class Request extends React.PureComponent {
                 title: 'Player Name',
                 dataIndex: 'playerName',
                 key: 'clubName',
+            },
+            {
+                title: 'Player Mobile',
+                dataIndex: 'playerMobile',
+                key: 'playerMobile',
+            },
+            {
+                title: 'Player Email',
+                dataIndex: 'playerEmail',
+                key: 'playerEmail',
             },
             {
                 title: 'Requested',
@@ -84,7 +96,7 @@ export class Request extends React.PureComponent {
                 title: 'Status',
                 dataIndex: 'approved',
                 key: 'approved',
-                render: (value) => <span>{value == 1 ? 'Approved' : value == 0 ? 'Reject' :'' }</span>,
+                render: (value) => <span>{value == 1 ? 'Approved' : value == 0 ? '' :'' }</span>,
 
                 
             },
@@ -118,10 +130,14 @@ export class Request extends React.PureComponent {
                 <div className="team-boxed">
                         <div className="container">
                             <div className="intro">
-                                <h2 className="text-center">Tournament Request</h2>
+                                <h2>Tournament Request</h2>
                             </div>
                             <div className="row people">
-                            {this.props.requestList && this.props.requestList.length >0 ? <Table className='tableCs' columns={columns} data={this.props.requestList} /> :
+                            {this.props.requestList && this.props.requestList.length >0 ? 
+                            <Table className='tableCs' columns={columns} 
+                            data={this.props.requestList}
+                            scroll={5} />
+                             :
                                     <div className="blogSlider">
                                         <div className='noDataFound'>
                                             <div className='imgBox'>

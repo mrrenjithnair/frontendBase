@@ -334,9 +334,9 @@ export class TournamentDetails extends React.PureComponent {
                             </div>:  <div className='teamBox'>
                             <div className='teamList'> Team List
                             
-                            <div className="btn-wrap">
-                              <a href="#" onClick={() => this.addTeam()} className="btn btn-primary">Add Team</a> &nbsp;
-                            </div>
+                            {this.props.loggedInRoleId == 2 &&   <div className="btn-wrap">
+                             &nbsp; <a href="#" onClick={() => this.addTeam()} className="btn btn-primary">Add Team</a> &nbsp;
+                            </div>}
                             </div>
                                 <div className="page-wrapper">
                                     {this.props.tournamentDetails && this.props.tournamentDetails.teams && this.props.tournamentDetails.teams.length > 0 &&
@@ -348,7 +348,7 @@ export class TournamentDetails extends React.PureComponent {
                                                 <h4>{item.ownerName}</h4>
                                                 <div className="btn-container">
                                                     <span className="profile-btn" id="view" onClick={() => this.viewTeam(item)}><i className="far fa-eye"></i>View</span>
-                                                    <span className="profile-btn" id="view" onClick={() => this.editTeam(item)}><i className="far fa-eye"></i>Edit</span>
+                                                    {this.props.loggedInRoleId == 2 &&  <span className="profile-btn" id="view" onClick={() => this.editTeam(item)}><i className="far fa-eye"></i>Edit</span>}
                                                 </div>
                                             </div>
                                         ))}
