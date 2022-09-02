@@ -1,6 +1,6 @@
 
 .auctionBox .detailBox{
-  background: #ff7979;
+  background: #f25f5c;
   color: white;
 }
 
@@ -9,8 +9,9 @@
   min-height: 528px;
   border-radius: 16px;
   box-shadow: 0 24px 64px rgb(0 0 0 / 4%);
+  overflow: scroll;
 }
-.tournamentDetailBoxAuction .flabel{
+.inputBox .flabel{
   font-weight: bold;
   padding: 10px 0px;
 
@@ -37,7 +38,11 @@
   display: flex;
   flex-flow: row;
   min-height: 200px;
-  margin-top: 100px;
+  margin-top: 15px;
+  background: #e4e4e4;
+  box-shadow: 0 2px 6px 0 rgb(47 83 151 / 10%);
+  border-radius: 3px;
+  padding: 10px;
 }
 
 .tournamentBox {
@@ -111,11 +116,12 @@
   width: 100%;
   flex-wrap: wrap;
 }
-
-.imgBox img {
+.teamBoxMain {
+  display: flex;
   width: 100%;
-  border-radius: 10px;
+  flex-wrap: wrap;
 }
+
 
 .blogSlider .teamBox .detailBox {
   padding: 20px;
@@ -124,11 +130,11 @@
 .profile-info p,
 b {
   line-height: 1.5rem;
-  color: #455a64;
+  color: #2c3e50;
 }
 
 .imgBox {
-  width: 30%;
+  width: 20%;
 }
 .auctionBox  .detailBox{
 width: 40%;
@@ -157,16 +163,18 @@ width: 40%;
 
 .bidBox {
   border: 1px #bdc3c7 solid;
-  width: 100%;
+  width: 50%;
   padding: 10px;
   display: flex;
   justify-content: space-around;
+  flex-flow: column;
+  background: #507BFC;
+  color: #ffff;
 }
 .basePrice{
-  padding: 10px;
   font-weight: bold;
   line-height: 1.5rem;
-  color: #455a64;
+  color: #2c3e50;
 }
 .buttonBox {
   display: flex;
@@ -175,14 +183,16 @@ width: 40%;
 }
 .page-wrapper-auction {
   font-family: 'Lato', sans-serif;
-  /* margin: auto; */
-  /* display: flex; */
+  margin: auto;
+  display: flex;
   flex-wrap: wrap;
-  /* align-content: flex-start; */
-  /* justify-content: space-evenly; */
+  align-content: center;
+  justify-content: space-evenly;
 
 }
-.profile-box-auction {
+.profile-main-box-auction {
+  display: flex;
+  flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(47, 83, 151, 0.10);
   border-radius: 3px;
@@ -190,17 +200,43 @@ width: 40%;
   text-align: left;
   transition: 300ms;
   display: flex;
+  width: 250px;
+  height: 125px;
+  justify-content: space-between;
+  padding: 5px;
+}
+.profile-box-auction {
+  background: #FFFFFF;
+  text-align: left;
+  display: flex;
+  padding: 5px;
 }
 .profile-box-auction img{
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
+}
+.profile-detail-auction{
+  border-top-color: #2c3e50;
+  border-top-width: 1px;
+  border-top-style: solid;
+  display: flex;
+  justify-content: space-around;
+}
+.profile-detail-auction-text{
+  color: #2c3e50;
 }
 .profile-box-textBox{
-  padding: 10px;
-
+  padding: 5px;
 }
 .profile-box-auction span{
   color: #455a64;
+}
+.teamNameAuction{
+  font-size: 1rem;
+  text-transform: capitalize;
+  font-weight: 700;
+  color: #12263a;
+  font-family: "Poppins", sans-serif;
 }
 @media (max-width: 768px) {
   .auctionBox {
@@ -215,5 +251,216 @@ width: 40%;
 
   .tournamentDetailBoxAuctionTeam {
     width: 100%;
+  }
+}
+.auctionName{
+  color:#ffff;
+  margin-bottom: 0;
+  text-transform: capitalize;
+  line-height: 1;
+  letter-spacing: 2px;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+}
+.auctionHeader{
+  display:flex;
+  justify-content:space-evenly;
+  background: #50ac00;
+  color: #fff;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 600;
+align-items: center;
+}
+.imgBoxAuction{
+  width: 150px;
+}
+
+
+
+.img-display{
+  overflow: hidden;
+}
+.img-showcase{
+  display: flex;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+.img-showcase img{
+  min-width: 100%;
+}
+.img-select{
+  display: flex;
+}
+.img-item{
+  margin: 0.3rem;
+}
+.img-item:nth-child(1),
+.img-item:nth-child(2),
+.img-item:nth-child(3){
+  margin-right: 0;
+}
+.img-item:hover{
+  opacity: 0.8;
+}
+.product-content{
+  padding: 2rem 1rem;
+}
+.product-title{
+  font-size: 2rem;
+  text-transform: capitalize;
+  font-weight: 700;
+  position: relative;
+  color: #12263a;
+  margin: 1rem 0;
+}
+.product-title::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 80px;
+  background: #12263a;
+}
+.product-link{
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  background: #256eff;
+  color: #fff;
+  padding: 0 0.3rem;
+  transition: all 0.5s ease;
+}
+.product-link:hover{
+  opacity: 0.9;
+}
+.product-rating{
+  color: #ffc107;
+}
+.product-rating span{
+  font-weight: 600;
+  color: #252525;
+}
+.product-price{
+  margin: 1rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.product-price span{
+  font-weight: 400;
+}
+.last-price span{
+  color: #f64749;
+  text-decoration: line-through;
+}
+.new-price span{
+  color: #256eff;
+}
+.product-detail h2{
+  text-transform: capitalize;
+  color: #12263a;
+  padding-bottom: 0.6rem;
+  font-size: 1.2rem;
+}
+.product-detail p{
+  font-size: 0.9rem;
+  padding: 0.3rem;
+  opacity: 0.8;
+}
+.product-detail ul{
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+.product-detail ul li{
+  margin: 0;
+  list-style: none;
+  background: url(https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/checked.png) left center no-repeat;
+  background-size: 18px;
+  padding-left: 1.7rem;
+  margin: 0.4rem 0;
+  font-weight: 600;
+  opacity: 0.9;
+}
+.product-detail ul li span{
+  font-weight: 400;
+}
+.purchase-info{
+  margin: 1.5rem 0;
+}
+.purchase-info input,
+.purchase-info .btn{
+  border: 1.5px solid #ddd;
+  border-radius: 25px;
+  text-align: center;
+  padding: 0.45rem 0.8rem;
+  outline: 0;
+  margin-right: 0.2rem;
+  margin-bottom: 1rem;
+}
+.purchase-info input{
+  width: 60px;
+}
+.purchase-info .btn{
+  cursor: pointer;
+  color: #fff;
+}
+.purchase-info .btn:first-of-type{
+  background: #256eff;
+}
+.purchase-info .btn:last-of-type{
+  background: #f64749;
+}
+.purchase-info .btn:hover{
+  opacity: 0.9;
+}
+.social-links{
+  display: flex;
+  align-items: center;
+}
+.social-links a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: #000;
+  border: 1px solid #000;
+  margin: 0 0.2rem;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.5s ease;
+}
+.social-links a:hover{
+  background: #000;
+  border-color: transparent;
+  color: #fff;
+}
+
+@media screen and (min-width: 992px){
+ .blogSlider .card{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 1.5rem;
+  }
+  .blogSlider .card-wrapper{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  }
+  .blogSlider .product-imgs{
+      flex-direction: column;
+  }
+  .blogSlider .product-content{
+      padding-top: 0;
+  }
+  .auctionName{
+    font-size: 20px;
   }
 }

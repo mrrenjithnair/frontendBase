@@ -6,6 +6,7 @@ import {
     GLOBAL_SUCCESS,
     RESET_DASHBOARD,
     GET_TOURNAMENT_LIST_GLOBAL_SUCCESS,
+    GET_PENDING_TOURNAMENT_LIST_GLOBAL_SUCCESS,
     GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS,
     GET_AUCTION_PLAYER_SUCCESS,
     GET_AUCTION_PLAYER_FAILURE,
@@ -114,6 +115,8 @@ export default function (state = initialState, actions) {
         case GET_TOURNAMENT_LIST_GLOBAL_SUCCESS:
             return { ...state, 'tournamentListGlobal': actions.data };
 
+        case GET_PENDING_TOURNAMENT_LIST_GLOBAL_SUCCESS:
+            return { ...state, 'tournamentPendingListGlobal': actions.data };
 
         case GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS:
             let tournamentDetailGlobal = actions.data && actions.data.length > 0 ? actions.data[0] : []

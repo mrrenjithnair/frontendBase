@@ -184,7 +184,7 @@ export class Dashboard extends React.PureComponent {
                                 onClick={() => {
                                     this.props.onChangeValueGlobal({ target: { id: 'auction', value: true } })
 
-                                    history.push('/auction')
+                                    history.push('/auctionList')
                                 }}>
                                 <div className="wrap">
                                     <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faPoll} size="2x" style={{ color: '#FC8471' }} /></h4>

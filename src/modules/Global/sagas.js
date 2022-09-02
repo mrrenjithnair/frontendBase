@@ -134,7 +134,13 @@ export function* getTournamentList() {
       yield put(actions.getTournamentDetail(TournamentList));
 
     } else {
-      yield put(actions.getTournamentListSuccess(TournamentList));
+      if(global.auctionPending){
+      yield put(actions.getPendingTournamentListSuccess(TournamentList));
+
+      }else{
+        yield put(actions.getTournamentListSuccess(TournamentList));
+
+      }
     }
     yield put(actions.setOverlayLoading(false));
 

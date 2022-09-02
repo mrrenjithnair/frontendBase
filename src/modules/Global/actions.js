@@ -17,6 +17,8 @@ export const GLOBAL_FAILED = 'GLOBAL_FAILED';
 export const RESET_DASHBOARD = 'RESET_DASHBOARD';
 export const GET_TOURNAMENT_LIST_GLOBAL = 'GET_TOURNAMENT_LIST_GLOBAL';
 export const GET_TOURNAMENT_LIST_GLOBAL_SUCCESS = 'GET_TOURNAMENT_LIST_GLOBAL_SUCCESS';
+export const GET_PENDING_TOURNAMENT_LIST_GLOBAL_SUCCESS = 'GET_PENDING_TOURNAMENT_LIST_GLOBAL_SUCCESS';
+
 export const GET_TOURNAMENT_LIST_GLOBAL_FAILURE = 'GET_TOURNAMENT_LIST_GLOBAL_FAILURE';
 export const GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS = 'GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS';
 export const GET_AUCTION_PLAYER = 'GET_AUCTION_PLAYER';
@@ -142,6 +144,14 @@ export function getTournamentListSuccess(data) {
       data: data
   };
 }
+
+export function getPendingTournamentListSuccess(data) {
+  return {
+      type: GET_PENDING_TOURNAMENT_LIST_GLOBAL_SUCCESS,
+      data: data
+  };
+}
+
 
 export function getTournamentDetail(data) {
   return {

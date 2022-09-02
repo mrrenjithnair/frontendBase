@@ -31,7 +31,7 @@ class Team extends React.Component {
     }
     render() {
         let player = this.props.player
-        let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams  && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
+        let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
         let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
         let teamPoint = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : ''
         let type = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : ''
@@ -47,37 +47,42 @@ class Team extends React.Component {
         }
         return (
             player ? <div className="blogSlider">
-                {/* <div className='buttonBox'>
-                    <Button className="buttonPrimary" onClick={() => this.props.next('item')}>Next Player</Button>
-                    <Button className="buttonPrimary" onClick={() => this.editTournament('item')}>Complete Auction</Button>
-                </div> */}
-                <br />
-                <br />
-                <div className='teamBox'>
-                    <div className='imgBox'>
-                        <img src={profile} />
-                    </div>
-                    <div className='playerDetailBox'>
-                        {player.playerName && <p>
-                            <b>Name</b> :    {player.playerName}
-                        </p>} 
-                        {player.category && <p>
-                            <b>Type</b> :    {player.category}
-                        </p>} 
-                        {player.playerType && <p>
-                            <b>Category</b> :    {player.playerType}
-                        </p>}
-                        {player.bio && <p>
-                            <b>About</b>:    {player.bio}
-                        </p>}
-                    </div>
-                    <br />
-                    <br />
-                    <div style={{padding:'10px', width:'100%'}}>
-                        <h4 className='basePrice'>Base Price</h4>
-                        <div className='bidBox'>
-                            <b>Min Price</b> {this.getPrice(player.playerType, true)}
-                            <b>Max Price</b> {this.getPrice(player.playerType, false)}
+                <div style={{ 'display': 'flex' }}>
+                    <div class="card-wrapper">
+                        <div class="card">
+
+                            <div class="product-imgs">
+                                <div class="img-display">
+                                    <div class="img-showcase">
+                                        {player.profilePictureUrl ? <img src={player.profilePictureUrl} alt="shoe image" /> : <img src={profile} />}
+                                    </div>
+                                </div>
+                                <div style={{ 'display': 'flex' }}>
+                                    <div className='bidBox'>
+                                        <b>Min Price</b> {this.getPrice(player.playerType, true)}
+                                    </div>
+                                    <div className='bidBox'>
+                                        <b>Max Price</b> {this.getPrice(player.playerType, false)}
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-content">
+                                <h2 class="product-title">{player.playerName}</h2>
+                                <a href="#" class="product-link">{player.category}</a>
+                                <div class="product-detail">
+                                    <h2>about Player: </h2>
+                                    <p> {player.bio}</p>
+                                    <ul>
+                                        <li>Type: <span>{player.playerType}</span></li>
+                                        <li>Category: <span>{player.category}</span></li>
+                                        <li>Total Matches: <span>10</span></li>
+                                        <li>Last Bid Price: <span>1250</span></li>
+                                        <li>Location: <span>{player.location}</span></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -101,26 +106,26 @@ class Team extends React.Component {
                         <div className='inputBox'>
                             <label className="flabel capitalize" htmlFor="form3Example3"> Select enter the bid amount </label>
                             <input type='text' id="form3Example3"
-                                onChange={(e) => { this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentPlayerBindAmount', value: e.target.value } })
-                            }}
+                                onChange={(e) => {
+                                    this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentPlayerBindAmount', value: e.target.value } })
+                                }}
                                 className="form-control form-control-lg"
                                 placeholder="please bid amount" />
                         </div>
                     </div>
                     <div className='buttonBox'>
-                        <Button className="buttonPrimary" onClick={() =>{ 
-                             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentTeamId', value: this.props.auctionTournamentTeamId } })
-                             this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
-                             this.props.onChangeValueGlobal({ target: { id: 'auctionRequestId', value: player.id } })
-                             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: player.tournamentId } })
+                        <Button className="buttonPrimary" onClick={() => {
+                            this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentTeamId', value: this.props.auctionTournamentTeamId } })
+                            this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
+                            this.props.onChangeValueGlobal({ target: { id: 'auctionRequestId', value: player.id } })
+                            this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: player.tournamentId } })
                             this.props.addPlayerToTeam(player.playerType)
                         }}>Submit</Button>
                     </div>
                 </div>
+            </div> : <div className="blogSlider">
 
-            </div> : <div className="blogSlider"> 
-                    
-                    <div className='noDataFound'>
+                <div className='noDataFound'>
                     <div className='imgBox'>
                         <img src={nodata} />
                     </div><b>No Player detail</b></div> </div>
