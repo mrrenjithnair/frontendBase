@@ -69,6 +69,11 @@ export const DELETE_OR_INACTIVE = 'DELETE_OR_INACTIVE';
 export const DELETE_OR_INACTIVE_SUCCESS = 'DELETE_OR_INACTIVE_SUCCESS';
 export const DELETE_OR_INACTIVE_FAILURE = 'DELETE_OR_INACTIVE_FAILURE';
 
+export const GET_TOURNAMENT_DETAIL_OF_AUCTION = 'GET_TOURNAMENT_DETAIL_OF_AUCTION';
+export const GET_TOURNAMENT_DETAIL_OF_AUCTION_SUCCESS = 'GET_TOURNAMENT_DETAIL_OF_AUCTION_SUCCESS';
+export const GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE = 'GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE';
+
+
 
 export function setDataFromLocal() {
   return {
@@ -189,6 +194,26 @@ export function getAuctionPlayerFailure(err) {
       data: err
   };
 }
+export function getTournamentDetailOfAuction() {
+  return {
+      type: GET_TOURNAMENT_DETAIL_OF_AUCTION,
+  };
+}
+
+export function getTournamentDetailOfAuctionSuccess(data) {
+  return {
+      type: GET_TOURNAMENT_DETAIL_OF_AUCTION_SUCCESS,
+      data: data
+  };
+}
+export function getTournamentDetailOfAuctionFailure(err) {
+  toast.error(err);
+  return {
+      type: GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE,
+      data: err
+  };
+}
+
 
 export function addPlayerToTeam() {
   return {

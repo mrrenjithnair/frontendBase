@@ -92,6 +92,7 @@ class Team extends React.Component {
                         <div className='inputBox'>
                             <label className="flabel capitalize" htmlFor="form3Example3"> Select the Team </label>
                             <select className="form-control"
+                              value ={this.props.auctionTournamentTeamId}
                                 onChange={(e) => {
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentTeamId', value: e.target.value } })
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
@@ -106,6 +107,7 @@ class Team extends React.Component {
                         <div className='inputBox'>
                             <label className="flabel capitalize" htmlFor="form3Example3"> Select enter the bid amount </label>
                             <input type='text' id="form3Example3"
+                                value ={this.props.auctionTournamentPlayerBindAmount}
                                 onChange={(e) => {
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentPlayerBindAmount', value: e.target.value } })
                                 }}

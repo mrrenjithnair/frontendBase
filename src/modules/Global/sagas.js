@@ -188,6 +188,40 @@ export function* getAuctionPlayer() {
 
   }
 }
+export function* getTournamentDetailOfAuction() {
+  var requestURL = CONFIG.apiURL + '/apiService/getTournamentDetailOfAuction'
+  const state = yield select();
+  const global = state.global
+  // const sessionToken = login.get("currentUser").token;
+  const sessionToken = global.sessionToken
+  const club = state.global.globalSelectedClub
+  let params = {}
+  if (club && club.id) {
+    params.clubId = parseInt(club.id)
+  }
+  if (global.auctionTournamentId)
+    params.tournamentId = parseInt(global.auctionTournamentId)
+  requestURL = requestURL + toURLString(params)
+  try {
+    var options = {
+      method: 'GET',
+      sessionToken: sessionToken,
+    };
+    yield put(actions.setOverlayLoading(true));
+
+    const TournamentList = yield call(request, requestURL, options);
+    console.log('TournamentList', TournamentList)
+    yield put(actions.getTournamentDetailOfAuctionSuccess(TournamentList));
+    yield put(actions.setOverlayLoading(false));
+
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.setOverlayLoading(false));
+    yield put(actions.getTournamentDetailOfAuctionFailure(getError(err)));
+
+  }
+}
 export function* addPlayerToTeam() {
   var requestURL = CONFIG.apiURL + '/apiService/auctionPlayer'
   const state = yield select();
@@ -212,6 +246,9 @@ export function* addPlayerToTeam() {
     console.log('result', result)
     yield put(actions.addPlayerToTeamrSuccess(result));
     yield put(actions.getAuctionPlayer());
+    yield put(actions.getTournamentDetailOfAuction());
+    yield put(actions.getTournamentList());
+    
     yield put(actions.setOverlayLoading(false));
 
   }
@@ -588,6 +625,8 @@ export default function* globalSaga() {
     takeLatest('TEAM', insertOrUpdateTeam),
     takeLatest('EDIT_CLUB', editClub),
    takeLatest('DELETE_OR_INACTIVE', deleteOrInActive),
+   takeLatest('GET_TOURNAMENT_DETAIL_OF_AUCTION', getTournamentDetailOfAuction),
+   
     
   ]);
 }

@@ -11,8 +11,9 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Team from './team';
 import AuctionModal from '../../components/AuctionModal'
+import profile from '../../images/profile.jpg'
 
-import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction } from '../Global/actions';
+import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
 import { faBalanceScale, faCalendarDay, faMoneyBill, faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -59,6 +60,7 @@ export class Auction extends React.PureComponent {
         // this.props.resetAuction()
         // this.props.onChangeValueGlobal({ target: { id: 'auctionPending', value: false } })
         // this.props.getTournamentList()
+        this.props.getTournamentDetailOfAuction()
         window.scrollTo(0, 0)
     }
     next() {
@@ -74,11 +76,11 @@ export class Auction extends React.PureComponent {
             error = true
             this.props.setToast(false, 'Please enter bind amount')
         }
-        else if (parseInt(this.props.auctionTournamentPlayerBindAmount) < this.getPrice(playerType,true)) {
+        else if (parseInt(this.props.auctionTournamentPlayerBindAmount) < this.getPrice(playerType, true)) {
             error = true
             this.props.setToast(false, 'Please enter bind amount more then minimum price')
         }
-        else if (parseInt(this.props.auctionTournamentPlayerBindAmount) > this.getPrice(playerType,false)) {
+        else if (parseInt(this.props.auctionTournamentPlayerBindAmount) > this.getPrice(playerType, false)) {
             error = true
             this.props.setToast(false, 'Please enter bind amount less then maximum price')
         }
@@ -179,12 +181,12 @@ export class Auction extends React.PureComponent {
             <section className="compMain">
                 <div id="root">
                     <div className='container-fluid'>
-                    {this.props.tournamentDetailGlobal && <div className='auctionHeader'>
+                        {this.props.tournamentDetailGlobal && <div className='auctionHeader'>
 
-                                        <div className='auctionName'>       {this.props.tournamentDetailGlobal.name}</div>
-                                        <div className='auctionName'>       Total Team:  {this.props.tournamentDetailGlobal.teamTotal}</div>
-                                        <div className='auctionName'>       Member Team:  {this.props.tournamentDetailGlobal.memberTotal}</div>
-                                    </div>}
+                            <div className='auctionName'>       {this.props.tournamentDetailGlobal.name}</div>
+                            <div className='auctionName'>       Total Team:  {this.props.tournamentDetailGlobal.teamTotal}</div>
+                            <div className='auctionName'>       Member Team:  {this.props.tournamentDetailGlobal.memberTotal}</div>
+                        </div>}
                         <div className='auctionBox'>
                             <div className='detailBox'>
                                 <div className='tournamentDetailBoxAuction'>
@@ -196,27 +198,28 @@ export class Auction extends React.PureComponent {
                                         <div className="page-wrapper-auction">
                                             {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 &&
                                                 this.props.tournamentDetailGlobal.teams.map((item) => {
-                                                    let totalAmount = this.props.tournamentDetailGlobal &&  this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
+                                                    let totalAmount = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
                                                     let pendingAmount = item.totalSpend ? item.totalSpend : 0
                                                     let remainingAmount = totalAmount - pendingAmount
                                                     return (<div className="profile-main-box-auction">
                                                         <div className="profile-box-auction">
-                                                        {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
-                                                            <img src={team} alt="profile pic" />}
-                                                        <div className='profile-box-textBox'>
-                                                            <div className='teamNameAuction'>{item.teamName}</div>
-                                                            <span>{item.ownerName}</span><br />
-                                                        </div>
+                                                            {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
+                                                                <img src={team} alt="profile pic" />}
+                                                            <div className='profile-box-textBox'>
+                                                                <div className='teamNameAuction'>{item.teamName}</div>
+                                                                <span>{item.ownerName}</span><br />
+                                                            </div>
                                                         </div>
                                                         <div className='profile-detail-auction'>
-                                                        <div className='profile-detail-auction-text' title='Total player'><span>Purchased Palyer: </span>{item.totalPlayer}</div>
-                                                        <div className='profile-detail-auction-text' title='Spend Point'><span>Spent Point:</span> {pendingAmount}</div>
-                                                        <div className='profile-detail-auction-text' title='Pending Point'><span>Pending Point:</span> {remainingAmount}</div>
-                                                        <div className='profile-detail-auction-text' title='Pending Point'><span>Total Point:</span> {totalAmount}</div>
+                                                            <div className='profile-detail-auction-text' title='Total player'><span>Purchased Palyer: </span>{item.totalPlayer}</div>
+                                                            <div className='profile-detail-auction-text' title='Spend Point'><span>Spent Point:</span> {pendingAmount}</div>
+                                                            <div className='profile-detail-auction-text' title='Pending Point'><span>Pending Point:</span> {remainingAmount}</div>
+                                                            <div className='profile-detail-auction-text' title='Pending Point'><span>Total Point:</span> {totalAmount}</div>
 
                                                         </div>
                                                     </div>
-                                            )})}
+                                                    )
+                                                })}
                                         </div>
 
                                         <hr />
@@ -241,7 +244,58 @@ export class Auction extends React.PureComponent {
                 <br />
                 <br />
                 <br />
+                <div>
+                    <div>
+                        <h2 className='product-title'>Sold Players</h2>
+                    </div>
+                    <div>
+<div class="container">
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<div class="table-responsive">
+				<table class="table user-list">
+					<thead>
+						<tr>
+							<th><span>#</span></th>
+							<th><span>Player Name</span></th>
+							<th><span>Team Name</span></th>
+							<th><span>Sold At</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						{this.props.auctionDetailList && this.props.auctionDetailList.length>0 && this.props.auctionDetailList.map((item, index)=> <tr key={index}>
+							
+                            <td>
+								{index +1}
+							</td><td>
+								{item.profilePictureUrl ? <img src={item.profilePictureUrl} alt=""/> : <img src={profile} alt=""/>}
+								<span class="user-link">{item.playerName}</span>
+								<span class="user-subhead">{item.category}</span>
+							</td>
+							<td>
+                            {item.logoUrl ? <img src={item.logoUrl} alt=""/> : <img src={team} alt=""/>}
+								<span class="user-link">{item.name}</span>
+								
+							</td>
+							<td>
+								{item.bidamount}
+							</td>
 
+						</tr>)}
+
+					</tbody>
+				</table>
+			</div>
+			<ul class="pagination pull-right">
+
+			</ul>
+		</div>
+	</div>
+</div>
+</div>
+                    </div>
+                </div>
                 <AuctionModal
                     title="Add Auction"
                     show={this.state.showModal}
@@ -289,6 +343,7 @@ function mapStateToProps(state) {
         auctionCategoryBMaxPoint: state.global.auctionCategoryBMaxPoint,
         auctionCategoryCMinPoint: state.global.auctionCategoryCMinPoint,
         auctionCategoryCMaxPoint: state.global.auctionCategoryCMaxPoint,
+        auctionDetailList: state.global.auctionDetailList,
 
 
     };
@@ -300,12 +355,14 @@ function mapDispatchToProps(dispatch) {
         getTournamentDetails: () => dispatch(getTournamentDetails()),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
         getAuctionPlayer: (evt) => dispatch(getAuctionPlayer(evt)),
+        getTournamentDetailOfAuction: (evt) => dispatch(getTournamentDetailOfAuction(evt)),
+
         addPlayerToTeam: (evt) => dispatch(addPlayerToTeam(evt)),
         setToast: (success, message) => dispatch(setToast(success, message)),
         resetToast: (evt) => dispatch(resetToast(evt)),
         createAuction: (evt) => dispatch(createAuction(evt)),
         resetAuction: (evt) => dispatch(resetAuction(evt)),
-        
+
 
     };
 }

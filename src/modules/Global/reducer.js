@@ -32,6 +32,8 @@ import {
     ON_CHANGE_VALUE_CLUB,
     ADD_PLAYER_TO_TEAM_SUCCESS,
     ADD_PLAYER_TO_TEAM_FAILURE,
+    GET_TOURNAMENT_DETAIL_OF_AUCTION_SUCCESS,
+    GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE,
     RESET_AUCTION
 } from './actions';
 import roleInfo from '../utils/roleInfo';
@@ -118,6 +120,13 @@ export default function (state = initialState, actions) {
         case GET_PENDING_TOURNAMENT_LIST_GLOBAL_SUCCESS:
             return { ...state, 'tournamentPendingListGlobal': actions.data };
 
+        case GET_TOURNAMENT_DETAIL_OF_AUCTION_SUCCESS:
+            return { ...state, 'auctionDetailList': actions.data };
+
+        case GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE:
+            return { ...state, 'auctionDetailList': [] };
+
+
         case GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS:
             let tournamentDetailGlobal = actions.data && actions.data.length > 0 ? actions.data[0] : []
             return { ...state, 'tournamentDetailGlobal': tournamentDetailGlobal };
@@ -200,7 +209,7 @@ export default function (state = initialState, actions) {
 
         case ADD_PLAYER_TO_TEAM_SUCCESS:
             toast.success('Player sold to the team');
-            return { ...state };
+            return { ...state, auctionTournamentTeamId: null, auctionTournamentPlayerBindAmount: null };
 
         case ADD_PLAYER_TO_TEAM_FAILURE:
             toast.error('Player sold failed');
