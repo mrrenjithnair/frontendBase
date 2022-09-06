@@ -195,8 +195,11 @@ export class Auction extends React.PureComponent {
 
                                         <div className="page-wrapper-auction">
                                             {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 &&
-                                                this.props.tournamentDetailGlobal.teams.map((item) => (
-                                                    <div className="profile-main-box-auction">
+                                                this.props.tournamentDetailGlobal.teams.map((item) => {
+                                                    let totalAmount = this.props.tournamentDetailGlobal &&  this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
+                                                    let pendingAmount = item.totalSpend ? item.totalSpend : 0
+                                                    let remainingAmount = totalAmount - pendingAmount
+                                                    return (<div className="profile-main-box-auction">
                                                         <div className="profile-box-auction">
                                                         {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
                                                             <img src={team} alt="profile pic" />}
@@ -206,13 +209,14 @@ export class Auction extends React.PureComponent {
                                                         </div>
                                                         </div>
                                                         <div className='profile-detail-auction'>
-                                                        <div className='profile-detail-auction-text' title='Total player'><FontAwesomeIcon icon={faUsers} size="1x" style={{ color: '#2c3e50' }} /> : {item.totalPlayer}</div>
-                                                        <div className='profile-detail-auction-text' title='Spend money'><FontAwesomeIcon icon={faMoneyBill} size="1x" style={{ color: '#2c3e50' }} /> : {item.totalPlayer}</div>
-                                                        <div className='profile-detail-auction-text' title='Pending money'><FontAwesomeIcon icon={faBalanceScale} size="1x" style={{ color: '#2c3e50' }} /> : {item.totalPlayer}</div>
+                                                        <div className='profile-detail-auction-text' title='Total player'><span>Purchased Palyer: </span>{item.totalPlayer}</div>
+                                                        <div className='profile-detail-auction-text' title='Spend Point'><span>Spent Point:</span> {pendingAmount}</div>
+                                                        <div className='profile-detail-auction-text' title='Pending Point'><span>Pending Point:</span> {remainingAmount}</div>
+                                                        <div className='profile-detail-auction-text' title='Pending Point'><span>Total Point:</span> {totalAmount}</div>
 
                                                         </div>
                                                     </div>
-                                                ))}
+                                            )})}
                                         </div>
 
                                         <hr />

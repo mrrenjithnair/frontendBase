@@ -77,8 +77,8 @@ class Team extends React.Component {
                                     <ul>
                                         <li>Type: <span>{player.playerType}</span></li>
                                         <li>Category: <span>{player.category}</span></li>
-                                        <li>Total Matches: <span>10</span></li>
-                                        <li>Last Bid Price: <span>1250</span></li>
+                                        <li>Total Matches: <span>{player.totalMatches ? player.totalMatches : 0 }</span></li>
+                                        <li>Last Bid Price: <span>{player.lastBidAmount ? player.lastBidAmount : 0}</span></li>
                                         <li>Location: <span>{player.location}</span></li>
                                     </ul>
                                 </div>

@@ -5,7 +5,7 @@
 }
 
 .tournamentDetailBoxAuction {
-  padding: 25px 20px;
+  padding: 25px 5px;
   min-height: 528px;
   border-radius: 16px;
   box-shadow: 0 24px 64px rgb(0 0 0 / 4%);
@@ -194,22 +194,24 @@ width: 40%;
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
-  box-shadow: 0 2px 6px 0 rgba(47, 83, 151, 0.10);
-  border-radius: 3px;
+  box-shadow: 0 2px 6px 0 rgb(47 83 151 / 10%);
+  border-radius: 30px;
   margin: 6px 6px;
   text-align: left;
   transition: 300ms;
-  display: flex;
   width: 250px;
-  height: 125px;
   justify-content: space-between;
-  padding: 5px;
+  padding: 16px;
 }
 .profile-box-auction {
   background: #FFFFFF;
   text-align: left;
   display: flex;
-  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 .profile-box-auction img{
   width: 60px;
@@ -221,9 +223,23 @@ width: 40%;
   border-top-style: solid;
   display: flex;
   justify-content: space-around;
+  flex-flow: column;
 }
 .profile-detail-auction-text{
   color: #2c3e50;
+  border-bottom: 1px #2c3e50 solid;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+
+}
+.profile-detail-auction-text span{
+  font-size: 1rem;
+  text-transform: capitalize;
+  font-weight: 700;
+  color: #12263a;
 }
 .profile-box-textBox{
   padding: 5px;
