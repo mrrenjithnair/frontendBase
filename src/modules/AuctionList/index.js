@@ -145,7 +145,9 @@ export class AuctionList extends React.PureComponent {
         this.props.resetAuction()
         this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: item.id } })
         this.props.getTournamentList()
-        this.props.getAuctionPlayer()
+        if(this.props.loggedInRoleId == 2){
+            this.props.getAuctionPlayer()
+        }
         history.push('/auction')
     }
 

@@ -65,6 +65,7 @@ export const initialState = {
     loading:false,
     profileIncomplte: false,
     auctionPending: false,
+    auctionTournamentPlayerBindAmount: 0
 };
 
 export default function (state = initialState, actions) {
@@ -236,7 +237,7 @@ let auctionPlayerId= false;
 let auctionTournamentTeamId= false;
 let auctionTournamentId= false;
 let auctionRequestId= false;
-let auctionTournamentPlayerBindAmount= false;
+let auctionTournamentPlayerBindAmount= 0;
 let auctionType= false;
 let auctionDate= false;
 let auctionVenue= false;

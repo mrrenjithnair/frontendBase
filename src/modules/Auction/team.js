@@ -59,7 +59,7 @@ class Team extends React.Component {
                                 </div>
                                 <div style={{ 'display': 'flex' }}>
                                     <div className='bidBox'>
-                                        <b>Min Price</b> {this.getPrice(player.playerType, true)}
+                                        <b>Base Price</b> {this.getPrice(player.playerType, true)}
                                     </div>
                                     <div className='bidBox'>
                                         <b>Max Price</b> {this.getPrice(player.playerType, false)}
@@ -72,8 +72,8 @@ class Team extends React.Component {
                                 <h2 class="product-title">{player.playerName}</h2>
                                 <a href="#" class="product-link">{player.category}</a>
                                 <div class="product-detail">
-                                    <h2>about Player: </h2>
-                                    <p> {player.bio}</p>
+                                <h2>about Player: </h2>
+                                    <p className='aboutUs'> {player.bio}</p>
                                     <ul>
                                         <li>Type: <span>{player.playerType}</span></li>
                                         <li>Category: <span>{player.category}</span></li>

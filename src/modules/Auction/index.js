@@ -188,6 +188,15 @@ export class Auction extends React.PureComponent {
                             <div className='auctionName'>       Member Team:  {this.props.tournamentDetailGlobal.memberTotal}</div>
                         </div>}
                         <div className='auctionBox'>
+                            {this.props.loggedInRoleId == 2 && <div className='tournamentDetailBoxAuctionTeam'>
+                                <Team player={player}
+                                    tournamentDetailGlobal={this.props.tournamentDetailGlobal}
+                                    auctionTournamentTeamId={this.props.auctionTournamentTeamId}
+                                    auctionTournamentPlayerBindAmount={this.props.auctionTournamentPlayerBindAmount}
+                                    onChangeValueGlobal={this.props.onChangeValueGlobal}
+                                    addPlayerToTeam={() => this.addPlayerToTeam()}
+                                    next={() => this.next()} />
+                            </div>}
                             <div className='detailBox'>
                                 <div className='tournamentDetailBoxAuction'>
                                     <div>
@@ -227,15 +236,6 @@ export class Auction extends React.PureComponent {
                                     </div>
                                 </div>
                             </div>
-                            <div className='tournamentDetailBoxAuctionTeam'>
-                                <Team player={player}
-                                    tournamentDetailGlobal={this.props.tournamentDetailGlobal}
-                                    auctionTournamentTeamId={this.props.auctionTournamentTeamId}
-                                    auctionTournamentPlayerBindAmount={this.props.auctionTournamentPlayerBindAmount}
-                                    onChangeValueGlobal={this.props.onChangeValueGlobal}
-                                    addPlayerToTeam={() => this.addPlayerToTeam()}
-                                    next={() => this.next()} />
-                            </div>
                         </div>
 
 
@@ -245,55 +245,55 @@ export class Auction extends React.PureComponent {
                 <br />
                 <br />
                 <div>
-                    <div>
+                    <div style={{ 'paddingLeft': '50px' }}>
                         <h2 className='product-title'>Sold Players</h2>
                     </div>
                     <div>
-<div class="container">
-<div class="row">
-	<div class="col-lg-12">
-		<div class="main-box clearfix">
-			<div class="table-responsive">
-				<table class="table user-list">
-					<thead>
-						<tr>
-							<th><span>#</span></th>
-							<th><span>Player Name</span></th>
-							<th><span>Team Name</span></th>
-							<th><span>Sold At</span></th>
-						</tr>
-					</thead>
-					<tbody>
-						{this.props.auctionDetailList && this.props.auctionDetailList.length>0 && this.props.auctionDetailList.map((item, index)=> <tr key={index}>
-							
-                            <td>
-								{index +1}
-							</td><td>
-								{item.profilePictureUrl ? <img src={item.profilePictureUrl} alt=""/> : <img src={profile} alt=""/>}
-								<span class="user-link">{item.playerName}</span>
-								<span class="user-subhead">{item.category}</span>
-							</td>
-							<td>
-                            {item.logoUrl ? <img src={item.logoUrl} alt=""/> : <img src={team} alt=""/>}
-								<span class="user-link">{item.name}</span>
-								
-							</td>
-							<td>
-								{item.bidamount}
-							</td>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="main-box clearfix">
+                                        <div class="table-responsive">
+                                            <table class="table user-list">
+                                                <thead>
+                                                    <tr>
+                                                        <th><span>#</span></th>
+                                                        <th><span>Player Name</span></th>
+                                                        <th><span>Team Name</span></th>
+                                                        <th><span>Sold At</span></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {this.props.auctionDetailList && this.props.auctionDetailList.length > 0 && this.props.auctionDetailList.map((item, index) => <tr key={index}>
 
-						</tr>)}
+                                                        <td>
+                                                            {index + 1}
+                                                        </td><td>
+                                                            {item.profilePictureUrl ? <img src={item.profilePictureUrl} alt="" /> : <img src={profile} alt="" />}
+                                                            <span class="user-link">{item.playerName}</span>
+                                                            <span class="user-subhead">{item.category}</span>
+                                                        </td>
+                                                        <td>
+                                                            {item.logoUrl ? <img src={item.logoUrl} alt="" /> : <img src={team} alt="" />}
+                                                            <span class="user-link">{item.name}</span>
 
-					</tbody>
-				</table>
-			</div>
-			<ul class="pagination pull-right">
+                                                        </td>
+                                                        <td>
+                                                            {item.bidamount}
+                                                        </td>
 
-			</ul>
-		</div>
-	</div>
-</div>
-</div>
+                                                    </tr>)}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <ul class="pagination pull-right">
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <AuctionModal
