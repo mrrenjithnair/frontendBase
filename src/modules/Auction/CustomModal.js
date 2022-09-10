@@ -16,14 +16,17 @@ class CustomModal extends React.Component {
             teamObj.push({ name: 'player ' + (i + 1), bidAmount: selectedTeam && selectedTeam.basePrice ?selectedTeam.basePrice:0, srNo: (i + 1), status: 'unSold' })
             if (this.props.teamPlayerList && this.props.teamPlayerList.length > 0) {
                 for (var j = 0; j < this.props.teamPlayerList.length; j++) {
-                    this.props.teamPlayerList[j].srNo = (j + 1)
-                    this.props.teamPlayerList[j].status = 'Sold'
-                    teamObj[j] = this.props.teamPlayerList[j]
+                    if(teamObj[i].srNo == j + 1){
+                        this.props.teamPlayerList[j].srNo = (j + 1)
+                        this.props.teamPlayerList[j].status = 'Sold'
+                        teamObj[j] = this.props.teamPlayerList[j]
+                    }
+                
                 }
             }
             afterPredicationAmount = afterPredicationAmount + teamObj[i].bidAmount
         }
-        if(selectedTeam && selectedTeam.basePrice){
+        if(selectedTeam && selectedTeam.basePrice && teamObj && teamObj.length>0){
             if(teamObj.length != this.props.teamPlayerList.length)
             teamObj[this.props.teamPlayerList.length].bidAmount = (this.props.totalAmount - afterPredicationAmount + selectedTeam.basePrice)
 
