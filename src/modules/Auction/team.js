@@ -61,10 +61,6 @@ class Team extends React.Component {
                                     <div className='bidBox'>
                                         <b>Base Price</b> {this.getPrice(player.playerType, true)}
                                     </div>
-                                    <div className='bidBox'>
-                                        <b>Max Price</b> {this.getPrice(player.playerType, false)}
-
-                                    </div>
                                 </div>
                             </div>
 

@@ -6,6 +6,9 @@
   height: 40vmin;
   pointer-events: none;
 }
+.text-capitalize{
+  text-transform: capitalize;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

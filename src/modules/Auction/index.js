@@ -11,12 +11,14 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Team from './team';
 import AuctionModal from '../../components/AuctionModal'
+import CustomModal from './CustomModal'
+
 import profile from '../../images/profile.jpg'
 
-import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction } from '../Global/actions';
+import { getTournamentList, onChangeValueGlobal, getUserList, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
-import { faBalanceScale, faCalendarDay, faMoneyBill, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleRight, faBalanceScale, faCalendarDay, faMoneyBill, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { iteratee } from 'lodash';
 import EditModal from '../../components/EditModal'
 import { getTournamentDetails } from './actions';
@@ -32,16 +34,24 @@ export class Auction extends React.PureComponent {
             typing: false
         }
     }
-    getPrice(cat, min) {
+    getPrice(cat, min,costAnalytics) {
+        console.log('cat',cat)
+        console.log('min',min)
         let type = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : ''
+        console.log('type',type)
+        
         let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
         let basePriceMin
         let basePriceMax
         if (type == 'category') {
+        console.log('type',type)
             pointJson.map((item) => {
                 if (item.category == cat) {
                     basePriceMin = item.min
                     basePriceMax = item.max
+                } 
+                if(costAnalytics) {
+                    basePriceMin = item.min
                 }
             })
         } else {
@@ -160,6 +170,14 @@ export class Auction extends React.PureComponent {
         }
 
     }
+    showCostAnalytics(item,spentAmount ,remainingAmount,totalAmount){
+        let basePrice = this.getPrice(this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : 'noCategory', true, true)
+        item.basePrice = basePrice ? basePrice :0
+        this.props.onChangeValueGlobal({ target: { id: 'globalSelectedTeamId', value: item.teamId } })
+        this.props.getUserList()
+        this.setState({ costAnalytics: true, selectedTeam: item, spentAmount ,remainingAmount,totalAmount })
+    }
+
 
     render() {
         let tournamentListGlobal = this.props.tournamentListGlobal && this.props.tournamentListGlobal.length > 0 ? this.props.tournamentListGlobal : []
@@ -208,9 +226,10 @@ export class Auction extends React.PureComponent {
                                             {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 &&
                                                 this.props.tournamentDetailGlobal.teams.map((item) => {
                                                     let totalAmount = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
-                                                    let pendingAmount = item.totalSpend ? item.totalSpend : 0
-                                                    let remainingAmount = totalAmount - pendingAmount
+                                                    let spentAmount = item.totalSpend ? item.totalSpend : 0
+                                                    let remainingAmount = totalAmount - spentAmount
                                                     return (<div className="profile-main-box-auction">
+                                                        <div style={{    'display': 'flex', 'justifyContent': 'space-between'}}>
                                                         <div className="profile-box-auction">
                                                             {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
                                                                 <img src={team} alt="profile pic" />}
@@ -218,14 +237,34 @@ export class Auction extends React.PureComponent {
                                                                 <div className='teamNameAuction'>{item.teamName}</div>
                                                                 <span>{item.ownerName}</span><br />
                                                             </div>
+                                                            </div>
+                                                            <div className='arrowBox'>
+                                                            <FontAwesomeIcon icon={faArrowAltCircleRight} size="2x" style={{ color: '#FC8471' }} onClick={() =>  this.showCostAnalytics(item,spentAmount ,remainingAmount,totalAmount)} />
+                                                                </div>
                                                         </div>
-                                                        <div className='profile-detail-auction'>
+                                                        <div className='auctionList'>
+                                                            <div className='auctionListCol'>
+                                                                <div className='auctionListLabel'>  Auction Spent</div>
+                                                                <div> {spentAmount}</div>
+                                                            </div>
+                                                            <div className='auctionListCol'>
+                                                                <div  className='auctionListLabel'>Purse Left</div>
+                                                                <div>{remainingAmount}</div>
+                                                            </div>
+                                                            <div className='auctionListCol'>
+                                                                <div  className='auctionListLabel'>Players</div>
+                                                                <div>{item.totalPlayer ? item.totalPlayer 
+                                                                : 0}/{item.teamTotalMember}</div>
+                                                            </div>
+                                                        </div>
+                                                        {/* <div className='profile-detail-auction'>
                                                             <div className='profile-detail-auction-text' title='Total player'><span>Purchased Palyer: </span>{item.totalPlayer}</div>
-                                                            <div className='profile-detail-auction-text' title='Spend Point'><span>Spent Point:</span> {pendingAmount}</div>
+                                                            <div className='profile-detail-auction-text' title='Spend Point'><span>Spent Point:</span> {spentAmount}</div>
                                                             <div className='profile-detail-auction-text' title='Pending Point'><span>Pending Point:</span> {remainingAmount}</div>
                                                             <div className='profile-detail-auction-text' title='Pending Point'><span>Total Point:</span> {totalAmount}</div>
+                                                            <div style={{'display':'flex','justifyContent':'center','padding':'10px'}}> <Button variant="primary" onClick={() => this.showCostAnalytics(item,spentAmount ,remainingAmount,totalAmount)}>Cost analytics</Button></div>
 
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                     )
                                                 })}
@@ -279,7 +318,7 @@ export class Auction extends React.PureComponent {
 
                                                         </td>
                                                         <td>
-                                                            {item.bidamount}
+                                                            {item.bidAmount}
                                                         </td>
 
                                                     </tr>)}
@@ -304,6 +343,18 @@ export class Auction extends React.PureComponent {
                     onChangeInput={(evt) => this.props.onChangeValueGlobal(evt)}
                     auctionType={this.props.auctionType}
                     tournamentListGlobalArray={tournamentListGlobalArray}
+                />
+                <CustomModal
+                    title= {this.state.selectedTeam && this.state.selectedTeam.teamName ? this.state.selectedTeam.teamName :'Team Name'}
+                    show={this.state.costAnalytics}
+                    onHide={() => this.setState({ costAnalytics: false })}
+                    onSubmit={() => this.setState({ costAnalytics: !this.state.costAnalytics })}
+                    onChangeInput={(evt) => this.props.onChangeValueGlobal(evt)}
+                    selectedTeam={this.state.selectedTeam}
+                    remainingAmount={this.state.remainingAmount}
+                    totalAmount={this.state.totalAmount}
+                    spentAmount={this.state.spentAmount}
+                    teamPlayerList={this.props.teamPlayerList}
                 />
 
             </section>
@@ -344,6 +395,8 @@ function mapStateToProps(state) {
         auctionCategoryCMinPoint: state.global.auctionCategoryCMinPoint,
         auctionCategoryCMaxPoint: state.global.auctionCategoryCMaxPoint,
         auctionDetailList: state.global.auctionDetailList,
+        teamPlayerList: state.global.teamPlayerList,
+
 
 
     };
@@ -354,6 +407,7 @@ function mapDispatchToProps(dispatch) {
         getTournamentList: () => dispatch(getTournamentList()),
         getTournamentDetails: () => dispatch(getTournamentDetails()),
         onChangeValueGlobal: (evt) => dispatch(onChangeValueGlobal(evt)),
+        getUserList: (evt) => dispatch(getUserList(evt)),
         getAuctionPlayer: (evt) => dispatch(getAuctionPlayer(evt)),
         getTournamentDetailOfAuction: (evt) => dispatch(getTournamentDetailOfAuction(evt)),
 

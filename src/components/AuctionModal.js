@@ -3,6 +3,7 @@ import React from "react";
 
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal'
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 class auctionModal extends React.Component {
 
@@ -54,80 +55,73 @@ class auctionModal extends React.Component {
                 </div>
                {this.props.auctionType == 'noCategory' && <div style={{ 'display': 'flex', 'justifyContent': 'space-around' }}>
                     <div className="form-outline mb-4">
-                        <label className="form-label capitalize" htmlFor="form3Example3">Mininum Point for player</label>
+                        <label className="form-label capitalize" htmlFor="form3Example3">Base Price for player</label>
                         <input type="number"
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionMinPoint', value: e.target.value } }) }}
-                            className="form-control form-control-lg"
-                            placeholder={"please enter Venue"} />
-                    </div>
-                    <div className="form-outline mb-4">
-                        <label className="form-label capitalize" htmlFor="form3Example3">Maximum Point for player</label>
-                        <input type="number"
-                            onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionMaxPoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
                             placeholder={"please enter Venue"} />
                     </div>
                 </div>}
                 {this.props.auctionType == 'category' && 
                 <div>
-                <div style={{ 'display': 'flex', 'justifyContent': 'space-around' }}>
+                <div style={{ 'display': 'flex', 'justifyContent': 'space-around' ,'flexDirection':'column'}}>
                 <div className="form-outline mb-4">
-                    <label className="form-label capitalize" htmlFor="form3Example3">Category A</label>
+                    <label className="form-label capitalize" htmlFor="form3Example3" style={{'fontWeight':700}}>Category A</label>
                     </div>
                     <div className="form-outline mb-4">
-                        <label className="form-label capitalize" htmlFor="form3Example3">Mininum Point for player</label>
+                        <label className="form-label capitalize" htmlFor="form3Example3">Base Point For Player</label>
                         <input type="number"
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryAMinPoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
                             placeholder={"please enter Venue"} />
                     </div>
-                    <div className="form-outline mb-4">
+                    {/* <div className="form-outline mb-4">
                         <label className="form-label capitalize" htmlFor="form3Example3">Maximum Point for player</label>
                         <input type="number"
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryAMaxPoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
                             placeholder={"please enter Venue"} />
-                    </div>
+                    </div> */}
                     </div>
 
-                <div style={{ 'display': 'flex', 'justifyContent': 'space-around' }}>
+                <div style={{ 'display': 'flex', 'justifyContent': 'space-around' ,'flexDirection':'column'}}>
                 <div className="form-outline mb-4">
-                    <label className="form-label capitalize" htmlFor="form3Example3">Category B</label>
+                    <label className="form-label capitalize" htmlFor="form3Example3" style={{'fontWeight':700}}>Category B</label>
                     </div>
                     <div className="form-outline mb-4">
-                        <label className="form-label capitalize" htmlFor="form3Example3">Mininum Point for player</label>
+                        <label className="form-label capitalize" htmlFor="form3Example3">Base Point For Player</label>
                         <input type="number"
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryBMinPoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
                             placeholder={"please enter Venue"} />
                     </div>
-                    <div className="form-outline mb-4">
+                    {/* <div className="form-outline mb-4">
                         <label className="form-label capitalize" htmlFor="form3Example3">Maximum Point for player</label>
                         <input type="number"
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryBMaxPoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
                             placeholder={"please enter Venue"} />
-                    </div>
+                    </div> */}
                     </div>
 
-                <div style={{ 'display': 'flex', 'justifyContent': 'space-around' }}>
+                <div style={{ 'display': 'flex', 'justifyContent': 'space-around' ,'flexDirection':'column'}}>
                 <div className="form-outline mb-4">
-                    <label className="form-label capitalize" htmlFor="form3Example3">Category C</label>
+                    <label className="form-label capitalize" htmlFor="form3Example3" style={{'fontWeight':700}}>Category C</label>
                     </div>
                     <div className="form-outline mb-4">
-                        <label className="form-label capitalize" htmlFor="form3Example3">Mininum Point for player</label>
+                        <label className="form-label capitalize" htmlFor="form3Example3">Base Point For Player</label>
                         <input type="number"
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryCMinPoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
                             placeholder={"please enter Venue"} />
                     </div>
-                    <div className="form-outline mb-4">
+                    {/* <div className="form-outline mb-4">
                         <label className="form-label capitalize" htmlFor="form3Example3">Maximum Point for player</label>
                         <input type="number"
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryCMaxPoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
                             placeholder={"please enter Venue"} />
-                    </div>
+                    </div> */}
                     </div>
                 </div>
                 
@@ -160,6 +154,16 @@ class auctionModal extends React.Component {
                     <Button onClick={this.props.onSubmit}>Submit</Button>
                     <Button onClick={this.props.onHide}>Close</Button>
                 </Modal.Footer>
+                <ToastContainer position="top-center"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        theme='colored'
+                        draggable
+                        pauseOnHover />
             </Modal>
         );
     }

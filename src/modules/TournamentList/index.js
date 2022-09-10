@@ -222,20 +222,19 @@ export class TournamentList extends React.PureComponent {
 
         },
         {
+            key: 'teamTotalMember',
+            label: 'Per Team Member',
+            required: true,
+            type: 'number',
+            value: this.props.teamTotalMember
+        },
+        {
             key: 'teamTotal',
-            label: 'team Total',
+            label: 'Total team',
             required: true,
             type: 'number',
             value: this.props.teamTotal
-        },
-        {
-            key: 'memberTotal',
-            label: 'member Total',
-            required: true,
-            type: 'number',
-            value: this.props.memberTotal
         }
-        
     ]
         return (
 
@@ -312,6 +311,8 @@ function mapStateToProps(state) {
         tournamentBanner: state.tournament.tournamentBanner,
         memberTotal: state.tournament.memberTotal,
         teamTotal: state.tournament.teamTotal,
+        teamTotalMember: state.tournament.teamTotalMember,
+        
         name: state.tournament.name,
         startDate: state.tournament.startDate,
         endDate: state.tournament.endDate,

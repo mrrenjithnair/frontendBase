@@ -62,6 +62,9 @@ export class AuctionList extends React.PureComponent {
         } else if (!this.props.auctionDate) {
             error = true
             this.props.setToast(false, 'Please enter auction date')
+        } else if (new Date(this.props.auctionType).valueOf()  <= new Date().valueOf() ) {
+            error = true
+            this.props.setToast(false, 'Please enter future auction date')
         } else if (!this.props.auctionType) {
             error = true
             this.props.setToast(false, 'Please select auction type')
@@ -72,35 +75,21 @@ export class AuctionList extends React.PureComponent {
         if (this.props.auctionType == 'noCategory') {
             if (!this.props.auctionMinPoint) {
                 error = true
-                this.props.setToast(false, 'Please enter min point')
-            }
-            if (!this.props.auctionMaxPoint) {
-                error = true
-                this.props.setToast(false, 'Please enter max point')
+                this.props.setToast(false, 'Please enter Base point')
             }
         }
         if (this.props.auctionType == 'category') {
             if (!this.props.auctionCategoryAMinPoint) {
                 error = true
-                this.props.setToast(false, 'Please enter category A min point')
+                this.props.setToast(false, 'Please enter category A Base point')
             }
-            if (!this.props.auctionCategoryAMaxPoint) {
+           if (!this.props.auctionCategoryBMinPoint) {
                 error = true
-                this.props.setToast(false, 'Please enter category A max point')
-            } if (!this.props.auctionCategoryBMinPoint) {
-                error = true
-                this.props.setToast(false, 'Please enter category B min point')
+                this.props.setToast(false, 'Please enter category B Base point')
             }
-            if (!this.props.auctionCategoryBMaxPoint) {
+             if (!this.props.auctionCategoryCMinPoint) {
                 error = true
-                this.props.setToast(false, 'Please enter category B max point')
-            } if (!this.props.auctionCategoryCMinPoint) {
-                error = true
-                this.props.setToast(false, 'Please enter category C min point')
-            }
-            if (!this.props.auctionCategoryCMaxPoint) {
-                error = true
-                this.props.setToast(false, 'Please enter category C max point')
+                this.props.setToast(false, 'Please enter category C Base point')
             }
         }
         if (!error) {

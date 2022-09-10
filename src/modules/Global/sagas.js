@@ -274,12 +274,12 @@ export function* createAuction() {
     
   }
   if (global.auctionType == 'noCategory') {
-    obj.pointJson = [{ min: global.auctionMinPoint, max: global.auctionMaxPoint }]
+    obj.pointJson = [{ min: global.auctionMinPoint }]
   } else if (global.auctionType == 'category') {
     obj.pointJson = [
-      { category: 'A', min: global.auctionCategoryAMinPoint, max: global.auctionCategoryAMaxPoint },
-      { category: 'B', min: global.auctionCategoryBMinPoint, max: global.auctionCategoryBMaxPoint },
-      { category: 'C', min: global.auctionCategoryCMinPoint, max: global.auctionCategoryCMaxPoint },
+      { category: 'A', min: global.auctionCategoryAMinPoint },
+      { category: 'B', min: global.auctionCategoryBMinPoint },
+      { category: 'C', min: global.auctionCategoryCMinPoint },
     ]
   }
   try {
@@ -293,6 +293,8 @@ export function* createAuction() {
     const result = yield call(request, requestURL, options);
     console.log('result', result)
     yield put(actions.createAuctionSuccess(result));
+    yield put(actions.getTournamentDetail());
+
     yield put(actions.setOverlayLoading(false));
 
   }
