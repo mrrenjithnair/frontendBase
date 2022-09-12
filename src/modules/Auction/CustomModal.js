@@ -27,7 +27,7 @@ class CustomModal extends React.Component {
             afterPredicationAmount = afterPredicationAmount + teamObj[i].bidAmount
         }
         if(selectedTeam && selectedTeam.basePrice && teamObj && teamObj.length>0){
-            if(teamObj.length != this.props.teamPlayerList.length)
+            if(teamObj.length != this.props.teamPlayerList.length &&   teamObj[this.props.teamPlayerList.length] && teamObj[this.props.teamPlayerList.length].bidAmount)
             teamObj[this.props.teamPlayerList.length].bidAmount = (this.props.totalAmount - afterPredicationAmount + selectedTeam.basePrice)
 
         }
