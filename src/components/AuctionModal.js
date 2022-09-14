@@ -59,12 +59,19 @@ class auctionModal extends React.Component {
                         <input type="number"
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionMinPoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
-                            placeholder={"please enter Venue"} />
+                            placeholder={"please enter base Price for player"} />
+                    </div>
+                    <div className="form-outline mb-4">
+                        <label className="form-label capitalize" htmlFor="form3Example3">Price Increase by</label>
+                        <input type="number"
+                            onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionIncreasePoint', value: e.target.value } }) }}
+                            className="form-control form-control-lg"
+                            placeholder={"please enter Price Increase by"} />
                     </div>
                 </div>}
                 {this.props.auctionType == 'category' && 
                 <div>
-                <div style={{ 'display': 'flex', 'justifyContent': 'space-around' ,'flexDirection':'column'}}>
+                <div style={{ 'display': 'flex', 'justifyContent': 'space-around'}}>
                 <div className="form-outline mb-4">
                     <label className="form-label capitalize" htmlFor="form3Example3" style={{'fontWeight':700}}>Category A</label>
                     </div>
@@ -73,18 +80,18 @@ class auctionModal extends React.Component {
                         <input type="number"
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryAMinPoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
-                            placeholder={"please enter Venue"} />
+                            placeholder={"please enter base Price for player"} />
                     </div>
-                    {/* <div className="form-outline mb-4">
-                        <label className="form-label capitalize" htmlFor="form3Example3">Maximum Point for player</label>
+                    <div className="form-outline mb-4">
+                        <label className="form-label capitalize" htmlFor="form3Example3">Price Increase by</label>
                         <input type="number"
-                            onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryAMaxPoint', value: e.target.value } }) }}
+                            onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryAIncreasePoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
-                            placeholder={"please enter Venue"} />
-                    </div> */}
+                            placeholder={"please enter price increase by"} />
+                    </div>
                     </div>
 
-                <div style={{ 'display': 'flex', 'justifyContent': 'space-around' ,'flexDirection':'column'}}>
+                <div style={{ 'display': 'flex', 'justifyContent': 'space-around'}}>
                 <div className="form-outline mb-4">
                     <label className="form-label capitalize" htmlFor="form3Example3" style={{'fontWeight':700}}>Category B</label>
                     </div>
@@ -93,18 +100,18 @@ class auctionModal extends React.Component {
                         <input type="number"
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryBMinPoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
-                            placeholder={"please enter Venue"} />
+                            placeholder={"please enter base Price for player"} />
                     </div>
-                    {/* <div className="form-outline mb-4">
-                        <label className="form-label capitalize" htmlFor="form3Example3">Maximum Point for player</label>
+                    <div className="form-outline mb-4">
+                        <label className="form-label capitalize" htmlFor="form3Example3">Price Increase by</label>
                         <input type="number"
-                            onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryBMaxPoint', value: e.target.value } }) }}
+                            onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryBIncreasePoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
-                            placeholder={"please enter Venue"} />
-                    </div> */}
+                            placeholder={"please enter price increase by"} />
+                    </div>
                     </div>
 
-                <div style={{ 'display': 'flex', 'justifyContent': 'space-around' ,'flexDirection':'column'}}>
+                <div style={{ 'display': 'flex', 'justifyContent': 'space-around'}}>
                 <div className="form-outline mb-4">
                     <label className="form-label capitalize" htmlFor="form3Example3" style={{'fontWeight':700}}>Category C</label>
                     </div>
@@ -113,15 +120,15 @@ class auctionModal extends React.Component {
                         <input type="number"
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryCMinPoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
-                            placeholder={"please enter Venue"} />
+                            placeholder={"please enter base Price for player"} />
                     </div>
-                    {/* <div className="form-outline mb-4">
-                        <label className="form-label capitalize" htmlFor="form3Example3">Maximum Point for player</label>
+                    <div className="form-outline mb-4">
+                        <label className="form-label capitalize" htmlFor="form3Example3">Price Increase by</label>
                         <input type="number"
-                            onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryCMaxPoint', value: e.target.value } }) }}
+                            onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryCIncreasePoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
-                            placeholder={"please enter Venue"} />
-                    </div> */}
+                            placeholder={"please enter price increase by"} />
+                    </div>
                     </div>
                 </div>
                 

@@ -9,27 +9,39 @@ class Team extends React.Component {
         let type = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : ''
         let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
         let basePriceMin
-        let basePriceMax
+        let increasePrice
         if (type == 'category') {
-            pointJson.map((item) => {
-                if (item.category == cat) {
-                    basePriceMin = item.min
-                    basePriceMax = item.max
+            for (var i = 0; i < pointJson.length; i++) {
+                console.log(pointJson[i])
+                if (pointJson[i].category == cat) {
+                    basePriceMin = pointJson[i].min
+                    increasePrice = pointJson[i].increase
+                    console.log(cat, min,'cat, min')
+                    console.log(basePriceMin, increasePrice,'increasePrice, min')
+                    break;
                 }
-            })
+            }
         } else {
             if (pointJson && pointJson.length > 0) {
                 basePriceMin = pointJson[0].min
-                basePriceMax = pointJson[0].max
+                increasePrice = pointJson[0].increase
             }
         }
         if (min) {
             return basePriceMin
         } else {
-            return basePriceMax
+            return increasePrice
         }
     }
-    render() {
+    increaseBid(amount){
+        let lastAmount = this.props.auctionTournamentPlayerBindAmount ? this.props.auctionTournamentPlayerBindAmount : 0
+       console.log(amount, lastAmount)
+        let current = parseInt(lastAmount) + parseInt(amount)
+        this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentPlayerBindAmount', value: current } })
+        
+    }
+    render() {  
+     
         let player = this.props.player
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
         let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
@@ -44,6 +56,9 @@ class Team extends React.Component {
                     label: item.teamName,
                 })
             })
+        }
+        if(player && (!this.props.auctionTournamentPlayerBindAmount || this.props.auctionTournamentPlayerBindAmount == 0 )){
+            this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentPlayerBindAmount', value:  this.getPrice(player.playerType, true) } })
         }
         return (
             player ? <div className="blogSlider">
@@ -76,6 +91,7 @@ class Team extends React.Component {
                                         <li>Total Matches: <span>{player.totalMatches ? player.totalMatches : 0 }</span></li>
                                         <li>Last Bid Price: <span>{player.lastBidAmount ? player.lastBidAmount : 0}</span></li>
                                         <li>Location: <span>{player.location}</span></li>
+                                        { player.url && <a href={player.url} target='blank' className="btn btn-primary">View Crichero Profile</a>    }
                                     </ul>
                                 </div>
                             </div>
@@ -102,13 +118,19 @@ class Team extends React.Component {
                         </div>
                         <div className='inputBox'>
                             <label className="flabel capitalize" htmlFor="form3Example3"> Select enter the bid amount </label>
+                           <div className='input-group'>
                             <input type='text' id="form3Example3"
+                            disabled={true}
                                 value ={this.props.auctionTournamentPlayerBindAmount}
                                 onChange={(e) => {
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentPlayerBindAmount', value: e.target.value } })
                                 }}
                                 className="form-control form-control-lg"
                                 placeholder="please bid amount" />
+                                <div className='inputGroupBox'>
+                                <a  onClick={()=>{this.increaseBid(this.getPrice(player.playerType, false))}} target='blank' className="btn btn-warning">Increase Bid</a>
+                                </div> 
+                                </div>
                         </div>
                     </div>
                     <div className='buttonBox'>

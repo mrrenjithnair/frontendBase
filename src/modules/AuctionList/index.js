@@ -47,12 +47,12 @@ export class AuctionList extends React.PureComponent {
         //     teamPoint: this.props.auctionTeamPoint,
         // }
         // if (this.props.auctionType == 'category') {
-        //     obj.pointJson = [{ min: this.props.auctionMinPoint, max: this.props.auctionMaxPoint }]
+        //     obj.pointJson = [{ min: this.props.auctionMinPoint, max: this.props.auctionIncreasePoint }]
         // } else if (this.props.auctionType == 'noCategory') {
         //     obj.pointJson = [
-        //         { category: 'A', min: this.props.auctionCategoryAMinPoint, max: this.props.auctionCategoryAMaxPoint },
-        //         { category: 'B', min: this.props.auctionCategoryBMinPoint, max: this.props.auctionCategoryBMaxPoint },
-        //         { category: 'C', min: this.props.auctionCategoryCMinPoint, max: this.props.auctionCategoryCMaxPoint },
+        //         { category: 'A', min: this.props.auctionCategoryAMinPoint, max: this.props.auctionCategoryAIncreasePoint },
+        //         { category: 'B', min: this.props.auctionCategoryBMinPoint, max: this.props.auctionCategoryBIncreasePoint },
+        //         { category: 'C', min: this.props.auctionCategoryCMinPoint, max: this.props.auctionCategoryCIncreasePoint },
         //     ]
         // }
         let error = false
@@ -231,13 +231,13 @@ function mapStateToProps(state) {
         auctionVenue: state.global.auctionVenue,
         auctionTeamPoint: state.global.auctionTeamPoint,
         auctionMinPoint: state.global.auctionMinPoint,
-        auctionMaxPoint: state.global.auctionMaxPoint,
+        auctionIncreasePoint: state.global.auctionIncreasePoint,
         auctionCategoryAMinPoint: state.global.auctionCategoryAMinPoint,
-        auctionCategoryAMaxPoint: state.global.auctionCategoryAMaxPoint,
+        auctionCategoryAIncreasePoint: state.global.auctionCategoryAIncreasePoint,
         auctionCategoryBMinPoint: state.global.auctionCategoryBMinPoint,
-        auctionCategoryBMaxPoint: state.global.auctionCategoryBMaxPoint,
+        auctionCategoryBIncreasePoint: state.global.auctionCategoryBIncreasePoint,
         auctionCategoryCMinPoint: state.global.auctionCategoryCMinPoint,
-        auctionCategoryCMaxPoint: state.global.auctionCategoryCMaxPoint,
+        auctionCategoryCIncreasePoint: state.global.auctionCategoryCIncreasePoint,
         tournamentPendingListGlobal: state.global.tournamentPendingListGlobal,
 
         

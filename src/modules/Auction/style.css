@@ -509,6 +509,18 @@ align-items: center;
   font-weight: 700;
   color: #12263a;
 }
+.inputGroupBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffc107;
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  color: #ffff;
+}
+.inputGroupBox .btn {
+  color: #ffff;
+}
 
 @media screen and (min-width: 992px){
  .blogSlider .card{

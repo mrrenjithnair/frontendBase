@@ -243,14 +243,14 @@ let auctionDate= false;
 let auctionVenue= false;
 let auctionTeamPoint= false;
 let auctionMinPoint= false;
-let auctionMaxPoint= false;
+let auctionIncreasePoint= false;
 let auctionCategoryAMinPoint= false;
-let auctionCategoryAMaxPoint= false;
+let auctionCategoryAIncreasePoint= false;
 let auctionCategoryBMinPoint= false;
-let auctionCategoryBMaxPoint= false;
+let auctionCategoryBIncreasePoint= false;
 let auctionCategoryCMinPoint= false;
-let auctionCategoryCMaxPoint= false;
-            return { ...state, tournamentDetailGlobal:false, nearByTournament, TournamentDetailsPage, tournamentListGlobal, auctionTournamentId, auctionPlayer:{}, auctionPlayerId, auctionTournamentTeamId, auctionTournamentId, auctionRequestId, auctionTournamentPlayerBindAmount, auctionType, auctionDate, auctionVenue, auctionTeamPoint, auctionMinPoint, auctionMaxPoint, auctionCategoryAMinPoint, auctionCategoryAMaxPoint, auctionCategoryBMinPoint, auctionCategoryBMaxPoint, auctionCategoryCMinPoint, auctionCategoryCMaxPoint };
+let auctionCategoryCIncreasePoint= false;
+            return { ...state, tournamentDetailGlobal:false, nearByTournament, TournamentDetailsPage, tournamentListGlobal, auctionTournamentId, auctionPlayer:{}, auctionPlayerId, auctionTournamentTeamId, auctionTournamentId, auctionRequestId, auctionTournamentPlayerBindAmount, auctionType, auctionDate, auctionVenue, auctionTeamPoint, auctionMinPoint, auctionIncreasePoint, auctionCategoryAMinPoint, auctionCategoryAIncreasePoint, auctionCategoryBMinPoint, auctionCategoryBIncreasePoint, auctionCategoryCMinPoint, auctionCategoryCIncreasePoint };
 
         default:
             return state;

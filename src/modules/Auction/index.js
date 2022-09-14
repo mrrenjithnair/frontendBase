@@ -107,12 +107,12 @@ export class Auction extends React.PureComponent {
         //     teamPoint: this.props.auctionTeamPoint,
         // }
         // if (this.props.auctionType == 'category') {
-        //     obj.pointJson = [{ min: this.props.auctionMinPoint, max: this.props.auctionMaxPoint }]
+        //     obj.pointJson = [{ min: this.props.auctionMinPoint, max: this.props.auctionIncreasePoint }]
         // } else if (this.props.auctionType == 'noCategory') {
         //     obj.pointJson = [
-        //         { category: 'A', min: this.props.auctionCategoryAMinPoint, max: this.props.auctionCategoryAMaxPoint },
-        //         { category: 'B', min: this.props.auctionCategoryBMinPoint, max: this.props.auctionCategoryBMaxPoint },
-        //         { category: 'C', min: this.props.auctionCategoryCMinPoint, max: this.props.auctionCategoryCMaxPoint },
+        //         { category: 'A', min: this.props.auctionCategoryAMinPoint, max: this.props.auctionCategoryAIncreasePoint },
+        //         { category: 'B', min: this.props.auctionCategoryBMinPoint, max: this.props.auctionCategoryBIncreasePoint },
+        //         { category: 'C', min: this.props.auctionCategoryCMinPoint, max: this.props.auctionCategoryCIncreasePoint },
         //     ]
         // }
         let error = false
@@ -134,7 +134,7 @@ export class Auction extends React.PureComponent {
                 error = true
                 this.props.setToast(false, 'Please enter min point')
             }
-            if (!this.props.auctionMaxPoint) {
+            if (!this.props.auctionIncreasePoint) {
                 error = true
                 this.props.setToast(false, 'Please enter max point')
             }
@@ -144,21 +144,21 @@ export class Auction extends React.PureComponent {
                 error = true
                 this.props.setToast(false, 'Please enter category A min point')
             }
-            if (!this.props.auctionCategoryAMaxPoint) {
+            if (!this.props.auctionCategoryAIncreasePoint) {
                 error = true
                 this.props.setToast(false, 'Please enter category A max point')
             } if (!this.props.auctionCategoryBMinPoint) {
                 error = true
                 this.props.setToast(false, 'Please enter category B min point')
             }
-            if (!this.props.auctionCategoryBMaxPoint) {
+            if (!this.props.auctionCategoryBIncreasePoint) {
                 error = true
                 this.props.setToast(false, 'Please enter category B max point')
             } if (!this.props.auctionCategoryCMinPoint) {
                 error = true
                 this.props.setToast(false, 'Please enter category C min point')
             }
-            if (!this.props.auctionCategoryCMaxPoint) {
+            if (!this.props.auctionCategoryCIncreasePoint) {
                 error = true
                 this.props.setToast(false, 'Please enter category C max point')
             }
@@ -387,13 +387,13 @@ function mapStateToProps(state) {
         auctionVenue: state.global.auctionVenue,
         auctionTeamPoint: state.global.auctionTeamPoint,
         auctionMinPoint: state.global.auctionMinPoint,
-        auctionMaxPoint: state.global.auctionMaxPoint,
+        auctionIncreasePoint: state.global.auctionIncreasePoint,
         auctionCategoryAMinPoint: state.global.auctionCategoryAMinPoint,
-        auctionCategoryAMaxPoint: state.global.auctionCategoryAMaxPoint,
+        auctionCategoryAIncreasePoint: state.global.auctionCategoryAIncreasePoint,
         auctionCategoryBMinPoint: state.global.auctionCategoryBMinPoint,
-        auctionCategoryBMaxPoint: state.global.auctionCategoryBMaxPoint,
+        auctionCategoryBIncreasePoint: state.global.auctionCategoryBIncreasePoint,
         auctionCategoryCMinPoint: state.global.auctionCategoryCMinPoint,
-        auctionCategoryCMaxPoint: state.global.auctionCategoryCMaxPoint,
+        auctionCategoryCIncreasePoint: state.global.auctionCategoryCIncreasePoint,
         auctionDetailList: state.global.auctionDetailList,
         teamPlayerList: state.global.teamPlayerList,
 

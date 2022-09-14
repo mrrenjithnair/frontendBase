@@ -104,7 +104,7 @@ export class HeaderNavBar extends React.PureComponent {
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.auction && 
                                     <Nav.Link href="#auction" className="nav-link scrollto" onClick={() => { 
                                         this.props.onChangeValueGlobal({ target: { id: 'auction', value: true } })
-                                        history.push('/auction'); 
+                                        history.push('/auctionList'); 
                                         }}>Auction</Nav.Link>}
                                     {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.playerList && 
                                     <Nav.Link href="#userList" className="nav-link scrollto" onClick={() => { history.push('/userList'); }}>Players</Nav.Link>}

@@ -180,6 +180,13 @@ export class Profile extends React.PureComponent {
                 data:[{label:'Cricket',value:'1'}]
             },
             {
+                key: 'url',
+                label: 'cricheroes profile url',
+                type: 'text',
+                required:true,
+                value: this.props.userProfile.url,
+            },
+            {
                 key: 'category',
                 label: 'Category',
                 type: 'select',

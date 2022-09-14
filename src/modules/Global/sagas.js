@@ -274,12 +274,12 @@ export function* createAuction() {
     
   }
   if (global.auctionType == 'noCategory') {
-    obj.pointJson = [{ min: global.auctionMinPoint }]
+    obj.pointJson = [{ min: global.auctionMinPoint, increase: global.auctionIncreasePoint }]
   } else if (global.auctionType == 'category') {
     obj.pointJson = [
-      { category: 'A', min: global.auctionCategoryAMinPoint },
-      { category: 'B', min: global.auctionCategoryBMinPoint },
-      { category: 'C', min: global.auctionCategoryCMinPoint },
+      { category: 'A', min: global.auctionCategoryAMinPoint, increase: global.auctionCategoryAIncreasePoint },
+      { category: 'B', min: global.auctionCategoryBMinPoint, increase: global.auctionCategoryBIncreasePoint },
+      { category: 'C', min: global.auctionCategoryCMinPoint, increase: global.auctionCategoryCIncreasePoint },
     ]
   }
   try {
