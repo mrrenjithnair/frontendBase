@@ -213,6 +213,7 @@ export class Auction extends React.PureComponent {
                                     auctionTournamentPlayerBindAmount={this.props.auctionTournamentPlayerBindAmount}
                                     onChangeValueGlobal={this.props.onChangeValueGlobal}
                                     addPlayerToTeam={() => this.addPlayerToTeam()}
+                                    setToast={this.props.setToast}
                                     next={() => this.next()} />
                             </div>}
                             <div className='detailBox'>

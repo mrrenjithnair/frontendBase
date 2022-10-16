@@ -34,12 +34,19 @@ class Team extends React.Component {
         }
     }
     increaseBid(amount){
+        let teamPoint = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : ''
+        let error = false
         let lastAmount = this.props.auctionTournamentPlayerBindAmount ? this.props.auctionTournamentPlayerBindAmount : 0
-       console.log(amount, lastAmount)
         let current = parseInt(lastAmount) + parseInt(amount)
+        if(current> teamPoint){
+            error = true
+            this.props.setToast(false, 'Amount cannot be more then team total Point.')
+        }
+        if(!error)
         this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentPlayerBindAmount', value: current } })
         
     }
+    
     render() {  
      
         let player = this.props.player
@@ -54,6 +61,7 @@ class Team extends React.Component {
                 teamListArray.push({
                     value: item.teamId,
                     label: item.teamName,
+                    totalSpend:item.totalSpend
                 })
             })
         }
@@ -112,7 +120,7 @@ class Team extends React.Component {
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: player.tournamentId } })
                                 }} >
                                 <option value=""> Select Team</option>
-                                {teamListArray && teamListArray.length > 0 && teamListArray.map(item => <option value={item.value}>{item.label}</option>)}
+                                {teamListArray && teamListArray.length > 0 && teamListArray.map(item => <option value={item.value} totalSpend={item.totalSpend}>{item.label}</option>)}
 
                             </select>
                         </div>
