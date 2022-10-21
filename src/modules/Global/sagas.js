@@ -725,6 +725,33 @@ export function* unSoldPlayer() {
 
   }
 }
+
+export function* getPreferenceValues() {
+  var requestURL = CONFIG.apiURL + '/apiService/getPreferenceValues'
+  const state = yield select();
+  const login = state.login
+  const global = state.global
+	// const sessionToken = login.get("currentUser").token;
+
+  const userId = localStorage.getItem("userId");
+  requestURL = requestURL 
+  try {
+    var options = {
+      method: 'GET',
+     
+    };
+    yield put(actions.setOverlayLoading(true));
+    const preferenceList = yield call(request, requestURL, options);
+    console.log('preferenceList', preferenceList)
+    yield put(actions.getPreferenceValueSuccess(preferenceList));
+    yield put(actions.setOverlayLoading(false));
+  }
+  catch (err) {
+    yield put(actions.setOverlayLoading(false));
+    yield put(actions.deleteOrInActiveFailure(getError(err)));
+
+  }
+}
 export default function* globalSaga() {
   yield all([
     takeLatest('GET_CLUB_DETAIL', clubDetails),
@@ -745,10 +772,8 @@ export default function* globalSaga() {
     takeLatest('DELETE_OR_INACTIVE', deleteOrInActive),
     takeLatest('GET_TOURNAMENT_DETAIL_OF_AUCTION', getTournamentDetailOfAuction),
     takeLatest('GET_UNSOLD_PLAYER', getUnsoldPlayer),
-    
     takeLatest('UN_SOLD_PLAYER', unSoldPlayer),
-
-   
+    takeLatest('GET_PREFERENCE_VALUES', getPreferenceValues),   
     
   ]);
 }

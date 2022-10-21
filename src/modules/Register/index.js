@@ -8,7 +8,7 @@ import HeaderNavBar from '../../components/HeaderNavBar'
 import { Route, Link, Routes } from "react-router-dom";
 
 import { onRegister, onChangeValueRegister } from './actions';
-import { setToast, resetToast } from '../Global/actions';
+import { setToast, resetToast, getPreferenceValue } from '../Global/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -26,11 +26,14 @@ export class Register extends React.PureComponent {
             isEditing: false,
             errorMessage: '',
             username: '',
-            password: ""
+            password: "",
+            forceUpdate: false,
+            sportsCatList:[]
         }
     }
 
     componentDidMount() {
+      this.props.getPreferenceValue()
         window.scrollTo(0, 0)
     }
     handleSubmit(e) {
@@ -106,11 +109,40 @@ export class Register extends React.PureComponent {
         console.error(err);
         alert('login fail')
     };
+    renderSubcat =(id)=>{
+
+      let sportsCatList = []
+      if (this.props.sportsType && this.props.sportsList) {
+        this.props.sportsList.map((item) => {
+          if (item.id == id) {
+            console.log(item.id )
+            if (item.subCategory) {
+              item.subCategory.map((data) => {
+                sportsCatList.push({ label: data.subCategoryName, value: data.subCategoryName })
+              })
+            } else {
+              sportsCatList = []
+            }
+          }
+
+        })
+        console.log('sportsCatList',sportsCatList)
+          this.setState({sportsCatList:sportsCatList})
+        }
+    }
 
     render() {
-        console.log(this.props.count)
+      console.log('sportsList1', this.props.sportsList)
+      let sportsList = []
+      if (this.props.sportsList && this.props.sportsList.length > 0) {
+        this.props.sportsList.map((item) => {
+          sportsList.push({ label: item.name, value: item.id })
+        })
+      }
+      console.log('sportsList', sportsList)
+
         return (
-            <main id="main">
+            <main id="main" className={this.state.forceUpdate}>
               <div className="inner-page">
                 <div className="">
                   <section className="sign-in home">
@@ -160,27 +192,27 @@ export class Register extends React.PureComponent {
                             </div> */}
                             <div className="form-group drops">
                               <label htmlFor="Lname"><i className="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
-                              <select className="form-control form-control-sm">
-                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'sportsType', value: e.target.value } })}}
-                                        <option value={1}>Cricket</option>
+                              <select className="form-control form-control-sm"
+                                    onChange={(e) => {
+                                      this.props.onChangeValueRegister({ target: { id: 'sportsType', value: e.target.value } })
+                                      this.renderSubcat(e.target.value)}}>
+                                    {sportsList.map((item) => <option value={item.value}>{item.label}</option>)}
                                     </select>
                             </div>
         
                             <div className="form-group drops">
                               <label htmlFor="Lname"><i className="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
-                               <select className="form-control form-control-sm">
-                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'playerType', value: e.target.value } })}}
-                                        <option value={'All-rounder'}>All-rounder</option>
-                                        <option value={'Batsman'}>Batsman</option>
-                                        <option value={'Bowler'}>Bowler</option>
-                                        <option value={'Wicket-keeper'}>Wicket-keeper</option>
+                               <select className="form-control form-control-sm"
+                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'playerType', value: e.target.value } })}}>
+                                    {this.state.sportsCatList.map((item) => <option value={item.value}>{item.label}</option>)}
+                                       
                                     </select>
                             </div>
         
                             <div className="form-group drops">
                               <label htmlFor="Lname"><i className="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
-                       <select className="form-control form-control-sm">
-                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'category', value: e.target.value } })}}
+                           <select className="form-control form-control-sm"
+                                    onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'category', value: e.target.value } })}}>
                                         <option value={'A'}>A - (I am very good player)</option>
                                         <option value={'B'}>B - (I am average player)</option>
                                         <option value={'C'}>C - (I am decent player )</option>
@@ -284,6 +316,7 @@ function mapStateToProps(state) {
         mobile: state.register.mobile,
         bio: state.register.bio,
         village: state.register.village,
+        sportsList: state.global.sportsList,
         
         
     };
@@ -295,6 +328,8 @@ function mapDispatchToProps(dispatch) {
         onChangeValueRegister: (data) => dispatch(onChangeValueRegister(data)),        
         setToast: (success, message) => dispatch(setToast(success, message)),
         resetToast: (evt) => dispatch(resetToast(evt)),
+        getPreferenceValue: (evt) => dispatch(getPreferenceValue(evt)),
+        
         
     };
 }

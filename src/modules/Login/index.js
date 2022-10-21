@@ -9,7 +9,7 @@ import BottomNavBar from '../../components/BottomNavBar'
 import history from "../utils/history";
 
 import { login, onChangeValueLogin } from './actions';
-import { setToast, resetToast } from '../Global/actions';
+import { setToast, resetToast, getPreferenceValue } from '../Global/actions';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -52,6 +52,7 @@ export class Login extends React.PureComponent {
     }
 
     componentDidMount() {
+        this.props.getPreferenceValue()
         window.scrollTo(0, 0)
     }
     validate(data) {
@@ -224,6 +225,8 @@ function mapDispatchToProps(dispatch) {
         onChangeValueLogin: (evt) => dispatch(onChangeValueLogin(evt)),
         setToast: (success, message) => dispatch(setToast(success, message)),
         resetToast: (evt) => dispatch(resetToast(evt)),
+        getPreferenceValue: (evt) => dispatch(getPreferenceValue(evt)),
+        
 
     };
 }
