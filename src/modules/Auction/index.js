@@ -77,6 +77,8 @@ export class Auction extends React.PureComponent {
         this.props.getAuctionPlayer()
     }
     addPlayerToTeam(playerType) {
+        let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
+        let totalAmount = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
         let error = false
         this.props.resetToast()
         if (!this.props.auctionTournamentTeamId) {
@@ -93,6 +95,18 @@ export class Auction extends React.PureComponent {
         else if (parseInt(this.props.auctionTournamentPlayerBindAmount) > this.getPrice(playerType, false)) {
             error = true
             this.props.setToast(false, 'Please enter bind amount less then maximum price')
+        } else if(this.props.auctionTournamentTeamId){
+            if (teamList && teamList.length > 0) {
+                teamList.map((item) => {
+                    if (item.teamId == this.props.auctionTournamentTeamId) {
+                        let spentAmount = item.totalSpend ? item.totalSpend : 0
+                        let remainingAmount = totalAmount - spentAmount
+                        if(parseInt(this.props.auctionTournamentPlayerBindAmount) > parseInt(remainingAmount)) {
+                            this.props.setToast(false, 'Please enter bind amount less then team remaining amount ie. ' +parseInt(remainingAmount) )
+                        }
+                    }
+                })
+            }
         }
 
         if (!error) {

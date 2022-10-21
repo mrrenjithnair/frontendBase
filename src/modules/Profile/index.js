@@ -180,11 +180,16 @@ export class Profile extends React.PureComponent {
                 data:[{label:'Cricket',value:'1'}]
             },
             {
-                key: 'url',
-                label: 'cricheroes profile url',
+                key: 'tshirt',
+                label: 'T-Shirt Size',
                 type: 'text',
-                required:true,
-                value: this.props.userProfile.url,
+                value: this.props.userProfile.tshirt,
+            },
+            {
+                key: 'confirmPassword',
+                label: 'Confirm Password',
+                type: 'password',
+                value: this.props.userProfile.confirmPassword,
             },
             {
                 key: 'category',
@@ -195,7 +200,7 @@ export class Profile extends React.PureComponent {
                 data: [{ label: 'All-rounder', value: 'All-rounder' }, { label: 'Batsman', value: 'Batsman' }, { label: 'Bowler', value: 'Bowler' }, { label: 'Wicket-keeper', value: 'Wicket-keeper' }]
             },
             {
-                key: 'player Type',
+                key: 'playerType',
                 label: 'Player Type',
                 type: 'select',
                 required:true,
