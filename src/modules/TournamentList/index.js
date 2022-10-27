@@ -79,6 +79,13 @@ export class TournamentList extends React.PureComponent {
             value: item.endDate,
         },
         {
+            key: 'lastDate',
+            label: 'Last Date of joining',
+            type: 'date',
+            required: true,
+            value: item.lastDate,
+        },
+        {
         key: 'location',
         label: 'Location',
         type: 'text',
@@ -164,6 +171,7 @@ export class TournamentList extends React.PureComponent {
                                 <div className="text-left"><span className="font-weight-bolder">Member Total: </span> <span className="team-text"> {item.memberTotal}</span></div>
                                 <div className="text-left"><span className="font-weight-bolder">Start Date: </span> <span className="team-text"> <Moment format="YYYY/MM/DD">{item.startDate}</Moment></span></div>
                                 <div className="text-left"><span className="font-weight-bolder">End Date: </span> <span className="team-text"> <Moment format="YYYY/MM/DD">{item.endDate}</Moment></span></div>     
+                                {item.lastDate &&<div className="text-left"><span className="font-weight-bolder">Last Date of joining: </span> <span className="team-text"> <Moment format="YYYY/MM/DD">{item.lastDate}</Moment></span></div>     }
                                     <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', borderWidth: 2, borderColor: '#e4e4e4' }}>
                                         {this.props.loggedInRoleId == 3 && this.props.nearByTournament && <div style={{display:'flex',width:'100%',justifyContent:'space-around',marginTop:20}}>
                                             <a disabled={requestedTournament} className={requestedTournament ? "btn btn-secondary" : "btn btn-primary"} onClick={() => this.props.requestJoin('tournament', item.id, item.clubId)}> {requestedTournament ? 'Requested join' : 'Request join'}</a>
@@ -206,6 +214,13 @@ export class TournamentList extends React.PureComponent {
             required: true,
             type: 'date',
             value: this.props.date
+        },
+        {
+            key: 'lastDate',
+            label: 'Last Date of joining',
+            type: 'date',
+            required: true,
+            value: this.props.lastDate
         },
         {
             key: 'location',
