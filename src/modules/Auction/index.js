@@ -186,8 +186,11 @@ export class Auction extends React.PureComponent {
     }
     showCostAnalytics(item,spentAmount ,remainingAmount,totalAmount){
         let basePrice = this.getPrice(this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : 'noCategory', true, true)
+        let clubId = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.clubId ? this.props.tournamentDetailGlobal.clubId : null 
         item.basePrice = basePrice ? basePrice :0
+        console.log("clubId====",clubId)
         this.props.onChangeValueGlobal({ target: { id: 'globalSelectedTeamId', value: item.teamId } })
+        this.props.onChangeValueGlobal({ target: { id: 'globalSelectedClub', value: clubId } })
         this.props.getUserList()
         this.setState({ costAnalytics: true, selectedTeam: item, spentAmount ,remainingAmount,totalAmount })
     }

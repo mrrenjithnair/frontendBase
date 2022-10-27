@@ -317,6 +317,8 @@ export function* getUserList() {
   params.superAdmin = false
   if (club && club.id) {
     params.clubId = parseInt(club.id)
+  } else if(club){
+    params.clubId = parseInt(club)
   }
   if (teamId) {
     params.teamId = parseInt(teamId)
