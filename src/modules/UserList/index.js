@@ -51,7 +51,7 @@ export class UserList extends React.PureComponent {
             <div className="col-md-6 col-lg-3 item" key={item.id}>
 
             <div className="box">
- {item.profilePicture ? <img className="rounded-circle"  src={item.profilePicture} alt={item.name} data-letters="MN" />
+ {item.profilePictureUrl ? <img className="rounded-circle"  src={item.profilePictureUrl} alt={item.name} data-letters="MN" />
                     : <div className="rounded-circle letterCircleUser" >{initials}</div>}
                 <h3 className="name">{item.firstName} {item.lastName}</h3>
                 <div className="text-left"><span className="font-weight-bolder">Username :</span> <span className="team-text"> {item.username}</span></div>

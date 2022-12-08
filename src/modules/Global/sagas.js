@@ -397,7 +397,7 @@ export function* getPlayerTeamList() {
   var requestURL = CONFIG.apiURL + '/apiService/team'
   const userId = localStorage.getItem("userId");
   if (userId) {
-    params.userId = parseInt(userId)
+    params.playerId = parseInt(userId)
   }
   requestURL = requestURL + toURLString(params)
   const sessionToken = global.sessionToken
