@@ -514,6 +514,16 @@ align-items: center;
   justify-content: center;
   align-items: center;
   background: #ffc107;
+  color: #ffff;
+}
+.inputGroupBox .btn {
+  color: #ffff;
+}
+.inputGroupBoxDanger{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #dc3545;
   border-top-right-radius: 10px !important;
   border-bottom-right-radius: 10px !important;
   color: #ffff;

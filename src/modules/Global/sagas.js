@@ -613,6 +613,43 @@ export function* deleteOrInActive() {
 
   }
 }
+
+export function* unSoldPlayer() {
+  var requestURL = CONFIG.apiURL + '/apiService/unSoldPlayer'
+  const state = yield select();
+  const login = state.login
+  const global = state.global
+	// const sessionToken = login.get("currentUser").token;
+  const sessionToken = global.sessionToken
+  const userId = localStorage.getItem("userId");
+  requestURL = requestURL 
+  let auctionPlayerId = state.global.auctionPlayerId
+  let auctionTournamentId = state.global.auctionTournamentId
+  let data ={}
+  if(auctionPlayerId)
+  data.id = auctionPlayerId 
+  if(auctionTournamentId)
+  data.tournamentId = auctionTournamentId
+  
+  try {
+    var options = {
+      method: 'POST',
+      body: data,
+    	sessionToken: sessionToken,
+    };
+    yield put(actions.setOverlayLoading(true));
+    const unsoldPlayer = yield call(request, requestURL, options);
+    console.log('unsoldPlayer', unsoldPlayer)
+    
+    yield put(actions.getAuctionPlayer(false));
+    yield put(actions.setOverlayLoading(false));
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.setOverlayLoading(false));
+
+  }
+}
 export default function* globalSaga() {
   yield all([
     takeLatest('GET_CLUB_DETAIL', clubDetails),
@@ -628,8 +665,10 @@ export default function* globalSaga() {
     takeLatest('PROFILE_EDIT', editProfile),
     takeLatest('TEAM', insertOrUpdateTeam),
     takeLatest('EDIT_CLUB', editClub),
-   takeLatest('DELETE_OR_INACTIVE', deleteOrInActive),
-   takeLatest('GET_TOURNAMENT_DETAIL_OF_AUCTION', getTournamentDetailOfAuction),
+    takeLatest('DELETE_OR_INACTIVE', deleteOrInActive),
+    takeLatest('GET_TOURNAMENT_DETAIL_OF_AUCTION', getTournamentDetailOfAuction),
+    takeLatest('UN_SOLD_PLAYER', unSoldPlayer),
+
    
     
   ]);

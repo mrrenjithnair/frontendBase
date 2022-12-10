@@ -72,6 +72,7 @@ export const DELETE_OR_INACTIVE_FAILURE = 'DELETE_OR_INACTIVE_FAILURE';
 export const GET_TOURNAMENT_DETAIL_OF_AUCTION = 'GET_TOURNAMENT_DETAIL_OF_AUCTION';
 export const GET_TOURNAMENT_DETAIL_OF_AUCTION_SUCCESS = 'GET_TOURNAMENT_DETAIL_OF_AUCTION_SUCCESS';
 export const GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE = 'GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE';
+export const UN_SOLD_PLAYER = 'UN_SOLD_PLAYER';
 
 
 
@@ -478,5 +479,11 @@ export function deleteOrInActiveFailure(err) {
   toast.error(err);
   return {
       type: DELETE_OR_INACTIVE_FAILURE,
+  };
+}
+
+export function unSoldPlayer() {
+  return {
+      type: UN_SOLD_PLAYER
   };
 }

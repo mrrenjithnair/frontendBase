@@ -15,7 +15,7 @@ import CustomModal from './CustomModal'
 
 import profile from '../../images/profile.jpg'
 
-import { getTournamentList, onChangeValueGlobal, getUserList, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction } from '../Global/actions';
+import { getTournamentList, onChangeValueGlobal, getUserList, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction, unSoldPlayer } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
 import { faArrowAltCircleRight, faBalanceScale, faCalendarDay, faMoneyBill, faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -75,6 +75,9 @@ export class Auction extends React.PureComponent {
     }
     next() {
         this.props.getAuctionPlayer()
+    }
+    unSoldPlayer(){
+        this.props.unSoldPlayer()
     }
     addPlayerToTeam(playerType) {
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
@@ -231,6 +234,7 @@ export class Auction extends React.PureComponent {
                                     onChangeValueGlobal={this.props.onChangeValueGlobal}
                                     addPlayerToTeam={() => this.addPlayerToTeam()}
                                     setToast={this.props.setToast}
+                                    unSoldPlayer={()=>this.unSoldPlayer()}
                                     next={() => this.next()} />
                             </div>}
                             <div className='detailBox'>
@@ -434,7 +438,8 @@ function mapDispatchToProps(dispatch) {
         resetToast: (evt) => dispatch(resetToast(evt)),
         createAuction: (evt) => dispatch(createAuction(evt)),
         resetAuction: (evt) => dispatch(resetAuction(evt)),
-
+        unSoldPlayer: (evt) => dispatch(unSoldPlayer(evt)),
+        
 
     };
 }
