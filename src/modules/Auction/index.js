@@ -308,7 +308,12 @@ export class Auction extends React.PureComponent {
                 <div>
                     <div style={{ 'paddingLeft': '50px' }}>
                         <h2 className='product-title'>Sold Players</h2>
+                    <Button variant="primary" onClick={() =>    this.props.getTournamentDetailOfAuction()} >Refresh</Button>
+
                     </div>
+                    <div style={{'display':'flex','justifyContent':'center','padding':'10px'}}> 
+                        </div>
+                        
                     <div>
                         <div class="container">
                             <div class="row">
