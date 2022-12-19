@@ -10,6 +10,8 @@ import { faFacebook, faGoogle, faLinkedin, faTwitter } from '@fortawesome/free-b
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import AuctionModal from '../../components/AuctionModal'
+import EditAuctionModal from '../../components/EditAuctionModal'
+
 import roleInfo from '../utils/roleInfo';
 import nodata from '../../images/nodata1.jpg'
 import profile from '../../images/profile.jpg'
@@ -95,7 +97,9 @@ export class AuctionList extends React.PureComponent {
         if (!error) {
             console.log('rrr')
             this.props.createAuction()
-            this.setState({ showModal: false })
+            this.props.onChangeValueGlobal({ target: { id: 'auctionPending', value: false } })
+            this.props.getTournamentList()
+            this.setState({ showModal: false, editModal:false })
         }
     
     }
@@ -125,6 +129,8 @@ export class AuctionList extends React.PureComponent {
                 {/* <div className="text-left"><span className="font-weight-bolder">Start Date :</span> <span className="team-text"> {formatDate(item.startDate)}</span></div> */}
                 {/* <div className="text-left"><span className="font-weight-bolder">EndDate :</span> <span className="team-text"> {formatDate(item.endDate)}</span></div> */}
                 <div className="btn-wrap"><a className="btn-detail" onClick={() => this.detailAuction(item)}>Details</a></div>
+                <div className="btn-wrap"><a className="btn-detail" onClick={() => this.actionAuction(item)}>Edit</a></div>
+                
             </div>
 
         </div>
@@ -138,6 +144,39 @@ export class AuctionList extends React.PureComponent {
             this.props.getAuctionPlayer()
         }
         history.push('/auction')
+    }
+    actionAuction(data){
+        let tournamentList =[]
+            tournamentList.push({
+                value: data.id,
+                label: data.name,
+            })
+            this.setState({tournamentList:tournamentList})
+        this.props.onChangeValueGlobal({ target: { id: 'auctionCreateTournamentId', value: data.id } })
+        this.props.onChangeValueGlobal({ target: { id: 'auctionDate', value: new Date(data.auctionDate) } })
+        this.props.onChangeValueGlobal({ target: { id: 'auctionVenue', value: data.venue } })
+        this.props.onChangeValueGlobal({ target: { id: 'auctionType', value: data.auctionType } })
+        this.props.onChangeValueGlobal({ target: { id: 'auctionTeamPoint', value: data.auctionTeamPoint.toString()  } })
+        this.props.onChangeValueGlobal({ target: { id: 'auctionId', value: data.auctionId } })
+        
+        let pointJson = data.pointJson ? JSON.stringify(data.pointJson) : null
+         pointJson = pointJson ? JSON.parse(pointJson.replace(/\r?\n|\r|\t/g, '')) : null
+        if (data.auctionType == 'noCategory') {
+            if(pointJson && pointJson.length>0){
+                this.props.onChangeValueGlobal({ target: { id: 'auctionMinPoint', value: pointJson[0].min } })
+                this.props.onChangeValueGlobal({ target: { id: 'auctionIncreasePoint', value: pointJson[0].increase } })
+           
+            }
+           } else {
+            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryAMinPoint', value: data.auctionCategoryAMinPoint } })
+            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryAIncreasePoint', value: data.auctionCategoryAIncreasePoint } })
+            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryBMinPoint', value: data.auctionCategoryBMinPoint } })
+            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryBIncreasePoint', value: data.auctionCategoryBIncreasePoint } })
+            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryCMinPoint', value: data.auctionCategoryCMinPoint } })
+            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryCIncreasePoint', value: data.auctionCategoryCIncreasePoint } })
+
+        }
+         this.setState({editModal:true})
     }
 
 
@@ -201,6 +240,15 @@ export class AuctionList extends React.PureComponent {
                     auctionType={this.props.auctionType}
                     tournamentListGlobalArray={tournamentListGlobalArray}
                 />
+                <EditAuctionModal
+                    {...this.props}
+                    title="Edit Auction"
+                    show={this.state.editModal}
+                    onHide={() => this.setState({ editModal: false })}
+                    onSubmit={() => this.auctionSubmit()}
+                    onChangeInput={(evt) => this.props.onChangeValueGlobal(evt)}
+                    tournamentListGlobalArray={this.state.tournamentList}
+                />
             </section>
         );
     }
@@ -239,7 +287,8 @@ function mapStateToProps(state) {
         auctionCategoryCMinPoint: state.global.auctionCategoryCMinPoint,
         auctionCategoryCIncreasePoint: state.global.auctionCategoryCIncreasePoint,
         tournamentPendingListGlobal: state.global.tournamentPendingListGlobal,
-
+        auctionCreateTournamentId: state.global.auctionCreateTournamentId,
+        
         
     };
 }

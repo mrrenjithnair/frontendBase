@@ -265,6 +265,7 @@ export function* createAuction() {
   const sessionToken = state.global.sessionToken
   const club = state.global.globalSelectedClub
   const global = state.global
+  
   let obj = {
     venue: global.auctionVenue,
     date:  new Date(global.auctionDate).valueOf(),
@@ -272,6 +273,9 @@ export function* createAuction() {
     teamPoint: global.auctionTeamPoint,
     tournamentId: global.auctionCreateTournamentId,
     
+  }
+  if(global.auctionId){
+   obj.id = global.auctionId
   }
   if (global.auctionType == 'noCategory') {
     obj.pointJson = [{ min: global.auctionMinPoint, increase: global.auctionIncreasePoint }]

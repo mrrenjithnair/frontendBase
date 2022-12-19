@@ -327,6 +327,7 @@ export class Auction extends React.PureComponent {
                                                         <th><span>Player Name</span></th>
                                                         <th><span>Team Name</span></th>
                                                         <th><span>Sold At</span></th>
+                                                        <th><span>Edit</span></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -343,6 +344,9 @@ export class Auction extends React.PureComponent {
                                                             {item.logoUrl ? <img src={item.logoUrl} alt="" /> : <img src={team} alt="" />}
                                                             <span class="user-link">{item.name}</span>
 
+                                                        </td>
+                                                        <td>
+                                                            {item.bidAmount}
                                                         </td>
                                                         <td>
                                                             {item.bidAmount}
