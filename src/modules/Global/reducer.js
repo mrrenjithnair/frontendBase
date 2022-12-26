@@ -23,6 +23,7 @@ import {
     UPLOAD_PHOTO_SUCCESS,
     UPLOAD_PHOTO_FAILURE,
     ON_CHANGE_VALUE_PROFILE,
+    ON_CHANGE_VALUE_AUCTION,
     ON_LOGIN_FAILURE,
     ON_LOG_OUT,
     SET_OVERLAY_LOADING,
@@ -32,6 +33,8 @@ import {
     ON_CHANGE_VALUE_CLUB,
     ADD_PLAYER_TO_TEAM_SUCCESS,
     ADD_PLAYER_TO_TEAM_FAILURE,
+    EDIT_PLAYER_TO_TEAM_SUCCESS,
+    EDIT_PLAYER_TO_TEAM_FAILURE,
     GET_TOURNAMENT_DETAIL_OF_AUCTION_SUCCESS,
     GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE,
     RESET_AUCTION
@@ -166,8 +169,17 @@ export default function (state = initialState, actions) {
                 }
             })
             return { ...state, profileEdit: userProfileDetail };
-            
 
+        case ON_CHANGE_VALUE_AUCTION:
+            let seletedBidEdit = state.seletedBidEdit
+            seletedBidEdit.map((item)=>{
+                if(item.key == actions.id){
+                    item.value = actions.value
+                }
+            })
+            return { ...state, seletedBidEdit: seletedBidEdit };
+                            
+            
         case GET_PLAYER_TEAM_LIST_FAILURE:
                 return { ...state, 'playerTeamList': false };
                 
@@ -216,6 +228,15 @@ export default function (state = initialState, actions) {
             toast.error('Player sold failed');
                 return { ...state,  };
 
+        case EDIT_PLAYER_TO_TEAM_SUCCESS:
+            toast.success('Player sold to the team');
+            return { ...state, auctionTournamentTeamId: null, auctionTournamentPlayerBindAmount: null };
+
+        case EDIT_PLAYER_TO_TEAM_FAILURE:
+            toast.error('Player sold failed');
+                return { ...state,  };
+        
+                
         case ON_CHANGE_VALUE_CLUB:
             let seletedClubEdit = state.seletedClubEdit
             seletedClubEdit.map((item)=>{

@@ -259,6 +259,41 @@ export function* addPlayerToTeam() {
 
   }
 }
+export function* editPlayerToTeam() {
+  var requestURL = CONFIG.apiURL + '/apiService/auctionPlayer'
+  const state = yield select();
+  const sessionToken = state.global.sessionToken
+  const club = state.global.globalSelectedClub
+  const global = state.global
+  
+  let seletedBidEdit  = exportKeyValue( global.seletedBidEdit)
+  seletedBidEdit.update = true
+  if(seletedBidEdit.teamId){
+    seletedBidEdit.teamId =  parseInt(seletedBidEdit.teamId)
+  }
+  try {
+    var options = {
+      method: 'POST',
+      body: seletedBidEdit,
+      sessionToken: sessionToken,
+    };
+    yield put(actions.setOverlayLoading(true));
+    const result = yield call(request, requestURL, options);
+    console.log('result', result)
+    yield put(actions.editPlayerToTeamrSuccess(result));
+    yield put(actions.getAuctionPlayer());
+    yield put(actions.getTournamentDetailOfAuction());
+    yield put(actions.getTournamentList());
+    yield put(actions.setOverlayLoading(false));
+
+  }
+  catch (err) {
+    console.log('err', err)
+    yield put(actions.setOverlayLoading(false));
+    yield put(actions.editPlayerToTeamFailure(getError(err)));
+
+  }
+}
 export function* createAuction() {
   var requestURL = CONFIG.apiURL + '/apiService/auction'
   const state = yield select();
@@ -661,6 +696,8 @@ export default function* globalSaga() {
     takeLatest('GET_TOURNAMENT_LIST_GLOBAL', getTournamentList),
     takeLatest('GET_AUCTION_PLAYER', getAuctionPlayer),
     takeLatest('ADD_PLAYER_TO_TEAM', addPlayerToTeam),
+    takeLatest('EDIT_PLAYER_TO_TEAM', editPlayerToTeam),
+    
     takeLatest('GET_USER_LIST_GLOBAL', getUserList),
     takeLatest('GET_USER_DETAIL', getUserDetail),
     takeLatest('GET_PLAYER_TEAM_LIST', getPlayerTeamList),

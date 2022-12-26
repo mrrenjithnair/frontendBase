@@ -15,7 +15,7 @@ import CustomModal from './CustomModal'
 
 import profile from '../../images/profile.jpg'
 
-import { getTournamentList, onChangeValueGlobal, getUserList, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction, unSoldPlayer } from '../Global/actions';
+import { getTournamentList,onChangeValueAuction, onChangeValueGlobal, getUserList, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction, unSoldPlayer, editPlayerToTeam } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
 import { faArrowAltCircleRight, faBalanceScale, faCalendarDay, faMoneyBill, faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -197,7 +197,75 @@ export class Auction extends React.PureComponent {
         this.props.getUserList()
         this.setState({ costAnalytics: true, selectedTeam: item, spentAmount ,remainingAmount,totalAmount })
     }
+    editBid(item){
+        let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
+        let teamListArray = []
+        if (teamList && teamList.length > 0) {
+            teamList.map((item) => {
+                teamListArray.push({
+                    value: item.teamId,
+                    label: item.teamName,
+                    totalSpend:item.totalSpend
+                })
+            })
+        }
+        let data = [{
+            key: 'name',
+            label: 'name',
+            type: 'text',
+            value: item.playerName
+        },
+        {
+            key: 'teamId',
+            label: 'Team',
+            type: 'select',
+            value: item.teamId,
+            data: teamListArray,
+            required:true
+        },
+        {
+            key: 'bidAmount',
+            label: 'Bid Amount',
+            type: 'text',
+            value: item.bidAmount,
+            required:true
+        },
+        {
+            key: 'playerUserId',
+            value: item.playerId,
+        },
+    
+        {
+            key: 'tournamentId',
+            value: item.tournamentId,
+        },
 
+        {
+            key: 'prevTeamId',
+            value: item.teamId,
+        },
+        {
+            key: 'requestId',
+            value: item.requestId,
+        },
+        
+    
+    ]
+    this.props.onChangeValueGlobal({ target: { id: 'seletedBidEdit', value: data } })
+
+        this.setState({editModal:true,seletedBidEdit: data})
+        
+    }
+    onChangeValueAuction(evt){
+        console.log(evt)
+        this.setState({typing: !this.state.typing})
+        this.props.onChangeValueAuction(evt)
+    }
+    editBidSubmit(){
+        this.setState({typing: !this.state.typing})
+        this.props.editPlayerToTeam()
+        this.setState({editModal:false})
+    }
 
     render() {
         let tournamentListGlobal = this.props.tournamentListGlobal && this.props.tournamentListGlobal.length > 0 ? this.props.tournamentListGlobal : []
@@ -327,7 +395,7 @@ export class Auction extends React.PureComponent {
                                                         <th><span>Player Name</span></th>
                                                         <th><span>Team Name</span></th>
                                                         <th><span>Sold At</span></th>
-                                                        <th><span>Edit</span></th>
+                                                        {this.props.loggedInRoleId == 2 &&   <th><span>Edit</span></th>}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -348,9 +416,10 @@ export class Auction extends React.PureComponent {
                                                         <td>
                                                             {item.bidAmount}
                                                         </td>
-                                                        <td>
-                                                            {item.bidAmount}
-                                                        </td>
+                                                        {this.props.loggedInRoleId == 2 &&  <td>
+                                                        <a href="#" onClick={() => this.editBid(item)} className= 'btn btn-warning'>Edit</a>
+
+                                                        </td>}
 
                                                     </tr>)}
 
@@ -387,6 +456,15 @@ export class Auction extends React.PureComponent {
                     spentAmount={this.state.spentAmount}
                     teamPlayerList={this.props.teamPlayerList}
                 />
+                  <EditModal
+                title={"Edit Auction"}
+                show={this.state.editModal}
+                onHide={() => this.setState({ editModal: false })}
+                onSubmit={() => this.editBidSubmit()}
+                feildObj={this.props.seletedBidEdit}
+                uploadPhoto={this.props.uploadPhoto}
+                onChangeInput={(evt) => this.onChangeValueAuction(evt)}
+               />
 
             </section>
         );
@@ -427,7 +505,9 @@ function mapStateToProps(state) {
         auctionCategoryCIncreasePoint: state.global.auctionCategoryCIncreasePoint,
         auctionDetailList: state.global.auctionDetailList,
         teamPlayerList: state.global.teamPlayerList,
+        seletedBidEdit: state.global.seletedBidEdit,
 
+        
 
 
     };
@@ -448,6 +528,9 @@ function mapDispatchToProps(dispatch) {
         createAuction: (evt) => dispatch(createAuction(evt)),
         resetAuction: (evt) => dispatch(resetAuction(evt)),
         unSoldPlayer: (evt) => dispatch(unSoldPlayer(evt)),
+        onChangeValueAuction: (evt) => dispatch(onChangeValueAuction(evt)),
+        editPlayerToTeam: (evt) => dispatch(editPlayerToTeam(evt)),
+        
         
 
     };

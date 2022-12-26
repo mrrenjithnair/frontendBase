@@ -31,6 +31,12 @@ export const ADD_PLAYER_TO_TEAM_FAILURE = 'ADD_PLAYER_TO_TEAM_FAILURE';
 export const RESET_TOAST = 'RESET_TOAST';
 export const SET_TOAST = 'SET_TOAST';
 
+export const EDIT_PLAYER_TO_TEAM = 'EDIT_PLAYER_TO_TEAM';
+export const EDIT_PLAYER_TO_TEAM_SUCCESS = 'EDIT_PLAYER_TO_TEAM_SUCCESS';
+export const EDIT_PLAYER_TO_TEAM_FAILURE = 'EDIT_PLAYER_TO_TEAM_FAILURE';
+
+
+
 export const GET_USER_LIST_GLOBAL_FAILURE = 'GET_USER_LIST_GLOBAL_FAILURE';
 export const GET_USER_LIST_GLOBAL = 'GET_USER_LIST_GLOBAL';
 export const GET_USER_LIST_GLOBAL_SUCCESS = 'GET_USER_LIST_GLOBAL_SUCCESS';
@@ -39,6 +45,8 @@ export const GET_USER_DETAIL = 'GET_USER_DETAIL';
 export const GET_USER_DETAILL_SUCCESS = 'GET_USER_DETAILL_SUCCESS';
 export const GET_USER_DETAIL_FAILURE = 'GET_USER_DETAIL_FAILURE';
 export const ON_CHANGE_VALUE_PROFILE = 'ON_CHANGE_VALUE_PROFILE';
+export const ON_CHANGE_VALUE_AUCTION = 'ON_CHANGE_VALUE_AUCTION';
+
 export const PROFILE_EDIT = 'PROFILE_EDIT';
 export const PROFILE_EDIT_SUCCESS = 'PROFILE_EDIT_SUCCESS';
 export const PROFILE_EDIT_FAILURE = 'PROFILE_EDIT_FAILURE';
@@ -236,6 +244,27 @@ export function addPlayerToTeamFailure(data) {
   };
 }
 
+
+export function editPlayerToTeam() {
+  return {
+      type: EDIT_PLAYER_TO_TEAM,
+  };
+}
+
+export function editPlayerToTeamrSuccess(data) {
+  return {
+      type: EDIT_PLAYER_TO_TEAM_SUCCESS,
+      data: data
+  };
+}
+export function editPlayerToTeamFailure(data) {
+  toast.error(data);
+  return {
+      type: EDIT_PLAYER_TO_TEAM_FAILURE,
+      data: data
+  };
+}
+
 export function setToast(success,message) {
   return {
       type: SET_TOAST,
@@ -303,6 +332,15 @@ export function onChangeValueProfile(evt) {
     value: evt.target.value,
     };
 }
+
+export function onChangeValueAuction(evt) {
+  return {
+    type: ON_CHANGE_VALUE_AUCTION,
+    id: (!evt.target.id) ? evt.target.name : evt.target.id,
+    value: evt.target.value,
+    };
+}
+
 export function editProfile() {
   return {
       type: PROFILE_EDIT,
