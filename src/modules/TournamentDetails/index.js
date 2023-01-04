@@ -323,7 +323,7 @@ export class TournamentDetails extends React.PureComponent {
                                     {this.props.teamPlayerList && this.props.teamPlayerList.length > 0 ?
                                         this.props.teamPlayerList.map((item) => (
                                             <div className="profile-box">
-                                               {item.profilePicture ? <img src={item.profilePicture} alt="profile pic" />:
+                                               {item.profilePictureUrl ? <img src={item.profilePictureUrl} alt="profile pic" />:
                                                 <img src={profile} alt="profile pic" />}
                                                 <h3>{item.firstName} {item.lastName}</h3>
                                                 <h4>{item.category}</h4>

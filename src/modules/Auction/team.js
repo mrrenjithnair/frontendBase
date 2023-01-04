@@ -165,9 +165,9 @@ class Team extends React.Component {
                             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: player.tournamentId } })
                             this.props.addPlayerToTeam(player.playerType)
                         }}>Submit</Button>
-                               <Button className="buttonPrimary" onClick={() => {
+                        {/* <Button className="buttonPrimary" onClick={() => {
                             this.props.next()
-                        }}>Next Player</Button>
+                        }}>Next Player</Button> */}
                           <Button className="buttonDanger" onClick={() => {
                             this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
                             this.props.unSoldPlayer()
