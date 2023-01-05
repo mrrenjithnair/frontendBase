@@ -193,7 +193,7 @@ export class Auction extends React.PureComponent {
         item.basePrice = basePrice ? basePrice :0
         console.log("clubId====",clubId)
         this.props.onChangeValueGlobal({ target: { id: 'globalSelectedTeamId', value: item.teamId } })
-        // this.props.onChangeValueGlobal({ target: { id: 'globalSelectedClub', value: clubId } })
+        this.props.onChangeValueGlobal({ target: { id: 'globalSelectedPlayerClubId', value: clubId } })
         this.props.getUserList()
         this.setState({ costAnalytics: true, selectedTeam: item, spentAmount ,remainingAmount,totalAmount })
     }

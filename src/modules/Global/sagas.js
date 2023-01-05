@@ -350,14 +350,15 @@ export function* getUserList() {
   const global = state.global
   const club = state.global.globalSelectedClub
   const teamId = state.global.globalSelectedTeamId
+  const globalSelectedPlayerClubId = state.global.globalSelectedPlayerClubId
   let params = {}
 
   var requestURL = CONFIG.apiURL + '/apiService/player'
   params.superAdmin = false
   if (club && club.id) {
     params.clubId = parseInt(club.id)
-  } else if(club){
-    params.clubId = parseInt(club)
+  } else if(globalSelectedPlayerClubId){
+    params.clubId = parseInt(globalSelectedPlayerClubId)
   }
   if (teamId) {
     params.teamId = parseInt(teamId)
