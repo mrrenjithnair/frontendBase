@@ -32,11 +32,11 @@ export class UserList extends React.PureComponent {
 
     componentDidMount() {
         window.scrollTo(0, 0)
+        this.props.onChangeValueUser({ target: { id: 'playerSearch', value: '' } })
         this.props.getUserList()
         this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: true } })
         this.props.onChangeValueGlobal({ target: { id: 'clubListPage', value: false } })
         this.props.onChangeValueGlobal({ target: { id: 'assignedClub', value: true } })
-
         this.props.getClubList()
     }
     adminUi(item) {
