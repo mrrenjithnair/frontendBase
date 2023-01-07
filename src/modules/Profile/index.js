@@ -84,8 +84,10 @@ export class Profile extends React.PureComponent {
     editProfileSubmit() {
         let error = false
         let profileEdit = this.props.profileEdit
-        let password 
-        let confirmPassword 
+        let passwordIndex = profileEdit.findIndex((i)=>i.key == 'password')
+        let confirmPasswordIndex = profileEdit.findIndex((i)=>i.key == 'confirmPassword')
+        let password  = passwordIndex > 0 ? profileEdit[passwordIndex].value : false
+        let confirmPassword  =  confirmPasswordIndex >0 ?  profileEdit[confirmPasswordIndex].value : false
         for (var i = 0; i < profileEdit.length; i++) {
          if (profileEdit[i].key == 'firstName' && !profileEdit[i].value) {
                 error = true
@@ -108,13 +110,7 @@ export class Profile extends React.PureComponent {
                 this.props.setToast(false, 'Please enter village')
                 break;
             }  
-             if (profileEdit[i].key == 'password' && profileEdit[i].value) {
-                password = profileEdit[i].value
-            } else if (profileEdit[i].key == 'confirmPassword' && profileEdit[i].value) {
-                confirmPassword = profileEdit[i].value
-            } else if (profileEdit[i].key == 'confirmPassword' && profileEdit[i].value) {
-                password = profileEdit[i].value
-            } else if (confirmPassword != password) {
+             else if (confirmPassword != password) {
                 error = true
                 this.props.setToast(false, 'Password and confirm password does not match')
                 break;
@@ -184,12 +180,6 @@ export class Profile extends React.PureComponent {
                 label: 'T-Shirt Size',
                 type: 'text',
                 value: this.props.userProfile.tshirt,
-            },
-            {
-                key: 'confirmPassword',
-                label: 'Confirm Password',
-                type: 'password',
-                value: this.props.userProfile.confirmPassword,
             },
             {
                 key: 'category',

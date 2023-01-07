@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Sportzmitra",
+  "name": "Sportzmitra",
+  "description": "Sportzmitra, founded by friends have always been cricket fanatics! We would love to play in our gully and end up fighting over who performed the best, who swung the ball most and who could have taken more wickets! Amateurs as we were, we made our own rules and scorekeeping! As we grew out of our gully’s what remained itched in our hearts was our passion for this sport and thus was born the idea of Sportzmitra!",
   "icons": [
     {
       "src": "favicon.ico",
