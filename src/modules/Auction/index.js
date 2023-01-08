@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import BottomNavBar from '../../components/BottomNavBar'
 import HeaderNavBar from '../../components/HeaderNavBar'
 import history from "../utils/history";
@@ -12,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import Team from './team';
 import AuctionModal from '../../components/AuctionModal'
 import CustomModal from './CustomModal'
+import CongratulationsModal from './CongratulationsModal'
 
 import profile from '../../images/profile.jpg'
 
@@ -25,6 +25,9 @@ import { getTournamentDetails } from './actions';
 import team from '../../images/team.jpg'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+// let MyPromise = require('bluebird');
+import confetti from 'canvas-confetti';
+// confetti.Promise = MyPromise;
 export class Auction extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -33,7 +36,9 @@ export class Auction extends React.PureComponent {
             selectedItem: false,
             editModal: false,
             typing: false,
-            click: 0
+            click: 0,
+            showCongratulationsModal: false,
+            showCongCalled: false
         }
         this.sortingIcon = this.sortingIcon.bind(this);
     }
@@ -72,11 +77,67 @@ export class Auction extends React.PureComponent {
         this.props.getUnsoldPlayer()
         window.scrollTo(0, 0)
     }
+    componentDidUpdate(){
+        if(!this.state.showCongCalled && this.state.showCongratulationsModal){
+                this.showCong()
+                this.setState({showCongCalled: true})
+        }
+    }
     next() {
         this.props.getAuctionPlayer()
     }
     unSoldPlayer() {
         this.props.unSoldPlayer()
+    }
+    showCong() {
+        console.log('my-canvas')
+        var end = Date.now() + (15 * 1000);
+        var duration = 15 * 1000;
+        var animationEnd = Date.now() + duration;
+        var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+        
+        function randomInRange(min, max) {
+          return Math.random() * (max - min) + min;
+        }
+        
+        var interval = setInterval(function() {
+          var timeLeft = animationEnd - Date.now();
+        
+          if (timeLeft <= 0) {
+            return clearInterval(interval);
+          }
+          var canvas = document.getElementById('myCanvas');
+          console.log('my-canvas',canvas)
+          document.getElementById('myCanvas').style.zIndex = 10000;  
+          // you should  only initialize a canvas once, so save this function
+          // we'll save it to the canvas itself for the purpose of this demo
+          canvas.confetti = canvas.confetti || confetti.create(canvas, { resize: true });
+          var particleCount = 50 * (timeLeft / duration);
+          // since particles fall down, start a bit higher than random
+          let val1 = Math.random() * (0.3 - 0.1) + 0.1; 
+          let val2 = Math.random() * (0.9 - 0.7) + 0.7; 
+          canvas.confetti(Object.assign({}, defaults, { particleCount, origin: { x: val1, y: Math.random() - 0.2 } }));
+          canvas.confetti(Object.assign({}, defaults, { particleCount, origin: { x: val2, y: Math.random() - 0.2 } }));
+        }, 250);
+        // go Buckeyes!
+        var colors = ['#bb0000', '#ffffff'];
+    
+          confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors
+          });
+          confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors
+          });
+        
+   
     }
     addPlayerToTeam(playerType) {
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
@@ -185,6 +246,12 @@ export class Auction extends React.PureComponent {
             this.setState({ showModal: false })
         }
 
+    }
+    componentWillReceiveProps(nextprops){
+        if (nextprops.showCongratulationsModal && !this.state.showCongratulationsModal) {
+            this.setState({ showCongratulationsModal: true })
+            this.props.onChangeValueGlobal({ target: { id: 'showCongratulationsModal', value: false } })
+        }
     }
     showCostAnalytics(item, spentAmount, remainingAmount, totalAmount) {
         let basePrice = this.getPrice(this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : 'noCategory', true, true)
@@ -378,6 +445,9 @@ export class Auction extends React.PureComponent {
     render() {
         let tournamentListGlobal = this.props.tournamentListGlobal && this.props.tournamentListGlobal.length > 0 ? this.props.tournamentListGlobal : []
         let tournamentListGlobalArray = []
+        let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
+        let teamIndex = teamList.findIndex((i)=>i.teamId == this.props.auctionSoldToTeam)
+        let selectedTeam  = teamIndex >= 0 ? teamList[teamIndex] : false
         if (tournamentListGlobal && tournamentListGlobal.length > 0) {
             tournamentListGlobal.map((item) => {
                 tournamentListGlobalArray.push({
@@ -536,6 +606,21 @@ export class Auction extends React.PureComponent {
                     spentAmount={this.state.spentAmount}
                     teamPlayerList={this.props.teamPlayerList}
                 />
+                <CongratulationsModal
+                    title={'CONGRATULATIONS'}
+                    show={this.state.showCongratulationsModal}
+                    onHide={() => {
+                        this.props.onChangeValueGlobal({ target: { id: 'auctionSoldPlayer', value:false } })
+                        this.props.onChangeValueGlobal({ target: { id: 'auctionSoldToTeam', value: false } })   
+                        this.setState({ showCongratulationsModal: false, showCongCalled: false })}}
+                    onChangeInput={(evt) => this.props.onChangeValueGlobal(evt)}
+                    showCongCalled={this.state.showCongCalled}
+                    showCong={()=>this.showCong}
+                    player={this.props.auctionSoldPlayer}
+                    team={selectedTeam}
+
+                />
+                
                 <EditModal
                     title={"Edit Auction"}
                     show={this.state.editModal}
@@ -587,8 +672,11 @@ function mapStateToProps(state) {
         teamPlayerList: state.global.teamPlayerList,
         auctionUnSoldPlayerList: state.global.auctionUnSoldPlayerList,
         seletedBidEdit: state.global.seletedBidEdit,
+        auctionSoldPlayer: state.global.auctionSoldPlayer,
+        auctionSoldToTeam: state.global.auctionSoldToTeam,
+        showCongratulationsModal: state.global.showCongratulationsModal,
 
-
+        
 
 
     };

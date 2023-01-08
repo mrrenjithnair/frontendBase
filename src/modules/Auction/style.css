@@ -540,7 +540,82 @@ align-items: center;
   background: #50ac00;
   padding: 10px;
 }
+.custom-canvas {
+  width: 100%;
+  height: 100%;
+  background: var(--secondary-color);
+  position: absolute;
+}
 
+.soldBox {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+  flex-direction: column;
+}
+.soldImageBox{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+.soldImg {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 5px solid #e74c3c;
+}
+
+.soldMain {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  justify-items: center;
+  width: 100%;
+}
+
+#congratulationsModal .modal-body {
+  background-color: #34495e;
+
+}
+
+.soldName {
+  font-size: 2rem;
+  text-transform: capitalize;
+  font-weight: 700;
+  position: relative;
+  color: #f1c40f;
+  margin: 1rem 0;
+}
+
+.soldNameSold {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  font-weight: 700;
+  position: relative;
+  color: #FFFFFF;
+  margin: 1rem 0;
+}
+
+.soldTeamName {
+  font-size: 2.5rem;
+  text-transform: capitalize;
+  font-weight: 700;
+  position: relative;
+  color: #27ae60;
+  margin: 1rem 0;
+}
+
+.soldNameBid {
+  font-size: 2.5rem;
+  text-transform: capitalize;
+  font-weight: 700;
+  position: relative;
+  color: #FFFFFF;
+  margin: 1rem 0;
+}
 @media screen and (min-width: 992px){
  .blogSlider .card{
       display: grid;
@@ -562,4 +637,37 @@ align-items: center;
   .auctionName{
     font-size: 20px;
   }
+
+.soldBox {
+
+  flex-direction: row;
+}
+.soldMain{
+  width: 50%;
+}
+.soldImageBox{
+  width: 50%;
+
+}
+.soldImg {
+  width: 500px;
+  height: 500px;
+}
+
+
+.soldName {
+  font-size: 5rem;
+}
+
+.soldNameSold {
+  font-size: 3rem;
+}
+
+.soldTeamName {
+  font-size: 5rem;
+}
+
+.soldNameBid {
+  font-size: 5rem;
+}
 }

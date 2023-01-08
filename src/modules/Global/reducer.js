@@ -230,11 +230,11 @@ export default function (state = initialState, actions) {
 
         case ADD_PLAYER_TO_TEAM_SUCCESS:
             toast.success('Player sold to the team');
-            return { ...state, auctionTournamentTeamId: null, auctionTournamentPlayerBindAmount: null };
+            return { ...state, auctionTournamentTeamId: null, auctionTournamentPlayerBindAmount: null, showCongratulationsModal: true };
 
         case ADD_PLAYER_TO_TEAM_FAILURE:
             toast.error('Player sold failed');
-                return { ...state,  };
+                return { ...state,  showCongratulationsModal: false  };
 
         case EDIT_PLAYER_TO_TEAM_SUCCESS:
             toast.success('Player sold to the team');

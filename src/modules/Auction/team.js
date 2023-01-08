@@ -129,7 +129,7 @@ class Team extends React.Component {
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentTeamId', value: e.target.value } })
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionRequestId', value: player.id } })
-                                    this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: player.tournamentId } })
+                                    this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: player.tournamentId } })                                    
                                 }} >
                                 <option value=""> Select Team</option>
                                 {teamListArray && teamListArray.length > 0 && teamListArray.map(item => <option value={item.value} totalSpend={item.totalSpend}>{item.label}</option>)}
@@ -163,11 +163,12 @@ class Team extends React.Component {
                             this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
                             this.props.onChangeValueGlobal({ target: { id: 'auctionRequestId', value: player.id } })
                             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: player.tournamentId } })
+                            this.props.onChangeValueGlobal({ target: { id: 'soldPlayer', value: player.tournamentId } })
+                            this.props.onChangeValueGlobal({ target: { id: 'auctionSoldPlayer', value: player } })
+                            player.bidAmount = this.props.auctionTournamentPlayerBindAmount
+                            this.props.onChangeValueGlobal({ target: { id: 'auctionSoldToTeam', value: this.props.auctionTournamentTeamId } })
                             this.props.addPlayerToTeam(player.playerType)
                         }}>Sold</Button>
-                        {/* <Button className="buttonPrimary" onClick={() => {
-                            this.props.next()
-                        }}>Next Player</Button> */}
                           <Button className="buttonDanger" onClick={() => {
                             this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
                             this.props.unSoldPlayer()
