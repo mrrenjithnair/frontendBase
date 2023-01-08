@@ -23,7 +23,8 @@ import { iteratee } from 'lodash';
 import EditModal from '../../components/EditModal'
 import { getTournamentDetails } from './actions';
 import team from '../../images/team.jpg'
-
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 export class Auction extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -281,7 +282,98 @@ export class Auction extends React.PureComponent {
             return ''
         }
     }
+    renderUiSoldPlayer(soldPlayerList) {
+        return (<div>
+            <div style={{ 'paddingLeft': '50px'}}>
+                <h2 className='product-title'>Sold Players</h2>
+                <Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button>
+            </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="main-box clearfix">
+                                <div class="table-responsive">
+                                    <table class="table user-list">
+                                        <thead>
+                                            <tr>
+                                                <th className='mouse' onClick={() => this.onSorting('#', this.state.click)}><span>#</span></th>
+                                                <th className='mouse' onClick={() => this.onSorting('playerName', this.state.click)}><span>Player Name{this.state.sort == 'playerName' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
+                                                <th className='mouse' onClick={() => this.onSorting('name', this.state.click)}><span>Team Name{this.state.sort == 'name' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
+                                                <th className='mouse' onClick={() => { this.onSorting('bidAmount', this.state.click) }}><span>Sold At {this.state.sort == 'bidAmount' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
+                                                {this.props.loggedInRoleId == 2 && <th><span>Edit</span></th>}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {soldPlayerList && soldPlayerList.length > 0 && soldPlayerList.map((item, index) => <tr key={index}>
+                                                <td>
+                                                    {index + 1}
+                                                </td><td>
+                                                    {item.profilePictureUrl ? <img src={item.profilePictureUrl} alt="" /> : <img src={profile} alt="" />}
+                                                    <span class="user-link">{item.playerName}</span>
+                                                    <span class="user-subhead">{item.category}</span>
+                                                </td>
+                                                <td>
+                                                    {item.logoUrl ? <img src={item.logoUrl} alt="" /> : <img src={team} alt="" />}
+                                                    <span class="user-link">{item.name}</span>
 
+                                                </td>
+                                                <td>
+                                                    {item.bidAmount}
+                                                </td>
+                                                {this.props.loggedInRoleId == 2 && <td>
+                                                    <a href="#" onClick={() => this.editBid(item)} className='btn btn-warning'>Edit</a>
+
+                                                </td>}
+
+                                            </tr>)}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>)
+    }
+    renderUiUnSoldPlayer(soldPlayerList) {
+        return (<div>
+            <div style={{ 'paddingLeft': '50px'}}>
+                <h2 className='product-title'>Un Sold Players</h2>
+                <Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button>
+            </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="main-box clearfix">
+                                <div class="table-responsive">
+                                    <table class="table user-list">
+                                        <thead>
+                                            <tr>
+                                                <th className='mouse' onClick={() => this.onSorting('#', this.state.click)}><span>#</span></th>
+                                                <th className='mouse' onClick={() => this.onSorting('playerName', this.state.click)}><span>Player Name{this.state.sort == 'playerName' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {soldPlayerList && soldPlayerList.length > 0 && soldPlayerList.map((item, index) => <tr key={index}>
+                                                <td>
+                                                    {index + 1}
+                                                </td><td>
+                                                    {item.profilePictureUrl ? <img src={item.profilePictureUrl} alt="" /> : <img src={profile} alt="" />}
+                                                    <span class="user-link">{item.playerName}</span>
+                                                    <span class="user-subhead">{item.category}</span>
+                                                </td>
+                                            </tr>)}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>)
+    }
     render() {
         let tournamentListGlobal = this.props.tournamentListGlobal && this.props.tournamentListGlobal.length > 0 ? this.props.tournamentListGlobal : []
         let tournamentListGlobalArray = []
@@ -406,65 +498,14 @@ export class Auction extends React.PureComponent {
                 <br />
                 <br />
                 <div>
-                    <div style={{ 'paddingLeft': '50px' }}>
-                        <h2 className='product-title'>Sold Players</h2>
-                        <Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button>
-
-                    </div>
-                    <div style={{ 'display': 'flex', 'justifyContent': 'center', 'padding': '10px' }}>
-                    </div>
-
-                    <div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="main-box clearfix">
-                                        <div class="table-responsive">
-                                            <table class="table user-list">
-                                                <thead>
-                                                    <tr>
-                                                        <th className='mouse' onClick={() => this.onSorting('#', this.state.click)}><span>#</span></th>
-                                                        <th className='mouse' onClick={() => this.onSorting('playerName', this.state.click)}><span>Player Name{this.state.sort == 'playerName' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
-                                                        <th className='mouse' onClick={() => this.onSorting('name', this.state.click)}><span>Team Name{this.state.sort == 'name' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
-                                                        <th className='mouse' onClick={() => { this.onSorting('bidAmount', this.state.click) }}><span>Sold At {this.state.sort == 'bidAmount' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
-                                                        {this.props.loggedInRoleId == 2 && <th><span>Edit</span></th>}
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {soldPlayerList && soldPlayerList.length > 0 && soldPlayerList.map((item, index) => <tr key={index}>
-                                                        <td>
-                                                            {index + 1}
-                                                        </td><td>
-                                                            {item.profilePictureUrl ? <img src={item.profilePictureUrl} alt="" /> : <img src={profile} alt="" />}
-                                                            <span class="user-link">{item.playerName}</span>
-                                                            <span class="user-subhead">{item.category}</span>
-                                                        </td>
-                                                        <td>
-                                                            {item.logoUrl ? <img src={item.logoUrl} alt="" /> : <img src={team} alt="" />}
-                                                            <span class="user-link">{item.name}</span>
-
-                                                        </td>
-                                                        <td>
-                                                            {item.bidAmount}
-                                                        </td>
-                                                        {this.props.loggedInRoleId == 2 && <td>
-                                                            <a href="#" onClick={() => this.editBid(item)} className='btn btn-warning'>Edit</a>
-
-                                                        </td>}
-
-                                                    </tr>)}
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <ul class="pagination pull-right">
-
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Tabs defaultActiveKey="soldPlayer" id="uncontrolled-tab-example" className="mb-3 tabDiv">
+                        <Tab eventKey="soldPlayer" title="Sold Players">
+                          {this.renderUiSoldPlayer(soldPlayerList)}
+                        </Tab>
+                        <Tab eventKey="unSoldPlayer" title="Un-Sold Players">
+                          {this.renderUiUnSoldPlayer(soldPlayerList)}
+                        </Tab>
+                    </Tabs>
                 </div>
                 <AuctionModal
                     title="Add Auction"

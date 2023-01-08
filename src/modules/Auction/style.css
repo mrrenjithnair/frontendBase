@@ -536,6 +536,10 @@ align-items: center;
 .mouse{
   cursor: pointer;
 }
+.tabDiv{
+  background: #50ac00;
+  padding: 10px;
+}
 
 @media screen and (min-width: 992px){
  .blogSlider .card{
