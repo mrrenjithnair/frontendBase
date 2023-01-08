@@ -15,7 +15,7 @@ import CustomModal from './CustomModal'
 
 import profile from '../../images/profile.jpg'
 
-import { getTournamentList,onChangeValueAuction, onChangeValueGlobal, getUserList, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction, unSoldPlayer, editPlayerToTeam } from '../Global/actions';
+import { getTournamentList, onChangeValueAuction, onChangeValueGlobal, getUserList, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction, unSoldPlayer, editPlayerToTeam } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
 import { faArrowAltCircleRight, faBalanceScale, faCalendarDay, faMoneyBill, faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -31,26 +31,23 @@ export class Auction extends React.PureComponent {
             showModal: false,
             selectedItem: false,
             editModal: false,
-            typing: false
+            typing: false,
+            click: 0
         }
+        this.sortingIcon = this.sortingIcon.bind(this);
     }
-    getPrice(cat, min,costAnalytics) {
-        console.log('cat',cat)
-        console.log('min',min)
+    getPrice(cat, min, costAnalytics) {
         let type = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : ''
-        console.log('type',type)
-        
         let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
         let basePriceMin
         let basePriceMax
         if (type == 'category') {
-        console.log('type',type)
             pointJson.map((item) => {
                 if (item.category == cat) {
                     basePriceMin = item.min
                     basePriceMax = item.max
-                } 
-                if(costAnalytics) {
+                }
+                if (costAnalytics) {
                     basePriceMin = item.min
                 }
             })
@@ -76,7 +73,7 @@ export class Auction extends React.PureComponent {
     next() {
         this.props.getAuctionPlayer()
     }
-    unSoldPlayer(){
+    unSoldPlayer() {
         this.props.unSoldPlayer()
     }
     addPlayerToTeam(playerType) {
@@ -98,14 +95,14 @@ export class Auction extends React.PureComponent {
         else if (parseInt(this.props.auctionTournamentPlayerBindAmount) > this.getPrice(playerType, false)) {
             error = true
             this.props.setToast(false, 'Please enter bind amount less then maximum price')
-        } else if(this.props.auctionTournamentTeamId){
+        } else if (this.props.auctionTournamentTeamId) {
             if (teamList && teamList.length > 0) {
                 teamList.map((item) => {
                     if (item.teamId == this.props.auctionTournamentTeamId) {
                         let spentAmount = item.totalSpend ? item.totalSpend : 0
                         let remainingAmount = totalAmount - spentAmount
-                        if(parseInt(this.props.auctionTournamentPlayerBindAmount) > parseInt(remainingAmount)) {
-                            this.props.setToast(false, 'Please enter bind amount less then team remaining amount ie. ' +parseInt(remainingAmount) )
+                        if (parseInt(this.props.auctionTournamentPlayerBindAmount) > parseInt(remainingAmount)) {
+                            this.props.setToast(false, 'Please enter bind amount less then team remaining amount ie. ' + parseInt(remainingAmount))
                         }
                     }
                 })
@@ -187,17 +184,17 @@ export class Auction extends React.PureComponent {
         }
 
     }
-    showCostAnalytics(item,spentAmount ,remainingAmount,totalAmount){
+    showCostAnalytics(item, spentAmount, remainingAmount, totalAmount) {
         let basePrice = this.getPrice(this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : 'noCategory', true, true)
-        let clubId = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.clubId ? this.props.tournamentDetailGlobal.clubId : null 
-        item.basePrice = basePrice ? basePrice :0
-        console.log("clubId====",clubId)
+        let clubId = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.clubId ? this.props.tournamentDetailGlobal.clubId : null
+        item.basePrice = basePrice ? basePrice : 0
+        console.log("clubId====", clubId)
         this.props.onChangeValueGlobal({ target: { id: 'globalSelectedTeamId', value: item.teamId } })
         this.props.onChangeValueGlobal({ target: { id: 'globalSelectedPlayerClubId', value: clubId } })
         this.props.getUserList()
-        this.setState({ costAnalytics: true, selectedTeam: item, spentAmount ,remainingAmount,totalAmount })
+        this.setState({ costAnalytics: true, selectedTeam: item, spentAmount, remainingAmount, totalAmount })
     }
-    editBid(item){
+    editBid(item) {
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
         let teamListArray = []
         if (teamList && teamList.length > 0) {
@@ -205,7 +202,7 @@ export class Auction extends React.PureComponent {
                 teamListArray.push({
                     value: item.teamId,
                     label: item.teamName,
-                    totalSpend:item.totalSpend
+                    totalSpend: item.totalSpend
                 })
             })
         }
@@ -221,20 +218,20 @@ export class Auction extends React.PureComponent {
             type: 'select',
             value: item.teamId,
             data: teamListArray,
-            required:true
+            required: true
         },
         {
             key: 'bidAmount',
             label: 'Bid Amount',
             type: 'text',
             value: item.bidAmount,
-            required:true
+            required: true
         },
         {
             key: 'playerUserId',
             value: item.playerId,
         },
-    
+
         {
             key: 'tournamentId',
             value: item.tournamentId,
@@ -248,23 +245,41 @@ export class Auction extends React.PureComponent {
             key: 'requestId',
             value: item.requestId,
         },
-        
-    
-    ]
-    this.props.onChangeValueGlobal({ target: { id: 'seletedBidEdit', value: data } })
 
-        this.setState({editModal:true,seletedBidEdit: data})
-        
+
+        ]
+        this.props.onChangeValueGlobal({ target: { id: 'seletedBidEdit', value: data } })
+
+        this.setState({ editModal: true, seletedBidEdit: data })
+
     }
-    onChangeValueAuction(evt){
+    onChangeValueAuction(evt) {
         console.log(evt)
-        this.setState({typing: !this.state.typing})
+        this.setState({ typing: !this.state.typing })
         this.props.onChangeValueAuction(evt)
     }
-    editBidSubmit(){
-        this.setState({typing: !this.state.typing})
+    editBidSubmit() {
+        this.setState({ typing: !this.state.typing })
         this.props.editPlayerToTeam()
-        this.setState({editModal:false})
+        this.setState({ editModal: false })
+    }
+    onSorting(key, sortBy) {
+        if (sortBy == 0) {
+            this.setState({ click: 1, sort: key })
+        } else if (sortBy == 1) {
+            this.setState({ click: 2, sort: key })
+        } else if (sortBy == 2) {
+            this.setState({ click: 0, sort: key })
+        }
+    }
+    sortingIcon() {
+        if (this.state.click == 1) {
+            return <i class="bi bi-sort-up"></i>
+        } else if (this.state.click == 2) {
+            return <i class="bi bi-sort-down"></i>
+        } else {
+            return ''
+        }
     }
 
     render() {
@@ -281,6 +296,21 @@ export class Auction extends React.PureComponent {
 
         let playerList = this.props.auctionPlayer
         var player = playerList[Math.floor(Math.random() * playerList.length)];
+        let soldPlayerCount = this.props.auctionDetailList ? this.props.auctionDetailList.length + 1 : 0;
+        let soldPlayerList = this.props.auctionDetailList
+        if (this.state.sort && this.state.click) {
+            if (this.state.sort == 'bidAmount') {
+                if (this.state.click == 1)
+                    soldPlayerList.sort((a, b) => parseFloat(a[this.state.sort]) - parseFloat(b[this.state.sort]));
+                if (this.state.click == 2)
+                    soldPlayerList.sort((a, b) => parseFloat(b[this.state.sort]) - parseFloat(a[this.state.sort]));
+            } else {
+                if (this.state.click == 1)
+                    soldPlayerList.sort((a, b) => { if (a[this.state.sort] < b[this.state.sort]) { return -1; } if (a[this.state.sort] > b[this.state.sort]) { return 1; } return 0; })
+                if (this.state.click == 2)
+                    soldPlayerList.sort((a, b) => { if (a[this.state.sort] > b[this.state.sort]) { return -1; } if (a[this.state.sort] < b[this.state.sort]) { return 1; } return 0; })
+            }
+        }
         return (
 
 
@@ -291,7 +321,9 @@ export class Auction extends React.PureComponent {
 
                             <div className='auctionName'>       {this.props.tournamentDetailGlobal.name}</div>
                             <div className='auctionName'>       Total Team:  {this.props.tournamentDetailGlobal.teamTotal}</div>
-                            <div className='auctionName'>       Member Team:  {this.props.tournamentDetailGlobal.memberTotal}</div>
+                            <div className='auctionName'>       Total Member:  {this.props.tournamentDetailGlobal.memberTotal}</div>
+                            <div className='auctionName'>       Sold Player:  {soldPlayerCount}</div>
+                            <div className='auctionName'>       Un-Sold Player:  {this.props.tournamentDetailGlobal.memberTotal - soldPlayerCount}</div>
                         </div>}
                         <div className='auctionBox'>
                             {this.props.loggedInRoleId == 2 && <div className='tournamentDetailBoxAuctionTeam'>
@@ -302,7 +334,7 @@ export class Auction extends React.PureComponent {
                                     onChangeValueGlobal={this.props.onChangeValueGlobal}
                                     addPlayerToTeam={() => this.addPlayerToTeam()}
                                     setToast={this.props.setToast}
-                                    unSoldPlayer={()=>this.unSoldPlayer()}
+                                    unSoldPlayer={() => this.unSoldPlayer()}
                                     next={() => this.next()} />
                             </div>}
                             <div className='detailBox'>
@@ -319,18 +351,18 @@ export class Auction extends React.PureComponent {
                                                     let spentAmount = item.totalSpend ? item.totalSpend : 0
                                                     let remainingAmount = totalAmount - spentAmount
                                                     return (<div className="profile-main-box-auction">
-                                                        <div style={{    'display': 'flex', 'justifyContent': 'space-between'}}>
-                                                        <div className="profile-box-auction">
-                                                            {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
-                                                                <img src={team} alt="profile pic" />}
-                                                            <div className='profile-box-textBox'>
-                                                                <div className='teamNameAuction'>{item.teamName}</div>
-                                                                <span>{item.ownerName}</span><br />
-                                                            </div>
+                                                        <div style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
+                                                            <div className="profile-box-auction">
+                                                                {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
+                                                                    <img src={team} alt="profile pic" />}
+                                                                <div className='profile-box-textBox'>
+                                                                    <div className='teamNameAuction'>{item.teamName}</div>
+                                                                    <span>{item.ownerName}</span><br />
+                                                                </div>
                                                             </div>
                                                             <div className='arrowBox'>
-                                                            <FontAwesomeIcon icon={faArrowAltCircleRight} size="2x" style={{ color: '#FC8471' }} onClick={() =>  this.showCostAnalytics(item,spentAmount ,remainingAmount,totalAmount)} />
-                                                                </div>
+                                                                <FontAwesomeIcon icon={faArrowAltCircleRight} size="2x" style={{ color: '#FC8471' }} onClick={() => this.showCostAnalytics(item, spentAmount, remainingAmount, totalAmount)} />
+                                                            </div>
                                                         </div>
                                                         <div className='auctionList'>
                                                             <div className='auctionListCol'>
@@ -338,13 +370,13 @@ export class Auction extends React.PureComponent {
                                                                 <div> {spentAmount}</div>
                                                             </div>
                                                             <div className='auctionListCol'>
-                                                                <div  className='auctionListLabel'>Purse Left</div>
+                                                                <div className='auctionListLabel'>Purse Left</div>
                                                                 <div>{remainingAmount}</div>
                                                             </div>
                                                             <div className='auctionListCol'>
-                                                                <div  className='auctionListLabel'>Players</div>
-                                                                <div>{item.totalPlayer ? item.totalPlayer 
-                                                                : 0}/{item.teamTotalMember}</div>
+                                                                <div className='auctionListLabel'>Players</div>
+                                                                <div>{item.totalPlayer ? item.totalPlayer
+                                                                    : 0}/{item.teamTotalMember}</div>
                                                             </div>
                                                         </div>
                                                         {/* <div className='profile-detail-auction'>
@@ -376,12 +408,12 @@ export class Auction extends React.PureComponent {
                 <div>
                     <div style={{ 'paddingLeft': '50px' }}>
                         <h2 className='product-title'>Sold Players</h2>
-                    <Button variant="primary" onClick={() =>    this.props.getTournamentDetailOfAuction()} >Refresh</Button>
+                        <Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button>
 
                     </div>
-                    <div style={{'display':'flex','justifyContent':'center','padding':'10px'}}> 
-                        </div>
-                        
+                    <div style={{ 'display': 'flex', 'justifyContent': 'center', 'padding': '10px' }}>
+                    </div>
+
                     <div>
                         <div class="container">
                             <div class="row">
@@ -391,16 +423,15 @@ export class Auction extends React.PureComponent {
                                             <table class="table user-list">
                                                 <thead>
                                                     <tr>
-                                                        <th><span>#</span></th>
-                                                        <th><span>Player Name</span></th>
-                                                        <th><span>Team Name</span></th>
-                                                        <th><span>Sold At</span></th>
-                                                        {this.props.loggedInRoleId == 2 &&   <th><span>Edit</span></th>}
+                                                        <th className='mouse' onClick={() => this.onSorting('#', this.state.click)}><span>#</span></th>
+                                                        <th className='mouse' onClick={() => this.onSorting('playerName', this.state.click)}><span>Player Name{this.state.sort == 'playerName' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
+                                                        <th className='mouse' onClick={() => this.onSorting('name', this.state.click)}><span>Team Name{this.state.sort == 'name' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
+                                                        <th className='mouse' onClick={() => { this.onSorting('bidAmount', this.state.click) }}><span>Sold At {this.state.sort == 'bidAmount' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
+                                                        {this.props.loggedInRoleId == 2 && <th><span>Edit</span></th>}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {this.props.auctionDetailList && this.props.auctionDetailList.length > 0 && this.props.auctionDetailList.map((item, index) => <tr key={index}>
-
+                                                    {soldPlayerList && soldPlayerList.length > 0 && soldPlayerList.map((item, index) => <tr key={index}>
                                                         <td>
                                                             {index + 1}
                                                         </td><td>
@@ -416,8 +447,8 @@ export class Auction extends React.PureComponent {
                                                         <td>
                                                             {item.bidAmount}
                                                         </td>
-                                                        {this.props.loggedInRoleId == 2 &&  <td>
-                                                        <a href="#" onClick={() => this.editBid(item)} className= 'btn btn-warning'>Edit</a>
+                                                        {this.props.loggedInRoleId == 2 && <td>
+                                                            <a href="#" onClick={() => this.editBid(item)} className='btn btn-warning'>Edit</a>
 
                                                         </td>}
 
@@ -445,7 +476,7 @@ export class Auction extends React.PureComponent {
                     tournamentListGlobalArray={tournamentListGlobalArray}
                 />
                 <CustomModal
-                    title= {this.state.selectedTeam && this.state.selectedTeam.teamName ? this.state.selectedTeam.teamName :'Team Name'}
+                    title={this.state.selectedTeam && this.state.selectedTeam.teamName ? this.state.selectedTeam.teamName : 'Team Name'}
                     show={this.state.costAnalytics}
                     onHide={() => this.setState({ costAnalytics: false })}
                     onSubmit={() => this.setState({ costAnalytics: !this.state.costAnalytics })}
@@ -456,15 +487,15 @@ export class Auction extends React.PureComponent {
                     spentAmount={this.state.spentAmount}
                     teamPlayerList={this.props.teamPlayerList}
                 />
-                  <EditModal
-                title={"Edit Auction"}
-                show={this.state.editModal}
-                onHide={() => this.setState({ editModal: false })}
-                onSubmit={() => this.editBidSubmit()}
-                feildObj={this.props.seletedBidEdit}
-                uploadPhoto={this.props.uploadPhoto}
-                onChangeInput={(evt) => this.onChangeValueAuction(evt)}
-               />
+                <EditModal
+                    title={"Edit Auction"}
+                    show={this.state.editModal}
+                    onHide={() => this.setState({ editModal: false })}
+                    onSubmit={() => this.editBidSubmit()}
+                    feildObj={this.props.seletedBidEdit}
+                    uploadPhoto={this.props.uploadPhoto}
+                    onChangeInput={(evt) => this.onChangeValueAuction(evt)}
+                />
 
             </section>
         );
@@ -507,7 +538,7 @@ function mapStateToProps(state) {
         teamPlayerList: state.global.teamPlayerList,
         seletedBidEdit: state.global.seletedBidEdit,
 
-        
+
 
 
     };
@@ -530,8 +561,8 @@ function mapDispatchToProps(dispatch) {
         unSoldPlayer: (evt) => dispatch(unSoldPlayer(evt)),
         onChangeValueAuction: (evt) => dispatch(onChangeValueAuction(evt)),
         editPlayerToTeam: (evt) => dispatch(editPlayerToTeam(evt)),
-        
-        
+
+
 
     };
 }

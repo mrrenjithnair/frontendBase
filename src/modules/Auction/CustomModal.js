@@ -20,7 +20,7 @@ class CustomModal extends React.Component {
                         this.props.teamPlayerList[j].srNo = (j + 1)
                         this.props.teamPlayerList[j].status = 'Sold'
                         teamObj[j] = this.props.teamPlayerList[j]
-                    }
+                    }   
                 
                 }
             }
@@ -51,8 +51,9 @@ class CustomModal extends React.Component {
                                                         <td>
                                                             {index + 1}
                                                         </td><td>
+                                                            {item.profilePictureUrl && <img src={item.profilePictureUrl}></img>}
                                                             <span class="user-link">{item.firstName ? item.firstName : item.name}</span>
-                                                            <span class="user-subhead">{item.category}</span>
+                                                            <span class="user-subhead">{item.category}{item.playerType ? '('+ item.playerType+ ')':''}</span>
                                                         </td>
                                                         <td>
                                                             {item.bidAmount}

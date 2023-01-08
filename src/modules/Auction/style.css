@@ -533,6 +533,9 @@ align-items: center;
 .inputGroupBox .btn {
   color: #ffff;
 }
+.mouse{
+  cursor: pointer;
+}
 
 @media screen and (min-width: 992px){
  .blogSlider .card{
