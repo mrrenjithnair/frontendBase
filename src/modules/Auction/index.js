@@ -15,7 +15,7 @@ import CustomModal from './CustomModal'
 
 import profile from '../../images/profile.jpg'
 
-import { getTournamentList, onChangeValueAuction, onChangeValueGlobal, getUserList, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction, unSoldPlayer, editPlayerToTeam } from '../Global/actions';
+import { getTournamentList, onChangeValueAuction, onChangeValueGlobal, getUserList, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction, unSoldPlayer, editPlayerToTeam, getUnsoldPlayer } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
 import { faArrowAltCircleRight, faBalanceScale, faCalendarDay, faMoneyBill, faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -69,6 +69,7 @@ export class Auction extends React.PureComponent {
         // this.props.onChangeValueGlobal({ target: { id: 'auctionPending', value: false } })
         // this.props.getTournamentList()
         this.props.getTournamentDetailOfAuction()
+        this.props.getUnsoldPlayer()
         window.scrollTo(0, 0)
     }
     next() {
@@ -340,7 +341,7 @@ export class Auction extends React.PureComponent {
         return (<div>
             <div style={{ 'paddingLeft': '50px'}}>
                 <h2 className='product-title'>Un Sold Players</h2>
-                <Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button>
+                <Button variant="primary" onClick={() => this.props.getUnsoldPlayer()()} >Refresh</Button>
             </div>
                 <div class="container">
                     <div class="row">
@@ -387,6 +388,7 @@ export class Auction extends React.PureComponent {
         }
 
         let playerList = this.props.auctionPlayer
+        let unSoldPlayerList =  this.props.auctionUnSoldPlayerList
         var player = playerList[Math.floor(Math.random() * playerList.length)];
         let soldPlayerCount = this.props.auctionDetailList ? this.props.auctionDetailList.length + 1 : 0;
         let soldPlayerList = this.props.auctionDetailList
@@ -402,6 +404,12 @@ export class Auction extends React.PureComponent {
                 if (this.state.click == 2)
                     soldPlayerList.sort((a, b) => { if (a[this.state.sort] > b[this.state.sort]) { return -1; } if (a[this.state.sort] < b[this.state.sort]) { return 1; } return 0; })
             }
+        }
+        if (this.state.sort && this.state.click) {
+            if (this.state.click == 1)
+                unSoldPlayerList.sort((a, b) => { if (a[this.state.sort] < b[this.state.sort]) { return -1; } if (a[this.state.sort] > b[this.state.sort]) { return 1; } return 0; })
+            if (this.state.click == 2)
+                unSoldPlayerList.sort((a, b) => { if (a[this.state.sort] > b[this.state.sort]) { return -1; } if (a[this.state.sort] < b[this.state.sort]) { return 1; } return 0; })
         }
         return (
 
@@ -503,7 +511,7 @@ export class Auction extends React.PureComponent {
                           {this.renderUiSoldPlayer(soldPlayerList)}
                         </Tab>
                         <Tab eventKey="unSoldPlayer" title="Un-Sold Players">
-                          {this.renderUiUnSoldPlayer(soldPlayerList)}
+                          {this.renderUiUnSoldPlayer(unSoldPlayerList)}
                         </Tab>
                     </Tabs>
                 </div>
@@ -577,6 +585,7 @@ function mapStateToProps(state) {
         auctionCategoryCIncreasePoint: state.global.auctionCategoryCIncreasePoint,
         auctionDetailList: state.global.auctionDetailList,
         teamPlayerList: state.global.teamPlayerList,
+        auctionUnSoldPlayerList: state.global.auctionUnSoldPlayerList,
         seletedBidEdit: state.global.seletedBidEdit,
 
 
@@ -602,7 +611,8 @@ function mapDispatchToProps(dispatch) {
         unSoldPlayer: (evt) => dispatch(unSoldPlayer(evt)),
         onChangeValueAuction: (evt) => dispatch(onChangeValueAuction(evt)),
         editPlayerToTeam: (evt) => dispatch(editPlayerToTeam(evt)),
-
+        getUnsoldPlayer: (evt) => dispatch(getUnsoldPlayer(evt)),
+        
 
 
     };

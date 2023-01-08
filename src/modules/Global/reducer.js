@@ -37,7 +37,9 @@ import {
     EDIT_PLAYER_TO_TEAM_FAILURE,
     GET_TOURNAMENT_DETAIL_OF_AUCTION_SUCCESS,
     GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE,
-    RESET_AUCTION
+    RESET_AUCTION,
+    GET_UNSOLD_PLAYER_SUCCESS,
+    GET_UNSOLD_PLAYER_FAILURE
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -130,7 +132,13 @@ export default function (state = initialState, actions) {
         case GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE:
             return { ...state, 'auctionDetailList': [] };
 
+        case GET_UNSOLD_PLAYER_SUCCESS:
+            return { ...state, 'auctionUnSoldPlayerList': actions.data };
 
+        case GET_UNSOLD_PLAYER_FAILURE:
+            return { ...state, 'auctionUnSoldPlayerList': [] };
+    
+            
         case GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS:
             let tournamentDetailGlobal = actions.data && actions.data.length > 0 ? actions.data[0] : []
             return { ...state, 'tournamentDetailGlobal': tournamentDetailGlobal };

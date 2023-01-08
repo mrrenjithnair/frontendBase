@@ -81,6 +81,9 @@ export const GET_TOURNAMENT_DETAIL_OF_AUCTION = 'GET_TOURNAMENT_DETAIL_OF_AUCTIO
 export const GET_TOURNAMENT_DETAIL_OF_AUCTION_SUCCESS = 'GET_TOURNAMENT_DETAIL_OF_AUCTION_SUCCESS';
 export const GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE = 'GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE';
 export const UN_SOLD_PLAYER = 'UN_SOLD_PLAYER';
+export const GET_UNSOLD_PLAYER = 'GET_UNSOLD_PLAYER';
+export const GET_UNSOLD_PLAYER_SUCCESS = 'GET_UNSOLD_PLAYER_SUCCESS';
+export const GET_UNSOLD_PLAYER_FAILURE = 'GET_UNSOLD_PLAYER_FAILURE';
 
 
 
@@ -223,6 +226,25 @@ export function getTournamentDetailOfAuctionFailure(err) {
   };
 }
 
+export function getUnsoldPlayer() {
+  return {
+    type: GET_UNSOLD_PLAYER,
+  };
+}
+
+export function getUnsoldPlayerSuccess(data) {
+  return {
+    type: GET_UNSOLD_PLAYER_SUCCESS,
+    data: data
+  };
+}
+export function getUnsoldPlayerFailure(err) {
+  toast.error(err);
+  return {
+    type: GET_UNSOLD_PLAYER_FAILURE,
+    data: err
+  };
+}
 
 export function addPlayerToTeam() {
   return {
