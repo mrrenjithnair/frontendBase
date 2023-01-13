@@ -129,7 +129,7 @@ export class AuctionList extends React.PureComponent {
                 {/* <div className="text-left"><span className="font-weight-bolder">Start Date :</span> <span className="team-text"> {formatDate(item.startDate)}</span></div> */}
                 {/* <div className="text-left"><span className="font-weight-bolder">EndDate :</span> <span className="team-text"> {formatDate(item.endDate)}</span></div> */}
                 <div className="btn-wrap"><a className="btn-detail" onClick={() => this.detailAuction(item)}>Details</a></div>
-                <div className="btn-wrap"><a className="btn-detail" onClick={() => this.actionAuction(item)}>Edit</a></div>
+                {this.props.loggedInRoleId != 3 && <div className="btn-wrap"><a className="btn-detail" onClick={() => this.actionAuction(item)}>Edit</a></div>}
                 
             </div>
 
