@@ -7,28 +7,45 @@ import 'react-toastify/dist/ReactToastify.css';
 class CustomModal extends React.Component {
     renderCostAnalytics(props) {
         let selectedTeam = this.props.selectedTeam
+        let pointJson = this.props.pointJson
         let teamTotalMember = selectedTeam && selectedTeam.teamTotalMember ? selectedTeam.teamTotalMember : 0
         let teamObj = []
         let afterPredicationAmount= 0
-        
+        let teamPlayerList = this.props.teamPlayerList
+        if(teamPlayerList && teamPlayerList.length>0)
+        teamPlayerList.sort((a,b) => (a.playerType > b.playerType) ? 1 : ((b.playerType > a.playerType) ? -1 : 0))
+
+            let count = 0
+            pointJson.forEach((it, i) => {
+                for (let index = 0; index < it.count; index++) {
+                    count = count + 1
+                    teamObj.push({ name: 'player ' + (count), bidAmount: parseInt(it.min), status: 'unSold', srNo: count, playerType: it.category })
+                }
+            })
+            let afterTotal = teamTotalMember - teamObj.length;
+            if(teamObj && teamObj.length != teamTotalMember){
+                count = teamObj.length
+                for (let index = 0; index < afterTotal; index++) {
+                    count = count + 1
+                    teamObj.push({ name: 'player ' + (count), bidAmount: selectedTeam && selectedTeam.basePrice ? selectedTeam.basePrice : 0, status: 'unSold', srNo: count, playerType: null })
+                }
+            }
         for (var i = 0; i < teamTotalMember; i++) {
-            console.log('teamObj',teamObj)
-            teamObj.push({ name: 'player ' + (i + 1), bidAmount: selectedTeam && selectedTeam.basePrice ?selectedTeam.basePrice:0, srNo: (i + 1), status: 'unSold' })
-            if (this.props.teamPlayerList && this.props.teamPlayerList.length > 0) {
-                for (var j = 0; j < this.props.teamPlayerList.length; j++) {
+            if (teamPlayerList && teamPlayerList.length > 0) {
+                for (var j = 0; j < teamPlayerList.length; j++) {
                     if(teamObj[i].srNo == j + 1){
-                        this.props.teamPlayerList[j].srNo = (j + 1)
-                        this.props.teamPlayerList[j].status = 'Sold'
-                        teamObj[j] = this.props.teamPlayerList[j]
-                    }   
-                
+                        teamPlayerList[j].srNo = (j + 1)
+                        teamPlayerList[j].status = 'Sold'
+                        teamObj[j] = teamPlayerList[j]
+                    }
+
                 }
             }
             afterPredicationAmount = afterPredicationAmount + teamObj[i].bidAmount
         }
-        if(selectedTeam && selectedTeam.basePrice && teamObj && teamObj.length>0 && this.props.teamPlayerList){
-            if(teamObj.length != this.props.teamPlayerList.length &&   teamObj[this.props.teamPlayerList.length] && teamObj[this.props.teamPlayerList.length].bidAmount)
-            teamObj[this.props.teamPlayerList.length].bidAmount = (this.props.totalAmount - afterPredicationAmount + selectedTeam.basePrice)
+        if(selectedTeam && selectedTeam.basePrice && teamObj && teamObj.length>0 && teamPlayerList){
+            if(teamObj.length != teamPlayerList.length &&   teamObj[teamPlayerList.length] && teamObj[teamPlayerList.length].bidAmount)
+            teamObj[teamPlayerList.length].bidAmount = (this.props.totalAmount - afterPredicationAmount + selectedTeam.basePrice)
 
         }
         return (<div>

@@ -47,6 +47,9 @@ export class Auction extends React.PureComponent {
         let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
         let basePriceMin
         let basePriceMax
+        if (pointJson && pointJson.length > 0)
+        pointJson.sort((a,b) => (a.category > b.category) ? 1 : ((b.category > a.category) ? -1 : 0))
+
         if (type == 'category') {
             pointJson.map((item) => {
                 if (item.category == cat) {
@@ -255,8 +258,10 @@ export class Auction extends React.PureComponent {
     }
     showCostAnalytics(item, spentAmount, remainingAmount, totalAmount) {
         let basePrice = this.getPrice(this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : 'noCategory', true, true)
+        let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
         let clubId = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.clubId ? this.props.tournamentDetailGlobal.clubId : null
         item.basePrice = basePrice ? basePrice : 0
+        item.pointJson = pointJson
         console.log("clubId====", clubId)
         this.props.onChangeValueGlobal({ target: { id: 'globalSelectedTeamId', value: item.teamId } })
         this.props.onChangeValueGlobal({ target: { id: 'globalSelectedPlayerClubId', value: clubId } })
@@ -605,6 +610,7 @@ export class Auction extends React.PureComponent {
                     totalAmount={this.state.totalAmount}
                     spentAmount={this.state.spentAmount}
                     teamPlayerList={this.props.teamPlayerList}
+                    pointJson = {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []}
                 />
                 <CongratulationsModal
                     title={'CONGRATULATIONS'}
