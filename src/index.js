@@ -6,6 +6,7 @@ import { Container } from './counter/container';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Routes from './modules/app/routes'
 import './index.css';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const App = () => (
   <Provider 
@@ -13,5 +14,5 @@ const App = () => (
     <Routes />
   </Provider>
 );
-
+serviceWorkerRegistration.register();
 ReactDOM.render(<App />, document.getElementById('root'));
