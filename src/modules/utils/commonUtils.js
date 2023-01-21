@@ -101,11 +101,12 @@ export function exportKeyValue(data) {
 	if (!data || data.length == 0) return
 	let obj = {}
 	data.map((item) => {
-		if(item.type== 'number'){
+		console.log(item)
+		if (item.type == 'number') {
 			obj[item.key] = parseInt(item.value)
-		}if(item.type== 'date'){
+		} else if (item.type == 'date') {
 			obj[item.key] = new Date(item.value).valueOf()
-		}else{
+		} else {
 			obj[item.key] = item.value
 
 		}
