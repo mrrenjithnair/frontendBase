@@ -465,7 +465,7 @@ export class Auction extends React.PureComponent {
         let playerList = this.props.auctionPlayer
         let unSoldPlayerList =  this.props.auctionUnSoldPlayerList
         var player = playerList[Math.floor(Math.random() * playerList.length)];
-        let soldPlayerCount = this.props.auctionDetailList ? this.props.auctionDetailList.length + 1 : 0;
+        let soldPlayerCount = this.props.auctionDetailList ? this.props.auctionDetailList.length : 0;
         let soldPlayerList = this.props.auctionDetailList
         if (this.state.sort && this.state.click) {
             if (this.state.sort == 'bidAmount') {
