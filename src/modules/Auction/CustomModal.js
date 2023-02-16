@@ -33,7 +33,7 @@ class CustomModal extends React.Component {
         for (var i = 0; i < teamTotalMember; i++) {
             if (teamPlayerList && teamPlayerList.length > 0) {
                 for (var j = 0; j < teamPlayerList.length; j++) {
-                    if(teamObj[i].srNo == j + 1){
+                    if (teamObj[i].playerType == teamPlayerList[j].playerType && !teamObj[j].id) {
                         teamPlayerList[j].srNo = (j + 1)
                         teamPlayerList[j].status = 'Sold'
                         teamObj[j] = teamPlayerList[j]
@@ -43,6 +43,7 @@ class CustomModal extends React.Component {
             }
             afterPredicationAmount = afterPredicationAmount + teamObj[i].bidAmount
         }
+        // teamObj.sort((a,b) => (a.playerType > b.playerType) ? 1 : ((b.playerType > a.playerType) ? -1 : 0))
         if(selectedTeam && selectedTeam.basePrice && teamObj && teamObj.length>0 && teamPlayerList){
             if(teamObj.length != teamPlayerList.length &&   teamObj[teamPlayerList.length] && teamObj[teamPlayerList.length].bidAmount)
             teamObj[teamPlayerList.length].bidAmount = (this.props.totalAmount - afterPredicationAmount + selectedTeam.basePrice)
