@@ -143,6 +143,22 @@ export class Profile extends React.PureComponent {
     }
         
     editProfile(){
+        let sportsList = []
+        if (this.props.sportsList && this.props.sportsList.length > 0) {
+          this.props.sportsList.map((item) => {
+            sportsList.push({ label: item.name, value: item.id })
+          })
+        }
+        let subCategory = []
+        if (this.props.sportsList && this.props.sportsList.length > 0) {
+          this.props.sportsList.map((item) => {
+            if(this.props.userProfile && item.id == this.props.userProfile.sportTypeId && item.subCategory){
+              item.subCategory.map((data)=>subCategory.push({ label: data, value: data }))
+            }
+          })
+          
+  
+        }
         console.log(this.props.userProfile)
         let data =[]
         if(this.props.userProfile.roleId === 3){
@@ -173,7 +189,7 @@ export class Profile extends React.PureComponent {
                 type: 'select',
                 required:true,
                 value: this.props.userProfile.sportTypeId,
-                data:[{label:'Cricket',value:'1'}]
+                data: sportsList
             },
             {
                 key: 'tshirt',
@@ -187,7 +203,7 @@ export class Profile extends React.PureComponent {
                 type: 'select',
                 required:true,
                 value: this.props.userProfile.category,
-                data: [{ label: 'All-rounder', value: 'All-rounder' }, { label: 'Batsman', value: 'Batsman' }, { label: 'Bowler', value: 'Bowler' }, { label: 'Wicket-keeper', value: 'Wicket-keeper' }]
+                data: subCategory
             },
             {
                 key: 'playerType',
@@ -531,7 +547,9 @@ function mapStateToProps(state) {
         tournamentList: state.tournament.tournamentList,
         clubList: state.clubs.clubList,
         profileIncomplte: state.global.profileIncomplte,    
-        profileEdit: state.global.profileEdit,    
+        profileEdit: state.global.profileEdit,   
+        sportsList: state.global.sportsList,
+
             
     };
 }

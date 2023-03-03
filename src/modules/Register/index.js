@@ -132,14 +132,22 @@ export class Register extends React.PureComponent {
     }
 
     render() {
-      console.log('sportsList1', this.props.sportsList)
       let sportsList = []
       if (this.props.sportsList && this.props.sportsList.length > 0) {
         this.props.sportsList.map((item) => {
           sportsList.push({ label: item.name, value: item.id })
         })
       }
-      console.log('sportsList', sportsList)
+      let subCategory = []
+      if (this.props.sportsList && this.props.sportsList.length > 0) {
+        this.props.sportsList.map((item) => {
+          if(item.id == this.props.sportsType && item.subCategory){
+            item.subCategory.map((data)=>subCategory.push({ label: data, value: data }))
+          }
+        })
+        
+
+      }
 
         return (
             <main id="main" className={this.state.forceUpdate}>
@@ -195,7 +203,7 @@ export class Register extends React.PureComponent {
                               <select className="form-control form-control-sm"
                                     onChange={(e) => {
                                       this.props.onChangeValueRegister({ target: { id: 'sportsType', value: e.target.value } })
-                                      this.renderSubcat(e.target.value)}}>
+                                      }}>
                                     {sportsList.map((item) => <option value={item.value}>{item.label}</option>)}
                                     </select>
                             </div>
@@ -204,7 +212,8 @@ export class Register extends React.PureComponent {
                               <label htmlFor="Lname"><i className="zmdi zmdi-account fa fa-chevron-circle-down"></i></label>
                                <select className="form-control form-control-sm"
                                     onChange={(e) => {this.props.onChangeValueRegister({ target: { id: 'playerType', value: e.target.value } })}}>
-                                    {this.state.sportsCatList.map((item) => <option value={item.value}>{item.label}</option>)}
+                                    {subCategory && subCategory .length>0 &&subCategory.map((item) => <option value={item.value}>{item.label}</option>)}
+                                    {/* {this.state.sportsCatList.map((item) => <option value={item.value}>{item.label}</option>)} */}
                                        
                                     </select>
                             </div>
