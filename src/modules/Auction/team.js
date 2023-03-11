@@ -83,7 +83,7 @@ class Team extends React.Component {
         return (
             player ? <div className="blogSlider">
                 <div style={{ 'display': 'flex' }}>
-                    <div class="card-wrapper">
+                    {/* <div class="card-wrapper">
                         <div class="card">
 
                             <div class="product-imgs">
@@ -116,7 +116,7 @@ class Team extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                 </div>
                 <div className='inputMainBox'>
