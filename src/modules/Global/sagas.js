@@ -586,6 +586,7 @@ export function* editProfile() {
   const playerProfile = state.global.loggedInRoleId ==  3
     var requestURL = CONFIG.apiURL + '/apiService/player'
   let profileBody = exportKeyValue(profileEdit)
+    profileBody.profileComplte=  1
   if (profileBody.password == "") {
     delete profileBody.password
   }

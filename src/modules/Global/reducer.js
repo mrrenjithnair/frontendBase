@@ -40,7 +40,8 @@ import {
     GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE,
     RESET_AUCTION,
     GET_UNSOLD_PLAYER_SUCCESS,
-    GET_UNSOLD_PLAYER_FAILURE
+    GET_UNSOLD_PLAYER_FAILURE,
+    PROFILE_EDIT_SUCCESS,
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -250,7 +251,9 @@ export default function (state = initialState, actions) {
         case EDIT_PLAYER_TO_TEAM_FAILURE:
             toast.error('Player sold failed');
                 return { ...state,  };
-        
+        case PROFILE_EDIT_SUCCESS:
+                return { ...state,profileIncomplte: false  };
+    
                 
         case ON_CHANGE_VALUE_CLUB:
             let seletedClubEdit = state.seletedClubEdit

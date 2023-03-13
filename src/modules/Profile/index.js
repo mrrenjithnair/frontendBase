@@ -37,6 +37,7 @@ export class Profile extends React.PureComponent {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleSocialLogin = this.handleSocialLogin.bind(this)
         this.handleSocialLoginFailure = this.handleSocialLogin.bind(this)
+        this.editProfile = this.editProfile.bind(this)
         this.state = {
             id: null,
             isEditing: false,
@@ -60,6 +61,11 @@ export class Profile extends React.PureComponent {
     componentDidUpdate(){
  
     }
+    // componentWillReceiveProps(nextprops){
+    //     if (nextprops.profileIncomplte && !this.state.editProfile && nextprops.userProfile) {
+    //         this.editProfile()
+    //     }
+    // }
     handleSubmit(e) {
         this.props.onClickLogin()
 
@@ -384,7 +390,11 @@ export class Profile extends React.PureComponent {
         let isPlayer =  this.props.userProfile.roleId === 3 ? true : false
         return (
             <section className="compMain">
+                  {this.props.profileIncomplte && <div style={{display:'flex', backgroundColor:'#e74c3c', color:'#ffff', justifyContent:"center", alignItems:'center', padding:10}}>
+                  Error: Profile is incomplete. Please fill in all required fields and try again.
+                    </div>}
                 <div className="container">
+                  
                     <div className="main-body">
 
                         <div className="row gutters-sm">
@@ -475,10 +485,10 @@ export class Profile extends React.PureComponent {
                                     </div>
                                 </div>
                             </div>
-                            {showTabs ? <Tabs
+                            {/* {showTabs ? <Tabs
                                 defaultActiveKey="profile"
                                 id="justify-tab-example"
-                                className="mb-3"
+                                className="mb-3 rc-table-thead"
                                 justify
                                 onSelect={(key) => {
                                     console.log(key)
@@ -512,7 +522,7 @@ export class Profile extends React.PureComponent {
                                         })}
                                     <div />
                                 </Tab>
-                            </Tabs> : <div />}
+                            </Tabs> : <div />} */}
                         </div>
 
                     </div>

@@ -27,7 +27,9 @@ import Team from "../Team"
 
 import history from "../utils/history";
 
+
 import Login from '../Login'
+import SocialLogin from '../SocialLogin'
 import Register from '../Register'
 import { setDataFromLocal } from '../Global/actions';
 import BottomNavBar from '../../components/BottomNavBar'
@@ -54,6 +56,7 @@ export class AppRoutes extends React.PureComponent {
         <Routes>
         <Route exact path="/" element={<Home sessionToken={this.props.sessionToken} />}></Route>
           <Route path="/home" element={<PrivateRoute ><Dashboard sessionToken={this.props.sessionToken} /></PrivateRoute>} />
+          <Route exact path="/socialLogin" element={<SocialLogin />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/clubList" element={<PrivateRoute ><ClubList sessionToken={this.props.sessionToken} /></PrivateRoute>} />
