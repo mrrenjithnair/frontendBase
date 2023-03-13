@@ -33,10 +33,10 @@ import {
     LoginSocialTwitter,
     IResolveParams,
 } from 'reactjs-social-login'
-
+import { FacebookLoginButton,GoogleLoginButton } from "react-social-login-buttons";
 const REDIRECT_URI = 'http://localhost:3000/account/login'
 
-export class Login extends React.PureComponent {
+export class SocialLogin extends React.PureComponent {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -127,36 +127,13 @@ export class Login extends React.PureComponent {
                     <div className="signin-content">
                         <div className="signin-image">
                             <figure className="d-none d-md-block"><img src="assets/img/sport.webp" alt="sing up image" /></figure>
-                            <a onClick={() => { history.push('/Register') }} className="signup-image-link">Don't have an account? Register</a>
+                            {/* <a onClick={() => { history.push('/Register') }} className="signup-image-link">Don't have an account? Register</a> */}
                         </div>
 
                         <div className="signin-form">
                             <h2 className="form-title">Sign In</h2>
                             <div className="register-form" id="login-form">
-                                <div className="form-group">
-                                    <label htmlFor="username"><i className="fa fa-envelope"></i></label>
-                                    <input type="text" name="username" id="username" placeholder="Your Email" 
-                                      onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'username', value: e.target.value } })}} 
-                                      />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="your_pass"><i className="fa fa-lock"></i></label>
-                                    <input type="password" name="your_pass" id="your_pass" placeholder="Password" 
-                                     onChange={(e) => {this.props.onChangeValueLogin({ target: { id: 'password', value: e.target.value } })}} />
-                                </div>
-                                <div className="form-group">
-                                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                    <label htmlFor="remember-me" className="label-agree-term"><span><span></span></span>Remember me</label>
-                                </div>
-
-                                <div className="form-group form-button">
-                                    <input onClick={this.handleSubmit} type="submit" name="signin" id="signin" className="form-submit" value="Log in" />
-                                </div>
-                            </div>
-                            <div className="social-login">
-                                <span className="social-label">Or Sign in with</span>
-                                <ul className="socials">
-                                    <LoginSocialFacebook
+                            <LoginSocialFacebook
                                         appId={5522832564472310}
                                         onResolve={(provider, data) => {
                                             console.log(provider, data)
@@ -166,9 +143,10 @@ export class Login extends React.PureComponent {
                                             console.log(err)
                                         }}
                                     >
-                                        <li><a href="#"><i className="display-flex-center   fab fa-facebook-f" aria-hidden="true"></i></a></li>
-
+                                        {/* <li><a href="#"><i className="display-flex-center   fab fa-facebook-f" aria-hidden="true"></i></a></li> */}
+                                        <FacebookLoginButton/>
                                     </LoginSocialFacebook>
+                                    <br/> 
                                     <LoginSocialGoogle
                                         client_id={'174987584924-3bt94g2sm65ift53mubbvisqiui1ckal.apps.googleusercontent.com'}
                                         onResolve={(provider, data) => {
@@ -180,10 +158,13 @@ export class Login extends React.PureComponent {
                                             console.log(err)
                                         }}
                                     >
-                                        <li><a href="#"><i className="display-flex-center fab fa-google"></i></a></li>
+                                        <GoogleLoginButton/>
 
                                     </LoginSocialGoogle>
-                                </ul>
+                            </div>
+                            <div className="social-login">
+                                <span className="social-label">Or Admin Login with</span>
+                                <a onClick={() => { history.push('/login') }} className="signup-image-link">login</a>
                             </div>
                         </div>
                     </div>
@@ -204,7 +185,7 @@ export class Login extends React.PureComponent {
     }
 }
 
-Login.propTypes = {
+SocialLogin.propTypes = {
     onSubmitForm: PropTypes.func,
     errors: PropTypes.object
 };
@@ -230,4 +211,4 @@ function mapDispatchToProps(dispatch) {
 
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(SocialLogin);

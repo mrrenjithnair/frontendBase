@@ -1,5 +1,6 @@
 import {
     INPUT_VALUE_CHANGED_GLOBAL,
+    GET_PREFERENCE_VALUES_SUCCESS,
     GET_CLUB_DETAIL_SUCCESS,
     SET_DATA_FROM_LOCAL,
     ON_LOGIN_SUCCESS,
@@ -39,7 +40,8 @@ import {
     GET_TOURNAMENT_DETAIL_OF_AUCTION_FAILURE,
     RESET_AUCTION,
     GET_UNSOLD_PLAYER_SUCCESS,
-    GET_UNSOLD_PLAYER_FAILURE
+    GET_UNSOLD_PLAYER_FAILURE,
+    PROFILE_EDIT_SUCCESS,
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -70,7 +72,8 @@ export const initialState = {
     loading:false,
     profileIncomplte: false,
     auctionPending: false,
-    auctionTournamentPlayerBindAmount: 0
+    auctionTournamentPlayerBindAmount: 0,
+    sportsList: false
 };
 
 export default function (state = initialState, actions) {
@@ -86,6 +89,11 @@ export default function (state = initialState, actions) {
             console.log(actions.id, actions.value)
             return { ...state, [actions.id]: actions.value };
 
+        
+        case GET_PREFERENCE_VALUES_SUCCESS:
+            console.log(actions.id, actions.value)
+            return { ...state, sportsList: actions.value.sportsList };
+            
         case ON_LOGIN_SUCCESS:
             let data = actions.data
             console.log('ON_LOGIN_SUCCESS global', actions.data)
@@ -243,7 +251,9 @@ export default function (state = initialState, actions) {
         case EDIT_PLAYER_TO_TEAM_FAILURE:
             toast.error('Player sold failed');
                 return { ...state,  };
-        
+        case PROFILE_EDIT_SUCCESS:
+                return { ...state,profileIncomplte: false  };
+    
                 
         case ON_CHANGE_VALUE_CLUB:
             let seletedClubEdit = state.seletedClubEdit

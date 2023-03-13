@@ -6,7 +6,7 @@ import {
     ON_LOG_OUT
 } from './actions';
 import roleInfo from '../utils/roleInfo';
-// The initial state of the Login Reducer
+// The initial state of the SocialLogin Reducer
 export const initialState = {
     requesting: false,
     successful: false,
@@ -38,7 +38,7 @@ export default function (state = initialState, actions) {
             let privileges = JSON.stringify(data.user.privileges)
             privileges =privileges ? JSON.parse(privileges.replace(/\r?\n|\r|\t/g, '')): ''
             roleInfo.set(JSON.parse(privileges))
-            return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: privileges, loggedInUseId:data.user.id, loggedInRoleId:data.user.roleId, showProfile: data.user.showProfile  };
+            return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: privileges, loggedInUseId:data.user.id, loggedInRoleId:data.user.roleId  };
         case ON_LOGIN_SUCCESS:
             return { ...state, loginUser: false, sessionToken: false, userPrivileges: false, loggedInUseId: false, loggedInRoleId:false, socialLogin: false, socialLogin: false
                 ,socialLoginData: false

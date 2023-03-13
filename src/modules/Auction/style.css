@@ -1,6 +1,4 @@
-
-.auctionBox .detailBox{
-  background: #f25f5c;
+.auctionBox .detailBox {
   color: white;
 }
 
@@ -11,13 +9,16 @@
   box-shadow: 0 24px 64px rgb(0 0 0 / 4%);
   overflow: scroll;
 }
-.inputBox .flabel{
+
+.inputBox .flabel {
   font-weight: bold;
   padding: 10px 0px;
 
 }
-.tournamentDetailBoxAuction  .card{
-  font-weight: bold;  color: #2c3e50;
+
+.tournamentDetailBoxAuction .card {
+  font-weight: bold;
+  color: #2c3e50;
 }
 
 .tournamentDetailBoxAuctionTeam {
@@ -27,8 +28,10 @@
   margin-left: 15px;
   box-shadow: 0 24px 64px rgb(0 0 0 / 4%);
   background: #FFFF;
+  width: 40%;
 }
-.blogSlider{
+
+.blogSlider {
   height: 100%;
 }
 
@@ -41,7 +44,7 @@
   background: #e4e4e4;
   box-shadow: 0 2px 6px 0 rgb(47 83 151 / 10%);
   border-radius: 3px;
-  padding: 10px;
+  padding: 5px;
 }
 
 .tournamentBox {
@@ -115,6 +118,7 @@
   width: 100%;
   flex-wrap: wrap;
 }
+
 .teamBoxMain {
   display: flex;
   width: 100%;
@@ -126,14 +130,16 @@
   padding: 20px;
 }
 
-.profile-info p, b {
+.profile-info p,
+b {
   line-height: 1.5rem;
 }
 
 .imgBox {
   width: 20%;
 }
-.auctionBox  .detailBox{
+
+.auctionBox .detailBox {
   width: 60%;
 }
 
@@ -149,14 +155,15 @@
   margin-top: 0;
   margin-bottom: 5%;
 }
-.arrowBox{
+
+.arrowBox {
   color: black;
-    display: flex;
-    /* position: absolute; */
-    /* width: 100%; */
-    height: 100%;
-    align-items: center;
-    cursor: pointer;
+  display: flex;
+  /* position: absolute; */
+  /* width: 100%; */
+  height: 100%;
+  align-items: center;
+  cursor: pointer;
 }
 
 .playerDetailBox h4 {
@@ -178,16 +185,19 @@
   background: #507BFC;
   color: #ffff;
 }
-.basePrice{
+
+.basePrice {
   font-weight: bold;
   line-height: 1.5rem;
   color: #2c3e50;
 }
+
 .buttonBox {
   display: flex;
   margin: 20px;
   justify-content: space-evenly;
 }
+
 .page-wrapper-auction {
   font-family: 'Lato', sans-serif;
   margin: auto;
@@ -197,6 +207,7 @@
   justify-content: space-evenly;
 
 }
+
 .profile-main-box-auction {
   display: flex;
   flex-direction: column;
@@ -206,10 +217,11 @@
   margin: 6px 6px;
   text-align: left;
   transition: 300ms;
-  width: 300px;
+  width: 500px;
   justify-content: space-between;
   padding: 16px;
 }
+
 .profile-box-auction {
   background: #FFFFFF;
   text-align: left;
@@ -218,11 +230,13 @@
   display: flex;
   padding: 5px;
 }
-.profile-box-auction img{
+
+.profile-box-auction img {
   width: 60px;
   height: 60px;
 }
-.profile-detail-auction{
+
+.profile-detail-auction {
   border-top-color: #2c3e50;
   border-top-width: 1px;
   border-top-style: solid;
@@ -230,7 +244,8 @@
   justify-content: space-around;
   flex-flow: column;
 }
-.profile-detail-auction-text{
+
+.profile-detail-auction-text {
   color: #2c3e50;
   border-bottom: 1px #2c3e50 solid;
   padding: 5px;
@@ -240,32 +255,39 @@
   font-family: "Poppins", sans-serif;
 
 }
-.profile-detail-auction-text span{
+
+.profile-detail-auction-text span {
   font-size: 1rem;
   text-transform: capitalize;
   font-weight: 700;
   color: #12263a;
 }
-.profile-box-textBox{
+
+.profile-box-textBox {
   padding: 5px;
 }
-.profile-box-auction span{
+
+.profile-box-auction span {
   color: #455a64;
 }
-.teamNameAuction{
+
+.teamNameAuction {
   font-size: 1rem;
   text-transform: capitalize;
   font-weight: 700;
   color: #12263a;
   font-family: "Poppins", sans-serif;
 }
+
 @media (max-width: 768px) {
   .auctionBox {
     flex-direction: column;
   }
-  .auctionBox .detailBox{
+
+  .auctionBox .detailBox {
     width: 100%;
   }
+
   .tournamentDetailBoxAuctionTeam {
     width: 100%;
   }
@@ -273,22 +295,27 @@
   .tournamentDetailBoxAuctionTeam {
     width: 100%;
   }
-  .user-link{
+
+  .user-link {
     font-size: .50em;
   }
-  .user-list tbody td .user-subhead{
+
+  .user-list tbody td .user-subhead {
     font-size: .50em;
   }
-  .main-box .table tbody > tr > td{
+
+  .main-box .table tbody>tr>td {
     font-size: .50em;
   }
-  .user-list tbody td > img{
-  height: 25px;
-  width: 25px;
+
+  .user-list tbody td>img {
+    height: 25px;
+    width: 25px;
   }
 }
-.auctionName{
-  color:#ffff;
+
+.auctionName {
+  color: #ffff;
   margin-bottom: 0;
   text-transform: capitalize;
   line-height: 1;
@@ -297,60 +324,69 @@
   font-weight: 600;
   text-align: center;
 }
-.auctionHeader{
-  display:flex;
-  justify-content:space-evenly;
+
+.auctionHeader {
+  display: flex;
+  justify-content: space-evenly;
   background: #50ac00;
   color: #fff;
   height: 40px;
   font-size: 16px;
   font-weight: 600;
-align-items: center;
+  align-items: center;
 }
-.imgBoxAuction{
+
+.imgBoxAuction {
   width: 150px;
 }
 
-.aboutUs{
+.aboutUs {
   display: block;
-  height: 130px;
   overflow: hidden;
   white-space: pre-wrap;
   text-overflow: ellipsis;
 }
 
-.img-display{
+.img-display {
   overflow: hidden;
 
 }
-.img-showcase{
+
+.img-showcase {
   display: flex;
   width: 100%;
   transition: all 0.5s ease;
   height: 500px;
   background-size: cover;
 }
-.img-showcase img{
+
+.img-showcase img {
   min-width: 100%;
 }
-.img-select{
+
+.img-select {
   display: flex;
 }
-.img-item{
+
+.img-item {
   margin: 0.3rem;
 }
+
 .img-item:nth-child(1),
 .img-item:nth-child(2),
-.img-item:nth-child(3){
+.img-item:nth-child(3) {
   margin-right: 0;
 }
-.img-item:hover{
+
+.img-item:hover {
   opacity: 0.8;
 }
-.product-content{
+
+.product-content {
   padding: 2rem 1rem;
 }
-.product-title{
+
+.product-title {
   font-size: 2rem;
   text-transform: capitalize;
   font-weight: 700;
@@ -358,7 +394,8 @@ align-items: center;
   color: #12263a;
   margin: 1rem 0;
 }
-.product-title::after{
+
+.product-title::after {
   content: "";
   position: absolute;
   left: 0;
@@ -367,7 +404,8 @@ align-items: center;
   width: 80px;
   background: #12263a;
 }
-.product-link{
+
+.product-link {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 400;
@@ -379,53 +417,65 @@ align-items: center;
   padding: 0 0.3rem;
   transition: all 0.5s ease;
 }
-.product-link:hover{
+
+.product-link:hover {
   opacity: 0.9;
 }
-.product-rating{
+
+.product-rating {
   color: #ffc107;
 }
-.product-rating span{
+
+.product-rating span {
   font-weight: 600;
   color: #252525;
 }
-.product-price{
+
+.product-price {
   margin: 1rem 0;
   font-size: 1rem;
   font-weight: 700;
 }
-.product-price span{
+
+.product-price span {
   font-weight: 400;
 }
-.last-price span{
+
+.last-price span {
   color: #f64749;
   text-decoration: line-through;
 }
-.new-price span{
+
+.new-price span {
   color: #256eff;
 }
-.product-detail h2{
+
+.product-detail h2 {
   text-transform: capitalize;
   color: #12263a;
   padding-bottom: 0.6rem;
   font-size: 1.2rem;
 }
-.product-imgs h2{
+
+.product-imgs h2 {
   text-transform: capitalize;
   color: #12263a;
   padding-bottom: 0.6rem;
   font-size: 1.2rem;
 }
-.product-detail p{
+
+.product-detail p {
   font-size: 0.9rem;
   padding: 0.3rem;
   opacity: 0.8;
 }
-.product-detail ul{
+
+.product-detail ul {
   margin: 1rem 0;
   font-size: 0.9rem;
 }
-.product-detail ul li{
+
+.product-detail ul li {
   margin: 0;
   list-style: none;
   background: url(https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/checked.png) left center no-repeat;
@@ -435,14 +485,17 @@ align-items: center;
   font-weight: 600;
   opacity: 0.9;
 }
-.product-detail ul li span{
+
+.product-detail ul li span {
   font-weight: 400;
 }
-.purchase-info{
+
+.purchase-info {
   margin: 1.5rem 0;
 }
+
 .purchase-info input,
-.purchase-info .btn{
+.purchase-info .btn {
   border: 1.5px solid #ddd;
   border-radius: 25px;
   text-align: center;
@@ -451,27 +504,34 @@ align-items: center;
   margin-right: 0.2rem;
   margin-bottom: 1rem;
 }
-.purchase-info input{
+
+.purchase-info input {
   width: 60px;
 }
-.purchase-info .btn{
+
+.purchase-info .btn {
   cursor: pointer;
   color: #fff;
 }
-.purchase-info .btn:first-of-type{
+
+.purchase-info .btn:first-of-type {
   background: #256eff;
 }
-.purchase-info .btn:last-of-type{
+
+.purchase-info .btn:last-of-type {
   background: #f64749;
 }
-.purchase-info .btn:hover{
+
+.purchase-info .btn:hover {
   opacity: 0.9;
 }
-.social-links{
+
+.social-links {
   display: flex;
   align-items: center;
 }
-.social-links a{
+
+.social-links a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -485,12 +545,14 @@ align-items: center;
   font-size: 0.8rem;
   transition: all 0.5s ease;
 }
-.social-links a:hover{
+
+.social-links a:hover {
   background: #000;
   border-color: transparent;
   color: #fff;
 }
-.auctionList{
+
+.auctionList {
   display: flex;
   padding-top: 5px;
   color: black;
@@ -498,30 +560,35 @@ align-items: center;
   border-top: 1px solid #e4e4e4;
 
 }
-.auctionListCol{
+
+.auctionListCol {
   display: flex;
   color: black;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.auctionListLabel{
+
+.auctionListLabel {
   font-size: 12px;
   text-transform: capitalize;
   font-weight: 700;
   color: #12263a;
 }
-.inputGroupBox{
+
+.inputGroupBox {
   display: flex;
   justify-content: center;
   align-items: center;
   background: #ffc107;
   color: #ffff;
 }
+
 .inputGroupBox .btn {
   color: #ffff;
 }
-.inputGroupBoxDanger{
+
+.inputGroupBoxDanger {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -530,16 +597,20 @@ align-items: center;
   border-bottom-right-radius: 10px !important;
   color: #ffff;
 }
+
 .inputGroupBox .btn {
   color: #ffff;
 }
-.mouse{
+
+.mouse {
   cursor: pointer;
 }
-.tabDiv{
+
+.tabDiv {
   background: #50ac00;
   padding: 10px;
 }
+
 .custom-canvas {
   width: 100%;
   height: 100%;
@@ -553,7 +624,8 @@ align-items: center;
   height: 100%;
   flex-direction: column;
 }
-.soldImageBox{
+
+.soldImageBox {
   width: 100%;
   height: 100%;
   display: flex;
@@ -561,6 +633,7 @@ align-items: center;
   justify-items: center;
   align-items: center;
 }
+
 .soldImg {
   width: 200px;
   height: 200px;
@@ -616,58 +689,160 @@ align-items: center;
   color: #FFFFFF;
   margin: 1rem 0;
 }
-@media screen and (min-width: 992px){
- .blogSlider .card{
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-gap: 1.5rem;
+
+
+.playerProfileBox {
+  background: white;
+  color: #000;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 25px;
+  margin: 5px 25px;
+  height: 100%;
+}
+.playerNameBox{
+  width: 100%;
+  background: #50ac00;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 25px 25px 0 0px;
+}
+.auctionPlayerName {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  position: relative;
+  color: #FFFFFF;
+}
+.auctionPlayerCat {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  position: relative;
+  color: #FFFFFF;
+}
+.playerBoxDetail{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+
+}
+.playerProfileImgBox{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.playerImgBox{
+  padding: 20px;
+  height: 25rem;
+  width: 25rem;
+  z-index: 1000;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+}
+.playerImgBox img {
+  max-width: 100%;
+  height: 100%;
+}
+.playerImgBox img {
+  --s: 10px; /* control the size */
+  padding: var(--s);
+  border: calc(2*var(--s)) solid #0000;
+  outline: 1px solid #000;
+  outline-offset: calc(-1*var(--s));
+  background: conic-gradient(from 90deg at 1px 1px,#0000 25%,#000 0);
+}
+.playerImgBox img {
+  width: 100%;
+  transition: 0.5s all ease-in-out;
+  object-fit: cover;
+}
+
+.playerImgBox:hover img {
+  transform: scale(2);
+  left: 50%;
+  right: 50%;
+  position: relative;
+  background-color: #FFFFFF;
+}
+.playerProfileStats{
+  width: 100%;
+}
+@media screen and (min-width: 992px) {
+  .blogSlider .card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1.5rem;
   }
-  .blogSlider .card-wrapper{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
+
+  .blogSlider .card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
-  .blogSlider .product-imgs{
-      flex-direction: column;
+
+  .blogSlider .product-imgs {
+    flex-direction: column;
   }
-  .blogSlider .product-content{
-      padding-top: 0;
+
+  .blogSlider .product-content {
+    padding-top: 0;
   }
-  .auctionName{
+
+  .auctionName {
     font-size: 20px;
   }
 
-.soldBox {
+  .soldBox {
 
-  flex-direction: row;
-}
-.soldMain{
-  width: 50%;
-}
-.soldImageBox{
-  width: 50%;
+    flex-direction: row;
+  }
 
-}
-.soldImg {
-  width: 500px;
-  height: 500px;
-}
+  .soldMain {
+    width: 50%;
+  }
+
+  .soldImageBox {
+    width: 50%;
+
+  }
+
+  .soldImg {
+    width: 500px;
+    height: 500px;
+  }
 
 
-.soldName {
-  font-size: 5rem;
-}
+  .soldName {
+    font-size: 5rem;
+  }
 
-.soldNameSold {
-  font-size: 3rem;
-}
+  .soldNameSold {
+    font-size: 3rem;
+  }
 
-.soldTeamName {
-  font-size: 5rem;
-}
+  .soldTeamName {
+    font-size: 5rem;
+  }
 
-.soldNameBid {
-  font-size: 5rem;
-}
+  .soldNameBid {
+    font-size: 5rem;
+  }
+  .playerProfileImgBox{
+    width: 60%;
+  }
+  .playerProfileStats{
+    width: 40%;
+  }
+  .playerBoxDetail{
+    flex-direction: row;
+  }
 }

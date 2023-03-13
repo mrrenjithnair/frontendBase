@@ -588,7 +588,7 @@ input[type=checkbox]:not(old) {
     -ms-order: 1;
     margin-right: 0px;
     margin-left: 0px;
-    padding: 0 30px; }
+}
 
   .form-title {
     text-align: center; } }

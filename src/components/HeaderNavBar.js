@@ -23,7 +23,7 @@ export class HeaderNavBar extends React.PureComponent {
     logout() {
         localStorage.clear();
         this.props.logout()
-        history.push('/login');
+        history.push('/socialLogin');
         window.location.reload(false);
 
     }
@@ -81,7 +81,7 @@ export class HeaderNavBar extends React.PureComponent {
                                 className="d-inline-block align-top"
                             />{' '}</Navbar.Brand>
                             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                            <Navbar.Collapse id="responsive-navbar-nav">
+                            {!this.props.profileIncomplte &&<Navbar.Collapse id="responsive-navbar-nav">
                                 {this.props.sessionToken ? <Nav id="navbar" className="navbar order-last order-lg-0">
                                     {this.props.sessionToken && 
                                     <Nav.Link href="#home" className="nav-link scrollto" onClick={() => { history.push('/home'); }}>Home</Nav.Link>}
@@ -118,10 +118,10 @@ export class HeaderNavBar extends React.PureComponent {
                                     <Nav.Link  href="/#pricing" className="nav-link scrollto">License</Nav.Link>
                                     <Nav.Link  href="/#contact" className="nav-link scrollto">Contact</Nav.Link>
                                 </Nav>}
-                            </Navbar.Collapse>
+                            </Navbar.Collapse>}
                             {this.props.sessionToken ? <div className="navButtonBox"><a className="league-btn -btn scrollto" onClick={e => this.logout(e)}><span className="">Logout</span></a></div> 
                                 : <div className="navButtonBox">
-                                    <a className="league-btn -btn scrollto" onClick={() => { history.push('/login'); }}><span className="">Login</span></a>
+                                    <a className="league-btn -btn scrollto" onClick={() => { history.push('/socialLogin'); }}><span className="">Login</span></a>
                                     <a className="league-btn -btn scrollto" onClick={() => { history.push('/register'); }}><span className="">Register</span></a>
                                 </div>}
 

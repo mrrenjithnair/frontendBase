@@ -37,6 +37,7 @@ export class Profile extends React.PureComponent {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleSocialLogin = this.handleSocialLogin.bind(this)
         this.handleSocialLoginFailure = this.handleSocialLogin.bind(this)
+        this.editProfile = this.editProfile.bind(this)
         this.state = {
             id: null,
             isEditing: false,
@@ -60,6 +61,11 @@ export class Profile extends React.PureComponent {
     componentDidUpdate(){
  
     }
+    // componentWillReceiveProps(nextprops){
+    //     if (nextprops.profileIncomplte && !this.state.editProfile && nextprops.userProfile) {
+    //         this.editProfile()
+    //     }
+    // }
     handleSubmit(e) {
         this.props.onClickLogin()
 
@@ -143,6 +149,22 @@ export class Profile extends React.PureComponent {
     }
         
     editProfile(){
+        let sportsList = []
+        if (this.props.sportsList && this.props.sportsList.length > 0) {
+          this.props.sportsList.map((item) => {
+            sportsList.push({ label: item.name, value: item.id })
+          })
+        }
+        let subCategory = []
+        if (this.props.sportsList && this.props.sportsList.length > 0) {
+          this.props.sportsList.map((item) => {
+            if(this.props.userProfile && item.id == this.props.userProfile.sportTypeId && item.subCategory){
+              item.subCategory.map((data)=>subCategory.push({ label: data, value: data }))
+            }
+          })
+          
+  
+        }
         console.log(this.props.userProfile)
         let data =[]
         if(this.props.userProfile.roleId === 3){
@@ -173,7 +195,7 @@ export class Profile extends React.PureComponent {
                 type: 'select',
                 required:true,
                 value: this.props.userProfile.sportTypeId,
-                data:[{label:'Cricket',value:'1'}]
+                data: sportsList
             },
             {
                 key: 'tshirt',
@@ -187,7 +209,7 @@ export class Profile extends React.PureComponent {
                 type: 'select',
                 required:true,
                 value: this.props.userProfile.category,
-                data: [{ label: 'All-rounder', value: 'All-rounder' }, { label: 'Batsman', value: 'Batsman' }, { label: 'Bowler', value: 'Bowler' }, { label: 'Wicket-keeper', value: 'Wicket-keeper' }]
+                data: subCategory
             },
             {
                 key: 'playerType',
@@ -368,7 +390,11 @@ export class Profile extends React.PureComponent {
         let isPlayer =  this.props.userProfile.roleId === 3 ? true : false
         return (
             <section className="compMain">
+                  {this.props.profileIncomplte && <div style={{display:'flex', backgroundColor:'#e74c3c', color:'#ffff', justifyContent:"center", alignItems:'center', padding:10}}>
+                  Error: Profile is incomplete. Please fill in all required fields and try again.
+                    </div>}
                 <div className="container">
+                  
                     <div className="main-body">
 
                         <div className="row gutters-sm">
@@ -459,10 +485,10 @@ export class Profile extends React.PureComponent {
                                     </div>
                                 </div>
                             </div>
-                            {showTabs ? <Tabs
+                            {/* {showTabs ? <Tabs
                                 defaultActiveKey="profile"
                                 id="justify-tab-example"
-                                className="mb-3"
+                                className="mb-3 rc-table-thead"
                                 justify
                                 onSelect={(key) => {
                                     console.log(key)
@@ -496,7 +522,7 @@ export class Profile extends React.PureComponent {
                                         })}
                                     <div />
                                 </Tab>
-                            </Tabs> : <div />}
+                            </Tabs> : <div />} */}
                         </div>
 
                     </div>
@@ -531,7 +557,9 @@ function mapStateToProps(state) {
         tournamentList: state.tournament.tournamentList,
         clubList: state.clubs.clubList,
         profileIncomplte: state.global.profileIncomplte,    
-        profileEdit: state.global.profileEdit,    
+        profileEdit: state.global.profileEdit,   
+        sportsList: state.global.sportsList,
+
             
     };
 }

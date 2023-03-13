@@ -84,6 +84,8 @@ export const UN_SOLD_PLAYER = 'UN_SOLD_PLAYER';
 export const GET_UNSOLD_PLAYER = 'GET_UNSOLD_PLAYER';
 export const GET_UNSOLD_PLAYER_SUCCESS = 'GET_UNSOLD_PLAYER_SUCCESS';
 export const GET_UNSOLD_PLAYER_FAILURE = 'GET_UNSOLD_PLAYER_FAILURE';
+export const GET_PREFERENCE_VALUES = 'GET_PREFERENCE_VALUES';
+export const GET_PREFERENCE_VALUES_SUCCESS = 'GET_PREFERENCE_VALUES_SUCCESS';
 
 
 
@@ -547,3 +549,20 @@ export function unSoldPlayer() {
       type: UN_SOLD_PLAYER
   };
 }
+
+export function getPreferenceValueSuccess(preferenceList) {
+  return {
+      type: GET_PREFERENCE_VALUES_SUCCESS,
+      value : preferenceList
+  };
+}
+
+
+
+export function getPreferenceValue() {
+  return {
+      type: GET_PREFERENCE_VALUES
+  };
+}
+
+

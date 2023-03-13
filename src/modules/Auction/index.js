@@ -355,9 +355,73 @@ export class Auction extends React.PureComponent {
             return ''
         }
     }
+    renderTeamList(){
+        return(
+            <div className='detailBox'>
+            <div className='tournamentDetailBoxAuction'>
+                <div>
+                    {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div>
+                        <div className='auctionName'> team List</div>
+                    </div>}
+
+                    <div className="page-wrapper-auction">
+                        {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 &&
+                            this.props.tournamentDetailGlobal.teams.map((item) => {
+                                let totalAmount = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
+                                let spentAmount = item.totalSpend ? item.totalSpend : 0
+                                let remainingAmount = totalAmount - spentAmount
+                                return (<div className="profile-main-box-auction">
+                                    <div style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
+                                        <div className="profile-box-auction">
+                                            {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
+                                                <img src={team} alt="profile pic" />}
+                                            <div className='profile-box-textBox'>
+                                                <div className='teamNameAuction'>{item.teamName}</div>
+                                                <span>{item.ownerName}</span><br />
+                                            </div>
+                                        </div>
+                                        <div className='arrowBox'>
+                                            <FontAwesomeIcon icon={faArrowAltCircleRight} size="2x" style={{ color: '#FC8471' }} onClick={() => this.showCostAnalytics(item, spentAmount, remainingAmount, totalAmount)} />
+                                        </div>
+                                    </div>
+                                    <div className='auctionList'>
+                                        <div className='auctionListCol'>
+                                            <div className='auctionListLabel'>  Auction Spent</div>
+                                            <div> {spentAmount}</div>
+                                        </div>
+                                        <div className='auctionListCol'>
+                                            <div className='auctionListLabel'>Purse Left</div>
+                                            <div>{remainingAmount}</div>
+                                        </div>
+                                        <div className='auctionListCol'>
+                                            <div className='auctionListLabel'>Players</div>
+                                            <div>{item.totalPlayer ? item.totalPlayer
+                                                : 0}/{item.teamTotalMember}</div>
+                                        </div>
+                                    </div>
+                                    {/* <div className='profile-detail-auction'>
+                                        <div className='profile-detail-auction-text' title='Total player'><span>Purchased Palyer: </span>{item.totalPlayer}</div>
+                                        <div className='profile-detail-auction-text' title='Spend Point'><span>Spent Point:</span> {spentAmount}</div>
+                                        <div className='profile-detail-auction-text' title='Pending Point'><span>Pending Point:</span> {remainingAmount}</div>
+                                        <div className='profile-detail-auction-text' title='Pending Point'><span>Total Point:</span> {totalAmount}</div>
+                                        <div style={{'display':'flex','justifyContent':'center','padding':'10px'}}> <Button variant="primary" onClick={() => this.showCostAnalytics(item,spentAmount ,remainingAmount,totalAmount)}>Cost analytics</Button></div>
+
+                                    </div> */}
+                                </div>
+                                )
+                            })}
+                    </div>
+
+                    <hr />
+
+                </div>
+            </div>
+        </div>
+        )
+    }
     renderUiSoldPlayer(soldPlayerList) {
         return (<div>
-            <div style={{ 'paddingLeft': '50px'}}>
+            <div style={{ 'paddingLeft': '50px',     paddingLeft: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
                 <h2 className='product-title'>Sold Players</h2>
                 <Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button>
             </div>
@@ -411,7 +475,7 @@ export class Auction extends React.PureComponent {
     }
     renderUiUnSoldPlayer(soldPlayerList) {
         return (<div>
-            <div style={{ 'paddingLeft': '50px'}}>
+            <div style={{ 'paddingLeft': '50px',     paddingLeft: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
                 <h2 className='product-title'>Un Sold Players</h2>
                 <Button variant="primary" onClick={() => this.props.getUnsoldPlayer()()} >Refresh</Button>
             </div>
@@ -501,6 +565,51 @@ export class Auction extends React.PureComponent {
                             <div className='auctionName'>       Un-Sold Player:  {this.props.tournamentDetailGlobal.memberTotal - soldPlayerCount}</div>
                         </div>}
                         <div className='auctionBox'>
+                            {player && <div className='detailBox'>
+                                <div className='playerProfileBox'>
+                                    <div className='playerNameBox'>
+                                        <div className='auctionPlayerName'>
+                                            {player.playerName}
+                                        </div>
+                                        <div className='auctionPlayerCat'>
+                                            {player.category}
+                                        </div>
+                                    </div>
+                                    <div className='playerBoxDetail'>
+                                    <div className='playerProfileImgBox'>
+                                        <div className='playerImgBox'>
+                                            <div>
+                                                {player.profilePictureUrl ? <img src={player.profilePictureUrl} alt="shoe image" /> : <img src={profile} />}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='playerProfileStats'>
+                                    <div class="product-content">
+                                <div class="product-detail">
+                                <h2>about Player: </h2>
+                                    <p className='aboutUs'> {player.bio}</p>
+                                    <ul>
+                                        <li>Type: <span>{player.playerType}</span></li>
+                                        <li>Category: <span>{player.category}</span></li>
+                                        <li>Total Matches: <span>{player.totalMatches ? player.totalMatches : 0 }</span></li>
+                                        <li>Last Bid Price: <span>{player.lastBidAmount ? player.lastBidAmount : 0}</span></li>
+                                        <li>Location: <span>{player.location}</span></li>
+                                        { player.url && <a href={player.url} target='blank' className="btn btn-primary">View Crichero Profile</a>    }
+                                    </ul>
+                                </div>
+                            </div>
+                                    </div>
+                                </div>
+                                <div className='playerNameBox'>
+                                        <div className='auctionPlayerCat'>
+                                        Base Price
+                                        </div>
+                                        <div className='auctionPlayerName'>
+                                        {this.getPrice(player.playerType, true)}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>}
                             {this.props.loggedInRoleId == 2 && <div className='tournamentDetailBoxAuctionTeam'>
                                 <Team player={player}
                                     tournamentDetailGlobal={this.props.tournamentDetailGlobal}
@@ -512,66 +621,6 @@ export class Auction extends React.PureComponent {
                                     unSoldPlayer={() => this.unSoldPlayer()}
                                     next={() => this.next()} />
                             </div>}
-                            <div className='detailBox'>
-                                <div className='tournamentDetailBoxAuction'>
-                                    <div>
-                                        {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div>
-                                            <div className='auctionName'> team List</div>
-                                        </div>}
-
-                                        <div className="page-wrapper-auction">
-                                            {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 &&
-                                                this.props.tournamentDetailGlobal.teams.map((item) => {
-                                                    let totalAmount = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
-                                                    let spentAmount = item.totalSpend ? item.totalSpend : 0
-                                                    let remainingAmount = totalAmount - spentAmount
-                                                    return (<div className="profile-main-box-auction">
-                                                        <div style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
-                                                            <div className="profile-box-auction">
-                                                                {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
-                                                                    <img src={team} alt="profile pic" />}
-                                                                <div className='profile-box-textBox'>
-                                                                    <div className='teamNameAuction'>{item.teamName}</div>
-                                                                    <span>{item.ownerName}</span><br />
-                                                                </div>
-                                                            </div>
-                                                            <div className='arrowBox'>
-                                                                <FontAwesomeIcon icon={faArrowAltCircleRight} size="2x" style={{ color: '#FC8471' }} onClick={() => this.showCostAnalytics(item, spentAmount, remainingAmount, totalAmount)} />
-                                                            </div>
-                                                        </div>
-                                                        <div className='auctionList'>
-                                                            <div className='auctionListCol'>
-                                                                <div className='auctionListLabel'>  Auction Spent</div>
-                                                                <div> {spentAmount}</div>
-                                                            </div>
-                                                            <div className='auctionListCol'>
-                                                                <div className='auctionListLabel'>Purse Left</div>
-                                                                <div>{remainingAmount}</div>
-                                                            </div>
-                                                            <div className='auctionListCol'>
-                                                                <div className='auctionListLabel'>Players</div>
-                                                                <div>{item.totalPlayer ? item.totalPlayer
-                                                                    : 0}/{item.teamTotalMember}</div>
-                                                            </div>
-                                                        </div>
-                                                        {/* <div className='profile-detail-auction'>
-                                                            <div className='profile-detail-auction-text' title='Total player'><span>Purchased Palyer: </span>{item.totalPlayer}</div>
-                                                            <div className='profile-detail-auction-text' title='Spend Point'><span>Spent Point:</span> {spentAmount}</div>
-                                                            <div className='profile-detail-auction-text' title='Pending Point'><span>Pending Point:</span> {remainingAmount}</div>
-                                                            <div className='profile-detail-auction-text' title='Pending Point'><span>Total Point:</span> {totalAmount}</div>
-                                                            <div style={{'display':'flex','justifyContent':'center','padding':'10px'}}> <Button variant="primary" onClick={() => this.showCostAnalytics(item,spentAmount ,remainingAmount,totalAmount)}>Cost analytics</Button></div>
-
-                                                        </div> */}
-                                                    </div>
-                                                    )
-                                                })}
-                                        </div>
-
-                                        <hr />
-
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
 
@@ -581,8 +630,10 @@ export class Auction extends React.PureComponent {
                 <br />
                 <br />
                 <div>
-                    <Tabs defaultActiveKey="soldPlayer" id="uncontrolled-tab-example" className="mb-3 tabDiv">
-                        <Tab eventKey="soldPlayer" title="Sold Players">
+                    <Tabs defaultActiveKey="teamList" id="uncontrolled-tab-example" className="mb-3 tabDiv">
+                         <Tab eventKey="teamList" title="Team List">
+                          {this.renderTeamList(soldPlayerList)}
+                        </Tab><Tab eventKey="soldPlayer" title="Sold Players">
                           {this.renderUiSoldPlayer(soldPlayerList)}
                         </Tab>
                         <Tab eventKey="unSoldPlayer" title="Un-Sold Players">
