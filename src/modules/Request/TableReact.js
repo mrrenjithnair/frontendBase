@@ -1,5 +1,21 @@
 import React from 'react'
+import ReactDOM from "react-dom";
 import { useTable, usePagination, useSortBy } from 'react-table'
+
+const originalData = [
+  { firstName: "aaaaa", status: "Pending", visits: 155 },
+  { firstName: "aabFaa", status: "Pending", visits: 155 },
+  { firstName: "adaAAaaa", status: "Approved", visits: 1785 },
+  { firstName: "aAaaaa", status: "Approved", visits: 175 },
+  { firstName: "adaSaaa", status: "Cancelled", visits: 165 },
+  { firstName: "aasaaa", status: "Cancelled", visits: 157 },
+  { firstName: "aweaaaaaewea", status: "Approved", visits: 153 },
+  { firstName: "aaaaaa", status: "Submitted", visits: 155 },
+  { firstName: "aaaeweaa", status: "Pending", visits: 1555 },
+  { firstName: "aabFaa", status: "Submitted", visits: 155 },
+  { firstName: "adaAAadsdweaa", status: "Approved", visits: 17585 },
+  { firstName: "aAaaaa", status: "Approved", visits: 175 }
+];
 
 
 // const Styles = styled.div`
@@ -152,10 +168,74 @@ function Table({ columns, data }) {
     ))}
   </select>
 </div> */}
-function App(props) {
-  return (
-    <Table columns={props.columns} data={props.data} />
-  )
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      orginalData: this.props.data,
+      data: this.props.data,
+      columns: this.props.columns ? this.props.columns : [],
+      searchInput: ""
+    };
+  }
+  componentDidMount() {
+
+  }
+
+  handleChange = event => {
+    this.setState({ searchInput: event.target.value }, () => {
+      this.globalSearch();
+    });
+  };
+
+  globalSearch = () => {
+    let { searchInput } = this.state;
+    let filteredData = this.state.orginalData.filter(value => {
+      console.log('value',value)
+      return (
+        
+        (value.playerName && value.playerName.toLowerCase().includes(searchInput.toLowerCase())) ||
+        (value.playerMobile && value.playerMobile.toLowerCase().includes(searchInput.toLowerCase())) ||
+        (value.playerEmail && value.playerEmail.toLowerCase().includes(searchInput.toLowerCase()) )
+      );
+    });
+    this.setState({ data: filteredData });
+  };
+
+  render() {
+    let { data, columns, searchInput } = this.state;
+    return (
+      <div>
+        <br />
+        <input
+          size="large"
+          name="searchInput"
+          placeholder="Search..." 
+          value={searchInput || ""}
+          className='input'
+          onChange={this.handleChange}
+          label="Search"
+        />
+        <br />
+        <br />
+        <Table
+          data={this.state.data}
+          columns={this.state.columns}
+          defaultPageSize={10}
+          className="-striped -highlight"
+        />
+      </div>
+    );
+  }
 }
 
-export default App
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+
+// function App(props) {
+//   return (
+//     <Table columns={props.columns} data={props.data} />
+//   )
+// }
+
+// export default App

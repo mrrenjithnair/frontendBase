@@ -587,7 +587,7 @@ export class Auction extends React.PureComponent {
                                     <div class="product-content">
                                 <div class="product-detail">
                                 <h2>about Player: </h2>
-                                    <p className='aboutUs'> {player.bio}</p>
+                                {player.bio &&<p className='aboutUs'> {player.bio}</p>}
                                     <ul>
                                         <li>Type: <span>{player.playerType}</span></li>
                                         <li>Category: <span>{player.category}</span></li>

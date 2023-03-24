@@ -133,34 +133,34 @@ export class SocialLogin extends React.PureComponent {
                         <div className="signin-form">
                             <h2 className="form-title">Sign In</h2>
                             <div className="register-form" id="login-form">
-                            <LoginSocialFacebook
-                                        appId={5522832564472310}
-                                        onResolve={(provider, data) => {
-                                            console.log(provider, data)
-                                            this.handleSocialLogin(provider, data)
-                                        }}
-                                        onReject={(err) => {
-                                            console.log(err)
-                                        }}
-                                    >
-                                        {/* <li><a href="#"><i className="display-flex-center   fab fa-facebook-f" aria-hidden="true"></i></a></li> */}
-                                        <FacebookLoginButton/>
-                                    </LoginSocialFacebook>
-                                    <br/> 
-                                    <LoginSocialGoogle
-                                        client_id={'174987584924-3bt94g2sm65ift53mubbvisqiui1ckal.apps.googleusercontent.com'}
-                                        onResolve={(provider, data) => {
-                                            console.log(provider, data)
-                                            this.handleSocialLogin(provider, data)
-                                        }}
-                                        scope='email profile'
-                                        onReject={(err) => {
-                                            console.log(err)
-                                        }}
-                                    >
-                                        <GoogleLoginButton/>
+                                <LoginSocialGoogle
+                                    client_id={'174987584924-3bt94g2sm65ift53mubbvisqiui1ckal.apps.googleusercontent.com'}
+                                    onResolve={(provider, data) => {
+                                        console.log(provider, data)
+                                        this.handleSocialLogin(provider, data)
+                                    }}
+                                    scope='email profile'
+                                    onReject={(err) => {
+                                        console.log(err)
+                                    }}
+                                >
+                                    <GoogleLoginButton />
 
-                                    </LoginSocialGoogle>
+                                </LoginSocialGoogle>
+                                <br />
+                                <LoginSocialFacebook
+                                    appId={5522832564472310}
+                                    onResolve={(provider, data) => {
+                                        console.log(provider, data)
+                                        this.handleSocialLogin(provider, data)
+                                    }}
+                                    onReject={(err) => {
+                                        console.log(err)
+                                    }}
+                                >
+                                    {/* <li><a href="#"><i className="display-flex-center   fab fa-facebook-f" aria-hidden="true"></i></a></li> */}
+                                    <FacebookLoginButton />
+                                </LoginSocialFacebook>
                             </div>
                             <div className="social-login">
                                 <span className="social-label">Or Admin Login with</span>

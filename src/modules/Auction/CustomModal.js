@@ -12,6 +12,9 @@ class CustomModal extends React.Component {
         let teamObj = []
         let afterPredicationAmount= 0
         let teamPlayerList = this.props.teamPlayerList
+        pointJson.sort((a,b) => (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0))
+
+    
         if(teamPlayerList && teamPlayerList.length>0)
         teamPlayerList.sort((a,b) => (a.playerType > b.playerType) ? 1 : ((b.playerType > a.playerType) ? -1 : 0))
 
