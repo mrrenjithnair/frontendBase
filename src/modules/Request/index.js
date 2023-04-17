@@ -44,8 +44,10 @@ export class Request extends React.PureComponent {
         if (status == 'accept' && type =='team') {
             this.setState({ showModal: true, teamDetail :{type, tournamentId, clubId, id, status} })
         } else {
-            
-            this.setState({ playerModal: true, teamDetail :{type, tournamentId, clubId, id, status} })
+            if (status == 'accept') {
+                this.setState({ playerModal: true, })
+            }
+            this.setState({ teamDetail :{type, tournamentId, clubId, id, status} })
             // this.props.requestAction(type, tournamentId, clubId, id, status)
 
         }
