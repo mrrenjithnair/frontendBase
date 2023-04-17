@@ -173,7 +173,7 @@ export function* requestJoin() {
   const requestType = state.tournament.requestType
   const tournamentId = state.tournament.tournamentId
   const clubId = state.tournament.clubId
-  
+  const loginUser = state.global.loginUser
   const club = state.global.club
   let requestBody = {
     "userId": parseInt(userId),

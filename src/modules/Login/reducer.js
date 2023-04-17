@@ -39,7 +39,7 @@ export default function (state = initialState, actions) {
             privileges =privileges ? JSON.parse(privileges.replace(/\r?\n|\r|\t/g, '')): ''
             roleInfo.set(JSON.parse(privileges))
             return { ...state, loginUser: data.user, sessionToken: data.token, userPrivileges: privileges, loggedInUseId:data.user.id, loggedInRoleId:data.user.roleId, showProfile: data.user.showProfile  };
-        case ON_LOGIN_SUCCESS:
+        case ON_LOGIN_FAILURE:
             return { ...state, loginUser: false, sessionToken: false, userPrivileges: false, loggedInUseId: false, loggedInRoleId:false, socialLogin: false, socialLogin: false
                 ,socialLoginData: false
                 ,socialLoginType: false};

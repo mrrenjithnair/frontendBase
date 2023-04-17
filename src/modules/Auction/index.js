@@ -12,6 +12,7 @@ import Team from './team';
 import AuctionModal from '../../components/AuctionModal'
 import CustomModal from './CustomModal'
 import CongratulationsModal from './CongratulationsModal'
+import Modal from 'react-bootstrap/Modal'
 
 import profile from '../../images/profile.jpg'
 
@@ -38,6 +39,7 @@ export class Auction extends React.PureComponent {
             typing: false,
             click: 0,
             showCongratulationsModal: false,
+            showFilter: false,
             showCongCalled: false
         }
         this.sortingIcon = this.sortingIcon.bind(this);
@@ -88,9 +90,11 @@ export class Auction extends React.PureComponent {
     }
     next() {
         this.props.getAuctionPlayer()
+        this.props.getTournamentDetailOfAuction()
     }
     unSoldPlayer() {
         this.props.unSoldPlayer()
+        this.props.getTournamentDetailOfAuction()
     }
     showCong() {
         console.log('my-canvas')
@@ -360,8 +364,10 @@ export class Auction extends React.PureComponent {
             <div className='detailBox'>
             <div className='tournamentDetailBoxAuction'>
                 <div>
-                    {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div>
+                    {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div style={{display:'flex',justi
+                :'center', alignItems:'center'}}>
                         <div className='auctionName'> team List</div>
+                        <div style={{marginLeft:10}}><Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button></div>
                     </div>}
 
                     <div className="page-wrapper-auction">
@@ -557,7 +563,9 @@ export class Auction extends React.PureComponent {
                 <div id="root">
                     <div className='container-fluid'>
                         {this.props.tournamentDetailGlobal && <div className='auctionHeader'>
-
+                        <Button variant="secondary" onClick={() => this.setState({showFilter: !this.state.showFilter})}>
+                        <i className="fa fa-search"></i>
+                                </Button>
                             <div className='auctionName'>       {this.props.tournamentDetailGlobal.name}</div>
                             <div className='auctionName'>       Total Team:  {this.props.tournamentDetailGlobal.teamTotal}</div>
                             <div className='auctionName'>       Total Member:  {this.props.tournamentDetailGlobal.memberTotal}</div>
@@ -687,7 +695,33 @@ export class Auction extends React.PureComponent {
                     uploadPhoto={this.props.uploadPhoto}
                     onChangeInput={(evt) => this.onChangeValueAuction(evt)}
                 />
-
+                <Modal
+                    show={this.state.showFilter}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Filter
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div>
+                            <div style={{ display: 'flex' }}>
+                                <input type="text" id="Search"
+                                    value={this.props.clubSearch}
+                                    onChange={(e) => { this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerSearch', value: e.target.value } }) }}
+                                    className='form-control form-control-lg'
+                                    placeholder={"Search..."} />
+                            </div>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={() => { this.props.getAuctionPlayer(); this.setState({ showFilter: false }) }}>Submit</Button>
+                        <Button onClick={() => this.setState({ showFilter: false })}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
             </section>
         );
     }
@@ -731,8 +765,7 @@ function mapStateToProps(state) {
         seletedBidEdit: state.global.seletedBidEdit,
         auctionSoldPlayer: state.global.auctionSoldPlayer,
         auctionSoldToTeam: state.global.auctionSoldToTeam,
-        showCongratulationsModal: state.global.showCongratulationsModal,
-
+        showCongratulationsModal: state.global.showCongratulationsModal,        
         
 
 

@@ -44,7 +44,9 @@ export class Request extends React.PureComponent {
         if (status == 'accept' && type =='team') {
             this.setState({ showModal: true, teamDetail :{type, tournamentId, clubId, id, status} })
         } else {
-            this.props.requestAction(type, tournamentId, clubId, id, status)
+            
+            this.setState({ playerModal: true, teamDetail :{type, tournamentId, clubId, id, status} })
+            // this.props.requestAction(type, tournamentId, clubId, id, status)
 
         }
     }
@@ -52,7 +54,12 @@ export class Request extends React.PureComponent {
     submitDetail(){
         let data = this.state.teamDetail
         this.props.requestAction(data.type, data.tournamentId, data.clubId, data.id, data.status) 
-        this.setState({ showModal: false, teamDetail :false})
+        this.setState({ showModal: false, teamDetail: false, playerModal: false })
+    }      
+    submiPlayerModaltDetail(){
+        let data = this.state.teamDetail
+        this.props.requestAction(data.type, data.tournamentId, data.clubId, data.id, data.status) 
+        this.setState({ showModal: false, teamDetail: false, playerModal: false })
     }
 
     render() {
@@ -164,6 +171,17 @@ export class Request extends React.PureComponent {
             label: 'team Logo',
             type: 'file'
         }
+        ]
+        let addPlayerObj = [{
+            key: 'category',
+            label: 'Category',
+            type: 'text'
+        },
+        {
+            key: 'luckyDrawNumber',
+            label: 'lucky Draw Number',
+            type: 'text'
+        }
     ]
         return (
 
@@ -202,6 +220,15 @@ export class Request extends React.PureComponent {
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.submitDetail()}
                     feildObj={addClubObj}
+                    uploadPhoto={this.props.uploadPhoto}
+                    onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
+                />
+                <AddModal
+                 title="Add Player Details"
+                    show={this.state.playerModal}
+                    onHide={() => this.setState({ playerModal: false })}
+                    onSubmit={() => this.submiPlayerModaltDetail()}
+                    feildObj={addPlayerObj}
                     uploadPhoto={this.props.uploadPhoto}
                     onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
                 />

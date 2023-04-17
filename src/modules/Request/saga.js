@@ -114,6 +114,8 @@ export function* requestAction() {
   const requestId = state.request.requestId
   const teamName = state.request.teamName
   const teamLogo = state.request.teamLogo
+  const category = state.request.category
+  const luckyDrawNumber = state.request.luckyDrawNumber
   
   const club = state.global.club
   let requestBody = {
@@ -129,6 +131,12 @@ export function* requestAction() {
   if (status == 'accept') {
     requestBody.teamName = teamName
     requestBody.teamLogo = teamLogo
+  }
+  if(category){
+    requestBody.category = category.toUpperCase()
+  }
+  if(luckyDrawNumber){
+    requestBody.luckyDrawNumber = luckyDrawNumber
   }
 
   try {

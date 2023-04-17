@@ -161,12 +161,16 @@ export function* getAuctionPlayer() {
   // const sessionToken = login.get("currentUser").token;
   const sessionToken = global.sessionToken
   const club = state.global.globalSelectedClub
+  const auctionPlayerSearch = state.global.auctionPlayerSearch
+  
   let params = {}
   if (club && club.id) {
     params.clubId = parseInt(club.id)
   }
   if (global.auctionTournamentId)
     params.tournamentId = parseInt(global.auctionTournamentId)
+    if(auctionPlayerSearch)
+    params.search = auctionPlayerSearch
   requestURL = requestURL + toURLString(params)
   try {
     var options = {
