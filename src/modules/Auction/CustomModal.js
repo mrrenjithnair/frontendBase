@@ -33,13 +33,15 @@ class CustomModal extends React.Component {
                     teamObj.push({ name: 'player ' + (count), bidAmount: selectedTeam && selectedTeam.basePrice ? selectedTeam.basePrice : 0, status: 'unSold', srNo: count, playerType: null })
                 }
             }
-        for (var i = 0; i < teamTotalMember; i++) {
+        for (var i = 0; i < teamObj.length; i++) {
             if (teamPlayerList && teamPlayerList.length > 0) {
                 for (var j = 0; j < teamPlayerList.length; j++) {
-                    if (teamObj[i].playerType == teamPlayerList[j].playerType && !teamObj[j].id) {
+                    let index = teamObj.findIndex((i) => i.id == teamPlayerList[j].id)
+                    let assigned  = index >= 0 ? true : false
+                    if (teamObj[i].playerType == teamPlayerList[j].playerType && !assigned) {
                         teamPlayerList[j].srNo = (j + 1)
                         teamPlayerList[j].status = 'Sold'
-                        teamObj[j] = teamPlayerList[j]
+                        teamObj[i] = teamPlayerList[j]
                     }
 
                 }
