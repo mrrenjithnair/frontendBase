@@ -38,7 +38,11 @@ class CustomModal extends React.Component {
                 for (var j = 0; j < teamPlayerList.length; j++) {
                     let index = teamObj.findIndex((i) => i.id == teamPlayerList[j].id)
                     let assigned  = index >= 0 ? true : false
-                    if (teamObj[i].playerType == teamPlayerList[j].playerType && !assigned) {
+                    if (teamObj[i].playerType == teamPlayerList[j].playerType && !assigned && this.props.type == 'category') {
+                        teamPlayerList[j].srNo = (j + 1)
+                        teamPlayerList[j].status = 'Sold'
+                        teamObj[i] = teamPlayerList[j]
+                    } else if(!assigned && this.props.type == 'noCategory' && i == j){
                         teamPlayerList[j].srNo = (j + 1)
                         teamPlayerList[j].status = 'Sold'
                         teamObj[i] = teamPlayerList[j]

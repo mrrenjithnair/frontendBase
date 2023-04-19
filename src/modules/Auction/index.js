@@ -367,7 +367,7 @@ export class Auction extends React.PureComponent {
                     {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div style={{display:'flex',justi
                 :'center', alignItems:'center'}}>
                         <div className='auctionName'> team List</div>
-                        <div style={{marginLeft:10}}><Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button></div>
+                        <div style={{marginLeft:10}}><Button variant="primary" onClick={() =>{ this.props.getTournamentList()}} >Refresh</Button></div>
                     </div>}
 
                     <div className="page-wrapper-auction">
@@ -670,6 +670,7 @@ export class Auction extends React.PureComponent {
                     spentAmount={this.state.spentAmount}
                     teamPlayerList={this.props.teamPlayerList}
                     pointJson = {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []}
+                    type = {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : 'category'}
                 />
                 <CongratulationsModal
                     title={'CONGRATULATIONS'}
