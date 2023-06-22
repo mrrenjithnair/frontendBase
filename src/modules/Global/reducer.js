@@ -42,6 +42,9 @@ import {
     GET_UNSOLD_PLAYER_SUCCESS,
     GET_UNSOLD_PLAYER_FAILURE,
     PROFILE_EDIT_SUCCESS,
+    ON_CHANGE_CATEGORY,
+    ADD_CATEGORY,
+    CREATE_AUCTION_SUCCESS,
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -73,8 +76,17 @@ export const initialState = {
     profileIncomplte: false,
     auctionPending: false,
     auctionTournamentPlayerBindAmount: 0,
-    sportsList: false
+    sportsList: false,
+    categoryJson: [],
+    updateCategory: false,
 };
+// {
+//     "min": "2500000",
+//     "count": 2,
+//     "category": "A",
+//     "increase": "500000",
+//     "order":3
+// },
 
 export default function (state = initialState, actions) {
     switch (actions.type) {
@@ -153,7 +165,7 @@ export default function (state = initialState, actions) {
 
         case GET_AUCTION_PLAYER_SUCCESS:
             let auctionPlayer = actions.data && actions.data.length > 0 ? actions.data : []
-            return { ...state, 'auctionPlayer': auctionPlayer };
+            return { ...state, 'auctionPlayer': auctionPlayer, auctionPlayerSearch:'' };
 
         case GET_AUCTION_PLAYER_FAILURE:
 
@@ -253,8 +265,34 @@ export default function (state = initialState, actions) {
                 return { ...state,  };
         case PROFILE_EDIT_SUCCESS:
                 return { ...state,profileIncomplte: false  };
-    
-                
+        case ADD_CATEGORY:
+            var categoryJson = state.categoryJson
+            var categoryName = state.categoryName
+            
+            console.log('before',categoryJson)
+            categoryJson.push({
+                category: categoryName.toUpperCase() ,
+                min: '',
+                count: '',
+                increase: '',
+                order: '',
+                id: categoryJson.length +1
+            })
+            return { ...state, categoryJson: categoryJson, categoryName:'' };
+            
+        case ON_CHANGE_CATEGORY:
+                var categoryJson = state.categoryJson
+                categoryJson.map((item)=>{
+                    if(item.id.toUpperCase() == actions.name.toUpperCase()){
+                        item[actions.id] = actions.value
+                    }
+                })
+                return { ...state, categoryJson: categoryJson, categoryName:'', updateCategory: !state.updateCategory };
+
+        case CREATE_AUCTION_SUCCESS:   
+        toast.success('Auction created succefully');          
+                return { ...state, categoryJson: '', categoryName:'', updateCategory: !state.updateCategory };
+
         case ON_CHANGE_VALUE_CLUB:
             let seletedClubEdit = state.seletedClubEdit
             seletedClubEdit.map((item)=>{

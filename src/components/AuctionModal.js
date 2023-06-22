@@ -6,7 +6,82 @@ import Modal from 'react-bootstrap/Modal'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 class auctionModal extends React.Component {
+    uiForcAtegoery() {
+        console.log('rrrr', this.props)
+        return (
+            <div>
+                {
+                    this.props.categoryJson&& this.props.categoryJson.map((item) => {
+                        return (<div style={{ border: '1px #000 solid', padding:5, marginBottom:5}}>
+                        <div className="form-outline mb-4">
+                            <label className="form-label capitalize" htmlFor="form3Example3">Category Name</label>
+                            <input
+                                value={item.category}
+                                onChange={(e) => { this.props.onChangeCategory({ target: { id: 'category', value: e.target.value, name: item.id } }) }}
+                                className="form-control form-control-lg"
+                                placeholder={"please enter category name"} />
+                        </div>
+                            <div className="form-outline mb-4">
+                                <label className="form-label capitalize" htmlFor="form3Example3">Base Price</label>
+                                <input type="number"
+                                    value={item.min}
+                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'min', value: e.target.value, name: item.name } }) }}
+                                    className="form-control form-control-lg"
+                                    placeholder={"please enter base amount"} />
+                            </div>
+                            <div className="form-outline mb-4">
+                                <label className="form-label capitalize" htmlFor="form3Example3">Count</label>
+                                <input type="number"
+                                     value={item.count}
+                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'count', value: e.target.value, name: item.name } }) }}
+                                    className="form-control form-control-lg"
+                                    placeholder={"please enter Total count of player"} />
+                            </div>
+                            <div className="form-outline mb-4">
+                                <label className="form-label capitalize" htmlFor="form3Example3">Price Increase by</label>
+                                <input type="number"
+                                 value={item.increase}
+                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'increase', value: e.target.value, name: item.name } }) }}
+                                    className="form-control form-control-lg"
+                                    placeholder={"please enter increase by "} />
+                            </div>
+                            <div className="form-outline mb-4">
+                                <label className="form-label capitalize" htmlFor="form3Example3">Order</label>
+                                <input type="number"
+                                 value={item.order}
+                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'order', value: e.target.value, name: item.name } }) }}
+                                    className="form-control form-control-lg"
+                                    placeholder={"please enter order by "} />
+                            </div>
+                        </div>)
+                    })
+                }
+                 {this.props.auctionType == 'category' &&
+                    <div>
+                        <div style={{ 'display': 'flex', 'justifyContent': 'space-around', flexFlow: 'column' }}>
 
+                            <div className="form-outline mb-4" 
+                            style={{
+                                "display": "flex",
+                                "justifyContent": "center",
+                                "alignItems": "center"
+                            }}>
+                                <input type="text"
+                                    value={this.props.categoryName}
+                                    onChange={(e) => { this.props.onChangeInput({ target: { id: 'categoryName', value: e.target.value } }) }}
+                                    className="form-control form-control-lg"
+                                    placeholder={"please enter category name "} />
+                                <Button onClick={() => this.props.addCategory(this.props)}>ADD</Button>
+                        </div>
+
+                        </div>
+                    </div>
+
+                }
+            </div>
+        )
+
+    }
     feildObj(item) {
     let tournamentListGlobalArray = this.props.tournamentListGlobalArray
         return (
@@ -69,9 +144,10 @@ class auctionModal extends React.Component {
                             placeholder={"please enter Price Increase by"} />
                     </div>
                 </div>}
-                {this.props.auctionType == 'category' && 
+                {this.props.auctionType == 'category' && this.uiForcAtegoery() }
+                {/* {this.props.auctionType == 'category' && 
                 <div>
-                <div style={{ 'display': 'flex', 'justifyContent': 'space-around'}}>
+                <div style={{ 'display': 'flex', 'justifyContent': 'space-around', flexFlow:'column'}}>
                 <div className="form-outline mb-4">
                     <label className="form-label capitalize" htmlFor="form3Example3" style={{'fontWeight':700}}>Category A</label>
                     </div>
@@ -88,6 +164,20 @@ class auctionModal extends React.Component {
                             onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryAIncreasePoint', value: e.target.value } }) }}
                             className="form-control form-control-lg"
                             placeholder={"please enter price increase by"} />
+                    </div>
+                    <div className="form-outline mb-4">
+                        <label className="form-label capitalize" htmlFor="form3Example3">Count</label>
+                        <input type="number"
+                            onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryACount', value: e.target.value } }) }}
+                            className="form-control form-control-lg"
+                            placeholder={"please enter count for category a"} />
+                    </div>
+                    <div className="form-outline mb-4">
+                        <label className="form-label capitalize" htmlFor="form3Example3">Order</label>
+                        <input type="number"
+                            onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionCategoryAOrder', value: e.target.value } }) }}
+                            className="form-control form-control-lg"
+                            placeholder={"please enter order for category a"} />
                     </div>
                     </div>
 
@@ -132,7 +222,7 @@ class auctionModal extends React.Component {
                     </div>
                 </div>
                 
-                }
+                } */}
 
             </div>
 
@@ -140,7 +230,7 @@ class auctionModal extends React.Component {
 
     }
     render() {
-
+console.log('categoryJson',this.props.categoryJson)
         return (
             <Modal
                 {...this.props}

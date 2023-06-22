@@ -86,6 +86,8 @@ export const GET_UNSOLD_PLAYER_SUCCESS = 'GET_UNSOLD_PLAYER_SUCCESS';
 export const GET_UNSOLD_PLAYER_FAILURE = 'GET_UNSOLD_PLAYER_FAILURE';
 export const GET_PREFERENCE_VALUES = 'GET_PREFERENCE_VALUES';
 export const GET_PREFERENCE_VALUES_SUCCESS = 'GET_PREFERENCE_VALUES_SUCCESS';
+export const ON_CHANGE_CATEGORY = 'ON_CHANGE_CATEGORY';
+export const ADD_CATEGORY = 'ADD_CATEGORY';
 
 
 
@@ -564,5 +566,24 @@ export function getPreferenceValue() {
       type: GET_PREFERENCE_VALUES
   };
 }
+
+export function addCategory(data) {
+  return {
+      type: ADD_CATEGORY,
+      data
+  };
+}
+
+export function onChangeCategory(evt) {
+  console.log(evt.target)
+  return {
+      type: ON_CHANGE_CATEGORY,
+      id: (!evt.target.id) ? evt.target.name : evt.target.id,
+      value: evt.target.value,
+      name: evt.target.name
+  }
+}
+
+
 
 

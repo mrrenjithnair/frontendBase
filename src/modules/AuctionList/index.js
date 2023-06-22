@@ -16,7 +16,7 @@ import roleInfo from '../utils/roleInfo';
 import nodata from '../../images/nodata1.jpg'
 import profile from '../../images/profile.jpg'
 
-import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction } from '../Global/actions';
+import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction, addCategory, onChangeCategory } from '../Global/actions';
 import PropTypes from 'prop-types';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import { iteratee } from 'lodash';
@@ -39,6 +39,22 @@ export class AuctionList extends React.PureComponent {
         this.props.onChangeValueGlobal({ target: { id: 'auctionPending', value: false } })
         this.props.getTournamentList()
         window.scrollTo(0, 0)
+    }
+    addCategory(){
+        let already = false
+        this.props.categoryJson.map((item) => {
+            if (item.category === this.props.categoryName)
+                already = true
+        })
+        console.log("this.props.categoryName ",this.props.categoryName )
+        console.log("already",already )
+        if(!this.props.categoryName ||this.props.categoryName=='' ){
+            this.props.setToast(false, 'Please enter category name')
+        }else if(already){
+            this.props.setToast(false, 'Category name already exists')
+        }else{
+            this.props.addCategory()
+        }
     }
 
     auctionSubmit() {
@@ -81,18 +97,18 @@ export class AuctionList extends React.PureComponent {
             }
         }
         if (this.props.auctionType == 'category') {
-            if (!this.props.auctionCategoryAMinPoint) {
-                error = true
-                this.props.setToast(false, 'Please enter category A Base point')
-            }
-           if (!this.props.auctionCategoryBMinPoint) {
-                error = true
-                this.props.setToast(false, 'Please enter category B Base point')
-            }
-             if (!this.props.auctionCategoryCMinPoint) {
-                error = true
-                this.props.setToast(false, 'Please enter category C Base point')
-            }
+        //     if (!this.props.auctionCategoryAMinPoint) {
+        //         error = true
+        //         this.props.setToast(false, 'Please enter category A Base point')
+        //     }
+        //    if (!this.props.auctionCategoryBMinPoint) {
+        //         error = true
+        //         this.props.setToast(false, 'Please enter category B Base point')
+        //     }
+        //      if (!this.props.auctionCategoryCMinPoint) {
+        //         error = true
+        //         this.props.setToast(false, 'Please enter category C Base point')
+        //     }
         }
         if (!error) {
             console.log('rrr')
@@ -168,13 +184,7 @@ export class AuctionList extends React.PureComponent {
            
             }
            } else {
-            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryAMinPoint', value: data.auctionCategoryAMinPoint } })
-            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryAIncreasePoint', value: data.auctionCategoryAIncreasePoint } })
-            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryBMinPoint', value: data.auctionCategoryBMinPoint } })
-            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryBIncreasePoint', value: data.auctionCategoryBIncreasePoint } })
-            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryCMinPoint', value: data.auctionCategoryCMinPoint } })
-            this.props.onChangeValueGlobal({ target: { id: 'auctionCategoryCIncreasePoint', value: data.auctionCategoryCIncreasePoint } })
-
+            this.props.onChangeValueGlobal({ target: { id: 'categoryJson', value: pointJson } })
         }
          this.setState({editModal:true})
     }
@@ -232,16 +242,22 @@ export class AuctionList extends React.PureComponent {
                 <br />
                 <br />
                 <AuctionModal
-                    title="Add Auction"
+                    title="Add Auctio1n"
                     show={this.state.showModal}
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.auctionSubmit()}
                     onChangeInput={(evt) => this.props.onChangeValueGlobal(evt)}
                     auctionType={this.props.auctionType}
+                    categoryJson={this.props.categoryJson}
+                    categoryName={this.props.categoryName}
+                    updateCategory={this.props.updateCategory}
                     tournamentListGlobalArray={tournamentListGlobalArray}
+                    addCategory={()=>this.addCategory()}
+                    onChangeCategory={(evt)=>this.props.onChangeCategory(evt)}
                 />
                 <EditAuctionModal
                     {...this.props}
+                    addCategory={()=>this.addCategory()}
                     title="Edit Auction"
                     show={this.state.editModal}
                     onHide={() => this.setState({ editModal: false })}
@@ -288,6 +304,9 @@ function mapStateToProps(state) {
         auctionCategoryCIncreasePoint: state.global.auctionCategoryCIncreasePoint,
         tournamentPendingListGlobal: state.global.tournamentPendingListGlobal,
         auctionCreateTournamentId: state.global.auctionCreateTournamentId,
+        categoryJson: state.global.categoryJson,
+        categoryName: state.global.categoryName,
+        updateCategory: state.global.updateCategory,
         
         
     };
@@ -303,8 +322,10 @@ function mapDispatchToProps(dispatch) {
         resetToast: (evt) => dispatch(resetToast(evt)),
         createAuction: (evt) => dispatch(createAuction(evt)),
         resetAuction: (evt) => dispatch(resetAuction(evt)),
-
-
+        addCategory: (evt) => dispatch(addCategory(evt)),
+        onChangeCategory: (evt) => dispatch(onChangeCategory(evt)),
+        
+        
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AuctionList);
