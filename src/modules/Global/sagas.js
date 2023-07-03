@@ -171,6 +171,10 @@ export function* getAuctionPlayer() {
     params.tournamentId = parseInt(global.auctionTournamentId)
     if(auctionPlayerSearch)
     params.search = auctionPlayerSearch
+    if(global.auctionPlayerFilterCategory)
+    params.category = global.auctionPlayerFilterCategory
+    if(global.auctionPlayerFilterType)
+    params.type = global.auctionPlayerFilterType
   requestURL = requestURL + toURLString(params)
   try {
     var options = {

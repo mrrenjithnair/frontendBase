@@ -114,7 +114,43 @@
     border-color: #50ac00;
   }
  .btn-primary:hover {
-    background: #e11962 !important;
+    background: #2ecc71 !important;
+    color: #fff !important;
+  }
+  .btn-danger {
+    background: #c0392b;
+    display: inline-block;
+    padding: 8px 25px 10px 25px;
+    border-radius: 4px;
+    color: #fff;
+    transition: none;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    transition: 0.3s;
+    border-color: #50ac00;
+  }
+ .btn-danger:hover {
+    background: #e74c3c !important;
+    color: #fff !important;
+  }
+  .btn-disable {
+    background: #bdc3c7;
+    display: inline-block;
+    padding: 8px 25px 10px 25px;
+    border-radius: 4px;
+    color: #fff;
+    transition: none;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    transition: 0.3s;
+    border-color: #50ac00;
+  }
+ .btn-disable:hover {
+    background: #7f8c8d !important;
     color: #fff !important;
   }
   .errorMsgRegister{

@@ -40,7 +40,8 @@ export class Auction extends React.PureComponent {
             click: 0,
             showCongratulationsModal: false,
             showFilter: false,
-            showCongCalled: false
+            showCongCalled: false,
+            filterType: false
         }
         this.sortingIcon = this.sortingIcon.bind(this);
     }
@@ -50,7 +51,7 @@ export class Auction extends React.PureComponent {
         let basePriceMin
         let basePriceMax
         if (pointJson && pointJson.length > 0)
-        pointJson.sort((a,b) => (a.category > b.category) ? 1 : ((b.category > a.category) ? -1 : 0))
+            pointJson.sort((a, b) => (a.category > b.category) ? 1 : ((b.category > a.category) ? -1 : 0))
 
         if (type == 'category') {
             pointJson.map((item) => {
@@ -82,10 +83,10 @@ export class Auction extends React.PureComponent {
         this.props.getUnsoldPlayer()
         window.scrollTo(0, 0)
     }
-    componentDidUpdate(){
-        if(!this.state.showCongCalled && this.state.showCongratulationsModal){
-                this.showCong()
-                this.setState({showCongCalled: true})
+    componentDidUpdate() {
+        if (!this.state.showCongCalled && this.state.showCongratulationsModal) {
+            this.showCong()
+            this.setState({ showCongCalled: true })
         }
     }
     next() {
@@ -102,49 +103,49 @@ export class Auction extends React.PureComponent {
         var duration = 15 * 1000;
         var animationEnd = Date.now() + duration;
         var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-        
+
         function randomInRange(min, max) {
-          return Math.random() * (max - min) + min;
+            return Math.random() * (max - min) + min;
         }
-        
-        var interval = setInterval(function() {
-          var timeLeft = animationEnd - Date.now();
-        
-          if (timeLeft <= 0) {
-            return clearInterval(interval);
-          }
-          var canvas = document.getElementById('myCanvas');
-          console.log('my-canvas',canvas)
-          document.getElementById('myCanvas').style.zIndex = 10000;  
-          // you should  only initialize a canvas once, so save this function
-          // we'll save it to the canvas itself for the purpose of this demo
-          canvas.confetti = canvas.confetti || confetti.create(canvas, { resize: true });
-          var particleCount = 50 * (timeLeft / duration);
-          // since particles fall down, start a bit higher than random
-          let val1 = Math.random() * (0.3 - 0.1) + 0.1; 
-          let val2 = Math.random() * (0.9 - 0.7) + 0.7; 
-          canvas.confetti(Object.assign({}, defaults, { particleCount, origin: { x: val1, y: Math.random() - 0.2 } }));
-          canvas.confetti(Object.assign({}, defaults, { particleCount, origin: { x: val2, y: Math.random() - 0.2 } }));
+
+        var interval = setInterval(function () {
+            var timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+            var canvas = document.getElementById('myCanvas');
+            console.log('my-canvas', canvas)
+            document.getElementById('myCanvas').style.zIndex = 10000;
+            // you should  only initialize a canvas once, so save this function
+            // we'll save it to the canvas itself for the purpose of this demo
+            canvas.confetti = canvas.confetti || confetti.create(canvas, { resize: true });
+            var particleCount = 50 * (timeLeft / duration);
+            // since particles fall down, start a bit higher than random
+            let val1 = Math.random() * (0.3 - 0.1) + 0.1;
+            let val2 = Math.random() * (0.9 - 0.7) + 0.7;
+            canvas.confetti(Object.assign({}, defaults, { particleCount, origin: { x: val1, y: Math.random() - 0.2 } }));
+            canvas.confetti(Object.assign({}, defaults, { particleCount, origin: { x: val2, y: Math.random() - 0.2 } }));
         }, 250);
         // go Buckeyes!
         var colors = ['#bb0000', '#ffffff'];
-    
-          confetti({
+
+        confetti({
             particleCount: 2,
             angle: 60,
             spread: 55,
             origin: { x: 0 },
             colors: colors
-          });
-          confetti({
+        });
+        confetti({
             particleCount: 2,
             angle: 120,
             spread: 55,
             origin: { x: 1 },
             colors: colors
-          });
-        
-   
+        });
+
+
     }
     addPlayerToTeam(playerType) {
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
@@ -254,7 +255,7 @@ export class Auction extends React.PureComponent {
         }
 
     }
-    componentWillReceiveProps(nextprops){
+    componentWillReceiveProps(nextprops) {
         if (nextprops.showCongratulationsModal && !this.state.showCongratulationsModal) {
             this.setState({ showCongratulationsModal: true })
             this.props.onChangeValueGlobal({ target: { id: 'showCongratulationsModal', value: false } })
@@ -271,6 +272,13 @@ export class Auction extends React.PureComponent {
         this.props.onChangeValueGlobal({ target: { id: 'globalSelectedPlayerClubId', value: clubId } })
         this.props.getUserList()
         this.setState({ costAnalytics: true, selectedTeam: item, spentAmount, remainingAmount, totalAmount })
+    }
+    resetButton(){
+        this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerSearch', value:false } });
+        this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterType', value:false } });
+        this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterCategory', value: false } });
+        this.setState({ showFilter: false, filterType: false }) 
+        this.props.getAuctionPlayer(); 
     }
     editBid(item) {
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
@@ -359,53 +367,55 @@ export class Auction extends React.PureComponent {
             return ''
         }
     }
-    renderTeamList(){
-        return(
+    renderTeamList() {
+        return (
             <div className='detailBox'>
-            <div className='tournamentDetailBoxAuction'>
-                <div>
-                    {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div style={{display:'flex',justi
-                :'center', alignItems:'center'}}>
-                        <div className='auctionName'> team List</div>
-                        <div style={{marginLeft:10}}><Button variant="primary" onClick={() =>{ this.props.getTournamentList()}} >Refresh</Button></div>
-                    </div>}
+                <div className='tournamentDetailBoxAuction'>
+                    <div>
+                        {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && <div style={{
+                            display: 'flex', justi
+                                : 'center', alignItems: 'center'
+                        }}>
+                            <div className='auctionName'> team List</div>
+                            <div style={{ marginLeft: 10 }}><Button variant="primary" onClick={() => { this.props.getTournamentList() }} >Refresh</Button></div>
+                        </div>}
 
-                    <div className="page-wrapper-auction">
-                        {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 &&
-                            this.props.tournamentDetailGlobal.teams.map((item) => {
-                                let totalAmount = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
-                                let spentAmount = item.totalSpend ? item.totalSpend : 0
-                                let remainingAmount = totalAmount - spentAmount
-                                return (<div className="profile-main-box-auction">
-                                    <div style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
-                                        <div className="profile-box-auction">
-                                            {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
-                                                <img src={team} alt="profile pic" />}
-                                            <div className='profile-box-textBox'>
-                                                <div className='teamNameAuction'>{item.teamName}</div>
-                                                <span>{item.ownerName}</span><br />
+                        <div className="page-wrapper-auction">
+                            {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 &&
+                                this.props.tournamentDetailGlobal.teams.map((item) => {
+                                    let totalAmount = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
+                                    let spentAmount = item.totalSpend ? item.totalSpend : 0
+                                    let remainingAmount = totalAmount - spentAmount
+                                    return (<div className="profile-main-box-auction">
+                                        <div style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
+                                            <div className="profile-box-auction">
+                                                {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
+                                                    <img src={team} alt="profile pic" />}
+                                                <div className='profile-box-textBox'>
+                                                    <div className='teamNameAuction'>{item.teamName}</div>
+                                                    <span>{item.ownerName}</span><br />
+                                                </div>
+                                            </div>
+                                            <div className='arrowBox'>
+                                                <FontAwesomeIcon icon={faArrowAltCircleRight} size="2x" style={{ color: '#FC8471' }} onClick={() => this.showCostAnalytics(item, spentAmount, remainingAmount, totalAmount)} />
                                             </div>
                                         </div>
-                                        <div className='arrowBox'>
-                                            <FontAwesomeIcon icon={faArrowAltCircleRight} size="2x" style={{ color: '#FC8471' }} onClick={() => this.showCostAnalytics(item, spentAmount, remainingAmount, totalAmount)} />
+                                        <div className='auctionList'>
+                                            <div className='auctionListCol'>
+                                                <div className='auctionListLabel'>  Auction Spent</div>
+                                                <div> {spentAmount}</div>
+                                            </div>
+                                            <div className='auctionListCol'>
+                                                <div className='auctionListLabel'>Purse Left</div>
+                                                <div>{remainingAmount}</div>
+                                            </div>
+                                            <div className='auctionListCol'>
+                                                <div className='auctionListLabel'>Players</div>
+                                                <div>{item.totalPlayer ? item.totalPlayer
+                                                    : 0}/{item.teamTotalMember}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className='auctionList'>
-                                        <div className='auctionListCol'>
-                                            <div className='auctionListLabel'>  Auction Spent</div>
-                                            <div> {spentAmount}</div>
-                                        </div>
-                                        <div className='auctionListCol'>
-                                            <div className='auctionListLabel'>Purse Left</div>
-                                            <div>{remainingAmount}</div>
-                                        </div>
-                                        <div className='auctionListCol'>
-                                            <div className='auctionListLabel'>Players</div>
-                                            <div>{item.totalPlayer ? item.totalPlayer
-                                                : 0}/{item.teamTotalMember}</div>
-                                        </div>
-                                    </div>
-                                    {/* <div className='profile-detail-auction'>
+                                        {/* <div className='profile-detail-auction'>
                                         <div className='profile-detail-auction-text' title='Total player'><span>Purchased Palyer: </span>{item.totalPlayer}</div>
                                         <div className='profile-detail-auction-text' title='Spend Point'><span>Spent Point:</span> {spentAmount}</div>
                                         <div className='profile-detail-auction-text' title='Pending Point'><span>Pending Point:</span> {remainingAmount}</div>
@@ -413,116 +423,116 @@ export class Auction extends React.PureComponent {
                                         <div style={{'display':'flex','justifyContent':'center','padding':'10px'}}> <Button variant="primary" onClick={() => this.showCostAnalytics(item,spentAmount ,remainingAmount,totalAmount)}>Cost analytics</Button></div>
 
                                     </div> */}
-                                </div>
-                                )
-                            })}
+                                    </div>
+                                    )
+                                })}
+                        </div>
+
+                        <hr />
+
                     </div>
-
-                    <hr />
-
                 </div>
             </div>
-        </div>
         )
     }
     renderUiSoldPlayer(soldPlayerList) {
         return (<div>
-            <div style={{ 'paddingLeft': '50px',     paddingLeft: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
+            <div style={{ 'paddingLeft': '50px', paddingLeft: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
                 <h2 className='product-title'>Sold Players</h2>
                 <Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button>
             </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="main-box clearfix">
-                                <div class="table-responsive">
-                                    <table class="table user-list">
-                                        <thead>
-                                            <tr>
-                                                <th className='mouse' onClick={() => this.onSorting('#', this.state.click)}><span>#</span></th>
-                                                <th className='mouse' onClick={() => this.onSorting('playerName', this.state.click)}><span>Player Name{this.state.sort == 'playerName' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
-                                                <th className='mouse' onClick={() => this.onSorting('name', this.state.click)}><span>Team Name{this.state.sort == 'name' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
-                                                <th className='mouse' onClick={() => { this.onSorting('bidAmount', this.state.click) }}><span>Sold At {this.state.sort == 'bidAmount' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
-                                                {this.props.loggedInRoleId == 2 && <th><span>Edit</span></th>}
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {soldPlayerList && soldPlayerList.length > 0 && soldPlayerList.map((item, index) => <tr key={index}>
-                                                <td>
-                                                    {index + 1}
-                                                </td><td>
-                                                    {item.profilePictureUrl ? <img src={item.profilePictureUrl} alt="" /> : <img src={profile} alt="" />}
-                                                    <span class="user-link">{item.playerName}</span>
-                                                    <span class="user-subhead">{item.category}</span>
-                                                </td>
-                                                <td>
-                                                    {item.logoUrl ? <img src={item.logoUrl} alt="" /> : <img src={team} alt="" />}
-                                                    <span class="user-link">{item.name}</span>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="main-box clearfix">
+                            <div class="table-responsive">
+                                <table class="table user-list">
+                                    <thead>
+                                        <tr>
+                                            <th className='mouse' onClick={() => this.onSorting('#', this.state.click)}><span>#</span></th>
+                                            <th className='mouse' onClick={() => this.onSorting('playerName', this.state.click)}><span>Player Name{this.state.sort == 'playerName' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
+                                            <th className='mouse' onClick={() => this.onSorting('name', this.state.click)}><span>Team Name{this.state.sort == 'name' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
+                                            <th className='mouse' onClick={() => { this.onSorting('bidAmount', this.state.click) }}><span>Sold At {this.state.sort == 'bidAmount' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
+                                            {this.props.loggedInRoleId == 2 && <th><span>Edit</span></th>}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {soldPlayerList && soldPlayerList.length > 0 && soldPlayerList.map((item, index) => <tr key={index}>
+                                            <td>
+                                                {index + 1}
+                                            </td><td>
+                                                {item.profilePictureUrl ? <img src={item.profilePictureUrl} alt="" /> : <img src={profile} alt="" />}
+                                                <span class="user-link">{item.playerName}</span>
+                                                <span class="user-subhead">{item.category}</span>
+                                            </td>
+                                            <td>
+                                                {item.logoUrl ? <img src={item.logoUrl} alt="" /> : <img src={team} alt="" />}
+                                                <span class="user-link">{item.name}</span>
 
-                                                </td>
-                                                <td>
-                                                    {item.bidAmount}
-                                                </td>
-                                                {this.props.loggedInRoleId == 2 && <td>
-                                                    <a href="#" onClick={() => this.editBid(item)} className='btn btn-warning'>Edit</a>
+                                            </td>
+                                            <td>
+                                                {item.bidAmount}
+                                            </td>
+                                            {this.props.loggedInRoleId == 2 && <td>
+                                                <a href="#" onClick={() => this.editBid(item)} className='btn btn-warning'>Edit</a>
 
-                                                </td>}
+                                            </td>}
 
-                                            </tr>)}
+                                        </tr>)}
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>)
     }
     renderUiUnSoldPlayer(soldPlayerList) {
         return (<div>
-            <div style={{ 'paddingLeft': '50px',     paddingLeft: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
+            <div style={{ 'paddingLeft': '50px', paddingLeft: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
                 <h2 className='product-title'>Un Sold Players</h2>
                 <Button variant="primary" onClick={() => this.props.getUnsoldPlayer()()} >Refresh</Button>
             </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="main-box clearfix">
-                                <div class="table-responsive">
-                                    <table class="table user-list">
-                                        <thead>
-                                            <tr>
-                                                <th className='mouse' onClick={() => this.onSorting('#', this.state.click)}><span>#</span></th>
-                                                <th className='mouse' onClick={() => this.onSorting('playerName', this.state.click)}><span>Player Name{this.state.sort == 'playerName' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {soldPlayerList && soldPlayerList.length > 0 && soldPlayerList.map((item, index) => <tr key={index}>
-                                                <td>
-                                                    {index + 1}
-                                                </td><td>
-                                                    {item.profilePictureUrl ? <img src={item.profilePictureUrl} alt="" /> : <img src={profile} alt="" />}
-                                                    <span class="user-link">{item.playerName}</span>
-                                                    <span class="user-subhead">{item.category}</span>
-                                                </td>
-                                            </tr>)}
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="main-box clearfix">
+                            <div class="table-responsive">
+                                <table class="table user-list">
+                                    <thead>
+                                        <tr>
+                                            <th className='mouse' onClick={() => this.onSorting('#', this.state.click)}><span>#</span></th>
+                                            <th className='mouse' onClick={() => this.onSorting('playerName', this.state.click)}><span>Player Name{this.state.sort == 'playerName' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {soldPlayerList && soldPlayerList.length > 0 && soldPlayerList.map((item, index) => <tr key={index}>
+                                            <td>
+                                                {index + 1}
+                                            </td><td>
+                                                {item.profilePictureUrl ? <img src={item.profilePictureUrl} alt="" /> : <img src={profile} alt="" />}
+                                                <span class="user-link">{item.playerName}</span>
+                                                <span class="user-subhead">{item.category}</span>
+                                            </td>
+                                        </tr>)}
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>)
     }
     render() {
         let tournamentListGlobal = this.props.tournamentListGlobal && this.props.tournamentListGlobal.length > 0 ? this.props.tournamentListGlobal : []
         let tournamentListGlobalArray = []
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
-        let teamIndex = teamList.findIndex((i)=>i.teamId == this.props.auctionSoldToTeam)
-        let selectedTeam  = teamIndex >= 0 ? teamList[teamIndex] : false
+        let teamIndex = teamList.findIndex((i) => i.teamId == this.props.auctionSoldToTeam)
+        let selectedTeam = teamIndex >= 0 ? teamList[teamIndex] : false
         if (tournamentListGlobal && tournamentListGlobal.length > 0) {
             tournamentListGlobal.map((item) => {
                 tournamentListGlobalArray.push({
@@ -533,7 +543,7 @@ export class Auction extends React.PureComponent {
         }
 
         let playerList = this.props.auctionPlayer
-        let unSoldPlayerList =  this.props.auctionUnSoldPlayerList
+        let unSoldPlayerList = this.props.auctionUnSoldPlayerList
         var player = playerList[Math.floor(Math.random() * playerList.length)];
         let soldPlayerCount = this.props.auctionDetailList ? this.props.auctionDetailList.length : 0;
         let soldPlayerList = this.props.auctionDetailList
@@ -563,9 +573,9 @@ export class Auction extends React.PureComponent {
                 <div id="root">
                     <div className='container-fluid'>
                         {this.props.tournamentDetailGlobal && <div className='auctionHeader'>
-                        <Button variant="secondary" onClick={() => this.setState({showFilter: !this.state.showFilter})}>
-                        <i className="fa fa-search"></i>
-                                </Button>
+                            <Button variant="secondary" onClick={() => this.setState({ showFilter: !this.state.showFilter })}>
+                                <i className="fa fa-search"></i>
+                            </Button>
                             <div className='auctionName'>       {this.props.tournamentDetailGlobal.name}</div>
                             <div className='auctionName'>       Total Team:  {this.props.tournamentDetailGlobal.teamTotal}</div>
                             <div className='auctionName'>       Total Member:  {this.props.tournamentDetailGlobal.memberTotal}</div>
@@ -584,36 +594,37 @@ export class Auction extends React.PureComponent {
                                         </div>
                                     </div>
                                     <div className='playerBoxDetail'>
-                                    <div className='playerProfileImgBox'>
-                                        <div className='playerImgBox'>
-                                            <div>
-                                                {player.profilePictureUrl ? <img src={player.profilePictureUrl} alt="shoe image" /> : <img src={profile} />}
+                                        <div className='playerProfileImgBox'>
+                                            <div className='playerImgBox'>
+                                                <div>
+                                                    {player.profilePictureUrl ? <img src={player.profilePictureUrl} alt="shoe image" /> : <img src={profile} />}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='playerProfileStats'>
+                                            <div class="product-content">
+                                                <div class="product-detail">
+                                                    <h2>about Player: </h2>
+                                                    {player.bio && <p className='aboutUs'> {player.bio}</p>}
+                                                    <ul>
+                                                        <li>Type: <span>{player.playerType}</span></li>
+                                                        <li>Category: <span>{player.category}</span></li>
+                                                        <li>Total Matches: <span>{player.totalMatches ? player.totalMatches : 0}</span></li>
+                                                        <li>Last Bid Price: <span>{player.lastBidAmount ? player.lastBidAmount : 0}</span></li>
+                                                        <li>Location: <span>{player.location}</span></li>
+                                                        {/* <a target='blank' className="btn btn-primary">View Profile</a>    */}
+                                                        {player.url && <a href={player.url} target='blank' className="btn btn-primary">View Crichero Profile</a>}
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='playerProfileStats'>
-                                    <div class="product-content">
-                                <div class="product-detail">
-                                <h2>about Player: </h2>
-                                {player.bio &&<p className='aboutUs'> {player.bio}</p>}
-                                    <ul>
-                                        <li>Type: <span>{player.playerType}</span></li>
-                                        <li>Category: <span>{player.category}</span></li>
-                                        <li>Total Matches: <span>{player.totalMatches ? player.totalMatches : 0 }</span></li>
-                                        <li>Last Bid Price: <span>{player.lastBidAmount ? player.lastBidAmount : 0}</span></li>
-                                        <li>Location: <span>{player.location}</span></li>
-                                        { player.url && <a href={player.url} target='blank' className="btn btn-primary">View Crichero Profile</a>    }
-                                    </ul>
-                                </div>
-                            </div>
-                                    </div>
-                                </div>
-                                <div className='playerNameBox'>
+                                    <div className='playerNameBox'>
                                         <div className='auctionPlayerCat'>
-                                        Base Price
+                                            Base Price
                                         </div>
                                         <div className='auctionPlayerName'>
-                                        {this.getPrice(player.playerType, true)}
+                                            {this.getPrice(player.playerType, true)}
                                         </div>
                                     </div>
                                 </div>
@@ -639,13 +650,13 @@ export class Auction extends React.PureComponent {
                 <br />
                 <div>
                     <Tabs defaultActiveKey="teamList" id="uncontrolled-tab-example" className="mb-3 tabDiv">
-                         <Tab eventKey="teamList" title="Team List">
-                          {this.renderTeamList(soldPlayerList)}
+                        <Tab eventKey="teamList" title="Team List">
+                            {this.renderTeamList(soldPlayerList)}
                         </Tab><Tab eventKey="soldPlayer" title="Sold Players">
-                          {this.renderUiSoldPlayer(soldPlayerList)}
+                            {this.renderUiSoldPlayer(soldPlayerList)}
                         </Tab>
                         <Tab eventKey="unSoldPlayer" title="Un-Sold Players">
-                          {this.renderUiUnSoldPlayer(unSoldPlayerList)}
+                            {this.renderUiUnSoldPlayer(unSoldPlayerList)}
                         </Tab>
                     </Tabs>
                 </div>
@@ -669,24 +680,25 @@ export class Auction extends React.PureComponent {
                     totalAmount={this.state.totalAmount}
                     spentAmount={this.state.spentAmount}
                     teamPlayerList={this.props.teamPlayerList}
-                    pointJson = {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []}
-                    type = {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : 'category'}
+                    pointJson={this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []}
+                    type={this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : 'category'}
                 />
                 <CongratulationsModal
                     title={'CONGRATULATIONS'}
                     show={this.state.showCongratulationsModal}
                     onHide={() => {
-                        this.props.onChangeValueGlobal({ target: { id: 'auctionSoldPlayer', value:false } })
-                        this.props.onChangeValueGlobal({ target: { id: 'auctionSoldToTeam', value: false } })   
-                        this.setState({ showCongratulationsModal: false, showCongCalled: false })}}
+                        this.props.onChangeValueGlobal({ target: { id: 'auctionSoldPlayer', value: false } })
+                        this.props.onChangeValueGlobal({ target: { id: 'auctionSoldToTeam', value: false } })
+                        this.setState({ showCongratulationsModal: false, showCongCalled: false })
+                    }}
                     onChangeInput={(evt) => this.props.onChangeValueGlobal(evt)}
                     showCongCalled={this.state.showCongCalled}
-                    showCong={()=>this.showCong}
+                    showCong={() => this.showCong}
                     player={this.props.auctionSoldPlayer}
                     team={selectedTeam}
 
                 />
-                
+
                 <EditModal
                     title={"Edit Auction"}
                     show={this.state.editModal}
@@ -709,17 +721,41 @@ export class Auction extends React.PureComponent {
                     </Modal.Header>
                     <Modal.Body>
                         <div>
-                            <div style={{ display: 'flex' }}>
+                            <div className="form-outline mb-4">
+                                <label className="form-label capitalize" htmlFor="form3Example3">Search</label>
                                 <input type="text" id="Search"
                                     value={this.props.clubSearch}
                                     onChange={(e) => { this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerSearch', value: e.target.value } }) }}
                                     className='form-control form-control-lg'
                                     placeholder={"Search..."} />
                             </div>
+                            {this.props.tournamentDetailGlobal && <div className="form-outline mb-4">
+                                <label className="form-label capitalize" htmlFor="form3Example3">Select category</label>
+                                <select className="form-control"
+                                   value={this.props.auctionPlayerFilterCategory}
+                                    onChange={(e) => {
+                                        this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterCategory', value: e.target.value } })
+                                    }}>
+                                    <option value={false}>Select Category</option>
+                                    {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson.map((item) => <option value={item.category}>{item.category}</option>)}
+                                </select>
+                            </div>}
+                            <div className="form-outline mb-4">
+                                <label className="form-label capitalize" htmlFor="form3Example3">Select Type</label>
+                                <div style={{ display: 'flex', marginTop: 10, justifyContent: 'space-evenly' }}>
+                                    <div>
+                                        <a target='blank' className={this.props.auctionPlayerFilterType == "sold" ? "btn btn-primary" : "btn-disable"} onClick={() => { this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterType', value: 'sold' } })}}>Sold</a>
+                                    </div>
+                                    <div>
+                                        <a target='blank' className={this.props.auctionPlayerFilterType == "unSold" ? "btn btn-primary" : "btn-disable"} onClick={() => { this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterType', value: 'unSold' } });}}>Un-Sold</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={() => { this.props.getAuctionPlayer(); this.setState({ showFilter: false }) }}>Submit</Button>
+                        <Button className ="btn-danger"onClick={() => {this.resetButton()}}>Reset</Button>
                         <Button onClick={() => this.setState({ showFilter: false })}>Close</Button>
                     </Modal.Footer>
                 </Modal>
@@ -766,7 +802,9 @@ function mapStateToProps(state) {
         seletedBidEdit: state.global.seletedBidEdit,
         auctionSoldPlayer: state.global.auctionSoldPlayer,
         auctionSoldToTeam: state.global.auctionSoldToTeam,
-        showCongratulationsModal: state.global.showCongratulationsModal,        
+        showCongratulationsModal: state.global.showCongratulationsModal,
+        auctionPlayerFilterType: state.global.auctionPlayerFilterType,
+        auctionPlayerFilterCategory: state.global.auctionPlayerFilterCategory,
         
 
 
@@ -791,7 +829,7 @@ function mapDispatchToProps(dispatch) {
         onChangeValueAuction: (evt) => dispatch(onChangeValueAuction(evt)),
         editPlayerToTeam: (evt) => dispatch(editPlayerToTeam(evt)),
         getUnsoldPlayer: (evt) => dispatch(getUnsoldPlayer(evt)),
-        
+
 
 
     };
