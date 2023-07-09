@@ -25,7 +25,7 @@ class auctionModal extends React.Component {
                                 <label className="form-label capitalize" htmlFor="form3Example3">Base Price</label>
                                 <input type="number"
                                     value={item.min}
-                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'min', value: e.target.value, name: item.name } }) }}
+                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'min', value: e.target.value, name: item.id } }) }}
                                     className="form-control form-control-lg"
                                     placeholder={"please enter base amount"} />
                             </div>
@@ -33,7 +33,7 @@ class auctionModal extends React.Component {
                                 <label className="form-label capitalize" htmlFor="form3Example3">Count</label>
                                 <input type="number"
                                      value={item.count}
-                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'count', value: e.target.value, name: item.name } }) }}
+                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'count', value: e.target.value, name: item.id } }) }}
                                     className="form-control form-control-lg"
                                     placeholder={"please enter Total count of player"} />
                             </div>
@@ -41,7 +41,7 @@ class auctionModal extends React.Component {
                                 <label className="form-label capitalize" htmlFor="form3Example3">Price Increase by</label>
                                 <input type="number"
                                  value={item.increase}
-                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'increase', value: e.target.value, name: item.name } }) }}
+                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'increase', value: e.target.value, name: item.id } }) }}
                                     className="form-control form-control-lg"
                                     placeholder={"please enter increase by "} />
                             </div>
@@ -49,7 +49,7 @@ class auctionModal extends React.Component {
                                 <label className="form-label capitalize" htmlFor="form3Example3">Order</label>
                                 <input type="number"
                                  value={item.order}
-                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'order', value: e.target.value, name: item.name } }) }}
+                                    onChange={(e) => { this.props.onChangeCategory({ target: { id: 'order', value: e.target.value, name: item.id } }) }}
                                     className="form-control form-control-lg"
                                     placeholder={"please enter order by "} />
                             </div>

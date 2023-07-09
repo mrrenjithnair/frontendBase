@@ -170,6 +170,7 @@ export class Auction extends React.PureComponent {
             if (teamList && teamList.length > 0) {
                 teamList.map((item) => {
                     if (item.teamId == this.props.auctionTournamentTeamId) {
+                        totalAmount = item.topUpAmount ? parseInt(totalAmount) + parseInt(item.topUpAmount) : 0
                         let spentAmount = item.totalSpend ? item.totalSpend : 0
                         let remainingAmount = totalAmount - spentAmount
                         if (parseInt(this.props.auctionTournamentPlayerBindAmount) > parseInt(remainingAmount)) {
@@ -385,6 +386,12 @@ export class Auction extends React.PureComponent {
                                 this.props.tournamentDetailGlobal.teams.map((item) => {
                                     let totalAmount = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
                                     let spentAmount = item.totalSpend ? item.totalSpend : 0
+                                    console.log('totalAmount before',totalAmount)
+                                    console.log('item.topUpAmount',item)
+                                    
+                                    totalAmount = item.topUpAmount ? totalAmount + item.topUpAmount : totalAmount
+                                    console.log('totalAmount after',totalAmount)
+
                                     let remainingAmount = totalAmount - spentAmount
                                     return (<div className="profile-main-box-auction">
                                         <div style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>

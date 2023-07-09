@@ -519,6 +519,9 @@ export function* insertOrUpdateTeam() {
     clubId: selectedTeam.clubId,
     tournamentId: selectedTeam.tournamentId,
   }
+  if(selectedTeam.teamTopUpAmount)
+  body.topUpAmount = selectedTeam.teamTopUpAmount
+  
   body = clean(body)
   try {
     var options = {

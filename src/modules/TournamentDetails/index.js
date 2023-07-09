@@ -140,6 +140,13 @@ export class TournamentDetails extends React.PureComponent {
             value: ''//item.teamLogo
         },
         {
+            key: 'teamTopUpAmount',
+            label: 'Top-up Amount',
+            type: 'number',
+            value: item.teamTopUpAmount,
+            
+        },
+        {
             key: 'ownerId',
             label: 'Select Team Owner',
             type: 'select',
@@ -195,6 +202,11 @@ export class TournamentDetails extends React.PureComponent {
             value: '',
             required: true,
             data:data1
+        },
+        {
+            key: 'teamTopUpAmount',
+            label: 'Top-up Amount',
+            type: 'number'
         },
         {
             key: 'tournamentId',

@@ -172,6 +172,11 @@ export class Request extends React.PureComponent {
             key: 'teamLogo',
             label: 'team Logo',
             type: 'file'
+        },
+        {
+            key: 'teamTopUpAmount',
+            label: 'Top-up Amount',
+            type: 'number'
         }
         ]
         let addPlayerObj = [{

@@ -283,7 +283,7 @@ export default function (state = initialState, actions) {
         case ON_CHANGE_CATEGORY:
                 var categoryJson = state.categoryJson
                 categoryJson.map((item)=>{
-                    if(item.id.toUpperCase() == actions.name.toUpperCase()){
+                    if(item.id == actions.name){
                         item[actions.id] = actions.value
                     }
                 })
