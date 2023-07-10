@@ -143,7 +143,7 @@ export class TournamentDetails extends React.PureComponent {
             key: 'teamTopUpAmount',
             label: 'Top-up Amount',
             type: 'number',
-            value: item.teamTopUpAmount,
+            value: item.topUpAmount,
             
         },
         {
