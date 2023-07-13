@@ -152,13 +152,15 @@ export class AuctionList extends React.PureComponent {
         </div>
         )
     }
-    detailAuction(item){
+    detailAuction(item) {
         this.props.resetAuction()
         this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: item.id } })
+        this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: true } })
         this.props.getTournamentList()
-        if(this.props.loggedInRoleId == 2){
+        if (this.props.loggedInRoleId == 2) {
             this.props.getAuctionPlayer()
         }
+        document.documentElement.requestFullscreen();
         history.push('/auction')
     }
     actionAuction(data){

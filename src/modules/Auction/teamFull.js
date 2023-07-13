@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import profile from '../../images/profile.jpg'
 import nodata from '../../images/nodata.jpg'
+import history from "../../modules/utils/history";
 
-class Team extends React.Component {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft, faMinus, faPeopleArrows, faPlus} from '@fortawesome/free-solid-svg-icons';
+class TeamFull extends React.Component {
     getPrice(cat, min) {
         let type = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : ''
         let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
@@ -81,13 +84,24 @@ class Team extends React.Component {
             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentPlayerBindAmount', value:  this.getPrice(player.playerType, true) } })
         }
         return (
-            player ? <div className="blogSlider">
-                <div className='inputMainBox'>
-                    <div>
+            player ? <div style={{display:'flex', alignItems:'center',width:'100%'}} >
+                <div className='inputMainBoxFullScreen'>
+                    <div style={{ padding: 10, backgroundColor: '#2c3e50', cursor: 'pointer',  zIndex: 2 }} onClick={() => {
+                         this.props.toggleFullSceen(this.props.auctionFullScreen );
+                        this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: false } })
+                        history.push(-1)
+                    }}>
+                        <FontAwesomeIcon icon={faArrowLeft} size="2x" style={{ color: '#FFFFFF', cursor: 'pointer' }} onClick={() => {
+                             this.props.toggleFullSceen(this.props.auctionFullScreen );
+                            this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: false } })
+                            history.push(-1)
+                        }} />
+                    </div>
                         <div className='inputBox'>
-                            <label className="flabel capitalize" htmlFor="form3Example3"> Select the Team </label>
-                            <select className="form-control"
+                        <div className='input-group'>
+                            <select className="form-control form-control-lg"
                               value ={this.props.auctionTournamentTeamId}
+                              style={{    width: '15rem'}}
                                 onChange={(e) => {
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentTeamId', value: e.target.value } })
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
@@ -99,8 +113,8 @@ class Team extends React.Component {
 
                             </select>
                         </div>
+                        </div>
                         <div className='inputBox'>
-                            <label className="flabel capitalize" htmlFor="form3Example3"> Select enter the bid amount </label>
                            <div className='input-group'>
                             <input type='text' id="form3Example3"
                             disabled={true}
@@ -110,18 +124,18 @@ class Team extends React.Component {
                                 }}
                                 className="form-control form-control-lg"
                                 placeholder="please bid amount" />
-                                <div className='inputGroupBox'>
-                                <a  onClick={()=>{this.increaseBid(this.getPrice(player.playerType, false))}} target='blank' className="btn btn-warning">Increase Bid</a>
+                                <div className='inputGroupBox' style={{padding:10}}>
+                                <FontAwesomeIcon icon={faPlus} size="2x" style={{ color: '#FFFFFF' }} onClick={() =>this.increaseBid(this.getPrice(player.playerType, false))} />
                                 </div>   
-                                <div className='inputGroupBoxDanger'>
-                                <a  onClick={()=>{this.decreaseBid(this.getPrice(player.playerType, false))}} target='blank' className="btn btn-danger">Decrease Bid</a>
+                                <div className='inputGroupBoxDanger' style={{padding:10}}>
+                                <FontAwesomeIcon icon={faMinus} size="2x" style={{ color: '#FFFFFF' }} onClick={() =>this.decreaseBid(this.getPrice(player.playerType, false))} />
                                 </div> 
 
                                 </div>
                         </div>
                     </div>
-                    <div className='buttonBox'>
-                        <Button className="buttonPrimary" onClick={() => {
+                    <div className='buttonBoxFullScreen'>
+                        <a className="btn buttonPrimary" onClick={() => {
                             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentTeamId', value: this.props.auctionTournamentTeamId } })
                             this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
                             this.props.onChangeValueGlobal({ target: { id: 'auctionRequestId', value: player.id } })
@@ -131,13 +145,17 @@ class Team extends React.Component {
                             player.bidAmount = this.props.auctionTournamentPlayerBindAmount
                             this.props.onChangeValueGlobal({ target: { id: 'auctionSoldToTeam', value: this.props.auctionTournamentTeamId } })
                             this.props.addPlayerToTeam(player.playerType)
-                        }}>Sold</Button>
-                          <Button className="buttonDanger" onClick={() => {
+                        }}>Sold</a>
+                          <a className="btn buttonDanger" onClick={() => {
                             this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
                             this.props.unSoldPlayer()
-                        }}>Un-Sold</Button>
+                        }}>Un-Sold</a>
+                    <a className="btn btn-primary" onClick={() => {
+                      this.props.showTabs()
+                    }}>
+                                                        <FontAwesomeIcon icon={faPeopleArrows} size="2x" style={{ color: '#FFFFFF' }} onClick={() =>this.increaseBid(this.getPrice(player.playerType, false))} />
+                        </a>
                     </div>
-                </div>
             </div> : <div className="blogSlider">
 
                 <div className='noDataFound'>
@@ -150,4 +168,4 @@ class Team extends React.Component {
 }
 
 
-export default Team;
+export default TeamFull;

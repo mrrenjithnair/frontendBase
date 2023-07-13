@@ -118,6 +118,15 @@ export class Dashboard extends React.PureComponent {
                                     <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faUserFriends} size="2x" style={{ color: '#FC8471' }} /></h4>
                                     <span className="hind-font caption-12 c-dashboardInfo__count pointer">Club Admin List</span>
                                 </div>
+                            </div>} {roleInfo && roleInfo.privileges && roleInfo.privileges.dashboard && roleInfo.privileges.dashboard.clubAdminList && <div className="c-dashboardInfo col-lg-3 col-md-6"
+                                onClick={() => {
+                                    this.props.onChangeValueGlobal({ target: { id: 'adminList', value: false } })
+                                    history.push('/userList')
+                                }}>
+                                <div className="wrap">
+                                    <h4 className="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"><FontAwesomeIcon icon={faUserFriends} size="2x" style={{ color: '#FC8471' }} /></h4>
+                                    <span className="hind-font caption-12 c-dashboardInfo__count pointer">User List</span>
+                                </div>
                             </div>}
                             {roleInfo && roleInfo.privileges && roleInfo.privileges.club && roleInfo.privileges.club.clubList && <div className="c-dashboardInfo col-lg-3 col-md-6"
                                 onClick={() => {

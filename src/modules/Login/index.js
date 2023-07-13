@@ -125,9 +125,9 @@ export class Login extends React.PureComponent {
             <section id="login"className="sign-in home">
                 <div className="container">
                     <div className="signin-content">
-                        <div className="signin-image">
-                            <figure className="d-none d-md-block"><img src="assets/img/sport.webp" alt="sing up image" /></figure>
-                            <a onClick={() => { history.push('/Register') }} className="signup-image-link">Don't have an account? Register</a>
+                    <div style={{ width: 300, height: 'auto' }}>
+                            <figure className="d-none d-md-block"><img src={SportzMitra} alt="sing up image" /></figure>
+                            {/* <a onClick={() => { history.push('/Register') }} className="signup-image-link">Don't have an account? Register</a> */}
                         </div>
 
                         <div className="signin-form">
@@ -156,7 +156,7 @@ export class Login extends React.PureComponent {
                             <div className="social-login">
                                 <span className="social-label">Or Sign in with</span>
                                 <ul className="socials">
-                                    <LoginSocialFacebook
+                                    {/* <LoginSocialFacebook
                                         appId={5522832564472310}
                                         onResolve={(provider, data) => {
                                             console.log(provider, data)
@@ -168,7 +168,7 @@ export class Login extends React.PureComponent {
                                     >
                                         <li><a href="#"><i className="display-flex-center   fab fa-facebook-f" aria-hidden="true"></i></a></li>
 
-                                    </LoginSocialFacebook>
+                                    </LoginSocialFacebook> */}
                                     <LoginSocialGoogle
                                         client_id={'174987584924-3bt94g2sm65ift53mubbvisqiui1ckal.apps.googleusercontent.com'}
                                         onResolve={(provider, data) => {

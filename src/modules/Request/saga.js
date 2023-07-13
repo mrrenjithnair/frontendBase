@@ -3,6 +3,8 @@ import { put, all, call, takeLatest, select } from "redux-saga/effects";
 import * as actions from './actions';
 import { request, toURLString } from '../utils/request';
 import {getError,exportKeyValue} from '../utils/commonUtils';
+import * as globalActions from '../Global/actions';
+
 import history from "../utils/history";
 import CONFIG from '../utils/config';
 export function* getClubRequest() {
@@ -27,12 +29,15 @@ export function* getClubRequest() {
       method: 'GET',
     	sessionToken: sessionToken,
     };
+    yield put(globalActions.setOverlayLoading(true));
     const Request = yield call(request, requestURL, options);
     console.log('Request', Request)
+    yield put(globalActions.setOverlayLoading(false));
     yield put(actions.getClubRequestSuccess(Request));
   }
   catch (err) {
     console.log('err', err)
+    yield put(globalActions.setOverlayLoading(false));
     yield put(actions.getClubRequestFailure(getError(err)));
 
   }

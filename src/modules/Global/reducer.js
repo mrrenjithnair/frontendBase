@@ -79,6 +79,7 @@ export const initialState = {
     sportsList: false,
     categoryJson: [],
     updateCategory: false,
+    auctionFullScreen: false
 };
 // {
 //     "min": "2500000",

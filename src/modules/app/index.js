@@ -35,11 +35,11 @@ export class APP extends React.PureComponent {
 
         <div className='mainBox'>
                {this.props.loading && <Loading/>}
-                <HeaderNavBar logout={()=>this.props.logout} sessionToken={this.props.sessionToken}
+               {!this.props.auctionFullScreen && <HeaderNavBar logout={()=>this.props.logout} sessionToken={this.props.sessionToken}
                 onChangeValueGlobal={this.props.onChangeValueGlobal}
                 profileIncomplte={this.props.profileIncomplte}
                 loggedInRoleId={this.props.loggedInRoleId}
-                ></HeaderNavBar>
+                ></HeaderNavBar>}
 
         </div>
         );
@@ -56,7 +56,8 @@ function mapStateToProps(state) {
         sessionToken: state.global.sessionToken,
         loading: state.global.loading,
         loggedInRoleId: state.global.loggedInRoleId,
-        profileIncomplte: state.global.profileIncomplte
+        profileIncomplte: state.global.profileIncomplte,
+        auctionFullScreen: state.global.auctionFullScreen
         
         
     };

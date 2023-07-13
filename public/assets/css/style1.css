@@ -147,10 +147,9 @@ figure {
 .signup-content {
   padding: 75px 0; }
 
-.signup-form, .signup-image, .signin-form, .signin-image {
+.signup-form, .signup-image, .signin-form {
   width: 50%;
   overflow: hidden; }
-
 .signup-image {
   margin: 0 55px; }
 
@@ -386,7 +385,12 @@ label.valid {
 
 .signin-content {
   padding-top: 67px;
-  padding-bottom: 87px; }
+  padding-bottom: 87px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .social-login {
   align-items: center;
@@ -478,7 +482,13 @@ label.valid {
 
 .signin-form {
   margin-right: 90px;
-  margin-left: 80px; }
+  margin-left: 80px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
 
 .signin-image {
   margin-left: 110px;

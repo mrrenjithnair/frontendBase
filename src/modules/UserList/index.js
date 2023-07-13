@@ -100,12 +100,13 @@ export class UserList extends React.PureComponent {
                 <div className="text-left"><span className="font-weight-bolder">Village :</span> <span className="team-text"> {item.village}</span></div>
                 <div className="text-left"><span className="font-weight-bolder">Email :</span> <span className="team-text"> {item.emailId}</span></div>
                 <div className="text-left"><span className="font-weight-bolder">Mobile :</span> <span className="team-text"> {item.mobile}</span></div>
+                {this.props.loggedInRoleId == 2 && <div>
                 {!item.approved ? <div className="btn-wrap">
                     <a href="#"  disabled={item.approved == 1 } onClick={() => item.approved == 1 ? '' : this.action(item,'accept')} className="btn-buy">Approved</a> &nbsp;
                     <a href="#" disabled={item.approved == 0 } onClick={() => item.approved == 0 ? '' : this.action(item, 'reject')} className="btn-reject">Reject</a>
                 </div>:
-                <div className="text-left"><span className="font-weight-bolder">Status :</span> <span className="team-text"> Approved</span></div>       
-        }   {roleInfo && roleInfo.privileges && roleInfo.privileges.user && roleInfo.privileges.user.addAdmin && <div className="btn-wrap">
+                <div className="text-left"><span className="font-weight-bolder">Status :</span> <span className="team-text"> Approved</span></div>      
+        }  </div>}  {roleInfo && roleInfo.privileges && roleInfo.privileges.user && roleInfo.privileges.user.addAdmin && <div className="btn-wrap">
         <a href="#" onClick={() => this.editUser(item)} className="btn-reject">Edit</a>
  </div>}
             </div>
@@ -117,7 +118,8 @@ export class UserList extends React.PureComponent {
     listRender(item) {
         if (this.props.adminList) {
             return this.adminUi(item)
-        } else {
+        } 
+        else {
             return this.userUi(item)
         }
     }
@@ -178,12 +180,28 @@ export class UserList extends React.PureComponent {
             oldValue: item.profilePictureUrl,
         },
         {
-            key: 'clubId',
-            label: 'club',
-            type: 'select',
-            value: item.clubId,
-            data: clubListArray,
-            required:true
+            key: 'location',
+            label: 'location',
+            type: 'text',
+            value: item.location,
+        },
+        {
+            key: 'village',
+            label: 'village',
+            type: 'text',
+            value: item.village,
+        },
+        {
+            key: 'bio',
+            label: 'bio',
+            type: 'text',
+            value: item.bio,
+        },
+        {
+            key: 'category',
+            label: 'category',
+            type: 'text',
+            value: item.category,
         },
         {
             key: 'id',
@@ -374,7 +392,7 @@ function mapStateToProps(state) {
         adminList: state.global.adminList,
         clubList: state.clubs.clubList,
         profileEdit: state.global.profileEdit,
-        
+        loggedInRoleId: state.global.loggedInRoleId,
 
     };
 }

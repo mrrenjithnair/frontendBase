@@ -51,6 +51,10 @@ export class Request extends React.PureComponent {
             // this.props.requestAction(type, tournamentId, clubId, id, status)
 
         }
+        if(status == 'reject' ){
+            this.setState({refresh:!this.state.refresh})
+            this.props.requestAction(type, tournamentId, clubId, id, 'reject') 
+        }
     }
             
     submitDetail(){
@@ -66,7 +70,9 @@ export class Request extends React.PureComponent {
 
     render() {
         let auditLogs = []
+        let requestList = []
         console.log(this.props.requestList,'requestList')
+         requestList = this.props.requestList
         // const columns = [
         //     {
         //         title: 'Player Name',
@@ -201,9 +207,9 @@ export class Request extends React.PureComponent {
                                 <h2>Tournament Request</h2>
                             </div>
                             <div className="row people">
-                            {this.props.requestList && this.props.requestList.length >0 ? 
+                            {requestList && requestList.length >0 ? 
                             <Table className='tableCs' columns={columns1} 
-                            data={this.props.requestList}/>
+                            data={requestList}/>
                              :
                                     <div className="blogSlider">
                                         <div className='noDataFound'>
