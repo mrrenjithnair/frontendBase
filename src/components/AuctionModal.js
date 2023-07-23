@@ -112,6 +112,18 @@ class auctionModal extends React.Component {
                         placeholder={"please enter Venue"} />
                 </div>
                 <div className="form-outline mb-4">
+                    <label className="form-label capitalize" htmlFor="form3Example3">Sponsor</label>
+                    <input type='file' id="form3Example3"
+                        accept="image/png, image/jpeg"
+                        onChange={(e) => {
+                            const fileId = new Date().valueOf() + e.target.files[0].name
+                            this.props.uploadPhoto(e.target.files[0], fileId, 'auctionSponsor')
+                            this.props.onChangeInput({ target: { id: 'auctionSponsor', value: fileId } })
+                        }}
+                        className='form-control form-control-lg'
+                        placeholder={"Please enter Sponsor"} />
+                </div>
+                <div className="form-outline mb-4">
                     <label className="form-label capitalize" htmlFor="form3Example3">Auction Type</label>
                     <select className="form-control"
                         onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionType', value: e.target.value } }) }} >

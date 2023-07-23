@@ -22,7 +22,10 @@ import adImagae from '../../images/1229.png'
 import { getTournamentList, onChangeValueAuction, onChangeValueGlobal, getUserList, getAuctionPlayer, getTournamentDetailOfAuction, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction, unSoldPlayer, editPlayerToTeam, getUnsoldPlayer } from '../Global/actions';
 import PropTypes from 'prop-types';
 import './style.css';
-import { faArrowAltCircleRight, faExpand, faCompress,faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import './glitch.css';
+import { faArrowAltCircleRight, faExpand, faCompress, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import SportzMitra from '../../images/SportzMitra.png'
+import sponsor from '../../images/sponsor.png'
 
 import { head, iteratee } from 'lodash';
 import EditModal from '../../components/EditModal'
@@ -267,6 +270,10 @@ export class Auction extends React.PureComponent {
             this.props.onChangeValueGlobal({ target: { id: 'showCongratulationsModal', value: false } })
         }
     }
+    componentWillUnmount() {
+        this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: false } })
+
+    }
     showCostAnalytics(item, spentAmount, remainingAmount, totalAmount) {
         let basePrice = this.getPrice(this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : 'noCategory', true, true)
         let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
@@ -279,12 +286,12 @@ export class Auction extends React.PureComponent {
         this.props.getUserList()
         this.setState({ costAnalytics: true, selectedTeam: item, spentAmount, remainingAmount, totalAmount })
     }
-    resetButton(){
-        this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerSearch', value:false } });
-        this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterType', value:false } });
+    resetButton() {
+        this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerSearch', value: false } });
+        this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterType', value: false } });
         this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterCategory', value: false } });
-        this.setState({ showFilter: false, filterType: false }) 
-        this.props.getAuctionPlayer(); 
+        this.setState({ showFilter: false, filterType: false })
+        this.props.getAuctionPlayer();
     }
     editBid(item) {
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
@@ -391,11 +398,11 @@ export class Auction extends React.PureComponent {
                                 this.props.tournamentDetailGlobal.teams.map((item) => {
                                     let totalAmount = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
                                     let spentAmount = item.totalSpend ? item.totalSpend : 0
-                                    console.log('totalAmount before',totalAmount)
-                                    console.log('item.topUpAmount',item)
-                                    
+                                    console.log('totalAmount before', totalAmount)
+                                    console.log('item.topUpAmount', item)
+
                                     totalAmount = item.topUpAmount ? totalAmount + item.topUpAmount : totalAmount
-                                    console.log('totalAmount after',totalAmount)
+                                    console.log('totalAmount after', totalAmount)
 
                                     let remainingAmount = totalAmount - spentAmount
                                     return (<div className="profile-main-box-auction">
@@ -584,98 +591,103 @@ export class Auction extends React.PureComponent {
             if (this.state.click == 2)
                 unSoldPlayerList.sort((a, b) => { if (a[this.state.sort] > b[this.state.sort]) { return -1; } if (a[this.state.sort] < b[this.state.sort]) { return 1; } return 0; })
         }
-        console.log('this.props.auctionFullScreen ',this.props.auctionFullScreen )
+        console.log('this.props.auctionFullScreen ', this.props.auctionFullScreen)
         var w = window.innerWidth;
-var h = window.innerHeight;
+        var h = window.innerHeight;
+        let team = '';
+        if (teamList && teamList.length > 0) {
+            teamList.map((item) => {
+                if (this.props.auctionTournamentTeamId == item.teamId) team = item
+            })
+        }
         return (
 
 
-            <section className="compMain">
+            <section className="compMain1">
                 <div id="root">
                     <div className='container-fluid'>
-                       { this.props.auctionFullScreen && !this.state.showTabs && <div>
-                        <div className="two">
-                        <ul class="circles">
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                        </ul>
-                                {player && <div style={{display:'flex',flexDirection:'row',padding:10, width:'100%', height:'80%'}}>
-                                     <div style={{display:'flex',flexDirection:'column',padding:10, width:'50%'}}>
+                        <div style={{height:'10%'}}>
+
+        
+                        {this.props.tournamentDetailGlobal && <div className='auctionHeader'>
+                            <Button variant="secondary" onClick={() => this.setState({ showFilter: !this.state.showFilter })}>
+                                <i className="fa fa-search"></i>
+                            </Button>
+                            <div className='auctionName'>       Total Team:  {this.props.tournamentDetailGlobal.teamTotal}</div>
+                            <div className='auctionName'>       Total Member:  {this.props.tournamentDetailGlobal.memberTotal}</div>
+                            <div className='auctionName'>       Sold Player:  {soldPlayerCount}</div>
+                            <div className='auctionName'>       Un-Sold Player:  {this.props.tournamentDetailGlobal.memberTotal - soldPlayerCount}</div>
+                        </div>}
+                        <div className='auctionLogoName'>       {this.props.tournamentDetailGlobal.name}</div>
+                        </div>
+                        {this.props.auctionFullScreen && !this.state.showTabs && <div>
+                            <div className="two">
+                                <ul class="circles">
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                                {player && <div className='auctionDetailBox'>
+                                    <div style={{ display: 'flex', flexDirection: 'row', padding: 10 }}>
                                         <div className='playerProfileImgBoxFullScreen'>
                                             <div className='playerImgBoxFullscreen'>
                                                 <div>
-                                                    {player.profilePictureUrl ? <img src={player.profilePictureUrl} alt="shoe image" /> : <img src={profile} />}
+                                                    {/* {player.profilePictureUrl ? <img src={player.profilePictureUrl} alt="shoe image" /> : <img src={profile} />} */}
+                                                    <figure>
+                                                        {player.profilePictureUrl ? <img src={player.profilePictureUrl} alt="shoe image" /> : <img src={profile} />}
+                                                    </figure>
                                                 </div>
                                             </div>
-                                            {/* <div className='auctionPlayerCat'>
-                                            Base Price:  {this.getPrice(player.playerType, true)}
-                                        </div> */}
                                             <div className='playerNameBox'>
-                                                <div style={{display:'flex',flexDirection:'column',justifyContent:'center'}}>
-                                                    <div className='auctionPlayerCat'>
-                                                        Base Price
-                                                    </div>
+                                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                                                     <div className='auctionPlayerName'>
-                                                        {this.getPrice(player.playerType, true)}
-                                                    </div>
-                                                </div>
-                                                <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',backgroundColor:'#e74c3c',padding:10,borderRadius:10}}>
-                                                    <div className='auctionPlayerCat'>
-                                                        Current Bid
-                                                    </div>
-                                                    <div className='auctionPlayerName'>
-                                                        {this.props.auctionTournamentPlayerBindAmount}
+                                                        Base Point  {this.getPrice(player.playerType, true)}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        </div>
-                                        <div className='playerProfileStats'>
-                                            <div class="product-content">
-                                                <div class="product-detail">
-                                                <div>
-                                            <div className='auctionPlayerNameFullscreen'>
-                                        {player.playerName} <br/>
                                     </div>
-                             
-                                            </div>
-                                                    <h2>about Player: </h2>
-                                                    {player.bio && <p className='aboutUs'> {player.bio}</p>}
-                                                    <ul>
-                                                        <li>Type: <span>{player.playerType}</span></li>
-                                                        <li>Category: <span>{player.category}</span></li>
-                                                        <li>Total Matches: <span>{player.totalMatches ? player.totalMatches : 0}</span></li>
-                                                        <li>Last Bid Price: <span>{player.lastBidAmount ? player.lastBidAmount : 0}</span></li>
-                                                        <li>Location: <span>{player.location}</span></li>
-                                                        {/* {!this.props.auctionFullScreen ?<a target='blank' className="btn btn-primary" onClick={()=>{ 
-                                                            this.toggleFullSceen(this.props.auctionFullScreen )
-                                                            this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: true } })}}>
-                                                            <FontAwesomeIcon icon={faExpand} size="2x" style={{ color: '#FFFFF' }}  />
-                                                            </a>   :
-                                                        <a target='blank' className="btn btn-primary" onClick={()=>{ 
-                                                            this.toggleFullSceen(this.props.auctionFullScreen );
-                                                            this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: false } })}}>
-                                                            <FontAwesomeIcon icon={faCompress} size="2x" style={{ color: '#FFFFF' }}  />
-                                                            </a>   } */}
-                                                        {player.url && <a href={player.url} target='blank' className="btn btn-primary">View Crichero Profile</a>}
-                                                    </ul>
+                                    <div className='playerProfileStats'>
+                                        <div class="product-content">
+                                            <div class="product-detail">
+                                                <div>
+                                                    <div className='auctionPlayerNameFullscreen'>
+                                                        {player.playerName} <br />
+                                                    </div>
+
                                                 </div>
+                                                <ul>
+                                                    <li>Type: <span>{player.playerType}</span></li>
+                                                    <li>Category: <span>{player.category}</span></li>
+                                                    <li>Total Matches: <span>{player.totalMatches ? player.totalMatches : 0}</span></li>
+                                                    <li>Last Bid Price: <span>{player.lastBidAmount ? player.lastBidAmount : 0}</span></li>
+                                                    <li>Location: <span>{player.location}</span></li>
+                                                    {player.url && <a href={player.url} target='blank' className="btn btn-primary">View Crichero Profile</a>}
+                                                </ul>
+                                                <h2>about Player: </h2>
+                                                {player.bio && <p className='aboutUs'> {player.bio}</p>}
                                             </div>
                                         </div>
-                                        {/* <div style={{height:'100%',width:'20%',backgroundColor:'red'}}>
-                                        <img src={adImagae} alt="profile pic" style={{height:'100%',width:'100%',backgroundColor:'red'}}/>
-                                        </div> */}
+                                        {team && team.teamName && <div>
+                                            <div className='auctionTeamNameFullscreen'>
+                                                {team.teamName} : {this.props.auctionTournamentPlayerBindAmount}
+                                            </div>
+                                        </div>}
+                                    </div>
+                                    <div style={{ height: 500, width: 300, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+                                        {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.sponsorUrl ? <img src={this.props.tournamentDetailGlobal.sponsorUrl} alt="profile pic" style={{ height: '100%', width: 'auto' }} /> :
+                                            <img src={sponsor} alt="profile pic" style={{ height: '100%', width: 'auto' }} />}
+                                    </div>
                                 </div>}
-                           
-                        </div>
+
+                            </div>
                             <div className="three">
                                 <TeamFull player={player}
                                     tournamentDetailGlobal={this.props.tournamentDetailGlobal}
@@ -683,108 +695,29 @@ var h = window.innerHeight;
                                     auctionTournamentPlayerBindAmount={this.props.auctionTournamentPlayerBindAmount}
                                     onChangeValueGlobal={this.props.onChangeValueGlobal}
                                     addPlayerToTeam={() => this.addPlayerToTeam()}
-                                    toggleFullSceen={()=> this.toggleFullSceen(this.props.auctionFullScreen )}
+                                    toggleFullSceen={() => this.toggleFullSceen(this.props.auctionFullScreen)}
                                     auctionFullScreen={this.props.auctionFullScreen}
                                     setToast={this.props.setToast}
                                     unSoldPlayer={() => this.unSoldPlayer()}
-                                    showTabs={()=>  this.setState({ showTabs: true })}
+                                    showTabs={() => this.setState({ showTabs: true })}
                                     next={() => this.next()} />
                             </div>
-                            {this.props.tournamentDetailGlobal &&  <div className='auctionHeader'>
-                            <Button variant="secondary" onClick={() => this.setState({ showFilter: !this.state.showFilter })}>
-                                <i className="fa fa-search"></i>
-                            </Button>
-                            <div className='auctionName'>       {this.props.tournamentDetailGlobal.name}</div>
-                            <div className='auctionName'>       Total Team:  {this.props.tournamentDetailGlobal.teamTotal}</div>
-                            <div className='auctionName'>       Total Member:  {this.props.tournamentDetailGlobal.memberTotal}</div>
-                            <div className='auctionName'>       Sold Player:  {soldPlayerCount}</div>
-                            <div className='auctionName'>       Un-Sold Player:  {this.props.tournamentDetailGlobal.memberTotal - soldPlayerCount}</div>
                         </div>}
-                        </div>}
-                        {/* { !this.props.auctionFullScreen && <div className='auctionBox'>
-                            {player && <div className='detailBox'>
-                                <div className='playerProfileBox'>
-                                    <div className='playerNameBox'>
-                                        <div className='auctionPlayerName'>
-                                            {player.playerName}
-                                        </div>
-                                        <div className='auctionPlayerCat'>
-                                            {player.category}
-                                        </div>
-                                    </div>
-                                    <div className='playerBoxDetail'>
-                                        <div className='playerProfileImgBox'>
-                                            <div className='playerImgBox'>
-                                                <div>
-                                                    {player.profilePictureUrl ? <img src={player.profilePictureUrl} alt="shoe image" /> : <img src={profile} />}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className='playerProfileStats'>
-                                            <div class="product-content">
-                                                <div class="product-detail">
-                                                    <h2>about Player: </h2>
-                                                    {player.bio && <p className='aboutUs'> {player.bio}</p>}
-                                                    <ul>
-                                                        <li>Type: <span>{player.playerType}</span></li>
-                                                        <li>Category: <span>{player.category}</span></li>
-                                                        <li>Total Matches: <span>{player.totalMatches ? player.totalMatches : 0}</span></li>
-                                                        <li>Last Bid Price: <span>{player.lastBidAmount ? player.lastBidAmount : 0}</span></li>
-                                                        <li>Location: <span>{player.location}</span></li>
-                                                        {!this.props.auctionFullScreen ?<a target='blank' className="btn btn-primary float-right" onClick={()=>{ 
-                                                            this.toggleFullSceen(this.props.auctionFullScreen )
-                                                            this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: true } })}}>
-                                                            <FontAwesomeIcon icon={faExpand} size="2x" style={{ color: '#FFFFF' }}  />
-                                                            </a>   :
-                                                        <a target='blank' className="btn btn-primary float-right" onClick={()=>{ 
-                                                            this.toggleFullSceen(this.props.auctionFullScreen );
-                                                            this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: false } })}}>
-                                                            <FontAwesomeIcon icon={faCompress} size="2x" style={{ color: '#FFFFF' }}  />
-                                                            </a>   }
-                                                        {player.url && <a href={player.url} target='blank' className="btn btn-primary">View Crichero Profile</a>}
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='playerNameBox'>
-                                        <div className='auctionPlayerCat'>
-                                            Base Price
-                                        </div>
-                                        <div className='auctionPlayerName'>
-                                            {this.getPrice(player.playerType, true)}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>}
-                            {this.props.loggedInRoleId == 2 && <div className='tournamentDetailBoxAuctionTeam'>
-                                <Team player={player}
-                                    tournamentDetailGlobal={this.props.tournamentDetailGlobal}
-                                    auctionTournamentTeamId={this.props.auctionTournamentTeamId}
-                                    auctionTournamentPlayerBindAmount={this.props.auctionTournamentPlayerBindAmount}
-                                    onChangeValueGlobal={this.props.onChangeValueGlobal}
-                                    addPlayerToTeam={() => this.addPlayerToTeam()}
-                                    setToast={this.props.setToast}
-                                    unSoldPlayer={() => this.unSoldPlayer()}
-                                    next={() => this.next()} />
-                            </div>}
-                        </div>} */}
-
 
                     </div>
                 </div>
                 {this.state.showTabs && <div>
                     <div style={{
                         padding: 10, backgroundColor: '#50ac00', cursor: 'pointer', zIndex: 2, position: 'fixed', borderRadius: '4px', top: 5, left: 5, height: 25, width: 25,
-                        display:'flex',
-                        alignItems:'center',
+                        display: 'flex',
+                        alignItems: 'center',
                         justifyContent: 'center'
                     }} onClick={() => {
                         this.setState({ showTabs: false })
                     }}>
                         <FontAwesomeIcon icon={faArrowLeft} style={{ color: '#FFFFFF', cursor: 'pointer' }} />
                     </div>
-                        <br/>
+                    <br />
                     <Tabs defaultActiveKey="teamList" id="uncontrolled-tab-example" className="mb-3 tabDiv">
                         <Tab eventKey="teamList" title="Team List">
                             {this.renderTeamList(soldPlayerList)}
@@ -868,7 +801,7 @@ var h = window.innerHeight;
                             {this.props.tournamentDetailGlobal && <div className="form-outline mb-4">
                                 <label className="form-label capitalize" htmlFor="form3Example3">Select category</label>
                                 <select className="form-control"
-                                   value={this.props.auctionPlayerFilterCategory}
+                                    value={this.props.auctionPlayerFilterCategory}
                                     onChange={(e) => {
                                         this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterCategory', value: e.target.value } })
                                     }}>
@@ -880,10 +813,10 @@ var h = window.innerHeight;
                                 <label className="form-label capitalize" htmlFor="form3Example3">Select Type</label>
                                 <div style={{ display: 'flex', marginTop: 10, justifyContent: 'space-evenly' }}>
                                     <div>
-                                        <a target='blank' className={this.props.auctionPlayerFilterType == "sold" ? "btn btn-primary" : "btn-disable"} onClick={() => { this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterType', value: 'sold' } })}}>Sold</a>
+                                        <a target='blank' className={this.props.auctionPlayerFilterType == "sold" ? "btn btn-primary" : "btn-disable"} onClick={() => { this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterType', value: 'sold' } }) }}>Sold</a>
                                     </div>
                                     <div>
-                                        <a target='blank' className={this.props.auctionPlayerFilterType == "unSold" ? "btn btn-primary" : "btn-disable"} onClick={() => { this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterType', value: 'unSold' } });}}>Un-Sold</a>
+                                        <a target='blank' className={this.props.auctionPlayerFilterType == "unSold" ? "btn btn-primary" : "btn-disable"} onClick={() => { this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterType', value: 'unSold' } }); }}>Un-Sold</a>
                                     </div>
                                 </div>
                             </div>
@@ -891,7 +824,7 @@ var h = window.innerHeight;
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={() => { this.props.getAuctionPlayer(); this.setState({ showFilter: false }) }}>Submit</Button>
-                        <Button className ="btn-danger"onClick={() => {this.resetButton()}}>Reset</Button>
+                        <Button className="btn-danger" onClick={() => { this.resetButton() }}>Reset</Button>
                         <Button onClick={() => this.setState({ showFilter: false })}>Close</Button>
                     </Modal.Footer>
                 </Modal>
@@ -942,7 +875,7 @@ function mapStateToProps(state) {
         auctionPlayerFilterType: state.global.auctionPlayerFilterType,
         auctionPlayerFilterCategory: state.global.auctionPlayerFilterCategory,
         auctionFullScreen: state.global.auctionFullScreen,
-        
+
 
 
     };

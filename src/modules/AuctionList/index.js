@@ -16,7 +16,7 @@ import roleInfo from '../utils/roleInfo';
 import nodata from '../../images/nodata1.jpg'
 import profile from '../../images/profile.jpg'
 
-import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction, addCategory, onChangeCategory } from '../Global/actions';
+import { getTournamentList, onChangeValueGlobal, getAuctionPlayer, addPlayerToTeam, setToast, resetToast, createAuction, resetAuction, addCategory, onChangeCategory,uploadPhoto } from '../Global/actions';
 import PropTypes from 'prop-types';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import { iteratee } from 'lodash';
@@ -244,7 +244,7 @@ export class AuctionList extends React.PureComponent {
                 <br />
                 <br />
                 <AuctionModal
-                    title="Add Auctio1n"
+                    title="Add Auction"
                     show={this.state.showModal}
                     onHide={() => this.setState({ showModal: false })}
                     onSubmit={() => this.auctionSubmit()}
@@ -255,6 +255,7 @@ export class AuctionList extends React.PureComponent {
                     updateCategory={this.props.updateCategory}
                     tournamentListGlobalArray={tournamentListGlobalArray}
                     addCategory={()=>this.addCategory()}
+                    uploadPhoto={this.props.uploadPhoto}
                     onChangeCategory={(evt)=>this.props.onChangeCategory(evt)}
                 />
                 <EditAuctionModal
@@ -264,6 +265,7 @@ export class AuctionList extends React.PureComponent {
                     show={this.state.editModal}
                     onHide={() => this.setState({ editModal: false })}
                     onSubmit={() => this.auctionSubmit()}
+                    uploadPhoto={this.props.uploadPhoto}
                     onChangeInput={(evt) => this.props.onChangeValueGlobal(evt)}
                     tournamentListGlobalArray={this.state.tournamentList}
                 />
@@ -326,6 +328,7 @@ function mapDispatchToProps(dispatch) {
         resetAuction: (evt) => dispatch(resetAuction(evt)),
         addCategory: (evt) => dispatch(addCategory(evt)),
         onChangeCategory: (evt) => dispatch(onChangeCategory(evt)),
+        uploadPhoto: (data, fileId, key) => dispatch(uploadPhoto(data, fileId, key)),
         
         
     };

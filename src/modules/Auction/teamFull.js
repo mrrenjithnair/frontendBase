@@ -4,6 +4,8 @@ import { Button } from 'react-bootstrap';
 import profile from '../../images/profile.jpg'
 import nodata from '../../images/nodata.jpg'
 import history from "../../modules/utils/history";
+import SportzMitra from '../../images/SportzMitra.png'
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faMinus, faPeopleArrows, faPlus} from '@fortawesome/free-solid-svg-icons';
@@ -84,7 +86,7 @@ class TeamFull extends React.Component {
             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentPlayerBindAmount', value:  this.getPrice(player.playerType, true) } })
         }
         return (
-            player ? <div style={{display:'flex', alignItems:'center',width:'100%'}} >
+            player ? <div style={{display:'flex', alignItems:'center',width:'100%',justifyContent:'space-between'}} >
                 <div className='inputMainBoxFullScreen'>
                     <div style={{ padding: 10, backgroundColor: '#2c3e50', cursor: 'pointer',  zIndex: 2 }} onClick={() => {
                          this.props.toggleFullSceen(this.props.auctionFullScreen );
@@ -156,6 +158,11 @@ class TeamFull extends React.Component {
                                                         <FontAwesomeIcon icon={faPeopleArrows} size="2x" style={{ color: '#FFFFFF' }} onClick={() =>this.increaseBid(this.getPrice(player.playerType, false))} />
                         </a>
                     </div>
+                    <img
+                                alt=""
+                                src={SportzMitra}
+                                className="auctionLogo"
+                            />
             </div> : <div className="blogSlider">
 
                 <div className='noDataFound'>

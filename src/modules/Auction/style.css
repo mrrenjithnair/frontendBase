@@ -350,7 +350,25 @@ b {
     width: 25px;
   }
 }
+.auctionLogoName{
+ font-size: 3.2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  position: relative;
+  color: #FFFFFF;
+  background-color: rgba(0,0,0,0.5);
 
+  text-align: center;
+  font-family: 'Lilita One', cursive;
+}
+
+.auctionDetailBox {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 10px;
+  width: 100%;
+  justify-content: space-around
+}
 .auctionName {
   color: #ffff;
   margin-bottom: 0;
@@ -757,15 +775,15 @@ b {
   height: 100%;
 }
 .playerNameBox{
-  width: 100%;
-  background: #50ac00;
+  background: #FFFFFF;
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   padding: 10px;
-  border-radius: 25px 25px 0 0px;
+  width: 100%;
+  border-radius: 0px 0px 25px 25px;
 }
 .auctionPlayerNameFullscreen {
   font-size: 3.2rem;
@@ -775,6 +793,17 @@ b {
   color: #FFFFFF;
   background-color: #50ac00;
   text-align: center;
+  font-family: 'Lilita One', cursive;
+}
+.auctionTeamNameFullscreen {
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  position: relative;
+  color: #FFFFFF;
+  background-color: #e74c3c;
+  text-align: center;
+  font-family: 'Lilita One', cursive;
 }
 .product-detail{
   background-color: rgba(0,0,0,0.5);
@@ -782,19 +811,21 @@ b {
 }
 
 .auctionPlayerName {
-  font-size: 1.2rem;
-  text-transform: uppercase;
+  font-size: 2.2rem;
   font-weight: 700;
   position: relative;
-  color: #FFFFFF;
+  color: #12263a  ;
+  font-family: 'Lilita One', cursive;
+
 }
 .auctionPlayerCat {
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
   font-weight: bold;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Lilita One', cursive;
   position: relative;
-  color: #FFFFFF  ;
+  color: #f1c40f  ;
+  text-align:center ;
 }
 .playerBoxDetail{
   display: flex;
@@ -816,28 +847,28 @@ b {
 
 }
 .playerProfileImgBoxFullScreen{
-  width: 100%;
+  width: 20rem;
   height: 100%;
   display: flex;
-  justify-content: space-between;
   align-items:center;
   flex-direction: column;
 
 }
 .playerImgBoxFullscreen{
-  padding: 20px;
-  height: 100%;
-  width: 60%;
-  z-index: 1000;
   /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+  box-shadow:
+  inset 0px 10px .5em rgba(0,0,0,.25),
+  inset .1em 0px .1em rgba(0,0,0,.1),
+  inset -0.1em 0px .1em rgba(0,0,0,.05),
+  0 .3em .2em #fff;
+  border: 10px solid #ffffff;
 }
 
 .playerProfileImgBoxFullScreen img {
   max-width: 100%;
   height: 100%;
 }
-.playerProfileImgBoxFullScreen img {
-  --s: 10px; /* control the size */
+/* .playerProfileImgBoxFullScreen img {
   padding: var(--s);
   border: calc(2*var(--s)) solid #0000;
   outline: 1px solid #1B1C18;
@@ -858,7 +889,7 @@ b {
   right: 50%;
   position: relative;
   background-color: #FFFFFF;
-}
+} */
 .playerProfileImgBox{
   width: 100%;
   height: 100%;
@@ -902,21 +933,37 @@ b {
 .playerProfileStats{
   width: 100%;
 }
+
 .two{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 80%;
+}
+.container-fluid{
+  padding: 0;
+}
+.compMain1{
+  padding: 0;
+  height: 100%;
+  width: 100%;
   background-color: #34ADFF;
-  background-image: -webkit-linear-gradient(106deg,  #F5B61F 50%,#196742 35%);
-  min-height: 400px;
   color: white;
   background-position:center;
-  background-repeat: no-repeat;
-  /* background: url(/src/images/background.png); */
-  background: url(/src/images/backgound1.png)
+  background: url(/src/images/backgroundNew.png)
+}
+.topHeader{
+  background-color: rgba(0,0,0,0.5);
+  padding: 10;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 .three{
-  background-color: #DF9702;
+  background-color: rgba(0,0,0,0.5);
   min-height: 100px;
   display: flex;
-  height: 10%;
 }
 
 .circles{
@@ -1015,7 +1062,9 @@ b {
   animation-delay: 0s;
   animation-duration: 11s;
 }
-
+.auctionLogo{
+  width: 200;
+}
 
 
 @keyframes animate {
@@ -1057,6 +1106,9 @@ b {
 
   .auctionName {
     font-size: 20px;
+  }
+  .auctionLogoName{
+    font-size: 50px;
   }
 
   .soldBox {
