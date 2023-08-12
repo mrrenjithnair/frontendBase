@@ -13,9 +13,11 @@
   /* background: #f25f5c; */
   color: white;
   background-position:center;
-  background-repeat: no-repeat;
   background-size:cover;
-  background: url(/src/images/back.jpeg)
+  background: url(/src/images/back.jpeg);
+  position: absolute;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 
 
 }

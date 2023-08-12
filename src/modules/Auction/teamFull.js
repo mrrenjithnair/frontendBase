@@ -86,7 +86,7 @@ class TeamFull extends React.Component {
             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentPlayerBindAmount', value:  this.getPrice(player.playerType, true) } })
         }
         return (
-            player ? <div style={{display:'flex', alignItems:'center',width:'100%',justifyContent:'space-between'}} >
+           <div style={{display:'flex', alignItems:'center',width:'100%',justifyContent:'space-between'}} >
                 <div className='inputMainBoxFullScreen'>
                     <div style={{ padding: 10, backgroundColor: '#2c3e50', cursor: 'pointer',  zIndex: 2 }} onClick={() => {
                          this.props.toggleFullSceen(this.props.auctionFullScreen );
@@ -99,24 +99,24 @@ class TeamFull extends React.Component {
                             history.push(-1)
                         }} />
                     </div>
-                        <div className='inputBox'>
+                    {player && <div className='inputBox'>
                         <div className='input-group'>
                             <select className="form-control form-control-lg"
-                              value ={this.props.auctionTournamentTeamId}
-                              style={{    width: '15rem'}}
+                                value={this.props.auctionTournamentTeamId}
+                                style={{ width: '15rem' }}
                                 onChange={(e) => {
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentTeamId', value: e.target.value } })
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
                                     this.props.onChangeValueGlobal({ target: { id: 'auctionRequestId', value: player.id } })
-                                    this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: player.tournamentId } })                                    
+                                    this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentId', value: player.tournamentId } })
                                 }} >
                                 <option value=""> Select Team</option>
                                 {teamListArray && teamListArray.length > 0 && teamListArray.map(item => <option value={item.value} totalSpend={item.totalSpend}>{item.label}</option>)}
 
                             </select>
                         </div>
-                        </div>
-                        <div className='inputBox'>
+                    </div>}
+                    {player &&  <div className='inputBox'>
                            <div className='input-group'>
                             <input type='text' id="form3Example3"
                             disabled={true}
@@ -134,10 +134,10 @@ class TeamFull extends React.Component {
                                 </div> 
 
                                 </div>
-                        </div>
+                        </div>}
                     </div>
-                    <div className='buttonBoxFullScreen'>
-                        <a className="btn buttonPrimary" onClick={() => {
+                      <div className='buttonBoxFullScreen'>
+                      {player && <a className="btn buttonPrimary" onClick={() => {
                             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentTeamId', value: this.props.auctionTournamentTeamId } })
                             this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
                             this.props.onChangeValueGlobal({ target: { id: 'auctionRequestId', value: player.id } })
@@ -147,11 +147,11 @@ class TeamFull extends React.Component {
                             player.bidAmount = this.props.auctionTournamentPlayerBindAmount
                             this.props.onChangeValueGlobal({ target: { id: 'auctionSoldToTeam', value: this.props.auctionTournamentTeamId } })
                             this.props.addPlayerToTeam(player.playerType)
-                        }}>Sold</a>
-                          <a className="btn buttonDanger" onClick={() => {
+                        }}>Sold</a>}
+                        {player &&  <a className="btn buttonDanger" onClick={() => {
                             this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: player.playerId } })
                             this.props.unSoldPlayer()
-                        }}>Un-Sold</a>
+                        }}>Un-Sold</a>}
                     <a className="btn btn-primary" onClick={() => {
                       this.props.showTabs()
                     }}>
@@ -163,12 +163,7 @@ class TeamFull extends React.Component {
                                 src={SportzMitra}
                                 className="auctionLogo"
                             />
-            </div> : <div className="blogSlider">
-
-                <div className='noDataFound'>
-                    <div className='imgBox'>
-                        <img src={nodata} />
-                    </div><b>No Player detail</b></div> </div>
+            </div> 
 
         )
     }

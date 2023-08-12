@@ -95,6 +95,7 @@
     align-items: center;
     padding: 15px 0px;
     flex-direction: column;
+    margin-top: 10%;
   }
   .noDataFound b {
     padding: 15px 0px;

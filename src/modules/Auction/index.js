@@ -10,6 +10,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Team from './team';
 import TeamFull from './teamFull';
+import nodata from '../../images/nodata.jpg'
 
 import AuctionModal from '../../components/AuctionModal'
 import CustomModal from './CustomModal'
@@ -460,7 +461,7 @@ export class Auction extends React.PureComponent {
                 <h2 className='product-title'>Sold Players</h2>
                 <Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button>
             </div>
-            <div class="container">
+            <div class="container tableBox">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="main-box clearfix">
@@ -520,7 +521,7 @@ export class Auction extends React.PureComponent {
                 <h2 className='product-title'>Un Sold Players</h2>
                 <Button variant="primary" onClick={() => this.props.getUnsoldPlayer()()} >Refresh</Button>
             </div>
-            <div class="container">
+            <div class="container tableBox">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="main-box clearfix">
@@ -686,6 +687,12 @@ export class Auction extends React.PureComponent {
                                             <img src={sponsor} alt="profile pic" style={{ height: '100%', width: 'auto' }} />}
                                     </div>
                                 </div>}
+                                {!this.state.showTabs && !player &&<div className="blogSlider">
+
+                                    <div className='noDataFound'>
+                                        <div className='imgBox'>
+                                            <img src={nodata} />
+                                        </div><b>NO NEW PLAYER</b></div> </div>}
 
                             </div>
                             <div className="three">
@@ -703,12 +710,11 @@ export class Auction extends React.PureComponent {
                                     next={() => this.next()} />
                             </div>
                         </div>}
-
                     </div>
                 </div>
                 {this.state.showTabs && <div>
                     <div style={{
-                        padding: 10, backgroundColor: '#50ac00', cursor: 'pointer', zIndex: 2, position: 'fixed', borderRadius: '4px', top: 5, left: 5, height: 25, width: 25,
+                        padding: 10, backgroundColor: '#50ac00', cursor: 'pointer', zIndex: 2, position: 'fixed', borderRadius: '4px', top:'24%', left: 5, height: 25, width: 25,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
