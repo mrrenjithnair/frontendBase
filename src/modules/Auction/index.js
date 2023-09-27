@@ -642,7 +642,7 @@ export class Auction extends React.PureComponent {
                                                 <div>
                                                     {/* {player.profilePictureUrl ? <img src={player.profilePictureUrl} alt="shoe image" /> : <img src={profile} />} */}
                                                     <figure>
-                                                        {player.profilePictureUrl ? <img src={player.profilePictureUrl} alt="shoe image" /> : <img src={profile} />}
+                                                        {player.profilePictureUrl ? <img src={player.profilePictureUrl} alt="shoe image" className='profilePic'/> : <img src={profile} />}
                                                     </figure>
                                                 </div>
                                             </div>
