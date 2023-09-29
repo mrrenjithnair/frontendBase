@@ -132,11 +132,11 @@
   border-radius: 2px !important;
 }
 
-.tableBox {
+.tournamentTableBox {
   padding: 10px
 }
 
-.tableBoxRow {
+.tableBoxRowTableBoxRow {
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -296,7 +296,7 @@
     width: 100%;
     margin:10px 0px
   }
-  .tableBoxRow{
+  .tableBoxRowTableBoxRow{
     flex-flow: column;
   }
   .cardView{

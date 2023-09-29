@@ -247,8 +247,8 @@ export class TournamentDetails extends React.PureComponent {
                                     </div>}  <div className='tournamentName'>{this.props.tournamentDetails.name}</div>
                                     </div>
                                     <div>
-                                        <div className='tableBox'>
-                                            <div className='tableBoxRow'>
+                                        <div className='tableBoxRowTableBox'>
+                                            <div className='tableBoxRowTableBoxRow'>
                                                 <div className="cardView">
                                                     <div className="item">
                                                         <h5>  Start Date </h5>
@@ -270,7 +270,7 @@ export class TournamentDetails extends React.PureComponent {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='tableBoxRow'>
+                                            <div className='tableBoxRowTableBoxRow'>
                                                 <div className="cardView">
                                                     <div className="item">
                                                         <h5> Team Total </h5>
