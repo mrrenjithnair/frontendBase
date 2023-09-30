@@ -13,7 +13,7 @@
   /* background: #f25f5c; */
   color: white;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: 100% 100% !important;
   /* background: url(/src/images/Background/8.png); */
   background: url(/src/images/backgroundNew.png);
 
@@ -239,7 +239,7 @@ b {
   margin: 20px;
   justify-content: space-evenly;
   align-items: center;
-    width: 25%;
+    width: 30%;
 }
 
 .page-wrapper-auction {
@@ -869,6 +869,9 @@ b {
   inset -0.1em 0px .1em rgba(0,0,0,.05),
   0 .3em .2em #fff;
   border: 10px solid #ffffff;
+  width: 20rem;
+  height: 30rem;
+  background-color: white;
 }
 
 .playerProfileImgBoxFullScreen img {
@@ -959,7 +962,7 @@ b {
   /* background-position:cover; */
   background: url(/src/images/backgroundNew.png);
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: 100% 100% !important;
   
 }
 .topHeader{

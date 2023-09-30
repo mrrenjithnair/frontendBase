@@ -100,6 +100,7 @@ export class Auction extends React.PureComponent {
     }
     next() {
         this.props.getAuctionPlayer()
+        this.props.getUnsoldPlayer()
         this.props.getTournamentDetailOfAuction()
     }
     unSoldPlayer() {

@@ -8,7 +8,7 @@ import SportzMitra from '../../images/SportzMitra.png'
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faMinus, faPeopleArrows, faPlus} from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleDown, faArrowLeft, faMinus, faPeopleArrows, faPlus, faReply} from '@fortawesome/free-solid-svg-icons';
 class TeamFull extends React.Component {
     getPrice(cat, min) {
         let type = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.type ? this.props.tournamentDetailGlobal.type : ''
@@ -155,8 +155,11 @@ class TeamFull extends React.Component {
                     <a className="btn btn-primary" onClick={() => {
                       this.props.showTabs()
                     }}>
-                                                        <FontAwesomeIcon icon={faPeopleArrows} size="2x" style={{ color: '#FFFFFF' }} onClick={() =>this.increaseBid(this.getPrice(player.playerType, false))} />
+                    <FontAwesomeIcon icon={faPeopleArrows} size="2x" style={{ color: '#FFFFFF' }} onClick={() =>this.increaseBid(this.getPrice(player.playerType, false))} />
                         </a>
+                    <a className="btn btn-primary" style={{marginLeft:10}} onClick={() => this.props.next()} >
+                        Reload
+                    </a>
                     </div>
                     <img
                                 alt=""
