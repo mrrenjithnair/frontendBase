@@ -137,7 +137,8 @@ export class TournamentDetails extends React.PureComponent {
             key: 'teamLogo',
             label: 'Team Logo',
             type: 'file',
-            value: ''//item.teamLogo
+            value: item.teamLogo,
+            oldValue:item.logoUrl,
         },
         {
             key: 'teamTopUpAmount',
