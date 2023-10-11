@@ -15,7 +15,7 @@
   background-repeat: no-repeat;
   background-size: 100% 100% !important;
   /* background: url(/src/images/Background/8.png); */
-  background: url(/src/images/backgroundNew.png);
+  background: url("https://sportzmitra-public.s3.ap-south-1.amazonaws.com/Background.png");
 
   position: absolute;
   overflow-y: scroll;
@@ -960,7 +960,7 @@ b {
   background-color: #34ADFF;
   color: white;
   /* background-position:cover; */
-  background: url(/src/images/backgroundNew.png);
+  background: url("https://sportzmitra-public.s3.ap-south-1.amazonaws.com/Background.png");
   background-repeat: no-repeat;
   background-size: 100% 100% !important;
   

@@ -85,6 +85,8 @@ class TeamFull extends React.Component {
         if(player && (!this.props.auctionTournamentPlayerBindAmount || this.props.auctionTournamentPlayerBindAmount == 0 )){
             this.props.onChangeValueGlobal({ target: { id: 'auctionTournamentPlayerBindAmount', value:  this.getPrice(player.playerType, true) } })
         }
+        if(player)
+        console.log(player,"player")
         return (
            <div style={{display:'flex', alignItems:'center',width:'100%',justifyContent:'space-between'}} >
                 <div className='inputMainBoxFullScreen'>
@@ -155,7 +157,7 @@ class TeamFull extends React.Component {
                     <a className="btn btn-primary" onClick={() => {
                       this.props.showTabs()
                     }}>
-                    <FontAwesomeIcon icon={faPeopleArrows} size="2x" style={{ color: '#FFFFFF' }} onClick={() =>this.increaseBid(this.getPrice(player.playerType, false))} />
+                    <FontAwesomeIcon icon={faPeopleArrows} size="2x" style={{ color: '#FFFFFF' }} />
                         </a>
                     <a className="btn btn-primary" style={{marginLeft:10}} onClick={() => this.props.next()} >
                         Reload

@@ -677,11 +677,11 @@ export class Auction extends React.PureComponent {
                                                 {player.bio && <p className='aboutUs'> {player.bio}</p>}
                                             </div>
                                         </div>
-                                        {team && team.teamName && <div>
+                                        <div>
                                             <div className='auctionTeamNameFullscreen'>
-                                                {team.teamName} : {this.props.auctionTournamentPlayerBindAmount}
+                                                {team && team.teamName ? team.teamName : "Bid Amount"} : {this.props.auctionTournamentPlayerBindAmount}
                                             </div>
-                                        </div>}
+                                        </div>
                                     </div>
                                     <div style={{ height: 500, width: 300, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
                                         {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.sponsorUrl ? <img src={this.props.tournamentDetailGlobal.sponsorUrl} alt="profile pic" style={{ height: '100%', width: 'auto' }} /> :
