@@ -17,6 +17,7 @@ import Request from "../Request"
 import TournamentDetails from "../TournamentDetails"
 import Profile from "../Profile"
 import Home from "../Home"
+import PrivacyPolicy from "../privacyPolicy"
 
 
 import Auction from "../Auction"
@@ -55,6 +56,7 @@ export class AppRoutes extends React.PureComponent {
         <NavigateSetter />
         <Routes>
         <Route exact path="/" element={<Home sessionToken={this.props.sessionToken} />}></Route>
+        <Route exact path="/privacyPolicy" element={<PrivacyPolicy sessionToken={this.props.sessionToken} />}></Route>
           <Route path="/home" element={<PrivateRoute ><Dashboard sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           <Route exact path="/socialLogin" element={<SocialLogin />} />
           <Route exact path="/login" element={<Login />} />
