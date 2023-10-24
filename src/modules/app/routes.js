@@ -24,6 +24,7 @@ import Auction from "../Auction"
 import AuctionList from "../AuctionList"
 
 import Team from "../Team"
+import TeamDetails from "../TeamDetails"
 
 
 import history from "../utils/history";
@@ -71,6 +72,7 @@ export class AppRoutes extends React.PureComponent {
           <Route exact path="/auction" element={<PrivateRoute ><Auction sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           <Route exact path="/auctionList" element={<PrivateRoute ><AuctionList sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           <Route exact path="/team" element={<PrivateRoute ><Team sessionToken={this.props.sessionToken} /></PrivateRoute>} />
+          <Route exact path="/teamDetails" element={<PrivateRoute ><TeamDetails sessionToken={this.props.sessionToken} /></PrivateRoute>} />
           
         </Routes>
       </BrowserRouter>

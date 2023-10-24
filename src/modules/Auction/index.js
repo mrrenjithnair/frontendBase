@@ -24,7 +24,7 @@ import { getTournamentList, onChangeValueAuction, onChangeValueGlobal, getUserLi
 import PropTypes from 'prop-types';
 import './style.css';
 import './glitch.css';
-import { faArrowAltCircleRight, faExpand, faCompress, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleRight, faExpand, faCompress, faArrowLeft, faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import SportzMitra from '../../images/SportzMitra.png'
 import sponsor from '../../images/sponsor.png'
 
@@ -50,7 +50,7 @@ export class Auction extends React.PureComponent {
             showFilter: false,
             showCongCalled: false,
             filterType: false,
-            showTabs: false
+            showTabs: this.props.auctionTeamList ? this.props.auctionTeamList : false
         }
         this.sortingIcon = this.sortingIcon.bind(this);
     }
@@ -273,7 +273,7 @@ export class Auction extends React.PureComponent {
         }
     }
     componentWillUnmount() {
-        this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: false } })
+        // this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: false } })
 
     }
     showCostAnalytics(item, spentAmount, remainingAmount, totalAmount) {
@@ -294,6 +294,14 @@ export class Auction extends React.PureComponent {
         this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerFilterCategory', value: false } });
         this.setState({ showFilter: false, filterType: false })
         this.props.getAuctionPlayer();
+    }
+    teamDetails(item, spentAmount, remainingAmount, totalAmount) {
+        console.log(item, spentAmount, remainingAmount, totalAmount)
+        this.props.onChangeValueGlobal({ target: { id: 'auctionTeamDetail', value: item } });
+        this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: true } });
+        
+        history.push('/teamDetails')
+
     }
     editBid(item) {
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
@@ -419,6 +427,7 @@ export class Auction extends React.PureComponent {
                                             </div>
                                             <div className='arrowBox'>
                                                 <FontAwesomeIcon icon={faArrowAltCircleRight} size="2x" style={{ color: '#FC8471' }} onClick={() => this.showCostAnalytics(item, spentAmount, remainingAmount, totalAmount)} />
+                                                <FontAwesomeIcon icon={faExpand} size="2x" style={{ color: '#FC8471' }} onClick={() => this.teamDetails(item, spentAmount, remainingAmount, totalAmount)} />
                                             </div>
                                         </div>
                                         <div className='auctionList'>
@@ -555,6 +564,8 @@ export class Auction extends React.PureComponent {
         </div>)
     }
     render() {
+        console.log(this.props,'this.props.===')
+
         let tournamentListGlobal = this.props.tournamentListGlobal && this.props.tournamentListGlobal.length > 0 ? this.props.tournamentListGlobal : []
         let tournamentListGlobalArray = []
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
@@ -707,7 +718,10 @@ export class Auction extends React.PureComponent {
                                     auctionFullScreen={this.props.auctionFullScreen}
                                     setToast={this.props.setToast}
                                     unSoldPlayer={() => this.unSoldPlayer()}
-                                    showTabs={() => this.setState({ showTabs: true })}
+                                    showTabs={() =>{ this.setState({ showTabs: true })
+                                    this.props.onChangeValueGlobal({ target: { id: 'auctionTeamList', value: true } })
+                                
+                                }}
                                     next={() => this.next()} />
                             </div>
                         </div>}
@@ -720,6 +734,7 @@ export class Auction extends React.PureComponent {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }} onClick={() => {
+                        this.props.onChangeValueGlobal({ target: { id: 'auctionTeamList', value: false } })
                         this.setState({ showTabs: false })
                     }}>
                         <FontAwesomeIcon icon={faArrowLeft} style={{ color: '#FFFFFF', cursor: 'pointer' }} />
@@ -882,7 +897,8 @@ function mapStateToProps(state) {
         auctionPlayerFilterType: state.global.auctionPlayerFilterType,
         auctionPlayerFilterCategory: state.global.auctionPlayerFilterCategory,
         auctionFullScreen: state.global.auctionFullScreen,
-
+        auctionTeamList: state.global.auctionTeamList,
+        
 
 
     };

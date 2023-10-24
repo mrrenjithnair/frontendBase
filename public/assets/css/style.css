@@ -108,6 +108,39 @@ h6 {
 }
 
 /*--------------------------------------------------------------
+# Back top button
+--------------------------------------------------------------*/
+.back-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  left: 15px;
+  top: 15px;
+  z-index: 996;
+  background: #50ac00;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  transition: all 0.4s;
+}
+
+.back-top i {
+  font-size: 28px;
+  color: #fff;
+  line-height: 0;
+}
+
+.back-top:hover {
+  background: #e11962;
+  color: #fff;
+}
+
+.back-top.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+/*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
 --------------------------------------------------------------*/
 @media screen and (max-width: 768px) {
