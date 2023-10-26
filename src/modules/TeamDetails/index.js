@@ -60,25 +60,6 @@ export class TeamDetails extends React.PureComponent {
                         </div>
                         <a href="#" onClick={() => history.push('/auction')} className="back-top d-flex align-items-center justify-content-center active"><i
                             className="bi bi-arrow-left-short"></i></a>
-                        {/* <div className='auctionHeader'>
-
-                            <div className='auctionName'>Team Name:  {data.teamName}</div>
-                            <div className='auctionName'> Owner:  {data.ownerName}</div>
-                            <div className='auctionName'> Pending Amount: {remainingAmount}</div>
-                            {nextPlayerAmount > 0 && <div className='auctionName'> Next Player Max Bid Amount: {nextPlayerAmount}</div>}
-                        </div> */}
-                        {/* <div className='teamNameBox'>
-                            <div className="profile-box">
-                                {data.logoUrl ? <img src={data.logoUrl} alt="profile pic" /> :
-                                    <img src={profile} alt="profile pic" />}
-                                <div style={{ padding: 5 }}>
-                                    <h3>{data.teamName}</h3>
-                                    <h4>{data.ownerName}</h4>
-                                    <br />
-
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
                     </div>
                     <div className='soldUnsoldSection'>
@@ -93,30 +74,6 @@ export class TeamDetails extends React.PureComponent {
                                     </div>
                                     <div class="contentImg">
                                         <h2>{player.playerName}</h2>
-                                        <p>{player.bidAmount}</p>
-                                    </div>
-                                </div>
-                            })}
-                            <br />
-                            <br />
-                            <br />
-                        </div>
-                        <div style={{ height: '10%' }}>
-                            <div className='auctionHeader'>
-                                <div className='auctionName'> unsoldPlayer</div>
-                            </div>
-                        </div>
-                        <div className='cardPlayerBox'>
-                            {unSoldPlayer && unSoldPlayer.length > 0 && unSoldPlayer.map((player) => {
-                                return <div class="card cardPlayer">
-                                    <div class="img-container">
-                                        <div class="skewed">
-                                            {data.profilePicture ? <img src={data.profilePictureUrl} alt="profile pic" /> :
-                                                <img src={profile} alt="profile pic" />}
-                                        </div>
-                                    </div>
-                                    <div class="contentImg">
-                                        <h2>{player.name}- {player.playerType}</h2>
                                         <p>{player.bidAmount}</p>
                                     </div>
                                 </div>

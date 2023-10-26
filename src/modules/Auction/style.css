@@ -276,9 +276,10 @@ b {
 }
 
 .profile-box-auction img {
-  width: 60px;
-  height: 60px;
+  width: 120px;
+  height: 120px;
 }
+
 
 .profile-detail-auction {
   border-top-color: #2c3e50;
@@ -316,7 +317,7 @@ b {
 }
 
 .teamNameAuction {
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-transform: capitalize;
   font-weight: 700;
   color: #12263a;
@@ -638,12 +639,17 @@ b {
 }
 
 .auctionListLabel {
-  font-size: 12px;
+  font-size: 16px;
   text-transform: capitalize;
   font-weight: 700;
   color: #12263a;
 }
-
+.auctionListNumber{
+  font-size: 18px;
+  text-transform: capitalize;
+  font-weight: 700;
+  color: #12263a;
+}
 .inputGroupBox {
   display: flex;
   justify-content: center;

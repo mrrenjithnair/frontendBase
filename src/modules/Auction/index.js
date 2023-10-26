@@ -408,12 +408,7 @@ export class Auction extends React.PureComponent {
                                 this.props.tournamentDetailGlobal.teams.map((item) => {
                                     let totalAmount = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
                                     let spentAmount = item.totalSpend ? item.totalSpend : 0
-                                    console.log('totalAmount before', totalAmount)
-                                    console.log('item.topUpAmount', item)
-
                                     totalAmount = item.topUpAmount ? totalAmount + item.topUpAmount : totalAmount
-                                    console.log('totalAmount after', totalAmount)
-
                                     let remainingAmount = totalAmount - spentAmount
                                     return (<div className="profile-main-box-auction">
                                         <div style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
@@ -433,15 +428,15 @@ export class Auction extends React.PureComponent {
                                         <div className='auctionList'>
                                             <div className='auctionListCol'>
                                                 <div className='auctionListLabel'>  Auction Spent</div>
-                                                <div> {spentAmount}</div>
+                                                <div className='auctionListNumber'> {spentAmount}</div>
                                             </div>
                                             <div className='auctionListCol'>
                                                 <div className='auctionListLabel'>Purse Left</div>
-                                                <div>{remainingAmount}</div>
+                                                <div className='auctionListNumber'>{remainingAmount}</div>
                                             </div>
                                             <div className='auctionListCol'>
                                                 <div className='auctionListLabel'>Players</div>
-                                                <div>{item.totalPlayer ? item.totalPlayer
+                                                <div className='auctionListNumber'>{item.totalPlayer ? item.totalPlayer
                                                     : 0}/{item.teamTotalMember}</div>
                                             </div>
                                         </div>
@@ -471,7 +466,7 @@ export class Auction extends React.PureComponent {
                 <h2 className='product-title'>Sold Players</h2>
                 <Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button>
             </div>
-            <div class="container tableBox">
+            <div class="tableBox">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="main-box clearfix">
@@ -531,7 +526,7 @@ export class Auction extends React.PureComponent {
                 <h2 className='product-title'>Un Sold Players</h2>
                 <Button variant="primary" onClick={() => this.props.getUnsoldPlayer()()} >Refresh</Button>
             </div>
-            <div class="container tableBox">
+            <div class="tableBox">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="main-box clearfix">
