@@ -35,6 +35,8 @@ export class TeamDetails extends React.PureComponent {
         let soldPlayer = data.playerList.soldPlayer
         let unSoldPlayer = data.playerList.unSoldPlayer
         let remainingAmount = data.totalAmount - parseInt(data.totalSpend)
+        let totalSpend = parseInt(data.totalSpend)
+
         let nextPlayerAmount = 0
         if (data && data.playerList && data.playerList.nextPlayerAmount) { nextPlayerAmount = parseInt(data.playerList.nextPlayerAmount); }
 
@@ -42,11 +44,39 @@ export class TeamDetails extends React.PureComponent {
 
         return (
             <section className="teamCompMain">
+            <div className='auctionLogoName'>       {this.props.tournamentDetailGlobal.name}</div>
                 <div id="root" className='teamBoxExpand'>
                     <div className='teamSection'>
-                    <div className="team-boxed">
-                        <div className="col-12 item" key={data.id}>
+                    <a href="#" onClick={() => history.push('/auction')} className="back-top d-flex align-items-center justify-content-center active"><i
+                            className="bi bi-arrow-left-short"></i></a>
+                        <div>
+                            {data.logoUrl ? <img className="logo-box" src={data.logoUrl} alt={data.teamName} data-letters="MN" />
+                                : <img className="logo-box" src={profile} alt={data.teamName} />}
+                            <div className='teamLogBox'>
+                                <div>
+                                    <h3 className="teamName">{data.teamName}</h3>
+                                    <h3 className="ownerName">{data.ownerName}</h3>
+                                </div>
+                                <div className='triangle-topleft' />
+                            </div>
 
+                        </div>
+                        <div className='countBox'>
+                                <div className='textCenter'>
+                                    <h3 className="ownerName">Total Spend</h3>
+                                    <h3 className="ownerName">{totalSpend}</h3>
+                                </div>
+                                <div className='triangle-topleft' />
+                        </div>
+                        <div className='countBox'>
+                                <div  className='textCenter'>
+                                    <h3 className="ownerName">Total Pending</h3>
+                                    <h3 className="ownerName">{remainingAmount}</h3>
+                                </div>
+                                <div className='triangle-topleft' />
+                        </div>
+                    {/* <div className="team-boxed">
+                        <div className="col-12 item" key={data.id}>
                             <div className="box">
                                 {data.logoUrl ? <img className="rounded-circle" src={data.logoUrl} alt={data.teamName} data-letters="MN" />
                                     : <img className="rounded-circle" src={profile} alt={data.teamName} />}
@@ -60,21 +90,22 @@ export class TeamDetails extends React.PureComponent {
                         </div>
                         <a href="#" onClick={() => history.push('/auction')} className="back-top d-flex align-items-center justify-content-center active"><i
                             className="bi bi-arrow-left-short"></i></a>
-                    </div>
+                    </div> */}
                     </div>
                     <div className='soldUnsoldSection'>
 
                         <div className='cardPlayerBox'>
                             {soldPlayer && soldPlayer.length > 0 && soldPlayer.map((player) => {
-                                return <div class="card cardPlayer">
-                                    <div class="img-container">
-                                        <div class="skewed">
+                                return <div class="cardPlayer">
+                                    <div class="imgContainer">
                                             <img id="img" src={player.profilePictureUrl} />
-                                        </div>
                                     </div>
                                     <div class="contentImg">
+                                    <div  className='textCenter'>
                                         <h2>{player.playerName}</h2>
-                                        <p>{player.bidAmount}</p>
+                                        <span>{player.bidAmount}</span>
+                                        </div>
+                                        <div className='triangle-topleft'/>
                                     </div>
                                 </div>
                             })}
@@ -99,7 +130,8 @@ function mapStateToProps(state) {
     return {
         playerTeamList: state.global.playerTeamList,
         auctionTeamDetail: state.global.auctionTeamDetail,
-
+        tournamentDetailGlobal: state.global.tournamentDetailGlobal,
+        
     };
 }
 

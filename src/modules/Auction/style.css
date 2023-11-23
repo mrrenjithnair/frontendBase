@@ -620,6 +620,21 @@ b {
   border-color: transparent;
   color: #fff;
 }
+.auctionListNextPlayer{
+  display: flex;
+  color: white;
+  justify-content: center;
+  background-color: red;
+  border-radius: 5px;
+  align-items: center;
+
+}
+.auctionListNextPlayer .auctionListLabel{
+  color: white;
+}
+.auctionListNextPlayer .auctionListNumber{
+  color: white;
+}
 
 .auctionList {
   display: flex;

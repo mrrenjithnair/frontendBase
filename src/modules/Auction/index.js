@@ -410,6 +410,7 @@ export class Auction extends React.PureComponent {
                                     let spentAmount = item.totalSpend ? item.totalSpend : 0
                                     totalAmount = item.topUpAmount ? totalAmount + item.topUpAmount : totalAmount
                                     let remainingAmount = totalAmount - spentAmount
+                                    let nextPlayerAmount = item && item.playerList && item.playerList.nextPlayerAmount ? item.playerList.nextPlayerAmount:0
                                     return (<div className="profile-main-box-auction">
                                         <div style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
                                             <div className="profile-box-auction">
@@ -439,6 +440,12 @@ export class Auction extends React.PureComponent {
                                                 <div className='auctionListNumber'>{item.totalPlayer ? item.totalPlayer
                                                     : 0}/{item.teamTotalMember}</div>
                                             </div>
+                                        </div>
+                                        <div>
+                                        {nextPlayerAmount >0 &&<div className='auctionListNextPlayer'>
+                                                <div className='auctionListLabel'>Next Player Max Bid Amount: &nbsp; </div>
+                                                <div className='auctionListNumber'>{nextPlayerAmount}</div>
+                                            </div>}
                                         </div>
                                         {/* <div className='profile-detail-auction'>
                                         <div className='profile-detail-auction-text' title='Total player'><span>Purchased Palyer: </span>{item.totalPlayer}</div>
