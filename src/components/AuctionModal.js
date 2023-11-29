@@ -134,6 +134,16 @@ class auctionModal extends React.Component {
                     </select>
                 </div>
                 <div className="form-outline mb-4">
+                    <label className="form-label capitalize" htmlFor="form3Example3">Screen Type</label>
+                    <select className="form-control"
+                        onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionScreenType', value: e.target.value } }) }} >
+                        <option value=""> please select screen type</option>
+                        <option value={'teams'}>Teams</option>
+                        <option value={'sponsor'}>Sponsor</option>
+
+                    </select>
+                </div>
+                <div className="form-outline mb-4">
                     <label className="form-label capitalize" htmlFor="form3Example3">Team Point</label>
                     <input type="number"
                         onChange={(e) => { this.props.onChangeInput({ target: { id: 'auctionTeamPoint', value: e.target.value } }) }}

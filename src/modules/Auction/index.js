@@ -15,6 +15,8 @@ import nodata from '../../images/nodata.jpg'
 import AuctionModal from '../../components/AuctionModal'
 import CustomModal from './CustomModal'
 import CongratulationsModal from './CongratulationsModal'
+import AuctionFullScreen from './AuctionFullScreen'
+
 import Modal from 'react-bootstrap/Modal'
 
 import profile from '../../images/profile.jpg'
@@ -390,6 +392,65 @@ export class Auction extends React.PureComponent {
             return ''
         }
     }
+    renderTeamListDashBoard() {
+        return (
+            <div className='detailBoxDashboard'>
+                <div className='tournamentDetailBoxAuction'>
+                        <div className="page-wrapper-auction">
+                            {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 &&
+                                this.props.tournamentDetailGlobal.teams.map((item) => {
+                                    let totalAmount = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teamPoint ? this.props.tournamentDetailGlobal.teamPoint : 0
+                                    let spentAmount = item.totalSpend ? item.totalSpend : 0
+                                    totalAmount = item.topUpAmount ? totalAmount + item.topUpAmount : totalAmount
+                                    let remainingAmount = totalAmount - spentAmount
+                                    let nextPlayerAmount = item && item.playerList && item.playerList.nextPlayerAmount ? item.playerList.nextPlayerAmount:0
+                                    return (<div className="profile-main-box-auction">
+                                        <div style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
+                                            <div className="profile-box-auction">
+                                                {item.logoUrl ? <img src={item.logoUrl} alt="profile pic" /> :
+                                                    <img src={team} alt="profile pic" />}
+                                                <div className='profile-box-textBox'>
+                                                    <div className='teamNameAuction'>{item.teamName}</div>
+                                                    <span>{item.ownerName}</span><br />
+                                                </div>
+                                            </div>
+                                            <div className='arrowBox'>
+                                                <FontAwesomeIcon icon={faArrowAltCircleRight} size="1x" style={{ color: '#FC8471' }} onClick={() => this.showCostAnalytics(item, spentAmount, remainingAmount, totalAmount)} />
+                                                <FontAwesomeIcon icon={faExpand} size="1x" style={{ color: '#FC8471' }} onClick={() => this.teamDetails(item, spentAmount, remainingAmount, totalAmount)} />
+                                            </div>
+                                        </div>
+                                        <div className='auctionList'>
+                                            <div className='auctionListCol'>
+                                                <div className='auctionListLabel'>  Auction Spent</div>
+                                                <div className='auctionListNumber'> {spentAmount}</div>
+                                            </div>
+                                            <div className='auctionListCol'>
+                                                <div className='auctionListLabel'>Purse Left</div>
+                                                <div className='auctionListNumber'>{remainingAmount}</div>
+                                            </div>
+                                            <div className='auctionListCol'>
+                                                <div className='auctionListLabel'>Players</div>
+                                                <div className='auctionListNumber'>{item.totalPlayer ? item.totalPlayer
+                                                    : 0}/{item.teamTotalMember}</div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                        {nextPlayerAmount >0 &&<div className='auctionListNextPlayer'>
+                                                <div className='auctionListLabel'>Next Player Max Bid Amount: &nbsp; </div>
+                                                <div className='auctionListNumber'>{nextPlayerAmount}</div>
+                                            </div>}
+                                        </div>
+                                    </div>
+                                    )
+                                })}
+                        </div>
+
+                        <hr />
+
+                    </div>
+                </div>
+        )
+    }
     renderTeamList() {
         return (
             <div className='detailBox'>
@@ -566,9 +627,8 @@ export class Auction extends React.PureComponent {
         </div>)
     }
     render() {
-        console.log(this.props,'this.props.===')
-
         let tournamentListGlobal = this.props.tournamentListGlobal && this.props.tournamentListGlobal.length > 0 ? this.props.tournamentListGlobal : []
+        let screenType = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.screenType ? this.props.tournamentDetailGlobal.screenType : ''
         let tournamentListGlobalArray = []
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
         let teamIndex = teamList.findIndex((i) => i.teamId == this.props.auctionSoldToTeam)
@@ -606,7 +666,6 @@ export class Auction extends React.PureComponent {
             if (this.state.click == 2)
                 unSoldPlayerList.sort((a, b) => { if (a[this.state.sort] > b[this.state.sort]) { return -1; } if (a[this.state.sort] < b[this.state.sort]) { return 1; } return 0; })
         }
-        console.log('this.props.auctionFullScreen ', this.props.auctionFullScreen)
         var w = window.innerWidth;
         var h = window.innerHeight;
         let team = '';
@@ -650,6 +709,7 @@ export class Auction extends React.PureComponent {
                                     <li></li>
                                 </ul>
                                 {player && <div className='auctionDetailBox'>
+                                    <div style={{ display: 'flex', flexDirection: 'row', width: screenType=="teams" ? '60%':'70%',alignItems:'center'}}>
                                     <div style={{ display: 'flex', flexDirection: 'row', padding: 10 }}>
                                         <div className='playerProfileImgBoxFullScreen'>
                                             <div className='playerImgBoxFullscreen'>
@@ -696,10 +756,12 @@ export class Auction extends React.PureComponent {
                                             </div>
                                         </div>
                                     </div>
-                                    <div style={{ height: 500, width: 300, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-                                        {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.sponsorUrl ? <img src={this.props.tournamentDetailGlobal.sponsorUrl} alt="profile pic" style={{ height: '100%', width: 'auto' }} /> :
-                                            <img src={sponsor} alt="profile pic" style={{ height: '100%', width: 'auto' }} />}
                                     </div>
+                                    { screenType=="teams" ? this.renderTeamListDashBoard(soldPlayerList) :<div style={{ height: 500, width: 300, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+                                 
+                                        {this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.sponsorUrl ? <img src={this.props.tournamentDetailGlobal.sponsorUrl} alt="profile pic" style={{ height: '100%', width: 'auto',marginTop:'50px' }} /> :
+                                            <img src={sponsor} alt="profile pic" style={{ height: '100%', width: 'auto' }} />}
+                                    </div>}
                                 </div>}
                                 {!this.state.showTabs && !player &&<div className="blogSlider">
 

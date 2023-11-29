@@ -176,6 +176,8 @@ export class AuctionList extends React.PureComponent {
         this.props.onChangeValueGlobal({ target: { id: 'auctionType', value: data.auctionType } })
         this.props.onChangeValueGlobal({ target: { id: 'auctionTeamPoint', value: data.auctionTeamPoint.toString()  } })
         this.props.onChangeValueGlobal({ target: { id: 'auctionId', value: data.auctionId } })
+        this.props.onChangeValueGlobal({ target: { id: 'auctionSponsor', value: data.sponsor } })
+        this.props.onChangeValueGlobal({ target: { id: 'auctionScreenType', value: data.screenType } })
         
         let pointJson = data.pointJson ? JSON.stringify(data.pointJson) : null
          pointJson = pointJson ? JSON.parse(pointJson.replace(/\r?\n|\r|\t/g, '')) : null
@@ -311,6 +313,8 @@ function mapStateToProps(state) {
         categoryJson: state.global.categoryJson,
         categoryName: state.global.categoryName,
         updateCategory: state.global.updateCategory,
+        auctionScreenType: state.global.auctionScreenType,
+        auctionSponsor: state.global.auctionSponsor,
         
         
     };

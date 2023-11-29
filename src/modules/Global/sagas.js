@@ -349,6 +349,8 @@ export function* createAuction() {
     teamPoint: global.auctionTeamPoint,
     tournamentId: global.auctionCreateTournamentId,
     sponsor: global.auctionSponsor,
+    screenType: global.auctionScreenType,
+    
     
   }
   if(global.auctionId){

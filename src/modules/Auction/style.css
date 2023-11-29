@@ -3,7 +3,46 @@
 .auctionBox .detailBox {
   color: white;
 }
-
+.detailBoxDashboard{
+  width: 40%;
+}
+.detailBoxDashboard .profile-main-box-auction{
+  width: 250px !important;
+  padding: 5px;
+}
+.detailBoxDashboard .profile-box-auction img{
+ width: 30px;
+ height: 30px;
+}
+.detailBoxDashboard  .teamNameAuction{
+  font-size: 0.8rem;
+}
+.detailBoxDashboard .auctionListLabel{
+  font-size: 10px;
+}
+.detailBoxDashboard .auctionListNumber{
+  font-size: 12px;
+}
+.detailBoxDashboard .profile-box-auction{
+background: transparent;
+}
+.detailBoxDashboard .auctionListNextPlayer{
+  border-radius: 15px;
+}
+.detailBoxDashboard .tournamentDetailBoxAuction {
+  padding: 5px 5px;
+  border-radius: 16px;
+  box-shadow: none;
+  background: transparent;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  position: absolute;
+  height: 700px;
+  margin-top: 40px;
+}
+.auctionDetailBox .playerProfileStats{
+width: 100% !important;
+}
 .tournamentDetailBoxAuction {
   padding: 25px 5px;
   min-height: 528px;
@@ -375,6 +414,7 @@ b {
   flex-direction: row;
   padding: 0px 10px;
   width: 100%;
+  height: 100%;
   justify-content: space-around
 }
 .auctionName {
@@ -405,6 +445,8 @@ b {
 
 .aboutUs {
   display: block;
+  color: #fff;
+  font-size: 20px;
   overflow: hidden;
   white-space: pre-wrap;
   text-overflow: ellipsis;
