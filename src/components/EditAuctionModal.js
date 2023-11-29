@@ -116,7 +116,7 @@ class editAuctionModal extends React.Component {
                     <label className="form-label capitalize" htmlFor="form3Example3">Sponsor</label>
                     <input type='file' id="form3Example3"
                         accept="image/png, image/jpeg"
-                        value={this.props.auctionSponsor}
+                        // value={this.props.auctionSponsor}
                         onChange={(e) => {
                             const fileId = new Date().valueOf() + e.target.files[0].name
                             this.props.uploadPhoto(e.target.files[0], fileId, 'auctionSponsor')
