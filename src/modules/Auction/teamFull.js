@@ -93,12 +93,12 @@ class TeamFull extends React.Component {
                     <div style={{ padding: 10, backgroundColor: '#2c3e50', cursor: 'pointer',  zIndex: 2 }} onClick={() => {
                          this.props.toggleFullSceen(this.props.auctionFullScreen );
                         this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: false } })
-                        history.push('/auctionList')
+                        history.back()
                     }}>
                         <FontAwesomeIcon icon={faArrowLeft} size="2x" style={{ color: '#FFFFFF', cursor: 'pointer' }} onClick={() => {
                              this.props.toggleFullSceen(this.props.auctionFullScreen );
                             this.props.onChangeValueGlobal({ target: { id: 'auctionFullScreen', value: false } })
-                            history.push('/auctionList')
+                            history.back()
                         }} />
                     </div>
                     {player && <div className='inputBox'>

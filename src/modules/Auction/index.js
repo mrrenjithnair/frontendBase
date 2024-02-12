@@ -730,6 +730,11 @@ export class Auction extends React.PureComponent {
                                         </div>
                                     </div>
                                     <div className='playerProfileStats'>
+                                    <div>
+                                            <div className='auctionTeamNameFullscreen'>
+                                                {team && team.teamName ? team.teamName : "Bid Amount"} : {this.props.auctionTournamentPlayerBindAmount}
+                                            </div>
+                                        </div>
                                         <div class="product-content">
                                             <div class="product-detail">
                                                 <div>
@@ -739,10 +744,12 @@ export class Auction extends React.PureComponent {
 
                                                 </div>
                                                 <ul>
+                                                    <li>{player.playerType}</li>
+                                                    <li>{player.category}</li>
                                                     <li>Type: <span>{player.playerType}</span></li>
                                                     <li>Category: <span>{player.category}</span></li>
-                                                    <li>Total Matches: <span>{player.totalMatches ? player.totalMatches : 0}</span></li>
-                                                    <li>Last Bid Price: <span>{player.lastBidAmount ? player.lastBidAmount : 0}</span></li>
+                                                    {/* <li>Total Matches: <span>{player.totalMatches ? player.totalMatches : 0}</span></li> */}
+                                                    {/* <li>Last Bid Price: <span>{player.lastBidAmount ? player.lastBidAmount : 0}</span></li> */}
                                                     <li>Location: <span>{player.location}</span></li>
                                                     {player.url && <a href={player.url} target='blank' className="btn btn-primary">View Crichero Profile</a>}
                                                 </ul>
@@ -750,11 +757,7 @@ export class Auction extends React.PureComponent {
                                                 {player.bio && <p className='aboutUs'> {player.bio}</p>}
                                             </div>
                                         </div>
-                                        <div>
-                                            <div className='auctionTeamNameFullscreen'>
-                                                {team && team.teamName ? team.teamName : "Bid Amount"} : {this.props.auctionTournamentPlayerBindAmount}
-                                            </div>
-                                        </div>
+                                
                                     </div>
                                     </div>
                                     { screenType=="teams" ? this.renderTeamListDashBoard(soldPlayerList) :<div style={{ height: 500, width: 300, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
