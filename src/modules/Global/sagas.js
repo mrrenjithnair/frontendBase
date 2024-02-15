@@ -237,11 +237,16 @@ export function* getUnsoldPlayer() {
   // const sessionToken = login.get("currentUser").token;
   const sessionToken = global.sessionToken
   const club = state.global.globalSelectedClub
+  const pendingPlayer = state.global.pendingPlayer
   let params = {}
   if (club && club.id) {
     params.clubId = parseInt(club.id)
   }
-  params.unSoldPlayer = true
+  if (pendingPlayer) {
+    params.pendingPlayer = true
+  } else {
+    params.unSoldPlayer = true
+  }
   if (global.auctionTournamentId)
     params.tournamentId = parseInt(global.auctionTournamentId)
   requestURL = requestURL + toURLString(params)
@@ -252,7 +257,12 @@ export function* getUnsoldPlayer() {
     };
     yield put(actions.setOverlayLoading(true));
     const unSoldPlayer = yield call(request, requestURL, options);
-    yield put(actions.getUnsoldPlayerSuccess(unSoldPlayer));
+    if(pendingPlayer){
+      yield put(actions.getPendingPlayerSuccess(unSoldPlayer));
+    }else{
+      yield put(actions.getUnsoldPlayerSuccess(unSoldPlayer));
+
+    }
     yield put(actions.setOverlayLoading(false));
 
   }
@@ -710,12 +720,14 @@ export function* unSoldPlayer() {
   requestURL = requestURL 
   let auctionPlayerId = state.global.auctionPlayerId
   let auctionTournamentId = state.global.auctionTournamentId
+  let resetPlayer = state.global.resetPlayer
   let data ={}
   if(auctionPlayerId)
   data.id = auctionPlayerId 
   if(auctionTournamentId)
   data.tournamentId = auctionTournamentId
-  
+  if(resetPlayer)
+  data.resetPlayer = true
   try {
     var options = {
       method: 'POST',

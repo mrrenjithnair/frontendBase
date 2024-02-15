@@ -88,6 +88,7 @@ export const GET_PREFERENCE_VALUES = 'GET_PREFERENCE_VALUES';
 export const GET_PREFERENCE_VALUES_SUCCESS = 'GET_PREFERENCE_VALUES_SUCCESS';
 export const ON_CHANGE_CATEGORY = 'ON_CHANGE_CATEGORY';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const GET_PENDING_PLAYER_SUCCESS = 'GET_PENDING_PLAYER_SUCCESS';
 
 
 
@@ -236,6 +237,13 @@ export function getUnsoldPlayer() {
   };
 }
 
+
+export function getPendingPlayerSuccess(data) {
+  return {
+    type: GET_PENDING_PLAYER_SUCCESS,
+    data: data
+  };
+}
 export function getUnsoldPlayerSuccess(data) {
   return {
     type: GET_UNSOLD_PLAYER_SUCCESS,

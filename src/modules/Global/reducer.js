@@ -45,6 +45,7 @@ import {
     ON_CHANGE_CATEGORY,
     ADD_CATEGORY,
     CREATE_AUCTION_SUCCESS,
+    GET_PENDING_PLAYER_SUCCESS
 } from './actions';
 import roleInfo from '../utils/roleInfo';
 import { toast } from "react-toastify";
@@ -156,8 +157,11 @@ export default function (state = initialState, actions) {
         case GET_UNSOLD_PLAYER_SUCCESS:
             return { ...state, 'auctionUnSoldPlayerList': actions.data };
 
+        case GET_PENDING_PLAYER_SUCCESS:
+            return { ...state, 'auctionPendingPlayerList': actions.data };
+            
         case GET_UNSOLD_PLAYER_FAILURE:
-            return { ...state, 'auctionUnSoldPlayerList': [] };
+            return { ...state, 'auctionUnSoldPlayerList': [], 'auctionPendingPlayerList':[] };
     
             
         case GET_TOURNAMENT_DETAIL_GLOBAL_SUCCESS:

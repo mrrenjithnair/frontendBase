@@ -626,6 +626,15 @@ export class Auction extends React.PureComponent {
             </div>
         </div>)
     }
+    handleSelect(key, props) {
+        if (key === 'pendingPlayer') {
+            props.onChangeValueGlobal({ target: { id: 'pendingPlayer', value: true } })
+            props.getUnsoldPlayer()
+        } else {
+            props.onChangeValueGlobal({ target: { id: 'pendingPlayer', value: false } })
+            props.getUnsoldPlayer()
+        }
+    }
     render() {
         let tournamentListGlobal = this.props.tournamentListGlobal && this.props.tournamentListGlobal.length > 0 ? this.props.tournamentListGlobal : []
         let screenType = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.screenType ? this.props.tournamentDetailGlobal.screenType : ''
@@ -644,6 +653,7 @@ export class Auction extends React.PureComponent {
 
         let playerList = this.props.auctionPlayer
         let unSoldPlayerList = this.props.auctionUnSoldPlayerList
+        let pendingPlayerList = this.props.auctionPendingPlayerList
         var player = playerList[Math.floor(Math.random() * playerList.length)];
         let soldPlayerCount = this.props.auctionDetailList ? this.props.auctionDetailList.length : 0;
         let soldPlayerList = this.props.auctionDetailList
@@ -665,6 +675,12 @@ export class Auction extends React.PureComponent {
                 unSoldPlayerList.sort((a, b) => { if (a[this.state.sort] < b[this.state.sort]) { return -1; } if (a[this.state.sort] > b[this.state.sort]) { return 1; } return 0; })
             if (this.state.click == 2)
                 unSoldPlayerList.sort((a, b) => { if (a[this.state.sort] > b[this.state.sort]) { return -1; } if (a[this.state.sort] < b[this.state.sort]) { return 1; } return 0; })
+        }
+        if (this.state.sort && this.state.click) {
+            if (this.state.click == 1)
+            pendingPlayerList.sort((a, b) => { if (a[this.state.sort] < b[this.state.sort]) { return -1; } if (a[this.state.sort] > b[this.state.sort]) { return 1; } return 0; })
+            if (this.state.click == 2)
+            pendingPlayerList.sort((a, b) => { if (a[this.state.sort] > b[this.state.sort]) { return -1; } if (a[this.state.sort] < b[this.state.sort]) { return 1; } return 0; })
         }
         var w = window.innerWidth;
         var h = window.innerHeight;
@@ -807,10 +823,14 @@ export class Auction extends React.PureComponent {
                         <FontAwesomeIcon icon={faArrowLeft} style={{ color: '#FFFFFF', cursor: 'pointer' }} />
                     </div>
                     <br />
-                    <Tabs defaultActiveKey="teamList" id="uncontrolled-tab-example" className="mb-3 tabDiv">
+                    <Tabs defaultActiveKey="teamList" id="uncontrolled-tab-example" className="mb-3 tabDiv" onSelect={(key)=>this.handleSelect(key, this.props)}>
                         <Tab eventKey="teamList" title="Team List">
                             {this.renderTeamList(soldPlayerList)}
-                        </Tab><Tab eventKey="soldPlayer" title="Sold Players">
+                        </Tab> 
+                        <Tab eventKey="pendingPlayer" title="Pending Players">
+                            {this.renderUiUnSoldPlayer(pendingPlayerList)}
+                        </Tab>
+                        <Tab eventKey="soldPlayer" title="Sold Players">
                             {this.renderUiSoldPlayer(soldPlayerList)}
                         </Tab>
                         <Tab eventKey="unSoldPlayer" title="Un-Sold Players">
@@ -957,6 +977,7 @@ function mapStateToProps(state) {
         auctionDetailList: state.global.auctionDetailList,
         teamPlayerList: state.global.teamPlayerList,
         auctionUnSoldPlayerList: state.global.auctionUnSoldPlayerList,
+        auctionPendingPlayerList: state.global.auctionPendingPlayerList,
         seletedBidEdit: state.global.seletedBidEdit,
         auctionSoldPlayer: state.global.auctionSoldPlayer,
         auctionSoldToTeam: state.global.auctionSoldToTeam,
