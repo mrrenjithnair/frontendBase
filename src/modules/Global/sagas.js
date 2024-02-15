@@ -316,12 +316,18 @@ export function* editPlayerToTeam() {
   const sessionToken = state.global.sessionToken
   const club = state.global.globalSelectedClub
   const global = state.global
+  let resetPlayer = state.global.resetPlayer
   
   let seletedBidEdit  = exportKeyValue( global.seletedBidEdit)
   seletedBidEdit.update = true
   if(seletedBidEdit.teamId){
     seletedBidEdit.teamId =  parseInt(seletedBidEdit.teamId)
   }
+  if(resetPlayer){
+    seletedBidEdit.update = false
+    seletedBidEdit.resetPlayer = true
+  }
+
   try {
     var options = {
       method: 'POST',
@@ -720,14 +726,11 @@ export function* unSoldPlayer() {
   requestURL = requestURL 
   let auctionPlayerId = state.global.auctionPlayerId
   let auctionTournamentId = state.global.auctionTournamentId
-  let resetPlayer = state.global.resetPlayer
   let data ={}
   if(auctionPlayerId)
   data.id = auctionPlayerId 
   if(auctionTournamentId)
   data.tournamentId = auctionTournamentId
-  if(resetPlayer)
-  data.resetPlayer = true
   try {
     var options = {
       method: 'POST',

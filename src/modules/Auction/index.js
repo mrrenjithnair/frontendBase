@@ -305,6 +305,67 @@ export class Auction extends React.PureComponent {
         history.push('/teamDetails')
 
     }
+    revert(item){
+        let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
+        let teamListArray = []
+        if (teamList && teamList.length > 0) {
+            teamList.map((item) => {
+                teamListArray.push({
+                    value: item.teamId,
+                    label: item.teamName,
+                    totalSpend: item.totalSpend
+                })
+            })
+        }
+        let data = [{
+            key: 'name',
+            label: 'name',
+            type: 'text',
+            value: item.playerName
+        },
+        {
+            key: 'teamId',
+            label: 'Team',
+            type: 'select',
+            value: item.teamId,
+            data: teamListArray,
+            required: true
+        },
+        {
+            key: 'bidAmount',
+            label: 'Bid Amount',
+            type: 'text',
+            value: item.bidAmount,
+            required: true
+        },
+        {
+            key: 'playerUserId',
+            value: item.playerId,
+        },
+
+        {
+            key: 'tournamentId',
+            value: item.tournamentId,
+        },
+
+        {
+            key: 'prevTeamId',
+            value: item.teamId,
+        },
+        {
+            key: 'requestId',
+            value: item.requestId,
+        },
+        ]
+        this.props.onChangeValueGlobal({ target: { id: 'resetPlayer', value: true } })
+        this.props.onChangeValueGlobal({ target: { id: 'seletedBidEdit', value: data } })
+        this.props.onChangeValueGlobal({ target: { id: 'auctionPlayerId', value: item.playerId } })
+        this.setState({ typing: !this.state.typing })
+        this.props.editPlayerToTeam().then(()=>{
+            this.props.onChangeValueGlobal({ target: { id: 'resetPlayer', value: false } })
+            this.props.getTournamentDetailOfAuction()
+        })
+    }
     editBid(item) {
         let teamList = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.teams && this.props.tournamentDetailGlobal.teams.length > 0 ? this.props.tournamentDetailGlobal.teams : []
         let teamListArray = []
@@ -568,6 +629,7 @@ export class Auction extends React.PureComponent {
                                             </td>
                                             {this.props.loggedInRoleId == 2 && <td>
                                                 <a href="#" onClick={() => this.editBid(item)} className='btn btn-warning'>Edit</a>
+                                                <a href="#" onClick={() => this.revert(item)} className='btn btn-danger mx-1'>Reset</a>
 
                                             </td>}
 
