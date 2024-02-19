@@ -196,7 +196,8 @@ export default class App extends React.Component {
         
         (value.playerName && value.playerName.toLowerCase().includes(searchInput.toLowerCase())) ||
         (value.playerMobile && value.playerMobile.toLowerCase().includes(searchInput.toLowerCase())) ||
-        (value.playerEmail && value.playerEmail.toLowerCase().includes(searchInput.toLowerCase()) )
+        (value.playerEmail && value.playerEmail.toLowerCase().includes(searchInput.toLowerCase()) ) ||
+        (value.tournamentName && value.tournamentName.toLowerCase().includes(searchInput.toLowerCase()) )
       );
     });
     this.setState({ data: filteredData });
