@@ -20,9 +20,13 @@ import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import { iteratee } from 'lodash';
 import EditModal from '../../components/EditModal'
 import AddModal from '../../components/AddModal'
+import PDFModal from './PDFModal'
 
 import team from '../../images/team.jpg'
 import profile from '../../images/profile.jpg'
+import UserListPDF from './UserListPDF';
+
+
 
 
 export class TournamentDetails extends React.PureComponent {
@@ -173,7 +177,10 @@ export class TournamentDetails extends React.PureComponent {
         this.props.onChangeValueTeam({ target: { id: 'selectedItem', value: item } })
         this.setState({ editModal: true, selectedItem: data })
     }
-     
+     async download(){
+        this.setState({PDFModal:true})
+       
+     }
     async addTeam() {
         var tournamentId = this.props.tournamentDetails && this.props.tournamentDetails.tournamentId ? this.props.tournamentDetails.tournamentId : null
         var clubId = this.props.tournamentDetails && this.props.tournamentDetails.clubId ? this.props.tournamentDetails.clubId : null
@@ -231,10 +238,8 @@ export class TournamentDetails extends React.PureComponent {
         var show = current > startDate ? false : true
         console.log(this.props.teamPlayerList)
         return (
-
-
             <section className="compMain">
-                <div id="root">
+                <div id="root" ref={el => (this.componentRef = el)} >
                     <div className='container'>
                         <div className='detailBoxMain'>
                             <div className='detailBox'>
@@ -350,6 +355,9 @@ export class TournamentDetails extends React.PureComponent {
                             {this.props.loggedInRoleId == 2 &&   <div className="btn-wrap">
                              &nbsp; <a href="#" onClick={() => this.addTeam()} className="btn btn-primary">Add Team</a> &nbsp;
                             </div>}
+                            {this.props.loggedInRoleId == 2 &&   <div className="btn-wrap">
+                             &nbsp; <a href="#" onClick={() => this.download()} className="btn btn-primary">VIEW/DOWNLOAD PDF</a> &nbsp;
+                            </div>}
                             </div>
                                 <div className="page-wrapper">
                                     {this.props.tournamentDetails && this.props.tournamentDetails.teams && this.props.tournamentDetails.teams.length > 0 &&
@@ -392,8 +400,17 @@ export class TournamentDetails extends React.PureComponent {
                  uploadPhoto={this.props.uploadPhoto}
                  onChangeInput={(evt) => this.onChangeValueEditTeam(evt)}
                 />
-
+                <PDFModal
+                 title="Pdf"
+                    show={this.state.PDFModal}
+                    onHide={() => this.setState({ PDFModal: false })}
+                    onSubmit={() => this.submiPlayerModaltDetail()}
+                    uploadPhoto={this.props.uploadPhoto}
+                    tournamentDetails ={this.props.tournamentDetails}
+                    onChangeInput={(evt) => this.props.onChangeValueClub(evt)}
+                />
             </section>
+
         );
     }
 }
