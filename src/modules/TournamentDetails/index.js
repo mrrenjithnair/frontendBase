@@ -85,9 +85,9 @@ export class TournamentDetails extends React.PureComponent {
             ampm = "PM";
         }
         this.setState({ days, hours, mins, seconds, ampm })
-        myTimeout = setTimeout(() => {
-            this.countdown();
-        }, 1000);
+        // myTimeout = setTimeout(() => {
+        //     this.countdown();
+        // }, 1000);
     }
 
 
@@ -235,7 +235,7 @@ export class TournamentDetails extends React.PureComponent {
     render() {
         var current = new Date().valueOf()
         var startDate = this.props.tournamentDetails && this.props.tournamentDetails.startDate ? new Date(this.props.tournamentDetails.startDate).valueOf() : new Date().valueOf()
-        var show = current > startDate ? false : true
+        // var show = current > startDate ? false : true
         console.log(this.props.teamPlayerList)
         return (
             <section className="compMain">
@@ -301,7 +301,7 @@ export class TournamentDetails extends React.PureComponent {
 
                                         </div>
                                         <hr />
-                                        {show ? <div>
+                                        {/* {show ? <div>
                                             <div className='startIn'>Tournament start In</div>
                                             <div className="clock">
                                                 <div>
@@ -321,7 +321,7 @@ export class TournamentDetails extends React.PureComponent {
                                                     <span className="text">Seconds</span>
                                                 </div>
                                             </div>
-                                        </div> : <div className='startIn'>Tournament Ended</div>}
+                                        </div> : <div className='startIn'>Tournament Ended</div>} */}
                                     </div>
                                 </div>}
                             </div>
