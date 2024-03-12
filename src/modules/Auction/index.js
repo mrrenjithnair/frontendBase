@@ -862,8 +862,6 @@ export class Auction extends React.PureComponent {
 
                                                 </div>
                                                 <ul>
-                                                    <li>{player.playerType}</li>
-                                                    <li>{player.category}</li>
                                                     <li>Type: <span>{player.playerType}</span></li>
                                                     <li>Category: <span>{player.category}</span></li>
                                                     {/* <li>Total Matches: <span>{player.totalMatches ? player.totalMatches : 0}</span></li> */}

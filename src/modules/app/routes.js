@@ -49,7 +49,6 @@ export class AppRoutes extends React.PureComponent {
 
   render() {
     // this.props.setDataFromLocal()
-
     return (<div>
       
       <APP />
@@ -78,7 +77,7 @@ export class AppRoutes extends React.PureComponent {
       </BrowserRouter>
       <a href="#" className="back-to-top d-flex align-items-center justify-content-center active"><i
       className="bi bi-arrow-up-short"></i></a>
-      <BottomNavBar />
+      {/* <BottomNavBar /> */}
     </div>)
   }
 }
