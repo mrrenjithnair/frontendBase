@@ -26,7 +26,10 @@ export function getUserList() {
 export function getUserListSuccess(data) {
     return {
         type: GET_USER_LIST_SUCCESS,
-        data: data
+		data: data.rows,
+		userPageCount: data.pageCount,
+		userTotalCount: data.count,
+		userPageNumber: data.pageNumber
     };
 }
 export function getUserListFailure(err) {

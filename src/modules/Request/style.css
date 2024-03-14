@@ -99,6 +99,9 @@ td {
 .main-box .table thead{
   background-color: #50ac00;
 }
+.main-box .table thead td{
+	background-color: #50ac00;
+  }
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
 	background-color: #eee;
@@ -106,6 +109,7 @@ td {
 .main-box .table thead > tr > th {
 	border-bottom: 1px solid #C2C2C2;
 	padding-bottom: 0;
+	
 }
 .main-box .table tbody > tr > td {
 	font-size: 1em;

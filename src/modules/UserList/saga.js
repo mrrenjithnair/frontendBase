@@ -12,8 +12,12 @@ export function* getUserList() {
   const global = state.global
   const club = state.global.globalSelectedClub
   const playerSearch = state.userList.playerSearch
-  
-  let params = {}
+  const pageNumber = state.userList.userPageNumber
+	const pageSize = state.userList.userPageSize
+	var params = {
+		pageNumber: pageNumber,
+		pageSize: pageSize,
+	}
 
   if (global.adminList) {
     var requestURL = CONFIG.apiURL + '/apiService/ClubAdmin'
@@ -28,6 +32,7 @@ export function* getUserList() {
   if (playerSearch) {
     params.playerSearch= playerSearch
   }
+  yield put(globalActions.setOverlayLoading(true));
   requestURL = requestURL + toURLString(params)
   const sessionToken = global.sessionToken
   const userId = localStorage.getItem("userId");
@@ -36,8 +41,6 @@ export function* getUserList() {
       method: 'GET',
       sessionToken: sessionToken,
     };
-    yield put(globalActions.setOverlayLoading(true));
-
     const UserList = yield call(request, requestURL, options);
     yield put(actions.getUserListSuccess(UserList));
     yield put(globalActions.setOverlayLoading(false));

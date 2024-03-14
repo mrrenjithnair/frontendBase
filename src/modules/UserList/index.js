@@ -30,14 +30,14 @@ export class UserList extends React.PureComponent {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount () {
         window.scrollTo(0, 0)
         this.props.onChangeValueUser({ target: { id: 'playerSearch', value: '' } })
-        this.props.getUserList()
+       await this.props.getUserList()
         this.props.onChangeValueGlobal({ target: { id: 'nearByClub', value: true } })
         this.props.onChangeValueGlobal({ target: { id: 'clubListPage', value: false } })
         this.props.onChangeValueGlobal({ target: { id: 'assignedClub', value: true } })
-        this.props.getClubList()
+        await this.props.getClubList()
     }
     adminUi(item) {
         let request = item.approved == 0 && item.playerId
@@ -75,6 +75,14 @@ export class UserList extends React.PureComponent {
         this.props.onChangeUserUpdate(item.id, 'approved', status == 'accept' ? 1 : 0)
         this.props.userUpdate(item.id)
     }
+    loadMoreUser = () => {
+        console.log("this.props.userPageNumber",this.props.userPageNumber)
+        let pageNumber = this.props.userPageNumber + 1;
+        console.log("pageNumber",pageNumber)
+
+        this.props.onChangeValueUser({ target: { id: 'userPageNumber', value: pageNumber } })
+        this.props.getUserList()
+      }
     userUi(item) {
         let request = item.approved == 0 && item.playerId
         let name = item.firstName + " " + item.lastName
@@ -337,10 +345,17 @@ export class UserList extends React.PureComponent {
                             </div>
                             <div className="row people">
                             {this.props.userList && this.props.userList.length > 0 ?
-                                this.props.userList.map((item) => {
+                                <div className="row people">
+                                {this.props.userList.map((item) => {
                                     return this.listRender(item)
                                 }
-                                ) :
+                                )}
+                                 {this.props.showLoadMore &&<Button variant="primary" onClick={() => this.loadMoreUser()}>
+                                   Load More
+                                </Button>}
+                                
+                                </div>
+                                :
                                     <div className="blogSlider">
                                         <div className='noDataFound'>
                                             <div className='imgBox'>
@@ -393,7 +408,10 @@ function mapStateToProps(state) {
         clubList: state.clubs.clubList,
         profileEdit: state.global.profileEdit,
         loggedInRoleId: state.global.loggedInRoleId,
-
+        userPageNumber: state.userList.userPageNumber,
+        showLoadMore: state.userList.showLoadMore,
+        dummy: state.userList.dummy,
+        
     };
 }
 

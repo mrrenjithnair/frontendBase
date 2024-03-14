@@ -591,11 +591,21 @@ export class Auction extends React.PureComponent {
         )
     }
     renderUiSoldPlayer(soldPlayerList) {
+        let pointJson = this.props.tournamentDetailGlobal && this.props.tournamentDetailGlobal.pointJson ? this.props.tournamentDetailGlobal.pointJson : []
         return (<div>
             <div style={{ 'paddingLeft': '50px', paddingLeft: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor:'#FFFFFF' }}>
                 <h2 className='product-title' style={{paddingRight:10}}>Sold Players</h2>
                 <Button variant="primary" onClick={() => this.props.getTournamentDetailOfAuction()} >Refresh</Button>
             </div>
+            <div >
+                { pointJson && pointJson.length >1 &&
+                <div style={{ display: 'flex',padding: 20}}> 
+                        <div onClick={() => this.setState({ filter: 'All' })} style={{ padding: '5px 20px', background: this.state.filter == 'All' ? '#50ac00' : '#FFFFFF', borderRadius: '6px', margin: '0 10px', color:  this.state.filter == 'All' ? '#FFFFFF' : '#000000' }}>All</div>
+                    {pointJson.map((item)=>{
+                        return<div onClick={() => this.setState({ filter: item.category })} style={{ padding: '5px 20px', background: this.state.filter == item.category ? '#50ac00' : '#FFFFFF', borderRadius: '6px', margin: '0 10px', color:  this.state.filter == item.category ? '#FFFFFF' : '#000000' }}>{item.category}</div>
+                })} </div>
+                 }
+            </div> 
             <div class="tableBox">
                 <div class="row">
                     <div class="col-lg-12">
@@ -606,6 +616,9 @@ export class Auction extends React.PureComponent {
                                         <tr>
                                             <th className='mouse' onClick={() => this.onSorting('#', this.state.click)}><span>#</span></th>
                                             <th className='mouse' onClick={() => this.onSorting('playerName', this.state.click)}><span>Player Name{this.state.sort == 'playerName' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
+                                            <th className='mouse' onClick={() => this.onSorting('playerType', this.state.click)}><span>Player Type{this.state.sort == 'playerType' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
+                                            <th className='mouse' onClick={() => this.onSorting('category', this.state.click)}><span>Category{this.state.sort == 'category' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
+                                            <th className='mouse' onClick={() => this.onSorting('location', this.state.click)}><span>Location{this.state.sort == 'location' && this.state.click > 0 ? this.sortingIcon() : ''} </span></th>
                                             <th className='mouse' onClick={() => this.onSorting('name', this.state.click)}><span>Team Name{this.state.sort == 'name' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
                                             <th className='mouse' onClick={() => { this.onSorting('bidAmount', this.state.click) }}><span>Sold At {this.state.sort == 'bidAmount' && this.state.click > 0 ? this.sortingIcon() : ''}  </span></th>
                                             {this.props.loggedInRoleId == 2 && <th><span>Edit</span></th>}
@@ -615,12 +628,20 @@ export class Auction extends React.PureComponent {
                                         {soldPlayerList && soldPlayerList.length > 0 && soldPlayerList.map((item, index) => <tr key={index}>
                                             <td>
                                                 {index + 1}
-                                            </td><td>
+                                            </td><td style={{'display':'flex',alignItems:'center'}}>
                                                 {item.profilePictureUrl ? <img src={item.profilePictureUrl} alt="" /> : <img src={profile} alt="" />}
                                                 <span class="user-link">{item.playerName}</span>
-                                                <span class="user-subhead">{item.category}</span>
                                             </td>
                                             <td>
+                                            <span class="user-link">{item.playerType}</span>
+                                            </td>
+                                            <td>
+                                            <span class="user-link">{item.category}</span>
+                                            </td>
+                                            <td>
+                                            <span class="user-link">{item.location}</span>
+                                            </td>
+                                            <td style={{'display':'flex',alignItems:'center'}}>
                                                 {item.logoUrl ? <img src={item.logoUrl} alt="" /> : <img src={team} alt="" />}
                                                 <span class="user-link">{item.name}</span>
 
@@ -628,8 +649,8 @@ export class Auction extends React.PureComponent {
                                             <td>
                                                 {item.bidAmount}
                                             </td>
-                                            {this.props.loggedInRoleId == 2 && <td>
-                                                <a href="#" onClick={() => this.editBid(item)} className='btn btn-warning'>Edit</a>
+                                            {this.props.loggedInRoleId == 2 && <td style={{'textAlign': 'center'}}>
+                                                <a href="#" onClick={() => this.editBid(item)} className='btn btn-warning  mx-1'>Edit</a><br/>
                                                 <a href="#" onClick={() =>{
                                                       var confirmation = window.confirm("Are you sure you want to reset?");
                                                       if (confirmation) {
@@ -781,8 +802,12 @@ export class Auction extends React.PureComponent {
             pendingPlayerList.sort((a, b) => { if (a[this.state.sort] > b[this.state.sort]) { return -1; } if (a[this.state.sort] < b[this.state.sort]) { return 1; } return 0; })
         }
         if(this.state.filter && this.state.filter !='All'){
+            if (unSoldPlayerList && unSoldPlayerList.length > 0)
             unSoldPlayerList = unSoldPlayerList.filter((obj) => obj.playerType == this.state.filter);
+            if (pendingPlayerList && pendingPlayerList.length > 0)
             pendingPlayerList = pendingPlayerList.filter((obj) => obj.playerType == this.state.filter);
+            if (soldPlayerList && soldPlayerList.length > 0)
+            soldPlayerList = soldPlayerList.filter((obj) => obj.playerType == this.state.filter);
         }
         var w = window.innerWidth;
         var h = window.innerHeight;
